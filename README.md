@@ -1,7 +1,7 @@
 # 🐙📈 SquidStock — Charting Squid Catch Trends & Sustainable Fisheries
 
 **SquidStock** is part of the curated public side of the `Squid_Fest` project, focusing on 10 years (2010–2020) of *Illex argentinus* catch data.  
-While **SquidStack** dives deep into pollutant bioindicators — like visiting a remote underwater trench which is rare, rigorous, and deeply exploratory — **SquidStock** surveys the more well‑known shelf and coastal waters (including that same trench), using stock assessments, environmental modeling, and predictive tools to surface hidden patterns across familiar seas.
+Let’s set the scene: **SquidStack** dove deep into pollutant bioindicators — like exploring a remote underwater trench which is rare, rigorous, and deeply exploratory — while **SquidStock** surveyed the ocean shelf and coastal waters (including that same trench), using stock assessments, environmental modeling, and predictive tools to surface hidden patterns across familiar seas.
 > 🛂 This repository hosts curated dashboards and analysis. The full research pipeline and experimental modules live in the private `Squid_Fest` repo. To request access or collaborate, [email me](mailto:euchiejnpierre@gmail.com).
 
 ---
