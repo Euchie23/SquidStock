@@ -41,36 +41,36 @@ The notebook progresses as follows:
 
 ## 📂 Repository Structure
 
-/notebooks # Jupyter notebooks including The Navigation Course
-/outputs # Generated static plot PDFs and summary tables
-/data # Raw and processed datasets
-README.md # This file
-
-yaml
-Copy code
+- /notebooks # Jupyter notebooks including The Navigation Course. each notebook has its own README.md (Like this one)
+- /outputs # Generated static plot PDFs and summary tables
+- /data # Raw and processed datasets
 
 ---
 
 ## 📈 Visualizations & Tables
 
-- **CPUE Trend Plots:** Show monthly and yearly variations in catch rates.  
-- **Summary Table:** Presents yearly environmental feature statistics with arrows indicating trends:
+- **CPUE Trend Plots:** Show monthly and yearly variations in catch rates.
+      -   Static monthly trend plot
+      -   Interactive monthly trend plot  
+- **Summary Tables:** Presents yearly environmental feature statistics with arrows indicating trends and data distribution within each year:
+     - Yearly feature summary
+     - Data distribution summary
   
   - ↑ means the value increased compared to the previous year.
   - ↓ means the value decreased compared to the previous year.
   - → means no change or first year (no previous data to compare).
   
-> **Note:** These static visualizations are saved as PDF files (`/outputs/`) and committed to the repo for easy viewing.  
+> **Note:** These static visualizations are saved as png files (`/outputs/`) and committed to the repo for easy viewing.  
 >  
-> **Interactive plots** (e.g., plotly graphs) are included as HTML files but due to size limitations, GitHub cannot render them directly in the browser. To view them, please download and open locally.
+
 
 ---
 
 ## ⚠️ Viewing Interactive HTML Files on GitHub
 
-GitHub cannot directly display large or complex HTML files in the browser. The interactive dashboards are included in the repo for completeness. Please:
+**Interactive plots** (e.g., plotly graphs) are included as HTML files but due to size limitations, GitHub cannot render them directly in the browser. To view them, please download and open locally.
 
-- Download the HTML file(s) from the `/outputs` or `/interactive` folder.
+- Download the HTML file(s) from the `/outputs` folder.
 - Open the file locally using a modern web browser (Chrome, Firefox, Edge).
   
 Alternatively, consider hosting interactive dashboards via [GitHub Pages](https://pages.github.com/) or other services for online access.
@@ -91,16 +91,13 @@ Feel free to open an issue, submit a pull request, or contact me directly for ac
 
 ## 📬 Connect
 
-- Email: your.email@example.com  
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)  
+- Email: [Euchie](mailto:euchiejnpierre@gmail.com)  
+- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/euchiejnpierre)  
 
 Thank you for exploring SquidStock — advancing sustainable squid fisheries through data transparency and ecological insight.
 
 ---
 
-<!-- Optional: Insert screenshots here -->
-
-<!-- Example placement for screenshots: -->
 
 ## 📸 Screenshots
 
