@@ -50,11 +50,12 @@ The notebook progresses as follows:
 ## 📈 Visualizations & Tables
 
 - **CPUE Trend Plots:** Show monthly and yearly variations in catch rates.
-      - [Static monthly trend plot](./outputs/monthly_cpue_plot_static.pdf)  
-      - Interactive monthly trend plot  > *(See ⚠️ Viewing Interactive HTML Plots (CPUE Analysis) section below)*
-- **Summary Tables:** Presents yearly environmental feature statistics with arrows indicating trends and data distribution within each year:
-      - [Yearly feature summary](./outputs/yearly_feature_summary.png) 
-      - [Data distribution summary](./outputs/data_availability_summary.pdf)
+  - [Static monthly trend plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.pdf)  
+  - Interactive monthly trend plot *(See ⚠️ Viewing Interactive HTML Plots (CPUE Analysis) section below)*
+
+- **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data summaries:
+  - ![Yearly feature summary](./outputs/yearly_feature_summary.png)
+  - [Data distribution summary (PDF)](./outputs/data_availability_summary.pdf)
   
   - ↑ means the value increased compared to the previous year.
   - ↓ means the value decreased compared to the previous year.
