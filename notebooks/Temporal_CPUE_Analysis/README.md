@@ -54,8 +54,8 @@ The notebook progresses as follows:
   - Interactive monthly trend plot *(See ⚠️ Viewing Interactive HTML Plots (CPUE Analysis) section below)*
 
 - **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data summaries:
-  - ![Yearly feature summary](./outputs/yearly_feature_summary.png)
-  - [Data distribution summary (PDF)](./outputs/data_availability_summary.pdf)
+  - ![Yearly feature summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/yearly_feature_summary.png)
+  - [Data distribution summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)
   
   - ↑ means the value increased compared to the previous year.
   - ↓ means the value decreased compared to the previous year.
@@ -82,8 +82,8 @@ We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
 
 > 📝 If the online version doesn’t load or you want to view offline:
 >
-> - Go to the [`/outputs`](./outputs/monthly_cpue_plot_static.html) folder in this repo.
-> - Find the file: `interactive_cpue_plot.html`
+> - Go to the [`/outputs`](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.html) folder in this repo.
+> - Find the file: `monthly_cpue_plot.html`
 > - Click the file → click **“Download”**, or:  
 >   👉 Right-click **"View raw"** and choose **"Save link as..."**  
 >   👉 Save the file to your computer and double-click it to open in your browser (Chrome, Firefox, Edge).
