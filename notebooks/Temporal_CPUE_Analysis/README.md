@@ -49,22 +49,20 @@ The notebook progresses as follows:
 
 ## 📈 Visualizations & Tables
 
-- **CPUE Trend Plots:** Show monthly and yearly variations in catch rates.
-  - [Static monthly trend plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.pdf)  
-  - Interactive monthly trend plot *(See ⚠️ Viewing Interactive HTML Plots (CPUE Analysis) section below)*
-
-- **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data summaries:
-  - ![Yearly feature summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/yearly_feature_summary.png)
-  - [Data distribution summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)
-  
-  - ↑ means the value increased compared to the previous year.
-  - ↓ means the value decreased compared to the previous year.
-  - → means no change or first year (no previous data to compare).
-  
-> **Note:** These static visualizations are saved as png files (`/outputs/`) and committed to the repo for easy viewing.  
+> **Note:** These static visualizations are saved as png or pdf files in (`/outputs/`) you can click now to view them or quickly scroll down to the **📸 Screenshots** section for a preview .  
 >  
 
+- **CPUE Trend Plots:** Show monthly and yearly variations in catch rates.
+  - [Static monthly trend plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.pdf)  
+  - Interactive monthly trend plot > *(See ⚠️ Viewing Interactive HTML Plots (CPUE Analysis) section below)* >
 
+- **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data summaries:
+  - [Yearly feature summary (PNG)](https://github.com/Euchie23/SquidStock/blob/main/outputs/yearly_feature_summary.png)
+    - ↑ means the value increased compared to the previous year.
+    - ↓ means the value decreased compared to the previous year.
+    - → means no change or first year (no previous data to compare).
+  - [Data distribution summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)
+    
 ---
 
 ## ⚠️ Viewing Interactive HTML Plots (CPUE Analysis)
@@ -116,10 +114,13 @@ Thank you for exploring SquidStock — advancing sustainable squid fisheries thr
 ## 📸 Screenshots
 
 *Figure 1:* CPUE time-series plot showing seasonal catch trends.  
-![CPUE Time-Series](./screenshots/cpue_timeseries.png)
+![CPUE Time-Series](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.pdf)
 
 *Figure 2:* Yearly summary table with trend arrows for environmental features.  
-![Summary Table](./screenshots/summary_table.png)
+![Feature Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/yearly_feature_summary.png)
+
+*Figure 3:* Yearly summary table with showing data distribution througout the 20 years.  
+![Distribution Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)
 
 ---
 <img width="468" height="639" alt="image" src="https://github.com/user-attachments/assets/8316d640-b264-420a-a3e9-e327103e1d81" />
