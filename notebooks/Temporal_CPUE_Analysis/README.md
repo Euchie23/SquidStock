@@ -50,11 +50,11 @@ The notebook progresses as follows:
 ## 📈 Visualizations & Tables
 
 - **CPUE Trend Plots:** Show monthly and yearly variations in catch rates.
-      -   Static monthly trend plot
-      -   Interactive monthly trend plot  
+      - [Static monthly trend plot](./outputs/monthly_cpue_plot_static.pdf)  
+      - Interactive monthly trend plot  > *(See ⚠️ Viewing Interactive HTML Plots (CPUE Analysis) section below)*
 - **Summary Tables:** Presents yearly environmental feature statistics with arrows indicating trends and data distribution within each year:
-     - Yearly feature summary
-     - Data distribution summary
+      - [Yearly feature summary](./outputs/yearly_feature_summary.png) 
+      - [Data distribution summary](./outputs/data_availability_summary.pdf)
   
   - ↑ means the value increased compared to the previous year.
   - ↓ means the value decreased compared to the previous year.
@@ -66,14 +66,27 @@ The notebook progresses as follows:
 
 ---
 
-## ⚠️ Viewing Interactive HTML Files on GitHub
+## ⚠️ Viewing Interactive HTML Plots (CPUE Analysis)
 
-**Interactive plots** (e.g., plotly graphs) are included as HTML files but due to size limitations, GitHub cannot render them directly in the browser. To view them, please download and open locally.
+Interactive plots (e.g., Plotly graphs) are saved as `.html` files and cannot be previewed directly on GitHub due to file size limits.
 
-- Download the HTML file(s) from the `/outputs` folder.
-- Open the file locally using a modern web browser (Chrome, Firefox, Edge).
-  
-Alternatively, consider hosting interactive dashboards via [GitHub Pages](https://pages.github.com/) or other services for online access.
+### ✅ Option 1: View Online (Recommended)
+
+We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
+
+> 🔗 [**View Interactive CPUE Plot**](https://Euchie23.github.io/SquidStock/monthly_cpue_plot.html)  
+> *(Works best on desktop or tablet in Chrome or Firefox)*
+
+### 💾 Option 2: Download and Open Locally
+
+> 📝 If the online version doesn’t load or you want to view offline:
+>
+> - Go to the [`/outputs`](./outputs/monthly_cpue_plot_static.html) folder in this repo.
+> - Find the file: `interactive_cpue_plot.html`
+> - Click the file → click **“Download”**, or:  
+>   👉 Right-click **"View raw"** and choose **"Save link as..."**  
+>   👉 Save the file to your computer and double-click it to open in your browser (Chrome, Firefox, Edge).
+
 
 ---
 
