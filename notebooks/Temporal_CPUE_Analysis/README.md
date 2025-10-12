@@ -61,6 +61,7 @@ The notebook progresses as follows:
     - ↑ means the value increased compared to the previous year.
     - ↓ means the value decreased compared to the previous year.
     - → means no change or first year (no previous data to compare).
+      
   - [Data distribution summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)
     
 ---
@@ -80,8 +81,7 @@ We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
 
 > 📝 If the online version doesn’t load or you want to view offline:
 >
-> - Go to the [`/outputs`](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.html) folder in this repo.
-> - Find the file: `monthly_cpue_plot.html`
+> - Click on [Temporal CPUE Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.html) folder in this repo.
 > - Click the file → click **“Download”**, or:  
 >   👉 Right-click **"View raw"** and choose **"Save link as..."**  
 >   👉 Save the file to your computer and double-click it to open in your browser (Chrome, Firefox, Edge).
@@ -110,17 +110,25 @@ Thank you for exploring SquidStock — advancing sustainable squid fisheries thr
 
 ---
 
-
 ## 📸 Screenshots
 
-*Figure 1:* CPUE time-series plot showing seasonal catch trends.  
-![CPUE Time-Series](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.pdf)
+**Figure 1:** CPUE time-series plot showing seasonal catch trends.  
+📄 [View Static Monthly CPUE Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.pdf)
 
-*Figure 2:* Yearly summary table with trend arrows for environmental features.  
+---
+
+**Figure 2:** Yearly summary table with trend arrows for environmental features.  
 ![Feature Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/yearly_feature_summary.png)
 
-*Figure 3:* Yearly summary table with showing data distribution througout the 20 years.  
-![Distribution Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)
+- ↑ means the value increased compared to the previous year.  
+- ↓ means the value decreased compared to the previous year.  
+- → means no change or first year (no previous data to compare).
+
+---
+
+**Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
+📄 [View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)
+
 
 ---
 <img width="468" height="639" alt="image" src="https://github.com/user-attachments/assets/8316d640-b264-420a-a3e9-e327103e1d81" />
