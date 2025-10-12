@@ -104,7 +104,7 @@ Feel free to open an issue, submit a pull request, or contact me directly for ac
 ## 📬 Connect
 
 - Email: [Euchie](mailto:euchiejnpierre@gmail.com)  
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/euchiejnpierre)  
+- LinkedIn: [Euchie Jn Pierre](https://linkedin.com/in/euchiejnpierre)  
 
 Thank you for exploring SquidStock — advancing sustainable squid fisheries through data transparency and ecological insight.
 
@@ -113,7 +113,7 @@ Thank you for exploring SquidStock — advancing sustainable squid fisheries thr
 ## 📸 Screenshots
 
 **Figure 1:** CPUE time-series plot showing seasonal catch trends.  
-📄 [View Static Monthly CPUE Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.pdf)
+![View Static Monthly CPUE Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.png)
 
 ---
 
@@ -127,7 +127,7 @@ Thank you for exploring SquidStock — advancing sustainable squid fisheries thr
 ---
 
 **Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
-📄 [View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)
+![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.png)
 
 
 ---
