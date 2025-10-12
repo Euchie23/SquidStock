@@ -17,7 +17,7 @@ Here’s how your work is structured, moving from exploration to deployment:
 
 | Module | Nickname | What It Does | Status |
 |---|---|----------------|--------|
-| **Catch & Spatial Exploration** | *The Navigation Course* | Time-series of catch over years + interactive maps of catch locations | ✅ Complete |
+| **Temporal CPUE Analysis** | *The Navigation Course* | Time-series of squid catch (CPUE) across years, with environmental summaries and trend indicators | ✅ Complete |
 | **CPUE Standardization & Predictive Modeling** | *Course Correction* | Normalize catch via GAM/GLM, compare prediction performance | ✅ Complete |
 | **Biomass Forecasting + Environment** | *Ocean Dynamics* | Surplus production modeling including environmental drivers (SST, SSH, Chl‑a) | ✅ Complete |
 | **AutoML / Predictive Catch Models** | *The Engine Room* | Automated modeling pipelines for daily/weekly catch | 🔄 In progress |
