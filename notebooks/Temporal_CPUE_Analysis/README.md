@@ -113,7 +113,7 @@ Thank you for exploring SquidStock — advancing sustainable squid fisheries thr
 ## 📸 Screenshots
 
 **Figure 1:** CPUE time-series plot showing seasonal catch trends.  
-![View Static Monthly CPUE Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.png)
+![View Static Monthly CPUE Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.png)
 
 ---
 
@@ -127,9 +127,9 @@ Thank you for exploring SquidStock — advancing sustainable squid fisheries thr
 ---
 
 **Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
-![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.png)
+![View Data Distribution Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_distribution_summary.png)
 
 
 ---
-<img width="468" height="639" alt="image" src="https://github.com/user-attachments/assets/8316d640-b264-420a-a3e9-e327103e1d81" />
+
 
