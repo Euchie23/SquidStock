@@ -81,9 +81,8 @@ We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
 
 > 📝 If the online version doesn’t load or you want to view offline:
 >
-> - Click on [Temporal CPUE Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.html) folder in this repo.
-> - Click the file → click **“Download”**, or:  
->   👉 Right-click **"View raw"** and choose **"Save link as..."**  
+> - Click on [Temporal CPUE Plot](https://Euchie23.github.io/SquidStock/monthly_cpue_plot.html) folder in this repo.
+>   👉 Right-click **"Temporal CPUE Plot"**  above and choose **"Save link as"**  
 >   👉 Save the file to your computer and double-click it to open in your browser (Chrome, Firefox, Edge).
 
 
