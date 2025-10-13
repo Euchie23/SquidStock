@@ -25,7 +25,7 @@ Here’s how your work is structured, moving from exploration to deployment:
 
 | Module | Nickname | What It Does | Status |
 |---|---|----------------|--------|
-| **Temporal CPUE Analysis** | *The Navigation Course* | Time-series of squid catch (CPUE) across years, with environmental summaries and trend indicators | ✅ Complete |
+| [**Temporal CPUE Analysis**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_CPUE_Analysis/Temporal_CPUE_Analysis.ipynb)  | *The Navigation Course* | Time-series of squid catch (CPUE) across years, with environmental summaries and trend indicators | ✅ Complete |
 | **CPUE Standardization & Predictive Modeling** | *Course Correction* | Normalize catch via GAM/GLM, compare prediction performance | ✅ Complete |
 | **Biomass Forecasting + Environment** | *Ocean Dynamics* | Surplus production modeling including environmental drivers (SST, SSH, Chl‑a) | ✅ Complete |
 | **AutoML / Predictive Catch Models** | *The Engine Room* | Automated modeling pipelines for daily/weekly catch | 🔄 In progress |
