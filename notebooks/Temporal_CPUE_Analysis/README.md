@@ -108,14 +108,14 @@ Interactive plots (e.g., Plotly graphs) are saved as `.html` files and **cannot 
 
 We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
 
-🔗 [View Interactive CPUE Plot](https://your-github-pages-link-here)  
+🔗 [View Interactive CPUE Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot.html)  
 *(Works best on desktop or tablet in Chrome or Firefox)*
 
 ### 💾 Option 2: Download and Open Locally
 
 📝 If the online version doesn’t load or you want to view offline:
 
-- Navigate to the `Temporal CPUE Plot` folder in this repo.
+- Navigate to the [`Temporal CPUE Plot`](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot.html) folder in this repo.
 - Right-click the file → "Save link as..."
 - Save the file to your computer and double-click to open in your browser (Chrome, Firefox, Edge).
 
@@ -222,6 +222,6 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 ---
 
 **Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
-![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.png)  
+![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_distributtion_summary.png)  
 
 ---
