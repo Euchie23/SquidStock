@@ -147,8 +147,8 @@ To run the notebook locally:
 
 2. Ensure you have Python 3 installed. 
 
-3. Install dependencies, e.g., via pip:
-      - pip install pandas plotly numpy matplotlib seaborn jupyter
+3. Install dependencies via pip:
+      -  e.g., pip install pandas plotly numpy matplotlib seaborn jupyter
         
 4. Launch Jupyter Notebook and open /notebooks/Temporal_CPUE_Analysis.ipynb
    
