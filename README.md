@@ -11,7 +11,11 @@ Though stock assessments are relatively common in finfish fisheries, they are mu
 
 ---
 
+## 📂 Repository Structure
 
+- `/notebooks` — Jupyter notebooks including The Navigation Course. Each notebook has its own README.md (like this one).  
+- `/outputs` — Generated static plot PDFs and summary tables.  
+- `/data` — Raw and processed datasets.
 
 ---
 
