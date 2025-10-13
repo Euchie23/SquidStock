@@ -19,15 +19,6 @@ This module focuses on the exploration of squid catch time-series data and envir
 
 ---
 
-## 📂 Repository Structure
-
-- `/notebooks` — Jupyter notebooks including The Navigation Course. Each notebook has its own README.md (like this one).  
-- `/outputs` — Generated static plot PDFs and summary tables.  
-- `/data` — Raw and processed datasets.
-
-
----
-
 ## 🗃️ Data Schema
 
 | Column         | Description                                          | Type        |
