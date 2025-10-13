@@ -153,6 +153,8 @@ To run the notebook locally:
 4. Launch Jupyter Notebook and open /notebooks/Temporal_CPUE_Analysis.ipynb
    
 5. Run cells sequentially to reproduce the analysis.
+
+[Click here to view Temporal CPUE Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_CPUE_Anlaysis.ipynb) 
    
 ---
 
