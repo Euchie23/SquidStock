@@ -82,7 +82,7 @@ Note: These static visualizations are saved as PNG or PDF files in `/outputs/`. 
   - [Static monthly trend plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/monthly_cpue_plot_static.pdf)  
   - Interactive monthly trend plot *(See ⚠️ Viewing Interactive HTML Plots section below)*
 
-- **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data summaries:
+- **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data distribution summaries:
   - [Yearly feature summary (PNG)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/yearly_feature_summary.png)
     - ↑ means the value increased compared to the previous year.
     - ↓ means the value decreased compared to the previous year.
