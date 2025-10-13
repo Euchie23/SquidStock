@@ -222,6 +222,6 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 ---
 
 **Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
-![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_distributtion_summary.png)  
+![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_distribution_summary.png)  
 
 ---
