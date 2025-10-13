@@ -92,7 +92,7 @@ Note: These static visualizations are saved as PNG or PDF files in `/outputs/`. 
   - Interactive monthly trend plot *(See ⚠️ Viewing Interactive HTML Plots section below)*
 
 - **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data summaries:
-  - ![Yearly feature summary (PNG)](https://github.com/Euchie23/SquidStock/blob/main/outputs/yearly_feature_summary.png)
+  - [Yearly feature summary (PNG)](https://github.com/Euchie23/SquidStock/blob/main/outputs/yearly_feature_summary.png)
     - ↑ means the value increased compared to the previous year.
     - ↓ means the value decreased compared to the previous year.
     - → means no change or first year (no previous data to compare).
@@ -118,6 +118,21 @@ We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
 - Navigate to the `Temporal CPUE Plot` folder in this repo.
 - Right-click the file → "Save link as..."
 - Save the file to your computer and double-click to open in your browser (Chrome, Firefox, Edge).
+
+---
+
+## 🛠️ Tools, Skills & Techniques Demonstrated
+
+This project highlights several key data science and environmental analytics techniques:
+
+- **Data Cleaning & Transformation** using `pandas`, `numpy`
+- **Interactive Visualization** with `plotly.express`
+- **Static Plotting & Reporting** using `matplotlib`, `seaborn`, and PDF export
+- **Time-Series Aggregation & Exploration** (monthly/yearly trends)
+- **Spatial Imputation Logic** for environmental datasets using NetCDF files (`xarray`)
+- **Remote Sensing Data Handling** (NASA MODIS, Copernicus)
+- **Data Interpretation in Ecological Contexts** (SSH, SST, Chlorophyll-a analysis)
+- **Jupyter Notebook Workflow Design** and reproducibility
 
 ---
 
@@ -148,7 +163,7 @@ To run the notebook locally:
    
 5. Run cells sequentially to reproduce the analysis.
    
-
+---
 
 ## 📉 Limitations and Future Work
 
@@ -193,7 +208,7 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 ## 📸 Screenshots
 
 **Figure 1:** CPUE time-series plot showing seasonal catch trends.  
-[View Static Monthly CPUE Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.pdf)  
+![View Static Monthly CPUE Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/monthly_cpue_plot_static.png)  
 
 ---
 
@@ -207,6 +222,6 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 ---
 
 **Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
-[View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.pdf)  
+![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/data_availability_summary.png)  
 
 ---
