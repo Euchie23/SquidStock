@@ -108,7 +108,7 @@ Interactive plots (e.g., Plotly graphs) are saved as `.html` files and **cannot 
 
 We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
 
-🔗 [View Interactive CPUE Plot](https://github.com/Euchie23/SquidStock/blob/main/docs/monthly_cpue_plot.html)  
+🔗 [View Interactive CPUE Plot](https://euchie23.github.io/SquidStock/monthly_cpue_plot.html)  
 *(Works best on desktop or tablet in Chrome or Firefox)*
 
 ### 💾 Option 2: Download and Open Locally
