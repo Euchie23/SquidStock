@@ -154,7 +154,7 @@ To run the notebook locally:
    
 5. Run cells sequentially to reproduce the analysis.
 
-[Click here to view Temporal CPUE Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_CPUE_Anlaysis.ipynb) 
+[Click here to view Temporal CPUE Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_CPUE_Analysis/Temporal_CPUE_Analysis.ipynb) 
    
 ---
 
