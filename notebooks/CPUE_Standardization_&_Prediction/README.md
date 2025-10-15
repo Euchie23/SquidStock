@@ -17,7 +17,7 @@ Linear interpolation estimates missing values between two known points using a s
 - **GammaGAM** and **TweedieGLM** delivered superior fit and stability relative to log-transformed GAMs.  
 - **5-fold cross-validation** confirmed **GammaGAM** slightly outperformed others, while **TweedieGLM** remained most robust under overdispersion.  
 - Residual diagnostics showed well-behaved errors and minimal bias.  
-- Seasonal peaks (March – May) persisted after standardization, confirming **biological rather than effort-driven** variability.
+- Seasonal peaks (March – May) persisted after standardization, confirming **biological (e.g migration) rather than effort-driven** variability.
 
 Together, these findings validate flexible, distribution-aware models as strong tools for squid fishery standardization.
 
