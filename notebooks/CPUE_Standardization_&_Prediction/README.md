@@ -216,5 +216,5 @@ While statistical patterns reflect realistic conditions, data are non-sensitive 
 
 ---
 
-> 📁 For more information, see the **Foundation Module** in the [SquidStack GitHub Repo](https://github.com/YourUsername/SquidStack).
+> 📁 For more on the times-series analysis and visualizations from the full dataset, see the **Temporal CPUE Analysis Module** in the [SquidStock GitHub Repo](https://github.com/YourUsername/SquidStack).
 
