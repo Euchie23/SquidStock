@@ -182,7 +182,7 @@ LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211�
 
 ## 📉 Limitations & Future Work
 
-- Restricted to **Jan–Jun** → captures **intra-annual**, not inter-annual patterns.  
+- Data restricted to **Jan–Jun** → while this ensures temporal consistency across years, it excludes potential **late-season dynamics (Jul–Dec)**, which may slightly limit full-year representativeness.  
 - Linear interpolation assumes steady change; future versions may test splines or spatiotemporal models.  
 - Expanding predictor set (wind, salinity, front indices) could enhance ecological resolution.  
 
