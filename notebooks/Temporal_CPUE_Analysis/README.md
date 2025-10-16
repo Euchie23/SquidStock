@@ -68,6 +68,7 @@ Note: These static visualizations are saved as PNG or PDF files in `/outputs/`. 
     - ↑ means the value increased compared to the previous year.
     - ↓ means the value decreased compared to the previous year.
     - → means no change or first year (no previous data to compare).
+    > *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
   - [Data distribution summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/data_distribution_summary.pdf)
 
 ---
@@ -187,7 +188,7 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 - ↑ means the value increased compared to the previous year.  
 - ↓ means the value decreased compared to the previous year.  
 - → means no change or first year (no previous data to compare).  
-
+> *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
 ---
 
 **Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
