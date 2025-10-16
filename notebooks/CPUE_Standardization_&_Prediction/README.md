@@ -1,7 +1,6 @@
 # 🧭 Course Correction — CPUE Standardization & Prediction (2000–2020)
 
-This notebook advances the *SquidStock* analytical series by standardizing and modeling *Illex argentinus* catch data (2000–2020).  
-Building on the exploratory work in **Module 1**, it applies **Generalized Additive Models (GAMs)** and **Tweedie GLMs** to remove effort bias and reveal underlying ecological structure in **Catch Per Unit Effort (CPUE)**.
+This notebook advances the *SquidStock* analytical series by standardizing and modeling *Illex argentinus* catch data (2000–2020) with the added help of remote sensing data (Sea Surface Height (SSH) and Chlorophyll A. This builds on the exploratory work in **Module 1**, it applies **Generalized Additive Models (GAMs)** and **Tweedie GLMs** to remove effort bias and reveal underlying ecological structure in **Catch Per Unit Effort (CPUE)**.
 
 ---
 
