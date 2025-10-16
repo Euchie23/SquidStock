@@ -248,7 +248,7 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 - ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png)
 **Yearly Summary (Jan–Jun)** 
 - ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
-
+> *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Gre
 
 ---
 
