@@ -98,7 +98,7 @@ A slight **negative correlation** appears — higher SST tends to coincide with 
 | **Depth mean** | ↑ Increasing | Fishing depth rose (≈ 92 → 152 m), implying migration to cooler zones. May reflect adaptive fishing or habitat shifts. |
 
 📄 [**Yearly Summary (2000 – 2020, Jan–Jun Subset)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
-> *Trends derived from descriptive summary (mean, SD, min, max) with directional arrows for clarity.*
+> *Trends derived from descriptive summary (mean, SD, min, max) with directional arrows for clarity.* <br>
 > *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
 ---
 
