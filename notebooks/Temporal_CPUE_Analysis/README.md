@@ -101,9 +101,7 @@ This project highlights several key data science and environmental analytics tec
 - **Interactive Visualization** with `plotly.express`
 - **Static Plotting & Reporting** using `matplotlib`, `seaborn`, and PDF export
 - **Time-Series Aggregation & Exploration** (monthly/yearly trends)
-- **Spatial Imputation Logic** for environmental datasets using NetCDF files (`xarray`)
-- **Remote Sensing Data Handling** (NASA MODIS, Copernicus)
-- **Data Interpretation in Ecological Contexts** (SSH, SST, Chlorophyll-a analysis)
+- **Data Interpretation in Ecological Contexts** (SSH, Water Temperature, Depth)
 - **Jupyter Notebook Workflow Design** and reproducibility
 
 ---
@@ -143,15 +141,12 @@ To run the notebook locally:
 
 - **Data Granularity and Inconsistencies:**  
   - The catch data is highly granular, collected per coordinate and date, with multiple vessel locations per day (5–10 points/day). However, data coverage is uneven; for example, only months 1–5 in 2000 have data, and 2001 may have months 1–6 and 12 with data, with incomplete weekly coverage. This irregularity poses challenges in continuous temporal analysis. 
-
-- **Spatial Imputation Constraints:**  
-  - While nearest-neighbor spatial imputation was applied to fill missing environmental data, this method does not account for spatial autocorrelation or more complex spatial patterns. Full geostatistical methods (kriging, inverse distance weighting) were not feasible due to computational limits and coarse satellite data resolution.
     
 - **Environmental Data Resolution:**  
   - Satellite-derived environmental data have inherent coarse spatial and temporal resolution, potentially masking small-scale oceanographic variations affecting squid distribution.
 
 - **Future Work:**  
-  - Plans include integrating more advanced spatial interpolation methods, expanding temporal coverage, and incorporating additional environmental drivers or fisheries data layers to improve model robustness.
+  - Plans include integrating expanding temporal coverage, and incorporating additional environmental drivers or fisheries data layers to improve model robustness.
     
 ---
 
