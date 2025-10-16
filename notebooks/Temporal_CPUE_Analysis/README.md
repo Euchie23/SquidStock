@@ -1,22 +1,23 @@
 # 🗺️ The Navigation Course — Temporal CPUE Analysis
 
 ## 📘 Executive Summary
-This notebook establishes the analytical foundation for exploring temporal dynamics in *Illex argentinus* catch data (2000–2020). It introduces clean, reproducible workflows to analyze Catch Per Unit Effort (CPUE), track inter-annual shifts, and link them to environmental drivers such as sea Water Temperature, sea surface height (SSH), chlorophyll-a, and fishing depth.
+This notebook serves as the **first step in the analysis pipeline**, aimed at understanding the structure, distribution, and temporal dynamics of the raw dataset before applying statistical models. It does so by exploring temporal dynamics in *Illex argentinus* catch data (2000–2020), and introduces clean, reproducible workflows to analyze Catch Per Unit Effort (CPUE), track inter-annual shifts, and link them to environmental drivers such as sea Water Temperature, and fishing depth.
 
 Key insights include:
 
-- 🎣 Seasonal peaks (March–June) dominate CPUE trends across years, with notable spikes in 2005 and 2014.
-- 🌡️ Gradual ocean warming and declining chlorophyll levels suggest lower productivity in recent years.
-- 🌊 Increased SSH variability and deeper mean fishing depths hint at changing oceanographic and squid behavioral patterns.
-- 📉 Together, these indicators point to reduced biomass availability and potential climate-linked shifts in squid distribution.
-
-This notebook forms the first module in the SquidStock series, supporting sustainable fisheries through transparent, data-driven marine analytics.
-
+- 🎣 **Seasonal peaks** in squid CPUE consistently occur between **March and June**, reflecting biological migration and spawning cycles.
+- 📉 Mean CPUE shows a **general decline after 2014**, indicating potential stock stress or reduced catch efficiency.
+- 🌡️ **Water temperature** steadily increases over time, likely pushing squid into **cooler or deeper zones**.
+- ⏬ **Fishing depth** has increased over time, pointing to possible **vertical movement** of squid or shifts in fishing behavior.
+  
 ---
 
-## 🧭 Module Overview: The Navigation Course (Catch & Temporal Exploration)
-This module focuses on the exploration of squid catch time-series data and environmental variables, providing summary statistics and visualizations that uncover temporal patterns and trends. Although originally planned to include spatial maps, the current notebook version centers on time-series analysis and summary tables without interactive maps.
+## 🧭 Module Overview: The Navigation Course
 
+This module provides an **exploratory analysis** of raw squid CPUE and environmental data.  
+It includes descriptive statistics, time-series plots, and yearly summary tables — forming the **analytical foundation** for later modeling and hypothesis testing.
+
+> While originally scoped to include spatial maps, this module focuses solely on **temporal dynamics** to characterize long-term trends and seasonality.
 ---
 
 ## 🗃️ Data Schema
@@ -31,28 +32,8 @@ This module focuses on the exploration of squid catch time-series data and envir
 | Lon            | Longitude coordinate of catch location             | Float       |
 | Lat            | Latitude coordinate of catch location              | Float       |
 | WaterTemp      | Water temperature (°C) at catch location           | Float       |
-| SSH            | Sea Surface Height (m) at catch location           | Float       |
 | Depth          | Fishing depth (m)                                   | Integer     |
-| Chlor_a_mg_m3  | Chlorophyll-a concentration (mg/m³)                 | Float       |
 | SqCatch_Kg     | Squid catch weight (Kg)                             | Float       |
-
----
-
-## 🌐 Environmental Data Sources & Processing
-
-Chlorophyll-a and SSH data were sourced from remote sensing platforms such as NASA MODIS and Copernicus Marine Service, using NetCDF files.
-
-Monthly aggregates were derived based on the date and geolocation of each catch record.
-
-### ⚠️ Handling Missing Environmental Data (Spatial Imputation)
-
-For missing values (especially in remote areas or months with gaps), spatial imputation was applied:
-
-If environmental data (e.g., SSH or chlorophyll) was unavailable at a given location, the nearest available value from surrounding coordinates within the same monthly window was used as a proxy.
-
-This technique ensures continuity while maintaining reasonable geographic relevance.
-
-ℹ️ Full spatial interpolation techniques (e.g., kriging, IDW) were **not used** due to computational constraints and the coarse resolution of satellite-derived data in this region.
 
 ---
 
