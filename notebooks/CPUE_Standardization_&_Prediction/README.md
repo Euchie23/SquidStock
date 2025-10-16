@@ -178,6 +178,37 @@ LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211�
 - Interpretation of environmental drivers on CPUE  
 
 ---
+---
+
+## 🛠️ How to Run This Notebook
+
+This analysis is implemented in Jupyter notebooks using Python 3. Required libraries include:
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import os
+```
+
+To run the notebook locally:
+
+1. Clone this repository. 
+      -  git clone https://github.com/Euchie23/SquidStack.git
+2. Ensure you have Python 3 installed. 
+
+3. Install dependencies via pip:
+      -  e.g., pip install pandas numpy matplotlib seaborn statsmodels jupyter
+        
+4. Launch Jupyter Notebook and open /notebooks/CPUE_Standardization_&_Prediction.ipynb
+   
+5. Run cells sequentially to reproduce the analysis.
+
+[Click here to view Temporal CPUE Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb) 
+   
+---
 
 ## 📉 Limitations & Future Work
 
