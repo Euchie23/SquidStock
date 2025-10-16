@@ -98,8 +98,8 @@ A slight **negative correlation** appears — higher SST tends to coincide with 
 | **Depth mean** | ↑ Increasing | Fishing depth rose (≈ 92 → 152 m), implying migration to cooler zones. May reflect adaptive fishing or habitat shifts. |
 
 📄 [**Yearly Summary (2000 – 2020, Jan–Jun Subset)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
-→ *Trends derived from descriptive summary (mean, SD, min, max) with directional arrows for clarity.*
-→ *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
+> *Trends derived from descriptive summary (mean, SD, min, max) with directional arrows for clarity.*
+> *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
 ---
 
 ## 🧠 Modeling Framework
@@ -138,13 +138,13 @@ LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211�
 
 | Visualization | Output | Purpose |
 |---------------|-----------|----------|
-| **Observed vs Standardized CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png) / [HTML File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png) | Compare raw and standardized indices |
-| **Predicted vs Actual CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png) | Assess predictive accuracy |
+| **Observed vs Standardized CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png) / [HTML File](https://euchie23.github.io/SquidStock/observed_vs_standardized.html) | Compare raw and standardized indices |
+| **Predicted vs Actual CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png) / [HTML File](https://euchie23.github.io/SquidStock/predicted_vs_actual.html)| Assess predictive accuracy |
 | **Residual Plots** |[PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png) | Check error distribution |
 | **Model Performance Table** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png) | Summarize RMSE / MAE |
-| **Yearly Summary (Jan–Jun)** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_summary_JanJun.png) | Context for environmental trends |
+| **Yearly Summary (Jan–Jun)** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png | Context for environmental trends |
 
-🕹️ Interactive versions (`.html`) are available for dowload by right clicking.
+> 🕹️ Interactive versions (`.html`) can be downloaded by right clicking.
 
 ---
 
@@ -193,27 +193,34 @@ LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211�
 Contributions welcome from fisheries scientists and data analysts.  
 Open an issue or submit a pull request to collaborate on future modules.
 
-📬 **Email:** your.email@example.com  
-💼 **LinkedIn:** [your-profile-link]  
+---
+## 📬 Connect
+
+[**Email:**](mailto:euchiejnpierre@gmail.com) | [**LinkedIn:**](https://linkedin.com/in/euchiejnpierre)  
+
+Thank you for exploring **SquidStock** — advancing sustainable squid fisheries through data transparency and ecological insight.
 
 ---
 
 ## 🔒 Data Confidentiality Notice
 
-This dataset is a synthetic approximation of research data used at National Taiwan University.  
-While statistical patterns reflect realistic conditions, data are non-sensitive and intended solely for educational and methodological demonstration.
+This dataset is a simulated approximation of a real-world squid stock assessment dataset used during my tenure as a part-time research assistant at National Taiwan University. Although it closely resembles actual data, any interpretation or conclusions drawn here cannot be assumed to represent real conditions in the region. This project primarily demonstrates analytical methods, data processing workflows, and skill development in fisheries and environmental data science.
 
 ---
 
 ## 📸 Static Previews
 
-- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png)  
-- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png)  
-- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png)  
-- [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_summary_JanJun.png)  
+**Observed vs Standardized CPUE** 
+- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png) <br>
+**Predicted vs Actual CPUE**  
+- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png)
+**Residual Plots**  
+- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png)
+**Yearly Summary (Jan–Jun)** 
+- [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
 
 
 ---
 
-> 📁 For more on the times-series analysis and visualizations using the full dataset, see the **Temporal CPUE Analysis Module** in the [SquidStock GitHub Repo](https://github.com/Euchie23/SquidStack).
+> 📁 For more on the times-series analysis and visualizations using the full dataset, see the **Temporal CPUE Analysis Module** in the [SquidStock](https://github.com/Euchie23/SquidStock).
 
