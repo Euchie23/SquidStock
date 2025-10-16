@@ -97,9 +97,9 @@ A slight **negative correlation** appears — higher SST tends to coincide with 
 | **Chlorophyll-a mean** | → Stable / slightly decreasing | Mixed pattern; productivity fluctuations don’t always boost CPUE, indicating trophic mismatch. |
 | **Depth mean** | ↑ Increasing | Fishing depth rose (≈ 92 → 152 m), implying migration to cooler zones. May reflect adaptive fishing or habitat shifts. |
 
-📄 [**Yearly Summary (2000 – 2020, Jan–Jun Subset)**](/results/plots/static/yearly_summary_Jan_Jun.png)  
+📄 [**Yearly Summary (2000 – 2020, Jan–Jun Subset)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
 → *Trends derived from descriptive summary (mean, SD, min, max) with directional arrows for clarity.*
-
+→ *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
 ---
 
 ## 🧠 Modeling Framework
@@ -127,8 +127,8 @@ All models were evaluated via **5-fold cross-validation** using RMSE and MAE.
 **Cross-validation means (RMSE):**  
 LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211 | Tweedie GLM = 12 534  
 
-📊 [**Model Performance (PNG)**](/results/plots/static/model_performance.png)  
-📄 [**Model Performance (PDF)**](/results/plots/static/model_performance.pdf)
+📊 [**Model Performance (PNG)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png)  
+📄 [**Model Performance (PDF)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.pdf)
 
 > 🧠 *Gamma GAM and Tweedie GLM consistently yielded lower errors, supporting their suitability for skewed ecological data.*
 
@@ -138,11 +138,11 @@ LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211�
 
 | Visualization | Output | Purpose |
 |---------------|-----------|----------|
-| **Observed vs Standardized CPUE** | [PNG File](/results/plots/static/observed_vs_standardized.png) / [HTML File](/results/plots/static/observed_vs_standardized.png) | Compare raw and standardized indices |
-| **Predicted vs Actual CPUE** | [PNG File](/results/plots/static/predicted_vs_actual.png) | Assess predictive accuracy |
-| **Residual Plots** |[PNG File](/results/plots/static/residuals.png) | Check error distribution |
-| **Model Performance Table** | [PNG File](/results/plots/static/model_performance.png) | Summarize RMSE / MAE |
-| **Yearly Summary (Jan–Jun)** | [PNG File](/results/plots/static/yearly_summary_JanJun.png) | Context for environmental trends |
+| **Observed vs Standardized CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png) / [HTML File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png) | Compare raw and standardized indices |
+| **Predicted vs Actual CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png) | Assess predictive accuracy |
+| **Residual Plots** |[PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png) | Check error distribution |
+| **Model Performance Table** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png) | Summarize RMSE / MAE |
+| **Yearly Summary (Jan–Jun)** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_summary_JanJun.png) | Context for environmental trends |
 
 🕹️ Interactive versions (`.html`) are available for dowload by right clicking.
 
@@ -207,13 +207,13 @@ While statistical patterns reflect realistic conditions, data are non-sensitive 
 
 ## 📸 Static Previews
 
-- ![PNG File](`/results/plots/static/observed_vs_standardized.png`)  
-- ![PNG File](`/results/plots/static/predicted_vs_actual.png`)  
-- ![PNG File](`/results/plots/static/residuals.png`)  
-- [PNG File](`/results/plots/static/yearly_summary_JanJun.png`)  
+- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png)  
+- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png)  
+- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png)  
+- [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_summary_JanJun.png)  
 
 
 ---
 
-> 📁 For more on the times-series analysis and visualizations using the full dataset, see the **Temporal CPUE Analysis Module** in the [SquidStock GitHub Repo](https://github.com/YourUsername/SquidStack).
+> 📁 For more on the times-series analysis and visualizations using the full dataset, see the **Temporal CPUE Analysis Module** in the [SquidStock GitHub Repo](https://github.com/Euchie23/SquidStack).
 
