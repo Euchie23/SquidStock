@@ -196,7 +196,7 @@ import os
 To run the notebook locally:
 
 1. Clone this repository. 
-      -  git clone https://github.com/Euchie23/SquidStack.git
+      -  git clone https://github.com/Euchie23/SquidStock.git
 2. Ensure you have Python 3 installed. 
 
 3. Install dependencies via pip:
@@ -206,7 +206,7 @@ To run the notebook locally:
    
 5. Run cells sequentially to reproduce the analysis.
 
-[Click here to view Temporal CPUE Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb) 
+[Click here to view CPUE_Standardization_&_Prediction notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb) 
    
 ---
 
