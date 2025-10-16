@@ -1,4 +1,4 @@
-# 🗺️ The Navogation Course — Temporal CPUE Analysis
+# 🗺️ The Navigation Course — Temporal CPUE Analysis
 
 ## 📘 Executive Summary
 This notebook establishes the analytical foundation for exploring temporal dynamics in *Illex argentinus* catch data (2000–2020). It introduces clean, reproducible workflows to analyze Catch Per Unit Effort (CPUE), track inter-annual shifts, and link them to environmental drivers such as sea Water Temperature, sea surface height (SSH), chlorophyll-a, and fishing depth.
