@@ -142,7 +142,7 @@ LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211�
 | **Predicted vs Actual CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png) / [HTML File](https://euchie23.github.io/SquidStock/predicted_vs_actual.html)| Assess predictive accuracy |
 | **Residual Plots** |[PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png) | Check error distribution |
 | **Model Performance Table** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png) | Summarize RMSE / MAE |
-| **Yearly Summary (Jan–Jun)** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png | Context for environmental trends |
+| **Yearly Summary (Jan–Jun)** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png) | Context for environmental trends |
 
 > 🕹️ Interactive versions (`.html`) can be downloaded by right clicking.
 
@@ -217,7 +217,7 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 **Residual Plots**  
 - ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png)
 **Yearly Summary (Jan–Jun)** 
-- [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
+- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
 
 
 ---
