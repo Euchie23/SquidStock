@@ -200,7 +200,7 @@ To run the notebook locally:
 2. Ensure you have Python 3 installed. 
 
 3. Install dependencies via pip:
-      -  e.g., pip install pandas numpy matplotlib seaborn statsmodels jupyter
+      -  e.g., pip install pandas numpy matplotlib seaborn statsmodels pygam jupyter
         
 4. Launch Jupyter Notebook and open /notebooks/CPUE_Standardization_&_Prediction.ipynb
    
