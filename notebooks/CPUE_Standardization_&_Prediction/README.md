@@ -1,24 +1,29 @@
 # 🧭 Course Correction — CPUE Standardization & Prediction (2000–2020)
 
-This notebook advances the *SquidStock* analytical series by standardizing and modeling *Illex argentinus* catch data (2000–2020) with the added help of remote sensing data (Sea Surface Height (SSH) and Chlorophyll A. This builds on the exploratory work in **Module 1**, it applies **Generalized Additive Models (GAMs)** and **Tweedie GLMs** to remove effort bias and reveal underlying ecological structure in **Catch Per Unit Effort (CPUE)**.
+This notebook advances the *SquidStock* analytical series by standardizing and modeling *Illex argentinus* catch data (2000–2020) with the added help of remote sensing data Sea Surface Height (SSH) and Chlorophyll A. This builds on the exploratory work in **Module 1**, it applies **Generalized Additive Models (GAMs)** and **Tweedie Regressor** to remove effort bias and reveal underlying ecological structure in **Catch Per Unit Effort (CPUE)**.
 
 ---
 
 ## 📘 Executive Summary
 
-This module develops a **robust, reproducible workflow** for CPUE standardization using a 10-year subset (**January – June each year**).  
+This module develops a **robust, reproducible workflow** for CPUE standardization using a 20-year subset (**January – June each year**).  
 These months were selected for their **consistent data coverage** across all years, ensuring comparability and avoiding partial-year bias.
 
 To address missing satellite-derived environmental data (Chl-a, SSH, Depth), **linear interpolation** was applied — filling temporal gaps while preserving natural monthly trends.  
 Linear interpolation estimates missing values between two known points using a straight-line assumption, making it transparent and appropriate for smooth, seasonal environmental data.
 
-### 🔍 Key Insights
-- **GammaGAM** and **TweedieGLM** delivered superior fit and stability relative to log-transformed GAMs.  
-- **5-fold cross-validation** confirmed **GammaGAM** slightly outperformed others, while **TweedieGLM** remained most robust under overdispersion.  
-- Residual diagnostics showed well-behaved errors and minimal bias.  
-- Seasonal peaks (March – May) persisted after standardization, confirming **biological (e.g migration) rather than effort-driven** variability.
+A notable finding in the CPUE time series is the presence of a recurring peak approximately every eight years, followed by a downward trend and variability. Such multi-year cycles may reflect ecological or oceanographic drivers (e.g., species life-history patterns, climate oscillations), but further investigation with independent data is required before confirming causation.
 
-Together, these findings validate flexible, distribution-aware models as strong tools for squid fishery standardization.
+### 🔍 Key Insights
+
+- **GammaGAM** and **TweedieRegressor** delivered superior model fit and stability compared to log-transformed GAMs.  
+- **5-fold cross-validation** results indicate that **GammaGAM** slightly outperforms alternative models, while **TweedieRegressor** demonstrates the greatest robustness to overdispersion and variability.  
+- Residual diagnostics reveal well-behaved error distributions and minimal bias across models.  
+- Seasonal CPUE peaks (March–May) persist after standardization, supporting the interpretation that observed variability is driven by **biological factors (e.g., migration)** rather than changes in fishing effort.
+- The CPUE time series exhibits a **recurrent ~8-year cycle** with peaks followed by declines, potentially linked to ecological or environmental drivers. Additional analysis with external data is recommended to explore this pattern further.
+
+Together, these results underscore the value of flexible, distribution-aware modeling approaches for effective squid fishery standardization and monitoring.
+
 
 ---
 
@@ -44,6 +49,13 @@ Outputs include fitted models, diagnostics, and standardized CPUE indices.
 | **Chlor_a_mg_m3** | Chlorophyll-a concentration (mg/m³) | Float |
 | **SqCatch_Kg** | Squid catch (kg) | Float |
 
+During data preprocessing and modeling, additional columns were created to assist analysis, including:  
+- Standardized CPUE (kg and tons)  
+- Vessel effort metrics (e.g., vessel days)  
+- Weighted longitude and latitude variables to account for spatial heterogeneity  
+
+Details on these transformations and derived features can be found in the notebook, specifically in Cells **5–7**.
+
 ---
 
 ## 🌐 Environmental Data & Pre-Processing
@@ -59,13 +71,15 @@ Environmental predictors were extracted from **NASA MODIS** and **Copernicus Mar
 
 ## 📊 Workflow Overview
 
-1. **Data Filtering:** Retain only **Jan–Jun** months per year.  
-2. **Exploratory Analysis:** Examine CPUE distributions, environmental variability, and correlations.  
-3. **Yearly Summary:** Compute mean ± SD for key variables (Jan–Jun subset).  
-4. **Modeling:** Fit LinearGAM, GammaGAM, and Tweedie GLM frameworks.  
-5. **Evaluation:** Compare performance metrics (RMSE / MAE).  
-6. **Diagnostics:** Inspect residuals and fitted vs observed trends.  
-7. **Outputs:** Generate standardized CPUE time-series and visual summaries.  
+1. **Data Filtering:** Retain only **Jan–Jun** months per year.
+2. **Data Wrangling:** Create additional columns to assist analysis (Vessel days, CPUE_vday_kgs, CPUE_vday_tons etc).
+3. **Feature Engineering** Modify environmental variables for modeling (weighted longitude and latitude columns)
+4. **Exploratory Analysis:** Examine CPUE distributions, environmental variability, and correlations.  
+5. **Yearly Summary:** Compute mean ± SD for key variables (Jan–Jun subset).  
+6. **Modeling:** Fit LinearGAM, GammaGAM, and Tweedie GLM frameworks.  
+7. **Evaluation:** Compare performance metrics (RMSE / MAE).  
+8. **Diagnostics:** Inspect residuals and fitted vs observed trends.  
+9. **Outputs:** Generate standardized CPUE time-series and visual summaries.  
 
 ---
 
@@ -90,7 +104,7 @@ A slight **negative correlation** appears — higher SST tends to coincide with 
 
 | Variable | Trend | Interpretation |
 |-----------|--------|----------------|
-| **Monthly CPUE mean** | ↓ Declining | Highly variable; overall decrease from early 2000s (≈14 605 kg) to 2019 (≈ 4 053 kg). Suggests declining productivity or catchability. |
+| **Monthly CPUE mean** | ↓ Declining | Highly variable; overall decrease from early 2000s (≈ 1 300 tons) to 2019 (≈ 218 tons). Suggests declining productivity or catchability. |
 | **Water Temperature mean** | ↑ Increasing | Gradual warming (≈ 10.99 → 11.41 °C). May drive squid to deeper / southern waters, lowering CPUE. |
 | **SSH mean** | ↑ Increasing | Rising SSH (0.01 → 0.08 m) could signal reduced upwelling and nutrient supply, impacting productivity. |
 | **Chlorophyll-a mean** | → Stable / slightly decreasing | Mixed pattern; productivity fluctuations don’t always boost CPUE, indicating trophic mismatch. |
@@ -108,23 +122,23 @@ A slight **negative correlation** appears — higher SST tends to coincide with 
 | **LinearGAM (log(CPUE + c))** | Variance stabilization | Normal | Interpretable baseline |
 | **LinearGAM (log(CPUE + 1))** | Benchmark log-scale | Normal | Consistent comparison |
 | **Gamma GAM** | Raw CPUE | Gamma | Best for positive, right-skewed data |
-| **Tweedie GLM** | Raw CPUE | Tweedie | Robust to zero-inflation & overdispersion |
+| **Tweedie Regressor** | Raw CPUE | Tweedie | Robust to zero-inflation & overdispersion |
 
 All models were evaluated via **5-fold cross-validation** using RMSE and MAE.
 
 ---
 
-## 🧾 Model Evaluation Results
+## 🧾 Model Evaluation Results (based on mean monthly CPUE vessel days (tons))
 
 | Model | RMSE | MAE |
 |:------|------:|------:|
-| GAM (log(CPUE + c)) | 16 673 | 10 089 |
-| GAM (log(CPUE + 1)) | 15 986 | 9 638 |
-| **Gamma GAM** | 15 688 | 9 305 |
-| **Tweedie GLM** | 13 282 | 8 177 |
+| GAM (log(CPUE + c)) | 864 | 472 |
+| GAM (log(CPUE + 1)) | 881 | 504 |
+| **Gamma GAM** | 810 | 458 |
+| **Tweedie Regressor** | 476 | 313 |
 
 **Cross-validation means (RMSE):**  
-LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211 | Tweedie GLM = 12 534  
+LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | Tweedie Regressor = 477  
 
 📊 [**Model Performance (PNG)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png)  
 📄 [**Model Performance (PDF)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.pdf)
@@ -150,7 +164,7 @@ LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211�
 ## 🧭 Interpretation of Model Results
 
 - **Gamma GAM**: Most stable residuals; fits right-skewed CPUE effectively.  
-- **Tweedie GLM**: Resilient to overdispersion; strongest on variable data.  
+- **Tweedie Regressor**: Resilient to overdispersion; strongest on variable data.  
 - **Log GAMs**: Underpredict high CPUE due to transformation compression.  
 - **Standardized Indices**: Seasonal peaks persist → biologically driven variation.  
 
@@ -177,7 +191,6 @@ LinearGAM (+c) = 12 921 | LinearGAM (+1) = 15 414 | Gamma GAM = 11 211�
 - Reproducible notebook workflow  
 - Interpretation of environmental drivers on CPUE  
 
----
 ---
 
 ## 🛠️ How to Run This Notebook
