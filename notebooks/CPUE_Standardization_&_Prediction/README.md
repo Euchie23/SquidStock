@@ -57,7 +57,7 @@ During data preprocessing and modeling, additional columns were created to assis
 - Vessel effort metrics (e.g., vessel days)  
 - Weighted longitude and latitude variables to account for spatial heterogeneity  
 
-Details on these transformations and derived features can be found in the notebook, specifically in Cells **5–7**.
+Details on these transformations and derived features can be found in the [notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb), specifically in Cells **2–4** and **8**.
 
 ---
 
