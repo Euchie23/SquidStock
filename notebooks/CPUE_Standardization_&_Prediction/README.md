@@ -17,10 +17,13 @@ A notable finding in the CPUE time series is the presence of a recurring peak ap
 ### 🔍 Key Insights
 
 - **GammaGAM** and **TweedieRegressor** delivered superior model fit and stability compared to log-transformed GAMs.  
-- **5-fold cross-validation** results indicate that **GammaGAM** slightly outperforms alternative models, while **TweedieRegressor** demonstrates the greatest robustness to overdispersion and variability.  
-- Residual diagnostics reveal well-behaved error distributions and minimal bias across models.  
-- Seasonal CPUE peaks (March–May) persist after standardization, supporting the interpretation that observed variability is driven by **biological factors (e.g., migration)** rather than changes in fishing effort.
-- The CPUE time series exhibits a **recurrent ~8-year cycle** with peaks followed by declines, potentially linked to ecological or environmental drivers. Additional analysis with external data is recommended to explore this pattern further.
+- **Cross-validation** and **test-set evaluation** confirm that **TweedieRegressor** achieved the lowest RMSE and MAE, showing the best predictive accuracy, while **GammaGAM** provided the most stable and interpretable fits.  
+- **Residual diagnostics** reveal distinct behaviors across models:  
+  → Log-GAMs show increasing dispersion at high CPUE;  
+  → GammaGAM residuals are balanced and centered around zero;  
+  → Tweedie residuals display the most uniform spread, indicating strong generalization.  
+- Seasonal CPUE peaks (March–May) persist after standardization, confirming that observed variability reflects **biological processes (e.g., migration)** rather than fishing effort.  
+- The CPUE time series exhibits a **recurrent ~8-year cycle**, likely influenced by broader **environmental or ecological drivers**—further validation with external indices is recommended.
 
 Together, these results underscore the value of flexible, distribution-aware modeling approaches for effective squid fishery standardization and monitoring.
 
@@ -163,21 +166,21 @@ LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | 
 
 ## 🧭 Interpretation of Model Results
 
-- **Gamma GAM**: Most stable residuals; fits right-skewed CPUE effectively.  
-- **Tweedie Regressor**: Resilient to overdispersion; strongest on variable data.  
-- **Log GAMs**: Underpredict high CPUE due to transformation compression.  
-- **Standardized Indices**: Seasonal peaks persist → biologically driven variation.  
+- **Log-GAMs** — Underpredict high CPUE events due to transformation compression; residuals show heteroscedasticity at upper values.
+- **GammaGAM** — Most stable residuals with symmetric, centered distribution; fits right-skewed CPUE effectively and provides interpretable smooth effects of environmental and temporal predictors.  
+- **Tweedie Regressor** — Most uniform residual spread and lowest error; highly robust to overdispersion and zero-inflated months, capturing real variability in CPUE.    
+- **Standardized Indices** — Seasonal peaks persist post-standardization, reinforcing that CPUE fluctuations are biologically rather than operationally driven.  
 
-✅ These diagnostics confirm **robust, ecologically meaningful** standardization.
-
+✅ Residual plots and error metrics together confirm **robust, ecologically meaningful** standardization and predictive modeling.
+ 
 ---
 
 ## 🌍 Real-World Applications
 
-- Enhanced **stock assessment** and quota setting  
-- Detection of **environmental thresholds** in squid abundance  
-- Support for **ecosystem-based fisheries management**  
-- Demonstration of transparent, reproducible modeling workflow  
+- Enhanced **stock assessment** and quota setting through unbiased CPUE indices supported by validated residual diagnostics.  
+- Detection of **environmental thresholds** in squid abundance.  
+- Support for **ecosystem-based fisheries management**.  
+- Demonstration of transparent, reproducible modeling workflow.  
 
 ---
 
@@ -225,9 +228,31 @@ To run the notebook locally:
 
 ## 📉 Limitations & Future Work
 
-- Data restricted to **Jan–Jun** → while this ensures temporal consistency across years, it excludes potential **late-season dynamics (Jul–Dec)**, which may slightly limit full-year representativeness.  
-- Linear interpolation assumes steady change; future versions may test splines or spatiotemporal models.  
-- Expanding predictor set (wind, salinity, front indices) could enhance ecological resolution.  
+- **Temporal scope:**  
+  Data restricted to **Jan–Jun** ensures temporal consistency across years, but excludes potential **late-season dynamics (Jul–Dec)**.  
+  → Future modules could extend the analysis to the full fishing season to assess whether standardized trends persist year-round.
+
+- **Interpolation assumptions:**  
+  Linear interpolation assumes steady, monotonic change.  
+  → Future work may apply **spline-based or machine learning interpolation** to capture nonlinear environmental fluctuations, especially for Chl-a and SSH.
+
+- **Model extensions:**  
+  While **GammaGAM** and **TweedieRegressor** perform strongly, further exploration could test:  
+  → **Zero-inflated GAMs** or **Bayesian hierarchical GAMs** to explicitly model months with no catch.  
+  → **Spatiotemporal GAMs** incorporating spatial smooths (e.g., latitude × longitude) for finer-scale habitat effects.  
+  → **Ensemble approaches** combining Tweedie and Gamma outputs to improve robustness.
+
+- **Residual structure:**  
+  Current diagnostics show minimal bias, but minor dispersion at high CPUE values remains.  
+  → Future research should investigate whether this reflects **data quality**, **rare-event processes**, or **unmodeled environmental covariates** (e.g., ocean fronts, wind, salinity).
+
+- **Ecological interpretation:**  
+  The identified **~8-year CPUE cycle** warrants further testing against **climate indices** (e.g., ENSO, SAM) and **biological covariates** to confirm potential causal mechanisms.
+
+---
+
+> 🧭 *Overall, future work should aim to integrate spatiotemporal modeling, refine residual structure, and link standardized CPUE variability to external environmental forcing — deepening both predictive accuracy and ecological understanding.*
+ 
 
 ---
 
