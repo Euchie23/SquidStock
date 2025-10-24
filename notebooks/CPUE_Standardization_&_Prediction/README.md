@@ -264,7 +264,7 @@ Open an issue or submit a pull request to collaborate on future modules.
 ---
 ## 📬 Connect
 
-[**Email:**](mailto:euchiejnpierre@gmail.com) | [**LinkedIn:**](https://linkedin.com/in/euchiejnpierre)  
+[**Email**](mailto:euchiejnpierre@gmail.com) | [**LinkedIn**](https://linkedin.com/in/euchiejnpierre)  
 
 Thank you for exploring **SquidStock** — advancing sustainable squid fisheries through data transparency and ecological insight.
 
