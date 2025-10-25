@@ -64,16 +64,16 @@ The notebook progresses as follows:
 Note: These static visualizations are saved as PNG or PDF files in `/outputs/`. You can click now to view them or quickly scroll down to the 📸 Screenshots section for a preview.
 
 - **Catch Trend Plots:** Show monthly and yearly variations in catch rates.
-  - [Static monthly trend plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/monthly_cpue_plot_static.pdf)  
+  - [Static monthly trend plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/monthly_catch_plot.pdf)  
   - Interactive monthly trend plot *(See ⚠️ Viewing Interactive HTML Plots section below)*
 
 - **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data distribution summaries:
-  - [Yearly feature summary (PNG)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/yearly_feature_summary.png)
+  - [Yearly feature summary (PNG)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/yearly_feature_summary.png)
     - ↑ means the value increased compared to the previous year.
     - ↓ means the value decreased compared to the previous year.
     - → means no change or first year (no previous data to compare).
     > *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
-  - [Data distribution summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/data_distribution_summary.pdf)
+  - [Data distribution summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/data_distribution_summary.pdf)
 
 ---
 
@@ -85,14 +85,14 @@ Interactive plots (e.g., Plotly graphs) are saved as `.html` files and **cannot 
 
 We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
 
-🔗 [View Interactive CPUE Plot](https://euchie23.github.io/SquidStock/monthly_cpue_plot.html)  
+🔗 [View Interactive CPUE Plot](https://euchie23.github.io/SquidStock/monthly_catch_plot.html)  
 *(Works best on desktop or tablet in Chrome or Firefox)*
 
 ### 💾 Option 2: Download and Open Locally
 
 📝 If the online version doesn’t load or you want to view offline:
 
-- Navigate to the [`Temporal Catch Plot`](https://euchie23.github.io/SquidStock/monthly_cpue_plot.html) folder in this repo.
+- Navigate to the [`Temporal Catch Plot`](https://euchie23.github.io/SquidStock/monthly_catch_plot.html) folder in this repo.
 - Right-click the file → "Save link as..."
 - Save the file to your computer and double-click to open in your browser (Chrome, Firefox, Edge).
 
@@ -138,7 +138,7 @@ To run the notebook locally:
    
 5. Run cells sequentially to reproduce the analysis.
 
-[Click here to view Temporal Catch Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_CPUE_Analysis/Temporal_CPUE_Analysis.ipynb) 
+[Click here to view Temporal Catch Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_Catch_Analysis/Temporal_Catch_Analysis.ipynb) 
    
 ---
 
@@ -182,12 +182,12 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 ## 📸 Screenshots
 
 **Figure 1:** Catch time-series plot showing seasonal catch trends.  
-![View Static Monthly Catch Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/monthly_cpue_plot_static.png)  
+![View Static Monthly Catch Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/monthly_catch_plot.png)  
 
 ---
 
 **Figure 2:** Yearly summary table with trend arrows for environmental features.  
-![Feature Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/yearly_feature_summary.png)  
+![Feature Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/yearly_feature_summary.png)  
 
 - ↑ means the value increased compared to the previous year.  
 - ↓ means the value decreased compared to the previous year.  
@@ -196,6 +196,6 @@ This dataset is a simulated approximation of a real-world squid stock assessment
 ---
 
 **Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
-![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_CPUE_Analysis/data_distribution_summary.png)  
+![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/data_distribution_summary.png)  
 
 ---
