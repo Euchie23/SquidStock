@@ -229,16 +229,16 @@ It does not represent official stock assessment data and is intended for methodo
 
 ## 📸 Static Previews
 
-**Temperature-Dependent Growth (EDSPM)**  
+### **Temperature-Dependent Growth (EDSPM)**  
 ![Temperature-Dependent Growth (EDSPM)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) <br><br>
 
-**Simulated Biomass Under Two Scenarios**  
+### **Simulated Biomass Under Two Scenarios**  
 - **Panel 1 – Simulated Biomass Under Two Scenarios**
 - **Panel 2 – % Change in Biomass Due to Warming**
 - **Panel 3 – Environmental Effect Index E(t)**
 ![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)<br><br>
 
-**CPUE vs Biomass Relationship**  
+ ### **CPUE vs Biomass Relationship**  
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
 
 ---
