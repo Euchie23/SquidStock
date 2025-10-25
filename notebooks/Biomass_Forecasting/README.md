@@ -184,7 +184,7 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 | **Environmental Index E(t)** | Seasonality under baseline vs warming | `environmental_index.png` |
 | **CPUE vs Biomass** | Correlation and decoupling | `cpue_vs_biomass.png` |
 
-Interactive visualizations available in the corresponding [notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/EDSPM_Climate_Simulation/EDSPM_Climate_Simulation.ipynb).
+[See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/EDSPM_Climate_Simulation/EDSPM_Climate_Simulation.ipynb).
 
 ---
 
@@ -230,19 +230,17 @@ It does not represent official stock assessment data and is intended for methodo
 ## 📸 Static Previews
 
 **Temperature-Dependent Growth (EDSPM)**  
-![growth_rate_vs_temp](https://github.com/Euchie23/SquidStock/blob/main/outputs/EDSPM_Climate_Simulation/growth_rate_vs_temp.png)
+![growth_rate_vs_temp](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png)
 
 **Simulated Biomass Under Two Scenarios**  
-![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/EDSPM_Climate_Simulation/biomass_simulation.png)
+![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)
+- **Panel 1 – Simulated Biomass Under Two Scenarios**
+- **Panel 2 – % Change in Biomass Due to Warming**
+- **Panel 3 – Environmental Effect Index E(t)**
 
-**% Change in Biomass**  
-![biomass_change_pct](https://github.com/Euchie23/SquidStock/blob/main/outputs/EDSPM_Climate_Simulation/biomass_change_pct.png)
-
-**Environmental Effect Index (E(t))**  
-![environmental_index](https://github.com/Euchie23/SquidStock/blob/main/outputs/EDSPM_Climate_Simulation/environmental_index.png)
 
 **CPUE vs Biomass Relationship**  
-![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/EDSPM_Climate_Simulation/cpue_vs_biomass.png)
+![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
 
 ---
 
