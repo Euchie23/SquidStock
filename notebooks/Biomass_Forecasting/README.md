@@ -178,11 +178,11 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 
 | Visualization | Description | Output |
 |----------------|--------------|---------|
-| **Temperature-dependent Growth (EDSPM)** | Nonlinear SST–growth rate relationship | `growth_rate_vs_temp.png` |
-| **Biomass Under Warming Scenarios** | Baseline vs. +2 °C trajectories | `biomass_simulation.png` |
-| **% Change in Biomass** | Relative warming effect | `biomass_change_pct.png` |
-| **Environmental Index E(t)** | Seasonality under baseline vs warming | `environmental_index.png` |
-| **CPUE vs Biomass** | Correlation and decoupling | `cpue_vs_biomass.png` |
+| **Temperature-dependent Growth (EDSPM)** | Nonlinear SST–growth rate relationship | [`Temperature-Dependent Growth (EDSPM)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) |
+| **Biomass Under Warming Scenarios** | Baseline vs. +2 °C trajectories | [`biomass_simulation (Panel 1)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png) |
+| **% Change in Biomass** | Relative warming effect | `biomass_simulation (Panel 2)` |
+| **Environmental Index E(t)** | Seasonality under baseline vs warming | `biomass_simulation (Panel 3)` |
+| **CPUE vs Biomass** | Correlation and decoupling | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
 
 [See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/EDSPM_Climate_Simulation/EDSPM_Climate_Simulation.ipynb).
 
@@ -230,14 +230,13 @@ It does not represent official stock assessment data and is intended for methodo
 ## 📸 Static Previews
 
 **Temperature-Dependent Growth (EDSPM)**  
-![growth_rate_vs_temp](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png)
+![Temperature-Dependent Growth (EDSPM)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png)
 
 **Simulated Biomass Under Two Scenarios**  
-![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)
 - **Panel 1 – Simulated Biomass Under Two Scenarios**
 - **Panel 2 – % Change in Biomass Due to Warming**
 - **Panel 3 – Environmental Effect Index E(t)**
-
+![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)
 
 **CPUE vs Biomass Relationship**  
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
