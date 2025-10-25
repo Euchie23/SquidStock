@@ -8,7 +8,7 @@ This notebook advances the *SquidStock* analytical series by standardizing and m
 
 This module develops a robust, reproducible workflow for CPUE standardization of Illex argentinus over a 20-year subset (January – June each year), chosen for consistent data coverage and comparability. Missing environmental data (Chl-a, SSH, Depth) were addressed via linear interpolation, preserving natural seasonal trends.
 
-Overall Outcome:
+Overall Outcome:<br>
 Standardized CPUE reveals consistent biological patterns that are largely decoupled from fishing effort, with recurrent seasonal peaks (March–May) and multi-year cycles (~8 years) likely linked to ecological or oceanographic drivers. Flexible, distribution-aware models (GammaGAM and TweedieRegressor) reliably capture these dynamics, with Tweedie providing the best predictive accuracy and GammaGAM offering interpretable fits.
 
 ### 🔍 Key Insights
