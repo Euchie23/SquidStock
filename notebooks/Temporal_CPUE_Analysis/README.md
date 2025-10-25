@@ -1,7 +1,11 @@
 # 🗺️ The Navigation Course — Temporal CPUE Analysis
 
-## 📘 Executive Summary
 This notebook serves as the **first step in the analysis pipeline**, aimed at understanding the structure, distribution, and temporal dynamics of the raw dataset before applying statistical models. It does so by exploring temporal dynamics in *Illex argentinus* catch data (2000–2020), and introduces clean, reproducible workflows to analyze Catch Per Unit Effort (CPUE), track inter-annual shifts, and link them to environmental drivers such as sea Water Temperature, and fishing depth.
+
+
+## 📘 Executive Summary
+
+Temporal CPUE patterns reveal that squid catches are largely shaped by biological cycles and environmental conditions. Seasonal peaks from March to June align with migration and spawning behavior, while declining mean CPUE after 2014, alongside increasing water temperatures and deeper fishing depths, suggest that squid are shifting vertically and possibly experiencing stock stress, rather than changes being driven by fishing effort alone.
 
 Key insights include:
 
