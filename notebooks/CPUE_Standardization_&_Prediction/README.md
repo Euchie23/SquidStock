@@ -6,13 +6,10 @@ This notebook advances the *SquidStock* analytical series by standardizing and m
 
 ## 📘 Executive Summary
 
-This module develops a **robust, reproducible workflow** for CPUE standardization using a 20-year subset (**January – June each year**).  
-These months were selected for their **consistent data coverage** across all years, ensuring comparability and avoiding partial-year bias.
+This module develops a robust, reproducible workflow for CPUE standardization of Illex argentinus over a 20-year subset (January – June each year), chosen for consistent data coverage and comparability. Missing environmental data (Chl-a, SSH, Depth) were addressed via linear interpolation, preserving natural seasonal trends.
 
-To address missing satellite-derived environmental data (Chl-a, SSH, Depth), **linear interpolation** was applied — filling temporal gaps while preserving natural monthly trends.  
-Linear interpolation estimates missing values between two known points using a straight-line assumption, making it transparent and appropriate for smooth, seasonal environmental data.
-
-A notable finding in the CPUE time series is the presence of a recurring peak approximately every eight years, followed by a downward trend and variability. Such multi-year cycles may reflect ecological or oceanographic drivers (e.g., species life-history patterns, climate oscillations), but further investigation with independent data is required before confirming causation.
+Overall Outcome:
+Standardized CPUE reveals consistent biological patterns that are largely decoupled from fishing effort, with recurrent seasonal peaks (March–May) and multi-year cycles (~8 years) likely linked to ecological or oceanographic drivers. Flexible, distribution-aware models (GammaGAM and TweedieRegressor) reliably capture these dynamics, with Tweedie providing the best predictive accuracy and GammaGAM offering interpretable fits.
 
 ### 🔍 Key Insights
 
