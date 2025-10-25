@@ -184,7 +184,7 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 | **Environmental Index E(t)** | Seasonality under baseline vs warming | `biomass_simulation (Panel 3)` |
 | **CPUE vs Biomass** | Correlation and decoupling | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
 
-[See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/EDSPM_Climate_Simulation/EDSPM_Climate_Simulation.ipynb).
+[See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting/Biomass Forecasting.ipynb).
 
 ---
 
