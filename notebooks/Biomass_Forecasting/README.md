@@ -1,4 +1,4 @@
-# 🌊 Ocean Dynamics — Environmentally Driven Biomass Simulation (EDSPM)
+# 🌊 Ocean Dynamics — Environmentally Driven Biomass Simulation (warming scenarios)
 
 This notebook expands the *SquidStock* analytical series by linking **Illex argentinus** population dynamics to environmental variability and climate scenarios.  
 Using an **Environmentally Dependent Surplus Production Model (EDSPM)**, this module quantifies how sea temperature and primary productivity shape biomass growth, stability, and resilience under both baseline and warming conditions.
