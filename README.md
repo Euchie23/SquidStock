@@ -24,7 +24,7 @@ Though stock assessments are relatively common in finfish fisheries, they are mu
 Here’s how your work is structured, moving from exploration to deployment:
 
 | Module | Nickname | What It Does | Status | Link | App |
-|---|---|----------------|--------|----------|
+|---|---|----------------|--------|----------|---------|
 | [**Temporal Catch Analysis**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_Catch_Analysis/Temporal_Catch_Analysis.ipynb)  | *The Navigation Course* | Time-series of squid catch (CPUE) across years, with environmental summaries and trend indicators | ✅ Complete | [View README](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_CPUE_Analysis) | See overview tab in CPUE Dashboard app |
 | [**CPUE Standardization & Prediction**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb) | *Course Correction* | Normalize catch via GAM/GLM, compare prediction performance | ✅ Complete | [View README](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction)  | 🔄 In progress  |
 | [**Biomass Forecasting + Environment**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting/Biomass_Forecasting_Environment.ipynb)  | *Ocean Dynamics* | Surplus production modeling including environmental drivers (SST, SSH, Chl‑a) | ✅ Complete | [View README](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting)   | 🔄 In progress  |
