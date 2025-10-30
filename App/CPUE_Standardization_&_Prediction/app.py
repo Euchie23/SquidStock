@@ -635,10 +635,15 @@ elif page == "Predictions":
     """, unsafe_allow_html=True)
 
     # Center the button using columns
-    col1, col2, col3 = st.columns([1, 6, 1])
-    with col2:
-        if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
-            st.warning("⚠️ This app is under construction. Check back soon!")
+    st.markdown("""
+    <div style="display: flex; justify-content: center; margin-top: 1rem;">
+    """, unsafe_allow_html=True)
+    
+    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+        st.warning("⚠️ This app is under construction. Check back soon!")
+    
+    st.markdown("</div>", unsafe_allow_html=True)
+
     
     #st.markdown("</div>", unsafe_allow_html=True)
 
