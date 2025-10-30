@@ -97,6 +97,15 @@ st.markdown("""
     color: #E1EAF2 !important;        /* soft white */
 }
 
+/* Increase sidebar width */
+[data-testid="stSidebar"] {
+    width: 300px !important;   /* default is ~250px, adjust as needed */
+}
+
+[data-testid="stSidebar"] > div:first-child {
+    padding: 1.5rem !important;
+}
+
 /* Sidebar links */
 [data-testid="stSidebar"] a {
     font-size: 20px !important;
@@ -168,6 +177,13 @@ h1, .stTitle {
     border-bottom: 3px solid #FFD700 !important;
 }
 
+/* ---------------------- Centered Streamlit button ---------------------- */
+/* Center only the Ocean Dynamics button */
+#ocean-dynamics-button .stButton > button {
+    display: block !important;
+    margin: 0 auto !important;
+}
+
 /* ---------------------- DataFrames ---------------------- */
 [data-testid="stDataFrame"] {
     width: 100% !important;
@@ -220,7 +236,7 @@ st.sidebar.markdown("""
     font-size: 23px;
     font-weight: 800;
     color: #FFD700;
-    text-align: center;
+    text-align: justify;
     margin-bottom: 10px;
 ">
     Tabs:
@@ -626,12 +642,12 @@ elif page == "Predictions":
     </div>
     """, unsafe_allow_html=True)
 
-# 🔹 Centered "Coming Soon" button (functional version)
-    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
-
+# Wrap the button in a unique div
+    st.markdown("<div id='ocean-dynamics-button' style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+    
     if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
         st.warning("⚠️ This app is under construction. Check back soon!")
-
+    
     st.markdown("</div>", unsafe_allow_html=True)
 
     
