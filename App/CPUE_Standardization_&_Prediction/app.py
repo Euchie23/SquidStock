@@ -151,21 +151,14 @@ h1, .stTitle {
     margin-top: 4px !important;  /* smaller than default */
 }
             
-/* --- Remove bottom padding in main content --- */
+/* --- Main page padding fix --- */
 .block-container {
-        padding-bottom: 1rem !important;
-        margin-bottom: 1rem !important;
-    }
+    padding-top: 4rem !important;    /* pushes content lower */
+    padding-bottom: 2rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
             
-/* --- Remove top padding in main content --- */
-.block-container {
-        padding-top: 0.5rem !important;
-        margin-top: 0.5rem !important;
-    }
-            
-[data-testid="stSidebar"] * {
-        font-size: 18px !important;
-    }
 [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
     font-size: 26px !important;
         font-weight: 800 !important;
@@ -177,26 +170,33 @@ h1, .stTitle {
         line-height: 1.6 !important;
     }
 
-/* --- Make st.dataframe() appear bigger --- */
-[data-testid="stDataFrame"] {
-        transform: scale(1.15);              /* zoom in by 15% */
-        transform-origin: top left;          /* keep alignment consistent */
-        margin-bottom: 1.5rem;               /* avoid overlap after scaling */
-    }
+[data-testid="stSidebar"] > div:first-child {
+    padding-top: 1rem !important; /* small top space */
+}
 
-[data-testid="stDataFrame"] div[data-testid="stHorizontalBlock"],
-[data-testid="stDataFrame"] table,
-[data-testid="stDataFrame"] th,
-[data-testid="stDataFrame"] td {
-        font-size: 18px !important;
-        line-height: 1.5 !important;
-    }
+/* --- Make st.dataframe() more readable without breaking layout --- */
+[data-testid="stDataFrame"] {
+    width: 100% !important;
+    margin-bottom: 1.5rem !important;
+}
+
+[data-testid="stDataFrame"] table {
+    font-size: 17px !important;
+    line-height: 1.4 !important;
+    border-collapse: collapse !important;
+}
 
 [data-testid="stDataFrame"] th {
-        font-weight: 700 !important;
-        background-color: rgba(0, 31, 63, 0.7) !important;
-        color: #39FF14 !important;
-    }
+    font-weight: 700 !important;
+    background-color: rgba(0, 31, 63, 0.8) !important;
+    color: #39FF14 !important;
+    padding: 8px !important;
+}
+
+[data-testid="stDataFrame"] td {
+    color: #E1EAF2 !important;
+    padding: 6px !important;
+}
     </style>
 """, unsafe_allow_html=True)
 
