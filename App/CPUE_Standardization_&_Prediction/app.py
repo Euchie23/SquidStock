@@ -177,13 +177,6 @@ h1, .stTitle {
     border-bottom: 3px solid #FFD700 !important;
 }
 
-/* ---------------------- Centered Streamlit button ---------------------- */
-/* Center only the Ocean Dynamics button */
-#ocean-dynamics-button .stButton > button {
-    display: block !important;
-    margin: 0 auto !important;
-}
-
 /* ---------------------- DataFrames ---------------------- */
 [data-testid="stDataFrame"] {
     width: 100% !important;
@@ -211,17 +204,18 @@ header, .css-nahz7x {
 }
 
 /* ---------------------- Buttons ---------------------- */
-div.stButton > button:first-child {
+#ocean-dynamics-button .stButton > button {
+    display: block !important;
+    margin: 0 auto !important;  /* perfect centering */
     background-color: #39FF14 !important;
     color: #001f3f !important;
     font-size: 18px !important;
     font-weight: 700 !important;
     border-radius: 8px !important;
     border: none !important;
-    display: block !important;
-    margin: 0 auto !important;  /* centers the button */
+    padding: 10px 20px !important;
 }
-div.stButton > button:first-child:hover {
+#ocean-dynamics-button .stButton > button:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
@@ -643,23 +637,13 @@ elif page == "Predictions":
     """, unsafe_allow_html=True)
 
     # Center the button using columns
-    st.markdown("""
-    <div style="display: flex; justify-content: center; margin-top: 1rem;">
-        <button onclick="alert('⚠️ This app is under construction. Check back soon!')" 
-                style="
-                    background-color: #39FF14;
-                    color: #001f3f;
-                    font-size: 20px;
-                    font-weight: 700;
-                    border-radius: 8px;
-                    border: none;
-                    padding: 10px 20px;
-                    cursor: pointer;
-                ">
-            🌊 Visit Ocean Dynamics (Coming Soon)
-        </button>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div id='ocean-dynamics-button' style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+    
+    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+        st.warning("⚠️ This app is under construction. Check back soon!")
+    
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
     
 
