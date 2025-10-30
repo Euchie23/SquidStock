@@ -244,7 +244,8 @@ if page == "Overview":
 
   
 
-    video_path = "assets/animated_catch.mp4"
+    video_path = os.path.join("App", "CPUE_Standardization_&_Prediction", "assets", "animated_catch.mp4")
+
 
     with open(video_path, 'rb') as f:
         video_file = f.read()
