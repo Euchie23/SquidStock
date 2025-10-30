@@ -4,9 +4,9 @@ import streamlit as st
 
 def load_model_data():
     try:
-        model_summary = pd.read_csv("../results/summaries/model_summary.csv")
-        cv_results = pd.read_csv("../results/summaries/cv_results.csv")
-        test_results = pd.read_csv("../results/summaries/eval_results.csv")
+        model_summary = pd.read_csv("../assets/model_summary.csv")
+        cv_results = pd.read_csv("../assets/cv_results.csv")
+        test_results = pd.read_csv("../assets/eval_results.csv")
     except FileNotFoundError:
         model_summary = pd.DataFrame()
         cv_results = pd.DataFrame()
@@ -25,7 +25,7 @@ def get_model_colors():
 
 def load_monthly_cpue():
     try:
-        df = pd.read_csv("../results/summaries/Monthly_CPUE_summary.csv")
+        df = pd.read_csv("../assets/Monthly_CPUE_summary.csv")
         
         # Convert numeric month to month name (e.g., 1 → January)
         if "Month" in df.columns:
@@ -38,7 +38,7 @@ def load_monthly_cpue():
 
 def load_observed_vs_standardized():
     try:
-        merged = pd.read_csv("../results/summaries/observed_vs_standardized.csv")
+        merged = pd.read_csv("../assets/observed_vs_standardized.csv")
         colors = {
             "Observed": "#1f77b4",
             "Standardized_log_cpueC": "#ff7f0e",
@@ -52,7 +52,7 @@ def load_observed_vs_standardized():
 
 def load_residual_data():
     try:
-        data = np.load("../results/summaries/residuals_data_clean.npz", allow_pickle=True)
+        data = np.load("../assets/residuals_data_clean.npz", allow_pickle=True)
         return data["residual_dict"].item()
     except Exception as e:
         print("Error loading cleaned residuals_data:", e)
@@ -60,7 +60,7 @@ def load_residual_data():
 
 def load_prediction_data():
     try:
-        data = np.load("../results/summaries/prediction_data_clean.npz", allow_pickle=True)
+        data = np.load("../assets/prediction_data_clean.npz", allow_pickle=True)
         return data["pred_dict"].item(), data["color_dict"].item()
     except Exception as e:
         print("Error loading cleaned prediction_data:", e)
