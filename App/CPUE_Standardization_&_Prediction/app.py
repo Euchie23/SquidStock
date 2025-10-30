@@ -212,23 +212,6 @@ div.stButton > button:first-child:hover {
 </style>
 """, unsafe_allow_html=True)
 
-
-# ---------------------- Sidebar Navigation ----------------------
-st.sidebar.title(" 🧭 Course Correction")
-
-# Custom "Tabs" header in the sidebar
-st.sidebar.markdown("""
-<div style="
-    font-size: 23px;
-    font-weight: 800;
-    color: #FFD700;
-    text-align: center;
-    margin-bottom: 10px;
-">
-    Tabs:
-</div>
-""", unsafe_allow_html=True)
-
 # ---------------------- Sidebar Navigation ----------------------
 st.sidebar.title(" 🧭 Course Correction")
 # Custom "Tabs" header in the sidebar
@@ -357,9 +340,11 @@ if page == "Overview":
     - Cross-validation and residual diagnostics
 """)
     
+    st.markdown("---")
+    
     st.markdown(
     """
-    <div style='color:red; font-weight:bold; text-align:center; margin-top:10px;'>
+    <div style='color:red; font-weight:bold; font-size:20px; text-align:Justify; margin-top:10px;'>
     💡 Note: The animated map above displays <b>catch in kilograms (kg)</b> for finer spatial resolution,<br>
     while all model evaluation results in later tabs are expressed in <b>tons (t)</b> for clarity and comparability.
     </div>
@@ -649,8 +634,5 @@ elif page == "Predictions":
 
     st.markdown("</div>", unsafe_allow_html=True)
 
+    
 
-    # Streamlit button for “Coming Soon”
-    
-    
-    st.markdown("</div>", unsafe_allow_html=True)
