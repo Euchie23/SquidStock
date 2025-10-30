@@ -204,19 +204,6 @@ header, .css-nahz7x {
 }
 
 /* ---------------------- Buttons ---------------------- */
-div.stButton > button:first-child {
-    background-color: #39FF14 !important;
-    color: #001f3f !important;
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    border-radius: 8px !important;
-    border: none !important;
-    padding: 10px 20px !important;
-}
-div.stButton > button:first-child:hover {
-    background-color: #32CD32 !important;
-    color: #FFD700 !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
