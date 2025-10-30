@@ -99,7 +99,7 @@ st.markdown("""
 
 /* Increase sidebar width */
 [data-testid="stSidebar"] {
-    width: 300px !important;   /* default is ~250px, adjust as needed */
+    width: 310px !important;   /* default is ~250px, adjust as needed */
 }
 
 [data-testid="stSidebar"] > div:first-child {
@@ -642,13 +642,11 @@ elif page == "Predictions":
     </div>
     """, unsafe_allow_html=True)
 
-# Wrap the button in a unique div
-    st.markdown("<div id='ocean-dynamics-button' style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
-    
+# Center the button using columns
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
     if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
         st.warning("⚠️ This app is under construction. Check back soon!")
-    
-    st.markdown("</div>", unsafe_allow_html=True)
 
     
 
