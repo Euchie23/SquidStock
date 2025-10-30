@@ -6,7 +6,12 @@ import base64
 from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
-from utils.data_utils import (
+# Ensure Python can find the 'utils' folder
+current_dir = os.path.dirname(os.path.abspath(__file__))  # folder of app.py
+sys.path.append(os.path.join(current_dir, "utils"))
+
+
+from data_utils import (
     load_model_data,
     get_model_colors,
     load_prediction_data,
@@ -14,6 +19,10 @@ from utils.data_utils import (
     load_monthly_cpue,
     load_observed_vs_standardized
 )
+
+# Define assets folder
+assets_dir = os.path.join(current_dir, "assets")
+
 #from utils.plots_utils import plot_predictions  # wherever you put it
 
 # ---------------------- Page Configuration ----------------------
@@ -245,7 +254,7 @@ if page == "Overview":
 
   
 
-    video_path = os.path.join("App", "CPUE_Standardization_&_Prediction", "assets", "animated_catch.mp4")
+    video_path = os.path.join(assets_dir, "animated_catch.mp4")
 
 
     with open(video_path, 'rb') as f:
