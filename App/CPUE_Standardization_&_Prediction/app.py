@@ -204,9 +204,7 @@ header, .css-nahz7x {
 }
 
 /* ---------------------- Buttons ---------------------- */
-#ocean-dynamics-button .stButton > button {
-    display: block !important;
-    margin: 0 auto !important;  /* perfect centering */
+#ocean-dynamics-button button {
     background-color: #39FF14 !important;
     color: #001f3f !important;
     font-size: 18px !important;
@@ -214,8 +212,9 @@ header, .css-nahz7x {
     border-radius: 8px !important;
     border: none !important;
     padding: 10px 20px !important;
+    min-width: 220px !important;
 }
-#ocean-dynamics-button .stButton > button:hover {
+#ocean-dynamics-button button:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
@@ -636,13 +635,14 @@ elif page == "Predictions":
     </div>
     """, unsafe_allow_html=True)
 
-    # Center the button using columns
-    st.markdown("<div id='ocean-dynamics-button' style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+    # Use st.empty() to insert the button in the div
+    button_placeholder = st.empty()
     
-    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
-        st.warning("⚠️ This app is under construction. Check back soon!")
+    with button_placeholder.container():
+        if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+            st.warning("⚠️ This app is under construction. Check back soon!")
     
-    st.markdown("</div>", unsafe_allow_html=True)
+    #st.markdown("</div>", unsafe_allow_html=True)
 
 
     
