@@ -204,6 +204,20 @@ header, .css-nahz7x {
 }
 
 /* ---------------------- Buttons ---------------------- */
+/* Style all Streamlit buttons (or you can target a specific one with a class/id if needed) */
+div.stButton > button:first-child {
+    background-color: #39FF14 !important;
+    color: #001f3f !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    border: none !important;
+}
+
+div.stButton > button:first-child:hover {
+    background-color: #32CD32 !important;
+    color: #FFD700 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -621,15 +635,12 @@ elif page == "Predictions":
     </div>
     """, unsafe_allow_html=True)
 
-    # Center the button using columns
-    st.markdown("""
-    <div style="display: flex; justify-content: center; margin-top: 1rem;">
-    """, unsafe_allow_html=True)
-    
-    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
-        st.warning("⚠️ This app is under construction. Check back soon!")
-    
-    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Center using columns
+    col1, col2, col3 = st.columns([1, 2, 1])  # tweak the middle ratio if needed
+    with col2:
+        if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+            st.warning("⚠️ This app is under construction. Check back soon!")
 
     
     #st.markdown("</div>", unsafe_allow_html=True)
