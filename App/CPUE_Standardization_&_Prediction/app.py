@@ -642,11 +642,11 @@ elif page == "Predictions":
     </div>
     """, unsafe_allow_html=True)
 
-# Center the button using columns
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
-        st.warning("⚠️ This app is under construction. Check back soon!")
+    # Center the button using columns
+    col1, col2, col3 = st.columns([1, 3, 1])
+    with col2:
+        if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+            st.warning("⚠️ This app is under construction. Check back soon!")
 
     
 
