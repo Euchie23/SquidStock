@@ -4,7 +4,7 @@ import numpy as np
 import streamlit as st
 
 # get the folder containing data_utils.py
-current_dir = os.path.dirname(App/CPUE_Standardization_&_Prediction/utils)  
+current_dir = os.path.dirname(__file__)   
 
 # assets folder is a sibling of utils
 assets_dir = os.path.join(current_dir, "..", "assets") 
