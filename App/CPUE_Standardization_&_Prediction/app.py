@@ -636,11 +636,10 @@ elif page == "Predictions":
     """, unsafe_allow_html=True)
 
 
-    # Center using columns
-    col1, col2, col3 = st.columns([1, 3, 1])  # tweak the middle ratio if needed
-    with col2:
-        if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
-            st.warning("⚠️ This app is under construction. Check back soon!")
+  # Spacer to match panel look
+    st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
+    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+        st.warning("⚠️ This app is under construction. Check back soon!")
 
     
     #st.markdown("</div>", unsafe_allow_html=True)
