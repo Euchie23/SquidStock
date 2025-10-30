@@ -619,12 +619,11 @@ elif page == "Predictions":
     """)
 
 
-# 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
-# Initialize session state for the "coming soon" click
-if "show_warning" not in st.session_state:
-    st.session_state.show_warning = False
-
-# Panel with description
+    # Initialize session state for the "coming soon" click
+    if "show_warning" not in st.session_state:
+        st.session_state.show_warning = False
+    
+    # Panel with description
     st.markdown("""
     <div style="
         background-color: rgba(10, 47, 68, 0.7);
@@ -651,6 +650,7 @@ if "show_warning" not in st.session_state:
     if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
         st.session_state.show_warning = True
         st.experimental_rerun()  # re-run to show the warning above the button
+
     
         
     #st.markdown("</div>", unsafe_allow_html=True)
