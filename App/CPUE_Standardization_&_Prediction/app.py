@@ -35,180 +35,227 @@ st.set_page_config(page_title="CPUE Model Evaluation Dashboard", layout="wide")
 
 # ---------------------- Custom CSS ----------------------
 st.markdown("""
-    <style>
-    /* --- Sidebar background with coral image + navy transparent overlay --- */
-    [data-testid="stSidebar"] > div:first-child {
-        position: relative;
-        background-image: url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        min-height: 100vh;
-        color: #E1EAF2;
-    }
-    [data-testid="stSidebar"] > div:first-child::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: rgba(0, 31, 63, 0.6); /* navy transparent */
-        z-index: 0;
-    }
-    [data-testid="stSidebar"] > div:first-child > * {
-        position: relative;
-        z-index: 1;
-    }
-
-    /* --- Main app background with deep sea image + navy transparent overlay --- */
-    .stApp {
-        position: relative;
-        background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        min-height: 100vh;
-        color: #E1EAF2;
-    }
-    .stApp::before {
-        content: "";
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color: rgba(10, 47, 68, 0.7); /* navy transparent */
-        z-index: 0;
-    }
-    .stApp > * {
-        position: relative;
-        z-index: 1;
-    }
-
-    /* --- Top bar background color navy --- */
-    header, .css-nahz7x {
-        background-color: #001f3f !important;
-    }
-.sidebar-footer {
-        position: absolute;
-        bottom: 10px;
-        width: 100%;
-        padding: 10px;
-    }
-/* --- Custom font sizes and UI tweaks --- */
-/* General text, captions, and markdown (main page + sidebar) */
-.stMarkdown, .stMarkdown p, .stCaption, .stSidebar p, .stSidebar ul, .stSidebar li {
-        font-size: 18px !important;
-        color: #E1EAF2 !important;
-        line-height: 1.6 !important;
-    }
+<style>
+/* ---------------------- Sidebar ---------------------- */
+/* Sidebar background image + navy overlay */
+[data-testid="stSidebar"] > div:first-child {
+    position: relative;
+    background-image: url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #E1EAF2;
+    padding-top: 1rem !important; /* small top space */
+}
+[data-testid="stSidebar"] > div:first-child::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 31, 63, 0.6); /* navy transparent overlay */
+    z-index: 0;
+}
+[data-testid="stSidebar"] > div:first-child > * {
+    position: relative;
+    z-index: 1;
+}
 
 /* Sidebar titles and headers */
 [data-testid="stSidebar"] h1,
 [data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3 {
-        font-size: 22px !important;
-        font-weight: 700 !important;
-        color: #39FF14 !important;
-    }
-
-/* Main page titles */
-h1, .stTitle {
-        font-size: 32px !important;
-        font-weight: 800 !important;
-        color: #39FF14 !important;
-    }
-
-/* Tabs */
-.stTabs [data-baseweb="tab"] {
-        font-size: 18px !important;
-        padding: 12px 20px !important;
-        font-weight: 600 !important;
-        color: #E1EAF2 !important;
-    }
-
-.stTabs [data-baseweb="tab"][aria-selected="true"] {
-        color: #FFD700 !important;
-        border-bottom: 3px solid #FFD700 !important;
-    }
-
-/* Sidebar radio buttons (for “Sections”) */
-[data-testid="stSidebar"] label {
-        font-size: 18px !important;
-        font-weight: 600 !important;
-        color: #E1EAF2 !important;
-    }
-
-/* Links in sidebar contact block */
-[data-testid="stSidebar"] a {
-        font-size: 18px !important;
-        color: #39FF14 !important;
-    }
-/* --- Sidebar spacing + font sizes --- */
-[data-testid="stSidebar"] > div:first-child {
-        padding-top: 0px !important;
-        margin-top: 0px !important;
-    }
-            
-[data-testid="stSidebar"] h1, 
-[data-testid="stSidebar"] h2, 
-[data-testid="stSidebar"] h3 {
-    margin-top: 4px !important;  /* smaller than default */
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    color: #39FF14 !important;
+    margin-top: 4px !important;
 }
-            
-/* --- Main page padding fix --- */
+
+/* Sidebar 'Tabs' section header */
+[data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    color: #FFD700 !important; /* gold */
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+}
+
+/* Each sidebar radio button (tab option) */
+[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
+    line-height: 1.6 !important;
+}
+
+
+/* Each radio option (“Overview”, etc.) */
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
+    font-size: 20px !important;       /* tab text size */
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;        /* soft white */
+}
+
+/* Sidebar links */
+[data-testid="stSidebar"] a {
+    font-size: 20px !important;
+    color: #39FF14 !important;
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+/* ---------------------- Main panel ---------------------- */
+/* Background image + overlay */
+.stApp {
+    position: relative;
+    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #E1EAF2;
+}
+.stApp::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(10, 47, 68, 0.7); /* navy transparent */
+    z-index: 0;
+}
+.stApp > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Main page padding to fix top spacing */
 .block-container {
-    padding-top: 4rem !important;    /* pushes content lower */
+    padding-top: 4rem !important;
     padding-bottom: 2rem !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
-            
-[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
-    font-size: 26px !important;
-        font-weight: 800 !important;
-        color: #39FF14 !important;
-        margin-top: 0 !important;
-    }
-[data-testid="stSidebar"] label, [data-testid="stSidebar"] a, [data-testid="stSidebar"] li {
-        font-size: 18px !important;
-        line-height: 1.6 !important;
-    }
 
-[data-testid="stSidebar"] > div:first-child {
-    padding-top: 1rem !important; /* small top space */
+/* Main page titles */
+h1, .stTitle {
+    font-size: 34px !important;
+    font-weight: 800 !important;
+    color: #39FF14 !important;
 }
 
-/* --- Make st.dataframe() more readable without breaking layout --- */
+/* Markdown bullet points & lists */
+.stMarkdown, .stMarkdown p, .stMarkdown ul, .stMarkdown ol, .stMarkdown li, .stCaption {
+    font-size: 20px !important;
+    line-height: 1.8 !important;
+    color: #E1EAF2 !important;
+}
+
+/* ---------------------- Tabs in main panel ---------------------- */
+.stTabs [data-baseweb="tab"] {
+    font-size: 20px !important;
+    padding: 12px 20px !important;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
+}
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    color: #FFD700 !important;
+    border-bottom: 3px solid #FFD700 !important;
+}
+
+/* ---------------------- DataFrames ---------------------- */
 [data-testid="stDataFrame"] {
     width: 100% !important;
     margin-bottom: 1.5rem !important;
 }
-
 [data-testid="stDataFrame"] table {
-    font-size: 17px !important;
+    font-size: 19px !important;
     line-height: 1.4 !important;
     border-collapse: collapse !important;
 }
-
 [data-testid="stDataFrame"] th {
     font-weight: 700 !important;
     background-color: rgba(0, 31, 63, 0.8) !important;
     color: #39FF14 !important;
     padding: 8px !important;
 }
-
 [data-testid="stDataFrame"] td {
     color: #E1EAF2 !important;
     padding: 6px !important;
 }
-    </style>
+
+/* ---------------------- Top bar ---------------------- */
+header, .css-nahz7x {
+    background-color: #001f3f !important;
+}
+
+/* ---------------------- Buttons ---------------------- */
+div.stButton > button:first-child {
+    background-color: #39FF14 !important;
+    color: #001f3f !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    display: block !important;
+    margin: 0 auto !important;  /* centers the button */
+}
+div.stButton > button:first-child:hover {
+    background-color: #32CD32 !important;
+    color: #FFD700 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+# ---------------------- Sidebar Navigation ----------------------
+st.sidebar.title(" 🧭 Course Correction")
+
+# Custom "Tabs" header in the sidebar
+st.sidebar.markdown("""
+<div style="
+    font-size: 23px;
+    font-weight: 800;
+    color: #FFD700;
+    text-align: center;
+    margin-bottom: 10px;
+">
+    Tabs:
+</div>
 """, unsafe_allow_html=True)
 
 # ---------------------- Sidebar Navigation ----------------------
 st.sidebar.title(" 🧭 Course Correction")
-page = st.sidebar.radio("Sections", [
-    "Overview",
-    "Model Comparison",
-    "Evaluation Metrics",
-    "Residual Analysis",
-    "Predictions"
-])
+# Custom "Tabs" header in the sidebar
+st.sidebar.markdown("""
+<div style="
+    font-size: 23px;
+    font-weight: 800;
+    color: #FFD700;
+    text-align: center;
+    margin-bottom: 10px;
+">
+    Tabs:
+</div>
+""", unsafe_allow_html=True)
+
+# Radio with a hidden label (keeps accessibility happy)
+page = st.sidebar.radio(
+    label="Select page",       # non-empty required
+    options=[
+        "Overview",
+        "Model Comparison",
+        "Evaluation Metrics",
+        "Residual Analysis",
+        "Predictions"
+    ],
+    label_visibility="collapsed"  # hides the label visually
+)
 
 st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
 
@@ -320,38 +367,25 @@ if page == "Overview":
     unsafe_allow_html=True
 )
 
-    st.markdown("""
-    <hr style="border: 1px solid rgba(255,255,255,0.2); margin-top: 2rem; margin-bottom: 1rem;">
-    
-    <div style="
-        background-color: rgba(0, 31, 63, 0.6);
-        padding: 1.2rem;
-        border-radius: 10px;
-        color: #E1EAF2;
-        font-size: 18px;
-        line-height: 1.6;
-    ">
-        <!-- Title centered -->
-        <div style="text-align: center; font-weight: bold; font-size: 20px; margin-bottom: 1rem;">
-            ⚓ Continue Your Journey
-        </div>
-    
-        <!-- Content justified -->
-        <div style="text-align: justify;">
-            If you'd like to learn more about the methods, models, and datasets used in this stage of the voyage:<br>
-            👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/App/CPUE_Standardization_%26_Prediction" 
-               target="_blank" style="color:#39FF14; font-weight:bold; text-decoration: underline;">
-               View the CPUE Standardization Project README
-            </a><br><br>
-    
-            Or, explore the entire <b>SquidStock Expedition</b> — see how this stage connects to the full storyline:<br>
-            🌊 <a href="https://github.com/Euchie23/SquidStock" 
-               target="_blank" style="color:#FFD700; font-weight:bold; text-decoration: underline;">
-               Visit the Main Repository
-            </a>
-        </div>
+    st.markdown("---")
+
+    # ⚓ Centered title
+    st.markdown(
+        "<h3 style='text-align: center; color: #E1EAF2;'>⚓ Continue Your Journey</h3>",
+        unsafe_allow_html=True
+    )
+
+    # 💬 Justified body with both working links
+    html_links = """
+    <div style="text-align: center; color: #E1EAF2; font-size: 20px; line-height: 1.6;">
+    If you'd like to learn more about the methods, models, and datasets used in this stage of the voyage:<br>
+    👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/notebooks/CPUE_Standardization_%26_Prediction" target="_blank" style="color:#39FF14; font-weight:bold; text-decoration: underline;">View the CPUE Standardization Project README</a><br><br>
+    Or, explore the entire <b>SquidStock Expedition</b> — see how this stage connects to the full storyline:<br>
+    🌊 <a href="https://github.com/Euchie23/SquidStock" target="_blank" style="color:#FFD700; font-weight:bold; text-decoration: underline;">Visit the SquidStock Repository</a>
     </div>
-    """, unsafe_allow_html=True)
+    """
+
+    st.markdown(html_links, unsafe_allow_html=True)
 
 
 
@@ -591,7 +625,7 @@ elif page == "Predictions":
     """)
 
 
-    # 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
+# 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
     st.markdown("""
     <div style="
         background-color: rgba(10, 47, 68, 0.7);
@@ -602,12 +636,21 @@ elif page == "Predictions":
         font-size: 18px;
         margin-top: 2rem;
     ">
-        🐙 Next Stage: <b>Ocean Dynamics – Surplus Production & Biomass Estimation</b><br>
-        Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl‑a drivers.<br><br>
+        🐙 <b>Next Stage:</b> Ocean Dynamics – Surplus Production & Biomass Estimation<br>
+        Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl-a drivers.
+    </div>
     """, unsafe_allow_html=True)
-    
-    # Streamlit button for “Coming Soon”
-    if st.button("Visit this app (Coming Soon)"):
+
+# 🔹 Centered "Coming Soon" button (functional version)
+    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+
+    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
         st.warning("⚠️ This app is under construction. Check back soon!")
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+    # Streamlit button for “Coming Soon”
+    
     
     st.markdown("</div>", unsafe_allow_html=True)
