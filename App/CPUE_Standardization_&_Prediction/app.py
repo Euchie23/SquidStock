@@ -620,56 +620,39 @@ elif page == "Predictions":
 
 
 # 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
- # Create a placeholder so you can update it later
-warning_placeholder = st.empty()
+# Initialize session state for the "coming soon" click
+if "show_warning" not in st.session_state:
+    st.session_state.show_warning = False
 
-# Panel with description + fake clickable link
-st.markdown("""
-<div style="
-    background-color: rgba(10, 47, 68, 0.7);
-    padding: 1rem;
-    border-radius: 10px;
-    text-align: center;
-    color: #FFD700;
-    font-size: 18px;
-    margin-top: 2rem;
-">
-    🐙 <b>Next Stage:</b> Ocean Dynamics – Surplus Production & Biomass Estimation<br>
-    Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl-a drivers.
-    <br><br>
-    <a href="#" id="ocean-link" style="
-        background-color: #004e75;
-        color: white;
-        padding: 0.6rem 1.2rem;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: bold;
-        display: inline-block;
-        transition: background 0.3s;
-    ">🌊 Visit Ocean Dynamics (Coming Soon)</a>
-</div>
-
-<script>
-const link = window.parent.document.querySelector('#ocean-link');
-if (link) {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.parent.postMessage({ type: 'SHOW_WARNING' }, '*');
-    });
-}
-</script>
-""", unsafe_allow_html=True)
-
-# Listen for the click event
-clicked = st.experimental_get_query_params().get("clicked", [None])[0]
-if clicked == "1":
-    st.warning("⚠️ This app is under construction. Check back soon!")
-
-# Workaround for JS -> Python communication (Streamlit limitation)
-# So we simulate it by showing a persistent warning placeholder
-warning_placeholder.warning("⚠️ Ocean Dynamics is under construction. Check back soon!")
-
+# Panel with description
+    st.markdown("""
+    <div style="
+        background-color: rgba(10, 47, 68, 0.7);
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        color: #FFD700;
+        font-size: 18px;
+        margin-top: 2rem;
+    ">
+        🐙 <b>Next Stage:</b> Ocean Dynamics – Surplus Production & Biomass Estimation<br>
+        Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl-a drivers.
+    </div>
+    """, unsafe_allow_html=True)
     
+    # Spacer
+    st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
+    
+    # Show warning if link clicked
+    if st.session_state.show_warning:
+        st.warning("⚠️ This app is under construction. Check back soon!")
+    
+    # Create the clickable link as a button
+    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+        st.session_state.show_warning = True
+        st.experimental_rerun()  # re-run to show the warning above the button
+    
+        
     #st.markdown("</div>", unsafe_allow_html=True)
 
 
