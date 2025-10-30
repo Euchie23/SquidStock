@@ -320,6 +320,32 @@ if page == "Overview":
     unsafe_allow_html=True
 )
 
+# 🌐 Additional links section (at the end of the intro)
+st.markdown("""
+<hr style="border: 1px solid rgba(255,255,255,0.2); margin-top: 2rem; margin-bottom: 1rem;">
+
+<div style="
+    background-color: rgba(0, 31, 63, 0.6);
+    padding: 1.2rem;
+    border-radius: 10px;
+    text-align: center;
+    color: #E1EAF2;
+    font-size: 18px;
+    line-height: 1.6;
+">
+    ⚓ <b>Continue Your Journey</b><br><br>
+
+    If you'd like to learn more about the methods, models, and datasets used in this stage of the voyage:<br>
+    👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/App/CPUE_Standardization_%26_Prediction" target="_blank" style="color:#39FF14; font-weight:bold;">
+    View the CPUE Standardization Project README</a><br><br>
+
+    Or, explore the entire <b>SquidStock Expedition</b> — see how this stage connects to the full storyline:<br>
+    🌊 <a href="https://github.com/Euchie23/SquidStock" target="_blank" style="color:#FFD700; font-weight:bold;">
+    Visit the Main Repository</a>
+</div>
+""", unsafe_allow_html=True)
+
+
 elif page == "Model Comparison":
     st.header("🔍 Model Comparison Table")
     
