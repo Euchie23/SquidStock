@@ -204,7 +204,7 @@ header, .css-nahz7x {
 }
 
 /* ---------------------- Buttons ---------------------- */
-#ocean-dynamics-button button {
+div.stButton > button:first-child {
     background-color: #39FF14 !important;
     color: #001f3f !important;
     font-size: 18px !important;
@@ -212,9 +212,8 @@ header, .css-nahz7x {
     border-radius: 8px !important;
     border: none !important;
     padding: 10px 20px !important;
-    min-width: 220px !important;
 }
-#ocean-dynamics-button button:hover {
+div.stButton > button:first-child:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
@@ -635,10 +634,9 @@ elif page == "Predictions":
     </div>
     """, unsafe_allow_html=True)
 
-    # Use st.empty() to insert the button in the div
-    button_placeholder = st.empty()
-    
-    with button_placeholder.container():
+    # Center the button using columns
+    col1, col2, col3 = st.columns([1, 6, 1])
+    with col2:
         if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
             st.warning("⚠️ This app is under construction. Check back soon!")
     
