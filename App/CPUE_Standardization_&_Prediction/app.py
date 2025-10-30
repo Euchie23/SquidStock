@@ -8,9 +8,9 @@ from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
 # Ensure Python can find the 'utils' folder
-current_dir = os.path.dirname(os.path.abspath(__file__))  # folder of app.py
-sys.path.append(os.path.join(current_dir, "utils"))
-
+current_dir = os.path.dirname(os.path.abspath(__file__))      # folder containing app.py
+utils_dir = os.path.join(current_dir, "utils")                # path to utils/
+sys.path.insert(0, utils_dir)                                 # add utils/ to import search path
 
 from data_utils import (
     load_model_data,
