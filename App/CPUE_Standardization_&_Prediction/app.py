@@ -244,7 +244,11 @@ if page == "Overview":
 
   
 
-    video_file = open('assets/animated_catch.mp4', 'rb').read()
+    current_dir = os.path.dirname(__file__)  # folder containing app.py
+    video_path = os.path.join(current_dir, 'assets', 'animated_catch.mp4')
+
+    with open(video_path, 'rb') as f:
+    video_file = f.read()
     video_html = f"""
     <div style="
         display: flex;
