@@ -336,14 +336,19 @@ st.markdown("""
     ⚓ <b>Continue Your Journey</b><br><br>
 
     If you'd like to learn more about the methods, models, and datasets used in this stage of the voyage:<br>
-    👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/App/CPUE_Standardization_%26_Prediction" target="_blank" style="color:#39FF14; font-weight:bold;">
-    View the CPUE Standardization Project README</a><br><br>
+    👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/App/CPUE_Standardization_%26_Prediction" 
+       target="_blank" style="color:#39FF14; font-weight:bold; text-decoration: underline;">
+       View the CPUE Standardization Project README
+    </a><br><br>
 
     Or, explore the entire <b>SquidStock Expedition</b> — see how this stage connects to the full storyline:<br>
-    🌊 <a href="https://github.com/Euchie23/SquidStock" target="_blank" style="color:#FFD700; font-weight:bold;">
-    Visit the Main Repository</a>
+    🌊 <a href="https://github.com/Euchie23/SquidStock" 
+       target="_blank" style="color:#FFD700; font-weight:bold; text-decoration: underline;">
+       Visit the Main Repository
+    </a>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 elif page == "Model Comparison":
@@ -581,3 +586,24 @@ elif page == "Predictions":
     for monitoring *Illex argentinus* stock productivity under environmental change.
     """)
 
+
+# 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
+st.markdown("""
+<div style="
+    background-color: rgba(10, 47, 68, 0.7);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    color: #FFD700;
+    font-size: 18px;
+    margin-top: 2rem;
+">
+    🐙 Next Stage: <b>Ocean Dynamics – Surplus Production & Biomass Estimation</b><br>
+    Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl‑a drivers.<br><br>
+""", unsafe_allow_html=True)
+
+# Streamlit button for “Coming Soon”
+if st.button("Visit this app (Coming Soon)"):
+    st.warning("⚠️ This app is under construction. Check back soon!")
+
+st.markdown("</div>", unsafe_allow_html=True)
