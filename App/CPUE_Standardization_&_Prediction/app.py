@@ -320,7 +320,6 @@ if page == "Overview":
     unsafe_allow_html=True
 )
 
-    # 🌐 Additional links section (justified text with clickable links)
     st.markdown("""
     <hr style="border: 1px solid rgba(255,255,255,0.2); margin-top: 2rem; margin-bottom: 1rem;">
     
@@ -328,27 +327,31 @@ if page == "Overview":
         background-color: rgba(0, 31, 63, 0.6);
         padding: 1.2rem;
         border-radius: 10px;
-        text-align: justify;
         color: #E1EAF2;
         font-size: 18px;
         line-height: 1.6;
     ">
-        <p>⚓ <b>Continue Your Journey</b></p>
+        <!-- Title centered -->
+        <div style="text-align: center; font-weight: bold; font-size: 20px; margin-bottom: 1rem;">
+            ⚓ Continue Your Journey
+        </div>
     
-        <p>If you'd like to learn more about the methods, models, and datasets used in this stage of the voyage:</p>
-        <p>👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/App/CPUE_Standardization_%26_Prediction" 
-           target="_blank" style="color:#39FF14; font-weight:bold; text-decoration: underline;">
-           View the CPUE Standardization Project README
-        </a></p>
+        <!-- Content justified -->
+        <div style="text-align: justify;">
+            If you'd like to learn more about the methods, models, and datasets used in this stage of the voyage:<br>
+            👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/App/CPUE_Standardization_%26_Prediction" 
+               target="_blank" style="color:#39FF14; font-weight:bold; text-decoration: underline;">
+               View the CPUE Standardization Project README
+            </a><br><br>
     
-        <p>Or, explore the entire <b>SquidStock Expedition</b> — see how this stage connects to the full storyline:</p>
-        <p>🌊 <a href="https://github.com/Euchie23/SquidStock" 
-           target="_blank" style="color:#FFD700; font-weight:bold; text-decoration: underline;">
-           Visit the Main Repository
-        </a></p>
+            Or, explore the entire <b>SquidStock Expedition</b> — see how this stage connects to the full storyline:<br>
+            🌊 <a href="https://github.com/Euchie23/SquidStock" 
+               target="_blank" style="color:#FFD700; font-weight:bold; text-decoration: underline;">
+               Visit the Main Repository
+            </a>
+        </div>
     </div>
     """, unsafe_allow_html=True)
-
 
 
 
