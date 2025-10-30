@@ -637,7 +637,7 @@ elif page == "Predictions":
 
 
     # Center using columns
-    col1, col2, col3 = st.columns([1, 2, 1])  # tweak the middle ratio if needed
+    col1, col2, col3 = st.columns([1, 3, 1])  # tweak the middle ratio if needed
     with col2:
         if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
             st.warning("⚠️ This app is under construction. Check back soon!")
