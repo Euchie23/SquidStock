@@ -1,18 +1,28 @@
-import os
-import sys
-import streamlit as st
+# ---------------- Standard Library ----------------
+import base64
+import io
+import json
+import time
+from datetime import datetime
+
+# ---------------- Third-Party Libraries ----------------
+import gspread
 import numpy as np
 import pandas as pd
-import base64
-from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
+import streamlit as st
+from google.oauth2.service_account import Credentials
+from PIL import Image
+
+# ---------------- Local/Project Imports ----------------
+
 # Ensure Python can find the 'utils' folder
 current_dir = os.path.dirname(os.path.abspath(__file__))      # folder containing app.py
 utils_dir = os.path.join(current_dir, "utils")                # path to utils/
 sys.path.insert(0, utils_dir)                                 # add utils/ to import search path
 
-from data_utils import (
+from utils.data_utils import (
     load_model_data,
     get_model_colors,
     load_prediction_data,
@@ -20,7 +30,6 @@ from data_utils import (
     load_monthly_cpue,
     load_observed_vs_standardized
 )
-
 # Define assets folder
 assets_dir = os.path.join(current_dir, "assets")
 
@@ -31,28 +40,32 @@ st.set_page_config(page_title="CPUE Model Evaluation Dashboard", layout="wide")
 
 
 
-
-
 # ---------------------- Custom CSS ----------------------
 st.markdown("""
 <style>
+
 /* ---------------------- Sidebar ---------------------- */
 /* Sidebar background image + navy overlay */
 [data-testid="stSidebar"] > div:first-child {
-    position: relative;
+    position: fixed; /* 🧭 Keeps sidebar fixed in place */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto; /* 🧭 Sidebar scrolls independently */
     background-image: url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    width: inherit;
     min-height: 100vh;
     color: #E1EAF2;
-    padding-top: 1rem !important; /* small top space */
+    padding-top: 1rem !important;
 }
 [data-testid="stSidebar"] > div:first-child::before {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0, 31, 63, 0.6); /* navy transparent overlay */
+    background-color: rgba(0, 31, 63, 0.6);
     z-index: 0;
 }
 [data-testid="stSidebar"] > div:first-child > * {
@@ -74,7 +87,7 @@ st.markdown("""
 [data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
     font-size: 25px !important;
     font-weight: 800 !important;
-    color: #FFD700 !important; /* gold */
+    color: #FFD700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
     text-align: center !important;
@@ -89,21 +102,11 @@ st.markdown("""
     line-height: 1.6 !important;
 }
 
-
 /* Each radio option (“Overview”, etc.) */
 [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
-    font-size: 20px !important;       /* tab text size */
+    font-size: 20px !important;
     font-weight: 600 !important;
-    color: #E1EAF2 !important;        /* soft white */
-}
-
-/* Increase sidebar width */
-[data-testid="stSidebar"] {
-    width: 310px !important;   /* default is ~250px, adjust as needed */
-}
-
-[data-testid="stSidebar"] > div:first-child {
-    padding: 1.5rem !important;
+    color: #E1EAF2 !important;
 }
 
 /* Sidebar links */
@@ -135,7 +138,7 @@ st.markdown("""
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(10, 47, 68, 0.7); /* navy transparent */
+    background-color: rgba(10, 47, 68, 0.7);
     z-index: 0;
 }
 .stApp > * {
@@ -143,29 +146,36 @@ st.markdown("""
     z-index: 1;
 }
 
-/* Main page padding to fix top spacing */
+/* 🧭 Make main content scrollable while sidebar stays fixed */
 .block-container {
+    overflow-y: auto !important;
+    height: 100vh !important;
     padding-top: 4rem !important;
     padding-bottom: 2rem !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
 
-/* Main page titles */
+/* 🧭 Ensure main panel starts beside sidebar */
+section[data-testid="stSidebar"] + div {
+    margin-left: 18rem; /* Adjust to your sidebar width */
+}
+
+/* ---------------------- Titles ---------------------- */
 h1, .stTitle {
     font-size: 34px !important;
     font-weight: 800 !important;
     color: #39FF14 !important;
 }
 
-/* Markdown bullet points & lists */
+/* Markdown text */
 .stMarkdown, .stMarkdown p, .stMarkdown ul, .stMarkdown ol, .stMarkdown li, .stCaption {
     font-size: 20px !important;
     line-height: 1.8 !important;
     color: #E1EAF2 !important;
 }
 
-/* ---------------------- Tabs in main panel ---------------------- */
+/* ---------------------- Tabs ---------------------- */
 .stTabs [data-baseweb="tab"] {
     font-size: 20px !important;
     padding: 12px 20px !important;
@@ -204,7 +214,6 @@ header, .css-nahz7x {
 }
 
 /* ---------------------- Buttons ---------------------- */
-/* Style all Streamlit buttons (or you can target a specific one with a class/id if needed) */
 div.stButton > button:first-child {
     background-color: #39FF14 !important;
     color: #001f3f !important;
@@ -212,8 +221,9 @@ div.stButton > button:first-child {
     font-weight: 700 !important;
     border-radius: 8px !important;
     border: none !important;
+    display: block !important;
+    margin: 0 auto !important;
 }
-
 div.stButton > button:first-child:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
@@ -221,8 +231,19 @@ div.stButton > button:first-child:hover {
 </style>
 """, unsafe_allow_html=True)
 
+
 # ---------------------- Sidebar Navigation ----------------------
 st.sidebar.title(" 🧭 Course Correction")
+
+tabs = [
+    "Overview",
+    "Model Comparison",
+    "Evaluation Metrics",
+    "Residual Analysis",
+    "Predictions",
+    "Logbook"  # add logbook tab
+]
+
 # Custom "Tabs" header in the sidebar
 st.sidebar.markdown("""
 <div style="
@@ -236,18 +257,219 @@ st.sidebar.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Radio with a hidden label (keeps accessibility happy)
-page = st.sidebar.radio(
-    label="Select page",       # non-empty required
-    options=[
-        "Overview",
-        "Model Comparison",
-        "Evaluation Metrics",
-        "Residual Analysis",
-        "Predictions"
-    ],
-    label_visibility="collapsed"  # hides the label visually
-)
+
+# ---------------------- Sidebar ----------------------
+# ---------------- Page Selection ----------------
+page = st.sidebar.radio("Select page", tabs, label_visibility="collapsed")
+st.session_state.page = page
+
+
+# ---------------- Initialize Session State ----------------
+if "notes" not in st.session_state:
+    st.session_state.notes = {tab: [] for tab in tabs if tab != "Logbook"}
+
+if "note_input" not in st.session_state:
+    st.session_state.note_input = ""
+
+if "edit_mode" not in st.session_state:
+    st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
+
+if "delete_confirm" not in st.session_state:
+    st.session_state.delete_confirm = {}
+
+if "notes_expanded" not in st.session_state:
+    st.session_state.notes_expanded = False  # collapsed by default
+
+# if "all_notes_text" not in st.session_state:
+#     st.session_state["all_notes_text"] = ""
+
+
+# ---------------- Notes Panel ----------------
+if page != "Logbook":
+    with st.sidebar:
+        # --- Divider Line ---
+        st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
+        st.markdown("### 🗒️ Notes Panel")
+        with st.expander(
+            f"💬 Notes for {page}",
+            expanded=st.session_state.notes_expanded
+        ):
+            note_text = st.text_area(
+                "Write your note here:",
+                value=st.session_state.note_input,
+                key="note_input",
+                height=150,
+                placeholder="Type your note..."
+            )
+
+            # 💾 Save Button
+            if st.button("💾 Save Note", key=f"save_{page}"):
+                content = st.session_state.note_input.strip()
+                if content:
+                    # If editing an existing note
+                    if (
+                        st.session_state.edit_mode["active"]
+                        and st.session_state.edit_mode["tab"] == page
+                    ):
+                        idx = st.session_state.edit_mode["index"]
+                        st.session_state.notes[page][idx] = content
+                        st.toast(f"✏️ Note updated in {page}!", icon="✏️")
+                        st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
+                    else:
+                        st.session_state.notes[page].append(content)
+                        st.toast(f"✅ Note saved to {page}!")
+                else:
+                    st.toast("⚠️ Nothing to save (note is empty).")
+
+    # 🔹 Keep expander open if user is editing or typing
+    st.session_state.notes_expanded = (
+        bool(st.session_state.note_input.strip())
+        or st.session_state.edit_mode["active"]
+    )
+
+
+# ---------------- Logbook ----------------
+else:
+    st.title("📔 Logbook")
+
+    notes_exist = any(st.session_state.notes[tab] for tab in st.session_state.notes)
+    if not notes_exist:
+        st.info("No notes yet. Go to any tab to add some notes!")
+    else:
+        for tab_name, notes in st.session_state.notes.items():
+            if not notes:
+                continue
+
+            with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
+                for i, note in enumerate(notes):
+                    col1, col2, col3 = st.columns([6, 1, 1])
+
+                    with col1:
+                        st.markdown(f"- {note}")
+
+                    with col2:
+                        # ✏️ Edit button
+                        if st.button("✏️", key=f"edit_{tab_name}_{i}"):
+                            st.session_state.note_input = note
+                            st.session_state.edit_mode = {
+                                "active": True,
+                                "tab": tab_name,
+                                "index": i,
+                            }
+                            st.toast(f"✏️ Go back to **{tab_name}** tab to edit this note.")
+
+                    with col3:
+                        # 🗑 Delete button
+                        delete_key = f"{tab_name}_{i}"
+                        if not st.session_state.delete_confirm.get(delete_key, False):
+                            if st.button("🗑", key=f"delete_{tab_name}_{i}"):
+                                st.session_state.delete_confirm[delete_key] = True
+                        else:
+                            c1, c2 = st.columns(2)
+                            with c1:
+                                if st.button("✅", key=f"confirm_del_{tab_name}_{i}"):
+                                    del st.session_state.notes[tab_name][i]
+                                    st.session_state.delete_confirm.pop(delete_key, None)
+                                    st.toast(f"🗑 Deleted note {i+1} from {tab_name}")
+                                    st.rerun()
+                            with c2:
+                                if st.button("❌", key=f"cancel_del_{tab_name}_{i}"):
+                                    st.session_state.delete_confirm[delete_key] = False
+
+
+    
+
+    # 🧾 Final Observation Section
+    st.subheader("🧾 Final Observation")
+    if "final_observation" not in st.session_state:
+        st.session_state.final_observation = ""
+
+    st.session_state.final_observation = st.text_area(
+        "Write your final observation here:",
+        value=st.session_state.final_observation,
+        height=150,
+        placeholder="Summarize your findings or conclusions..."
+    )
+
+    st.markdown("---")
+    st.warning(
+        "⚠️ **Important:** Your notes are stored only for this session. "
+        "If you leave or refresh the app, they will be lost.\n\n"
+        "💾 Please download them to your computer if you wish to keep a copy."
+    )
+
+    # --- Step 1: Prepare content only when clicked ---
+    if st.button("🧩 Prepare Logbook for Download"):
+        all_notes_text = f"📝 FINAL OBSERVATION:\n{st.session_state.final_observation}\n\n📔 INDIVIDUAL NOTES:\n\n"
+        for tab, notes in st.session_state.notes.items():
+            if notes:
+                all_notes_text += f"{tab} ({len(notes)} notes):\n"
+                all_notes_text += "\n".join(f"- {n}" for n in notes) + "\n\n"
+
+        st.session_state.all_notes_text = all_notes_text
+        st.success("✅ Logbook is ready to download!")
+
+    # --- Step 2: Show download button only if content exists ---
+    if "all_notes_text" in st.session_state and st.session_state.all_notes_text:
+        buffer = io.BytesIO(st.session_state.all_notes_text.encode("utf-8"))
+        st.download_button(
+            label="📥 Download Logbook (.txt)",
+            data=buffer,
+            file_name="logbook.txt",
+            mime="text/plain",
+            key="logbook_download"
+        )
+
+    # 📤 Send to Host Section (appears after download)
+    
+    # --- Define the function ---
+    def send_notes_to_host(all_notes_text):
+        try:
+            # Authenticate with Google Sheets
+            creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"],  scopes=["https://www.googleapis.com/auth/spreadsheets"])
+            client = gspread.authorize(creds)
+
+            # Open the target sheet by ID (no need for an extra ["google_sheets"] key)
+            sheet = client.open_by_key("1mLnW5UHnRU8Cs5tD1NKtvr-ODlFPdFOoZi0lqXTEj10").sheet1
+
+            # Append a new anonymous submission
+            sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), all_notes_text])
+
+            return True
+        except Exception as e:
+            st.error(f"Error sending notes: {e}")
+            return False
+
+
+    # --- In your Logbook section, keep all this under the same indentation ---
+    st.markdown("---")
+    st.subheader("📤 Send to Host (Optional)")
+    st.info(
+        "🧠 By sharing your notes *anonymously*, you help the host improve their "
+        "data interpretation, statistical analysis, and app development skills.\n\n"
+        "No personal information is collected — only your text notes are shared.\n\n"
+        "*It may take a few seconds to confirm whether your notes were successfully sent to the host. Thank you for your patience 🙂*"
+    )
+
+    send_to_host = st.checkbox("Send my notes to the host (optional)")
+
+    if send_to_host:
+        if st.button("📤 Confirm & Send"):
+            # Gather all notes + final observation into one text block
+            all_notes_text = "📝 FINAL OBSERVATION:\n" + st.session_state.final_observation + "\n\n"
+            all_notes_text += "📔 INDIVIDUAL NOTES:\n\n"
+            for tab_name, notes in st.session_state.notes.items():
+                if notes:
+                    all_notes_text += f"[{tab_name}] ({len(notes)} notes):\n"
+                    all_notes_text += "\n".join(f"- {note}" for note in notes) + "\n"
+            
+            # Send to Google Sheets
+            success = send_notes_to_host(all_notes_text)
+
+            if success:
+                st.success("✅ Your notes (including final observation) were sent successfully and remain anonymous. Thank you for contributing!")
+            else:
+                st.error("❌ Failed to send notes. Please try again later.")
 
 st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
 
@@ -292,21 +514,28 @@ if page == "Overview":
 # """
 #     st.markdown(video_html, unsafe_allow_html=True)
 
-  
+    @st.cache_resource
+    def load_video(path: str):
+        """Read and encode video once per session."""
+        with open(path, "rb") as f:
+            video_bytes = f.read()
+        video_b64 = base64.b64encode(video_bytes).decode()
+        return video_b64
 
-    video_path = os.path.join(assets_dir, "animated_catch.mp4")
+    # video_path = os.path.join(assets_dir, "animated_catch.mp4")
 
 
-    with open(video_path, 'rb') as f:
-        video_file = f.read()
+    # with open(video_path, 'rb') as f:
+    #     video_file = f.read()
+    video_b64 = load_video("assets/animated_catch.mp4")
     
     video_html = f"""
     <div style="
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 0;       /* remove extra top space */
-        margin-bottom: 10px; /* keep small gap below */
+        margin-top: 0;
+        margin-bottom: 10px;
         width: 100%;
     ">
         <video 
@@ -315,19 +544,21 @@ if page == "Overview":
             muted 
             playsinline 
             style="
-                width: 100%;          /* expand almost full container */
-                max-width: 1600px;   /* allow bigger video */
+                width: 100%;
+                max-width: 1600px;
                 height: auto;
                 border-radius: 12px;
                 box-shadow: 0px 4px 20px rgba(0,0,0,0.4);
             "
         >
-            <source src="data:video/mp4;base64,{base64.b64encode(video_file).decode()}" type="video/mp4">
+            <source src="data:video/mp4;base64,{video_b64}" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
     """
+
     st.markdown(video_html, unsafe_allow_html=True)
+  
   
 
     # 🔻 Inserted CPUE color key markdown
@@ -653,7 +884,7 @@ elif page == "Predictions":
 
     
         
-    #st.markdown("</div>", unsafe_allow_html=True)
+     st.markdown("</div>", unsafe_allow_html=True)
 
 
     
