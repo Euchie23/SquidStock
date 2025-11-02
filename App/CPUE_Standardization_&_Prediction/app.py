@@ -61,13 +61,23 @@ st.markdown("""
     color: #E1EAF2;
     padding-top: 1rem !important;
 }
-[data-testid="stSidebar"] > div:first-child::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(0, 31, 63, 0.6);
-    z-index: 0;
+
+[data-testid="stSidebar"] > div:first-child {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+    width: inherit;
+    min-height: 100vh;
+    padding-top: 1rem !important;
+    color: #E1EAF2;
+    background-image:
+        linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
+        url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
 [data-testid="stSidebar"] > div:first-child > * {
     position: relative;
     z-index: 1;
@@ -466,7 +476,21 @@ else:
     
     # 🌊 Next app button
     st.markdown("---")
-    st.subheader("Next App (Coming Soon)")
+    # 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
+    st.markdown("""
+    <div style="
+        background-color: rgba(10, 47, 68, 0.7);
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        color: #FFD700;
+        font-size: 18px;
+        margin-top: 2rem;
+    ">
+        🐙 <b>Coming Soon: Ocean Dynamics!</b><br>
+        Dive into the next adventure where we explore squid Surplus Production & Biomass Estimation. 🌊<br>
+        Get ready to simulate how squid populations respond to climate warming 🌡️ using SST and Depth drivers.<br>
+        Can you predict which habitats will thrive or decline? 🧐 Stay tuned—it’s going to be an eye-opening deep-sea journey! """, unsafe_allow_html=True)
     
     # Button click triggers the warning
     if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
