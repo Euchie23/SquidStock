@@ -8,6 +8,7 @@ current_dir = os.path.dirname(__file__)              # folder containing this sc
 assets_dir = os.path.join(current_dir, "..", "assets")  # go up one folder, then into assets
 
 # --- Load model summaries ---
+@st.cache_data
 def load_model_data():
     try:
         model_summary = pd.read_csv(os.path.join(assets_dir, "model_summary.csv"))
@@ -21,6 +22,7 @@ def load_model_data():
 
 
 # --- Model color palette ---
+@st.cache_data
 def get_model_colors():
     return {
         "Actual": "#1f77b4",
@@ -32,6 +34,7 @@ def get_model_colors():
 
 
 # --- Monthly CPUE loader ---
+@st.cache_data
 def load_monthly_cpue():
     try:
         df = pd.read_csv(os.path.join(assets_dir, "Monthly_CPUE_summary.csv"))
@@ -47,6 +50,7 @@ def load_monthly_cpue():
 
 
 # --- Observed vs standardized data ---
+@st.cache_data
 def load_observed_vs_standardized():
     try:
         merged = pd.read_csv(os.path.join(assets_dir, "observed_vs_standardized.csv"))
@@ -63,6 +67,7 @@ def load_observed_vs_standardized():
 
 
 # --- Residuals data loader ---
+@st.cache_data
 def load_residual_data():
     try:
         data_path = os.path.join(assets_dir, "residuals_data_clean.npz")
@@ -74,6 +79,7 @@ def load_residual_data():
 
 
 # --- Prediction data loader ---
+@st.cache_data
 def load_prediction_data():
     try:
         data_path = os.path.join(assets_dir, "prediction_data_clean.npz")
