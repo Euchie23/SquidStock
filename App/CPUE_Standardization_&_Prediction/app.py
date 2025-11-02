@@ -228,6 +228,30 @@ div.stButton > button:first-child:hover {
 """, unsafe_allow_html=True)
 
 # ---------------------- Sidebar ----------------------
+st.sidebar.title(" 🧭 Course Correction")
+
+tabs = [
+    "Overview",
+    "Model Comparison",
+    "Evaluation Metrics",
+    "Residual Analysis",
+    "Predictions",
+    "Logbook"  # add logbook tab
+]
+
+# Custom "Tabs" header in the sidebar
+st.sidebar.markdown("""
+<div style="
+    font-size: 23px;
+    font-weight: 800;
+    color: #FFD700;
+    text-align: justify;
+    margin-bottom: 10px;
+">
+    Tabs:
+</div>
+""", unsafe_allow_html=True)
+
 # ---------------- Page Selection ----------------
 page = st.sidebar.radio("Select page", tabs, label_visibility="collapsed")
 st.session_state.page = page
