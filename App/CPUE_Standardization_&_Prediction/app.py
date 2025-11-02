@@ -524,12 +524,12 @@ if page == "Overview":
         video_b64 = base64.b64encode(video_bytes).decode()
         return video_b64
 
-    # video_path = os.path.join(assets_dir, "animated_catch.mp4")
+    video_path = os.path.join(assets_dir, "animated_catch.mp4")
 
 
     # with open(video_path, 'rb') as f:
     #     video_file = f.read()
-    video_b64 = load_video("assets/animated_catch.mp4")
+    video_b64 = load_video(video_path)
     
     video_html = f"""
     <div style="
