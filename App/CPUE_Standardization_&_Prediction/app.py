@@ -218,22 +218,35 @@ h1, .stTitle {
 header, .css-nahz7x {
     background-color: #001f3f !important;
 }
-
 /* ---------------------- Buttons ---------------------- */
-div.stButton > button:first-child {
+/* Center all Streamlit buttons and download buttons */
+div.stButton > button,
+div.stDownloadButton > button {
+    display: block !important;      /* make buttons block-level */
+    margin: 0 auto !important;      /* horizontally center */
+    text-align: center !important;  /* center the text inside the button */
+}
+
+/* Style for buttons (colors, font, radius) */
+div.stButton > button:first-child,
+div.stDownloadButton > button:first-child {
     background-color: #39FF14 !important;
     color: #001f3f !important;
     font-size: 18px !important;
     font-weight: 700 !important;
     border-radius: 8px !important;
     border: none !important;
-    display: block !important;
-    margin: 0 auto !important;
+    padding: 0.5rem 1rem !important;
+    cursor: pointer !important;
 }
-div.stButton > button:first-child:hover {
+
+/* Hover effect for buttons */
+div.stButton > button:first-child:hover,
+div.stDownloadButton > button:first-child:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
