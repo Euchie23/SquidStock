@@ -440,21 +440,28 @@ else:
     # --- Define the function ---
     def send_notes_to_host(all_notes_text):
         try:
+            # Parse the JSON string from secrets into a dictionary
+            creds_dict = json.loads(st.secrets["gcp_service_account"])
+    
             # Authenticate with Google Sheets
-            creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"],  scopes=["https://www.googleapis.com/auth/spreadsheets"])
+            creds = Credentials.from_service_account_info(
+                creds_dict,
+                scopes=["https://www.googleapis.com/auth/spreadsheets"]
+            )
             client = gspread.authorize(creds)
-
-            # Open the target sheet by ID (no need for an extra ["google_sheets"] key)
+    
+            # Open the target sheet by ID
             sheet = client.open_by_key("1mLnW5UHnRU8Cs5tD1NKtvr-ODlFPdFOoZi0lqXTEj10").sheet1
-
+    
             # Append a new anonymous submission
             sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), all_notes_text])
-
+    
             return True
+    
         except Exception as e:
-            st.error(f"Error sending notes: {e}")
+            st.error(f"❌ Error sending notes: {e}")
             return False
-
+    
 
     # --- In your Logbook section, keep all this under the same indentation ---
     st.markdown("---")
@@ -891,26 +898,6 @@ elif page == "Predictions":
     for monitoring *Illex argentinus* stock productivity under environmental change.
     """)
 
-
-    # Initialize session state for the "coming soon" click
-    if "show_warning" not in st.session_state:
-        st.session_state.show_warning = False
-    
-    # Panel with description
-    st.markdown("""
-    <div style="
-        background-color: rgba(10, 47, 68, 0.7);
-        padding: 1rem;
-        border-radius: 10px;
-        text-align: center;
-        color: #FFD700;
-        font-size: 18px;
-        margin-top: 2rem;
-    ">
-        🐙 <b>Next Stage:</b> Ocean Dynamics – Surplus Production & Biomass Estimation<br>
-        Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl-a drivers.
-    </div>
-    """, unsafe_allow_html=True)
 
 
 
