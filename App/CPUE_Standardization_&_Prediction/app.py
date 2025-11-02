@@ -126,10 +126,9 @@ st.markdown("""
 }
 
 /* ---------------------- Main panel ---------------------- */
-/* Background image + overlay */
 .stApp {
     position: relative;
-    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?auto=format&fit=crop&w=2768");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -148,19 +147,20 @@ st.markdown("""
     z-index: 1;
 }
 
-/* 🧭 Make main content scrollable while sidebar stays fixed */
+/* 🧭 Scrollable main content while sidebar stays fixed */
 .block-container {
     overflow-y: auto !important;
     height: 100vh !important;
     padding-top: 4rem !important;
     padding-bottom: 2rem !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    margin-left: 0 !important;  /* remove any hard-coded margin */
+    margin-right: 0 !important;
 }
 
-/* 🧭 Ensure main panel starts beside sidebar */
-section[data-testid="stSidebar"] + div {
-    margin-left: 18rem; /* Adjust to your sidebar width */
+/* 🧭 Main content sits right next to sidebar (auto width) */
+[data-testid="stSidebar"] + div {
+    margin-left: 18rem; /* keep if your sidebar width is 18rem, else adjust */
+    width: calc(100% - 18rem); /* ensures full width minus sidebar */
 }
 
 /* ---------------------- Titles ---------------------- */
@@ -282,9 +282,8 @@ if "delete_confirm" not in st.session_state:
 if "notes_expanded" not in st.session_state:
     st.session_state.notes_expanded = False  # collapsed by default
 
-# if "all_notes_text" not in st.session_state:
-#     st.session_state["all_notes_text"] = ""
-
+if "show_warning" not in st.session_state:
+    st.session_state.show_warning = False
 
 # ---------------- Notes Panel ----------------
 if page != "Logbook":
@@ -472,8 +471,21 @@ else:
                 st.success("✅ Your notes (including final observation) were sent successfully and remain anonymous. Thank you for contributing!")
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
+            # Spacer
+    
+    # 🌊 Next app button
+    st.markdown("---")
+    st.subheader("Next App (Coming Soon)")
+    
+    # Button click triggers the warning
+    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+        st.session_state.show_warning = True
+    
+    # Show the warning if the button was clicked
+    if st.session_state.show_warning:
+        st.warning("⚠️ This app is under construction. Check back soon!")
 
-st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+
 
 # --- Divider Line ---
 st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
@@ -871,22 +883,7 @@ elif page == "Predictions":
         Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl-a drivers.
     </div>
     """, unsafe_allow_html=True)
-    
-    # Spacer
-    st.markdown("<div style='margin-top: 1rem;'></div>", unsafe_allow_html=True)
-    
-    # Show warning if link clicked
-    if st.session_state.show_warning:
-        st.warning("⚠️ This app is under construction. Check back soon!")
-    
-    # Create the clickable link as a button
-    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
-        st.session_state.show_warning = True
-        st.experimental_rerun()  # re-run to show the warning above the button
 
-    
-        
-    st.markdown("</div>", unsafe_allow_html=True)
 
 
     
