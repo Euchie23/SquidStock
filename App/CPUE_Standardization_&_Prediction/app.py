@@ -49,16 +49,14 @@ st.markdown("""
 /* ---------------------- Sidebar ---------------------- */
 /* Sidebar background image + navy overlay */
 [data-testid="stSidebar"] > div:first-child {
-    position: fixed; /* 🧭 Keeps sidebar fixed in place */
-    top: 0;
-    left: 0;
-    bottom: 0;
-    overflow-y: auto; /* 🧭 Sidebar scrolls independently */
+    position: relative; /* changed from fixed */
+    overflow-y: auto;   /* sidebar scrolls independently */
+    height: 100vh;      /* full height */
     background-image: url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    width: inherit;
+    width: 18rem;        /* fixed width for sidebar */
     min-height: 100vh;
     color: #E1EAF2;
     padding-top: 1rem !important;
@@ -97,18 +95,12 @@ st.markdown("""
 }
 
 /* Each sidebar radio button (tab option) */
-[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
-    font-size: 20px !important;
-    font-weight: 600 !important;
-    color: #E1EAF2 !important;
-    line-height: 1.6 !important;
-}
-
-/* Each radio option (“Overview”, etc.) */
+[data-testid="stSidebar"] [data-baseweb="radio"] label div p,
 [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
     font-size: 20px !important;
     font-weight: 600 !important;
     color: #E1EAF2 !important;
+    line-height: 1.6 !important;
 }
 
 /* Sidebar links */
@@ -119,15 +111,16 @@ st.markdown("""
 
 /* Sidebar footer */
 .sidebar-footer {
-    position: absolute;
-    bottom: 10px;
+    position: relative; /* changed from absolute */
     width: 100%;
     padding: 10px;
+    margin-top: 1rem;
 }
 
 /* ---------------------- Main panel ---------------------- */
 .stApp {
     position: relative;
+    display: flex;        /* enable flex layout */
     background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?auto=format&fit=crop&w=2768");
     background-repeat: no-repeat;
     background-size: cover;
@@ -147,20 +140,21 @@ st.markdown("""
     z-index: 1;
 }
 
-/* 🧭 Scrollable main content while sidebar stays fixed */
+/* Main content scrollable */
 .block-container {
     overflow-y: auto !important;
     height: 100vh !important;
     padding-top: 4rem !important;
     padding-bottom: 2rem !important;
-    margin-left: 0 !important;  /* remove any hard-coded margin */
+    margin-left: 0 !important;  /* remove hard-coded margin */
     margin-right: 0 !important;
+    flex: 1; /* take remaining width next to sidebar */
 }
 
-/* 🧭 Main content sits right next to sidebar (auto width) */
-[data-testid="stSidebar"] + div {
-    margin-left: 18rem; /* keep if your sidebar width is 18rem, else adjust */
-    width: calc(100% - 18rem); /* ensures full width minus sidebar */
+/* Optional padding for main content so it doesn’t touch sidebar */
+.stApp > .main > div {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 /* ---------------------- Titles ---------------------- */
@@ -232,33 +226,6 @@ div.stButton > button:first-child:hover {
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-# ---------------------- Sidebar Navigation ----------------------
-st.sidebar.title(" 🧭 Course Correction")
-
-tabs = [
-    "Overview",
-    "Model Comparison",
-    "Evaluation Metrics",
-    "Residual Analysis",
-    "Predictions",
-    "Logbook"  # add logbook tab
-]
-
-# Custom "Tabs" header in the sidebar
-st.sidebar.markdown("""
-<div style="
-    font-size: 23px;
-    font-weight: 800;
-    color: #FFD700;
-    text-align: justify;
-    margin-bottom: 10px;
-">
-    Tabs:
-</div>
-""", unsafe_allow_html=True)
-
 
 # ---------------------- Sidebar ----------------------
 # ---------------- Page Selection ----------------
