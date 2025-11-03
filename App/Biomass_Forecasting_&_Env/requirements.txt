@@ -1,1 +1,21 @@
+# --- Core ---
+streamlit>=1.37.0
+pandas>=2.2.0
+numpy>=1.26.0
+matplotlib>=3.8.0
 
+# --- Optional / Interactive Plotting ---
+plotly>=5.20.0
+
+# --- For data handling (if needed later) ---
+scipy>=1.12.0
+
+# --- For text and logging features ---
+datetime
+
+# --- If you're using gspread or Google auth later for the logbook ---
+gspread>=6.0.0
+google-auth>=2.29.0
+
+# --- (Optional) Visualization aesthetics ---
+seaborn>=0.13.0
