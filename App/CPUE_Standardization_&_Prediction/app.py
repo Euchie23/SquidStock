@@ -610,27 +610,15 @@ if page == "Overview":
   
   
 
-    # 🔻 Inserted CPUE color key markdown
-    st.markdown("""
-    <div style="background-color: rgba(255, 255, 255, 0.8); padding: 1rem; border-radius: 10px; color: #000;">
-    <strong>Catch Classification Per Location (based on 2000–2020 data):</strong><br>
-    <em>Catch levels are grouped automatically into low, medium, and high categories based on the overall data distribution from 2000–2020.</em>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.title("🎣 CPUE Standardization – Model Summary")
-    st.markdown("""
-    **Objective:**
-    Standardize Monthly CPUE using environmental and spatiotemporal covariates to remove external influences, enabling fair comparison across years for trend analysis and stock assessment.
+    st.title("🎣 CPUE Standardization & Forecasting – Overview")
 
-    **Approaches Explored:**
-    - Log-transformed Generalized Additive Models (GAMs)
-    - Raw CPUE using Gamma and Tweedie distributions
-    - Cross-validation and residual diagnostics
-""")
-    
-    st.markdown("---")
-    
+    st.markdown("""
+    This interactive module is part of the **SquidStock Expedition**, focused on understanding how **environmental and spatiotemporal variability** shape the productivity of the *Argentine shortfin squid* (*Illex argentinus*) fishery between **2000–2020**.  
+
+    At the core of this analysis is the **Catch Per Unit Effort (CPUE)** — a key indicator of relative abundance, where *effort* is defined as **vessel-days** aggregated to a **monthly scale** to produce a fleet-averaged CPUE.  
+    This aggregation smooths operational noise while preserving biologically meaningful variation, providing a clear lens on how environmental changes influence catchability and stock availability.
+    """)
+
     st.markdown(
     """
     <div style='color:red; font-weight:bold; font-size:20px; text-align:Justify; margin-top:10px;'>
@@ -641,24 +629,109 @@ if page == "Overview":
     unsafe_allow_html=True
 )
 
-    st.markdown("---")
+    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    st.markdown("----")
 
-    # ⚓ Centered title
+    st.subheader("🎯 Objective")
+    st.markdown("""
+    To **standardize and model CPUE** so that trends reflect biological signals rather than confounding effects of:
+    - Fishing effort and vessel activity,
+    - Spatiotemporal variation (year, month, latitude, longitude, depth), and
+    - Environmental drivers (SST, chlorophyll-a, SSH).
+
+    > Analyses focus on **January–June**, the period with consistent fishing coverage, ensuring balanced interannual comparisons.
+    """)
+
+    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    st.markdown("----")
+
+    st.subheader("🧮 Modeling Framework")
+    st.markdown("""
+    The CPUE standardization applies a suite of nonlinear and machine-learning models to disentangle true abundance signals:
+
+    | Model | Rationale | Strength |
+    |--------|------------|-----------|
+    | **Linear GAM** | Inspired by Lu et al. (2013); interpretable and ecologically grounded. | Captures nonlinear CPUE–environment relationships. |
+    | **Gamma-GAM** | Fits right-skewed, positive-only CPUE data. | Avoids log-transform bias, maintains smooth responses. |
+    | **Tweedie Regressor (ML)** | Handles zero-inflated and sparse CPUE records. | Flexible, robust, and computationally efficient. |
+
+    These models collectively address the **nonlinear environmental sensitivity** typical of squid, while maintaining **interpretability** crucial for fisheries management.
+    """)
+
+    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    st.markdown("----")
+
+    st.subheader("🌍 Real-World Relevance")
+    st.markdown("""
+    Accurate CPUE standardization allows for:
+    - Improved **stock assessment** and catch limit setting,
+    - Insight into **climate-driven distribution shifts**, and
+    - Informed **ecosystem-based management** under warming scenarios.
+
+    By connecting statistical modeling and marine ecology, this app helps bridge the gap between **data science and decision-making** in sustainable fisheries.
+    """)
+
+    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    st.markdown("----")
+
+    st.subheader("💡 Conceptual Summary")
+    st.markdown("""
+    This model builds upon the work of **Lu et al. (2013)**:
+    > *Standardizing CPUE of Argentine shortfin squid (*Illex argentinus*) from the Taiwanese jigger fishery in the southwest Atlantic Ocean.*  
+    > *Fisheries Research, 147*, 145–154.  
+    > [https://doi.org/10.1016/j.fishres.2013.06.008](https://doi.org/10.1016/j.fishres.2013.06.008)
+
+    By leveraging **Generalized Additive Models (GAMs)** and **Tweedie regressors**, this study captures complex relationships between environment, fishing activity, and abundance — essential for predicting how squid respond to changing ocean conditions.
+    """)
+
+    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    st.markdown("----")
+
+    st.subheader("⚠️ Limitations & Caveats")
+    st.markdown("""
+    While this module provides valuable insights, several important caveats apply:
+
+    **1. Temporal Coverage**  
+    Only data from **January–June** were used due to incomplete effort records in other months.  
+    This ensures data consistency but omits potential peaks or migrations later in the year.
+
+    **2. Temporal Resolution Mismatch**  
+    - **SST** is measured **per vessel-day**, while  
+    - **Chlorophyll-a** comes from **monthly remote sensing data**.  
+    These differing resolutions can introduce temporal mismatch noise.
+
+    **3. Model Simplifications**  
+    - Assumes catchability and effort–CPUE relationships remain stable over time.  
+    - Spatial autocorrelation and fleet behavior changes are not explicitly modeled.  
+    - Environmental effects are assumed additive and smooth.
+
+    **4. Forecasting Scope**  
+    Forecasts are **short-term scenario-based** — not long-term predictions — and depend on historical trends rather than mechanistic dynamics.
+
+    **5. Biological Context**  
+    The model parameters are tuned for *Illex argentinus* in the Southwest Atlantic and may not apply directly to other cephalopods or regions.
+
+    **6. Ecological Complexity**  
+    The model does not include recruitment, prey availability, or predator effects, which are important for complete ecosystem understanding.
+    """)
+
+    st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    st.markdown("----")
+
+    # ⚓ Centered title for navigation
     st.markdown(
         "<h3 style='text-align: center; color: #E1EAF2;'>⚓ Continue Your Journey</h3>",
         unsafe_allow_html=True
     )
 
-    # 💬 Justified body with both working links
     html_links = """
     <div style="text-align: center; color: #E1EAF2; font-size: 20px; line-height: 1.6;">
-    If you'd like to learn more about the methods, models, and datasets used in this stage of the voyage:<br>
-    👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/notebooks/CPUE_Standardization_%26_Prediction" target="_blank" style="color:#39FF14; font-weight:bold; text-decoration: underline;">View the CPUE Standardization Project README</a><br><br>
-    Or, explore the entire <b>SquidStock Expedition</b> — see how this stage connects to the full storyline:<br>
+    If you'd like to dive deeper into the full methods and datasets:<br>
+    👉 <a href="https://github.com/Euchie23/SquidStock/tree/main/notebooks/CPUE_Standardization_%26_Prediction" target="_blank" style="color:#39FF14; font-weight:bold; text-decoration: underline;">Explore the CPUE Standardization Notebook</a><br><br>
+    Or continue through the broader <b>SquidStock Expedition</b> to see how environmental dynamics link to biomass and warming effects:<br>
     🌊 <a href="https://github.com/Euchie23/SquidStock" target="_blank" style="color:#FFD700; font-weight:bold; text-decoration: underline;">Visit the SquidStock Repository</a>
     </div>
     """
-
     st.markdown(html_links, unsafe_allow_html=True)
 
 
