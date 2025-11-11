@@ -3,8 +3,6 @@ import base64
 import io
 import json
 import time
-import os
-import sys
 from datetime import datetime
 
 # ---------------- Third-Party Libraries ----------------
@@ -18,12 +16,6 @@ from google.oauth2.service_account import Credentials
 from PIL import Image
 
 # ---------------- Local/Project Imports ----------------
-
-# Ensure Python can find the 'utils' folder
-current_dir = os.path.dirname(os.path.abspath(__file__))      # folder containing app.py
-utils_dir = os.path.join(current_dir, "utils")                # path to utils/
-sys.path.insert(0, utils_dir)                                 # add utils/ to import search path
-
 from utils.data_utils import (
     load_model_data,
     get_model_colors,
@@ -32,14 +24,54 @@ from utils.data_utils import (
     load_monthly_cpue,
     load_observed_vs_standardized
 )
-# Define assets folder
-assets_dir = os.path.join(current_dir, "assets")
 
-#from utils.plots_utils import plot_predictions  # wherever you put it
+
+# # -------------------- Caching --------------------
+# @st.cache_data
+# def load_model_data_cached():
+#     return load_model_data()
+
+# @st.cache_data
+# def load_prediction_data_cached():
+#     return load_prediction_data()
+
+# @st.cache_data
+# def load_residual_data_cached():
+#     return load_residual_data()
+
+# @st.cache_data
+# def load_monthly_cpue_cached():
+#     return load_monthly_cpue()
+
+# @st.cache_data
+# def load_observed_vs_standardized_cached():
+#     return load_observed_vs_standardized()
+
+#st.write("Streamlit version:", st.__version__)
+
+@st.cache_resource
+def get_monthly_cpue_plot(df):
+    fig = px.line(
+        df,
+        x="Month",
+        y="CPUE_vday_tons",
+        color="Year",
+        title="Fleet-Aggregated CPUE per Vessel-Day"
+    )
+    fig.update_layout(width=900, height=600)
+    return fig
+
+# -------------------- Usage --------------------
+# st.header("📊 Monthly CPUE")
+# df_cpue = load_monthly_cpue_cached()
+# fig_cpue = get_monthly_cpue_plot(df_cpue)
+# st.plotly_chart(fig_cpue, use_container_width=True)
+
+
+#from utils.plots_utils import plot_predictions 
 
 # ---------------------- Page Configuration ----------------------
-st.set_page_config(page_title="CPUE Model Evaluation Dashboard", layout="wide")
-
+st.set_page_config(page_title="Course Correction", layout="wide")
 
 
 # ---------------------- Custom CSS ----------------------
@@ -47,40 +79,33 @@ st.markdown("""
 <style>
 
 /* ---------------------- Sidebar ---------------------- */
-/* Sidebar background image + navy overlay */
-[data-testid="stSidebar"] > div:first-child {
-    position: relative; /* changed from fixed */
-    overflow-y: auto;   /* sidebar scrolls independently */
-    height: 100vh;      /* full height */
-    background-image: url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    width: 18rem;        /* fixed width for sidebar */
-    min-height: 100vh;
-    color: #E1EAF2;
-    padding-top: 1rem !important;
-}
-
 [data-testid="stSidebar"] > div:first-child {
     position: fixed;
-    top: 0; left: 0; bottom: 0;
-    overflow-y: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: inherit;
+    overflow-y: auto;        /* allows scrolling */
     min-height: 100vh;
     padding-top: 1rem !important;
     color: #E1EAF2;
-    background-image:
+    
+    /* Combine background image + overlay so it scrolls with content */
+    background:
         linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
         url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
 }
 
+/* Ensure sidebar content is above overlay */
 [data-testid="stSidebar"] > div:first-child > * {
     position: relative;
     z-index: 1;
+}
+lor: rgba(0, 31, 63, 0.6);
+    z-index: 0;
 }
 
 /* Sidebar titles and headers */
@@ -105,12 +130,18 @@ st.markdown("""
 }
 
 /* Each sidebar radio button (tab option) */
-[data-testid="stSidebar"] [data-baseweb="radio"] label div p,
-[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
+[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
     font-size: 20px !important;
     font-weight: 600 !important;
     color: #E1EAF2 !important;
     line-height: 1.6 !important;
+}
+
+/* Each radio option (“Overview”, etc.) */
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
 }
 
 /* Sidebar links */
@@ -121,17 +152,26 @@ st.markdown("""
 
 /* Sidebar footer */
 .sidebar-footer {
-    position: relative; /* changed from absolute */
+    position: absolute;
+    bottom: 10px;
     width: 100%;
     padding: 10px;
-    margin-top: 1rem;
+}
+            
+/* Make the sidebar background extend the full height */
+section[data-testid="stSidebar"] {
+    min-height: 100vh !important;
+}
+
+/* Optional: adjust padding for expanders inside sidebar */
+section[data-testid="stSidebar"] .st-expander {
+    margin-bottom: 1rem;
 }
 
 /* ---------------------- Main panel ---------------------- */
 .stApp {
     position: relative;
-    display: flex;        /* enable flex layout */
-    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?auto=format&fit=crop&w=2768");
+    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -150,22 +190,65 @@ st.markdown("""
     z-index: 1;
 }
 
-/* Main content scrollable */
 .block-container {
     overflow-y: auto !important;
     height: 100vh !important;
     padding-top: 4rem !important;
     padding-bottom: 2rem !important;
-    margin-left: 0 !important;  /* remove hard-coded margin */
-    margin-right: 0 !important;
-    flex: 1; /* take remaining width next to sidebar */
+
+    /* Slightly more space on left and right */
+    padding-left: 5rem !important;  /* increased from 2rem */
+    padding-right: 2rem !important;
+
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    max-width: 100% !important;
 }
 
-/* Optional padding for main content so it doesn’t touch sidebar */
-.stApp > .main > div {
-    padding-left: 1rem;
-    padding-right: 1rem;
+/* ---------------------- Sidebar + Main Layout Fix ---------------------- */
+
+/* Sidebar width */
+[data-testid="stSidebar"] > div:first-child {
+    width: 370px !important;
+    min-width: 370px !important;
 }
+
+/* Remove default spacing from Streamlit wrappers */
+div[data-testid="stSidebar"],
+section[data-testid="stSidebar"] {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Force main content to start exactly at sidebar edge */
+div[data-testid="stAppViewContainer"] > div:nth-child(2) {
+    margin-left: 370px !important; /* match sidebar width */
+    padding-left: 0 !important;
+    margin-top: 0 !important;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Ensure Streamlit’s block container doesn’t add spacing */
+.block-container {
+    margin: 0 !important;
+    padding: 2rem 3rem !important;
+    max-width: 100% !important;
+    overflow-y: auto !important;
+    height: 100vh !important;
+}
+
+/* Collapsed sidebar behavior */
+@media (max-width: 992px) {
+    div[data-testid="stAppViewContainer"] > div:nth-child(2) {
+        margin-left: 0 !important;
+    }
+}
+
+/* Optional thin divider for visual clarity */
+[data-testid="stSidebar"] {
+    border-right: 1px solid rgba(57, 255, 20, 0.3);
+}
+
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
@@ -180,6 +263,42 @@ h1, .stTitle {
     line-height: 1.8 !important;
     color: #E1EAF2 !important;
 }
+            
+/* ---------------------- 🟢 Markdown Headers Fix ---------------------- */
+
+/* Ensure Markdown titles keep the right color and size across the app */
+.stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
+.block-container h1, .block-container h2, .block-container h3,
+[data-testid="stSidebar"] .stMarkdown h1,
+[data-testid="stSidebar"] .stMarkdown h2,
+[data-testid="stSidebar"] .stMarkdown h3 {
+    color: #39FF14 !important;
+    font-weight: 800 !important;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+}
+
+/* Header sizes */
+.stMarkdown h1, .block-container h1,
+[data-testid="stSidebar"] .stMarkdown h1 {
+    font-size: 34px !important;
+}
+.stMarkdown h2, .block-container h2,
+[data-testid="stSidebar"] .stMarkdown h2 {
+    font-size: 28px !important;
+}
+.stMarkdown h3, .block-container h3,
+[data-testid="stSidebar"] .stMarkdown h3 {
+    font-size: 24px !important;
+}
+
+/* Sidebar paragraph text */
+[data-testid="stSidebar"] .stMarkdown p {
+    color: #E1EAF2 !important;
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+}
+
 
 /* ---------------------- Tabs ---------------------- */
 .stTabs [data-baseweb="tab"] {
@@ -218,39 +337,66 @@ h1, .stTitle {
 header, .css-nahz7x {
     background-color: #001f3f !important;
 }
-/* ---------------------- Buttons ---------------------- */
-/* Center all Streamlit buttons and download buttons */
-div.stButton > button,
-div.stDownloadButton > button {
-    display: block !important;      /* make buttons block-level */
-    margin: 0 auto !important;      /* horizontally center */
-    text-align: center !important;  /* center the text inside the button */
+            
+/* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
+
+/* Keep the top bar visible and consistent */
+header[data-testid="stHeader"] {
+    background-color: #001f3f !important;
+    height: 3.5rem !important;
+    z-index: 1000 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
 }
 
-/* Style for buttons (colors, font, radius) */
-div.stButton > button:first-child,
-div.stDownloadButton > button:first-child {
+/* Sidebar should start just below the fixed top bar */
+[data-testid="stSidebar"] {
+    position: fixed !important;
+    top: 3.5rem !important;      /* push it down below header */
+    height: calc(100vh - 3.5rem) !important;
+    margin: 0 !important;
+}
+
+/* Sidebar inner div scrolls normally */
+[data-testid="stSidebar"] > div:first-child {
+    height: 100% !important;
+    overflow-y: auto !important;
+}
+
+/* Main app container shifts down equally */
+div[data-testid="stAppViewContainer"] {
+    margin-top: 3.5rem !important;   /* align with sidebar */
+    padding-top: 0 !important;
+}
+
+/* The block container keeps its scroll and padding */
+.block-container {
+    height: calc(100vh - 3.5rem) !important;
+    overflow-y: auto !important;
+}
+
+/* ---------------------- Buttons ---------------------- */
+div.stButton > button:first-child {
     background-color: #39FF14 !important;
     color: #001f3f !important;
     font-size: 18px !important;
     font-weight: 700 !important;
     border-radius: 8px !important;
     border: none !important;
-    padding: 0.5rem 1rem !important;
-    cursor: pointer !important;
+    display: block !important;
+    margin: 0 auto !important;
 }
-
-/* Hover effect for buttons */
-div.stButton > button:first-child:hover,
-div.stDownloadButton > button:first-child:hover {
+div.stButton > button:first-child:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------------- Sidebar ----------------------
+
+# ---------------------- Sidebar Navigation ----------------------
 st.sidebar.title(" 🧭 Course Correction")
 
 tabs = [
@@ -275,12 +421,15 @@ st.sidebar.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ---------------- Page Selection ----------------
-page = st.sidebar.radio("Select page", tabs, label_visibility="collapsed")
-st.session_state.page = page
+
+# ---------------------- Sidebar ----------------------
 
 
 # ---------------- Initialize Session State ----------------
+
+if "page" not in st.session_state:
+    st.session_state.page = tabs[0]  # default to first tab
+
 if "notes" not in st.session_state:
     st.session_state.notes = {tab: [] for tab in tabs if tab != "Logbook"}
 
@@ -296,8 +445,127 @@ if "delete_confirm" not in st.session_state:
 if "notes_expanded" not in st.session_state:
     st.session_state.notes_expanded = False  # collapsed by default
 
-if "show_warning" not in st.session_state:
-    st.session_state.show_warning = False
+# if page not in st.session_state.notes:
+#     st.session_state.notes[page] = []  # list of entries
+
+# ---------------- Toast Message Handler ----------------
+if "toast_message" in st.session_state and st.session_state.toast_message:
+    st.toast(st.session_state.toast_message)
+    st.session_state.toast_message = ""
+
+
+# ---------------- Page Selection ----------------
+
+# Determine which pages are available
+if st.session_state.edit_mode["active"]:
+    available_tabs = [st.session_state.edit_mode["tab"]]  # only allow editing tab
+    disabled_radio = True
+else:
+    available_tabs = tabs
+    disabled_radio = False
+
+# Determine the selected index
+selected_index = available_tabs.index(st.session_state.page) if st.session_state.page in available_tabs else 0
+
+# Single radio with dynamic lock
+page = st.sidebar.radio(
+    "Select page",
+    available_tabs,
+    index=selected_index,
+    key="page",
+    disabled=disabled_radio
+)
+
+# Optional warning
+if st.session_state.edit_mode["active"]:
+    st.warning("⚠️ You are editing a reloaded note. You must save before switching tabs.")
+
+
+
+# Ensure page reflects edit_mode before rendering the radio
+# if st.session_state.edit_mode["active"] and st.session_state.edit_mode["tab"] in tabs:
+#     st.session_state.page = st.session_state.edit_mode["tab"]
+
+# # Determine selected index for the radio
+# selected_index = tabs.index(st.session_state.page) if st.session_state.page in tabs else 0
+# page = st.sidebar.radio("Select page", tabs, index=selected_index, key="page")
+# #st.session_state.page = page
+
+# # Locking tab during snapshot reload and notifying user
+# selected_index = tabs.index(st.session_state.page) if st.session_state.page in tabs else 0
+
+# # If in edit mode, lock the tab
+# if st.session_state.edit_mode["active"]:
+#     page = st.sidebar.radio(
+#         "Select page",
+#         [st.session_state.edit_mode["tab"]],
+#         index=0,
+#         key="page",
+#         disabled=True
+#     )
+#     st.warning("⚠️ You are editing a reloaded note. You must save before switching tabs.")
+# else:
+#     page = st.sidebar.radio("Select page", tabs, index=selected_index, key="page")
+
+
+# Keep notes panel expander open if typing or editing
+st.session_state.notes_expanded = bool(st.session_state.note_input.strip()) or st.session_state.edit_mode["active"]
+
+
+# 🔹 Keep expander open if user is editing or typing
+st.session_state.notes_expanded = (
+    bool(st.session_state.note_input.strip())
+    or st.session_state.edit_mode["active"]
+)
+
+# ---------------- Helper Functions ----------------
+def format_note_display(note, tab_name):
+    # Format inputs nicely
+    inputs = note.get("inputs", {})
+    input_text = ", ".join(f"{k}: {v}" for k, v in inputs.items() if v is not None) or "N/A"
+    
+    timestamp = note.get("timestamp")
+    timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S") if timestamp else "Unknown time"
+    
+    content = note.get("notes", "")
+    
+    formatted = (
+        f"🕒 {timestamp_str} 📍 Source: {tab_name} 🔧 Snapshot Inputs: {input_text}\n"
+        f"🗒️ Notes: {content}\n\n"
+        f"{'-'*50}\n\n"
+    )
+    return formatted
+
+
+# def format_note_for_log(note, tab_name):
+#     # Format inputs nicely
+#     inputs = note.get("inputs", {})
+#     input_text = ", ".join(f"{k}: {v}" for k, v in inputs.items() if v is not None) or "N/A"
+    
+#     timestamp = note.get("timestamp")
+#     timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S") if timestamp else "Unknown time"
+    
+#     content = note.get("notes", "")
+    
+#     formatted = (
+#         f"🕒 {timestamp_str} 📍 Source: {tab_name} 🔧 Snapshot Inputs: {input_text}\n\n"
+#         f"🗒️ Notes: {content}\n"
+#         f"{'-'*50}\n"
+#     )
+#     return formatted
+
+
+# New structure for each note
+new_entry = {
+    "timestamp": datetime.now(),
+    "inputs": {
+        "some_input_1": st.session_state.get("some_input_1"),
+        "some_input_2": st.session_state.get("some_input_2"),
+        # Add any other controls from that tab here
+    },
+    "notes": st.session_state.note_input.strip()
+}
+
 
 # ---------------- Notes Panel ----------------
 if page != "Logbook":
@@ -309,9 +577,16 @@ if page != "Logbook":
             f"💬 Notes for {page}",
             expanded=st.session_state.notes_expanded
         ):
+            # note_text = st.text_area(
+            #     "Write your note here:",
+            #     value=st.session_state.note_input,
+            #     key="note_input",
+            #     height=150,
+            #     placeholder="Type your note..."
+            # )
+
             note_text = st.text_area(
                 "Write your note here:",
-                value=st.session_state.note_input,
                 key="note_input",
                 height=150,
                 placeholder="Type your note..."
@@ -322,25 +597,36 @@ if page != "Logbook":
                 content = st.session_state.note_input.strip()
                 if content:
                     # If editing an existing note
-                    if (
-                        st.session_state.edit_mode["active"]
-                        and st.session_state.edit_mode["tab"] == page
-                    ):
+                    if st.session_state.edit_mode["active"] and st.session_state.edit_mode["tab"] == page:
                         idx = st.session_state.edit_mode["index"]
-                        st.session_state.notes[page][idx] = content
-                        st.toast(f"✏️ Note updated in {page}!", icon="✏️")
+                        st.session_state.notes[page][idx]["notes"] = content #st.session_state.note_input.strip()
+                        st.session_state.notes[page][idx]["inputs"] = {
+                            "some_input_1": st.session_state.get("some_input_1"),
+                            "some_input_2": st.session_state.get("some_input_2"),
+                        }
+                        st.session_state.toast_message = f"✏️ Note updated in {page}!"
                         st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
                     else:
-                        st.session_state.notes[page].append(content)
-                        st.toast(f"✅ Note saved to {page}!")
+                        new_entry = {
+                            "timestamp": datetime.now(),
+                            "inputs": {
+                                "some_input_1": st.session_state.get("some_input_1"),
+                                "some_input_2": st.session_state.get("some_input_2"),
+                            },
+                            "notes": content
+                        }
+                        st.session_state.notes[page].append(new_entry)
+                        st.session_state.toast_message = f"✅ 📸 Note saved to Logbook!"
+                    # Force UI update after save
+                    st.rerun()
                 else:
-                    st.toast("⚠️ Nothing to save (note is empty).")
+                    st.session_state.toast_message = "⚠️ Nothing to save (note is empty)."
 
     # 🔹 Keep expander open if user is editing or typing
-    st.session_state.notes_expanded = (
-        bool(st.session_state.note_input.strip())
-        or st.session_state.edit_mode["active"]
-    )
+    # st.session_state.notes_expanded = (
+    #     bool(st.session_state.note_input.strip())
+    #     or st.session_state.edit_mode["active"]
+    # )
 
 
 # ---------------- Logbook ----------------
@@ -360,18 +646,39 @@ else:
                     col1, col2, col3 = st.columns([6, 1, 1])
 
                     with col1:
-                        st.markdown(f"- {note}")
+                        st.markdown(format_note_display(note, tab_name))
+
 
                     with col2:
                         # ✏️ Edit button
+                            #edit_note_button(tab_name, i, note)
                         if st.button("✏️", key=f"edit_{tab_name}_{i}"):
-                            st.session_state.note_input = note
+                            entry = st.session_state.notes[tab_name][i]
+
+                            #Restore note text
+                            st.session_state.note_input = entry["notes"]
+
+                            # Restore tab inputs from snapshot
+                            for k, v in entry["inputs"].items():
+                                st.session_state[k] = v
+
                             st.session_state.edit_mode = {
                                 "active": True,
                                 "tab": tab_name,
                                 "index": i,
                             }
-                            st.toast(f"✏️ Go back to **{tab_name}** tab to edit this note.")
+
+                            # Set target tab & show message on next load
+                            # Set target tab & dynamic toast message
+                            #st.session_state.page = tab_name
+                            #st.session_state.note_input = entry["notes"]
+                            #st.session_state.edit_mode = {"active": True, "tab": tab_name, "index": i}
+                            st.session_state.toast_message = f"📸 Snapshot reloaded for {tab_name}. You can now edit your note."
+                            #st.rerun()
+
+                            st.rerun()  # <- this triggers immediate rerun with updated session_state
+
+                            #st.toast(f"📝 Snapshot reloaded for editing. Go back to {tab_name} tab to edit.")
 
                     with col3:
                         # 🗑 Delete button
@@ -379,17 +686,19 @@ else:
                         if not st.session_state.delete_confirm.get(delete_key, False):
                             if st.button("🗑", key=f"delete_{tab_name}_{i}"):
                                 st.session_state.delete_confirm[delete_key] = True
+                                st.rerun()  # immediately show confirm buttons
                         else:
                             c1, c2 = st.columns(2)
                             with c1:
                                 if st.button("✅", key=f"confirm_del_{tab_name}_{i}"):
                                     del st.session_state.notes[tab_name][i]
                                     st.session_state.delete_confirm.pop(delete_key, None)
-                                    st.toast(f"🗑 Deleted note {i+1} from {tab_name}")
-                                    st.rerun()
+                                    st.session_state.toast_message = f"🗑 Deleted note {i+1} from {tab_name}"
+                                    st.rerun()  # immediately delete      
                             with c2:
                                 if st.button("❌", key=f"cancel_del_{tab_name}_{i}"):
                                     st.session_state.delete_confirm[delete_key] = False
+                                    st.rerun()  # immediately decline
 
 
     
@@ -419,18 +728,32 @@ else:
         for tab, notes in st.session_state.notes.items():
             if notes:
                 all_notes_text += f"{tab} ({len(notes)} notes):\n"
-                all_notes_text += "\n".join(f"- {n}" for n in notes) + "\n\n"
+                for note in notes:
+            # Use the same formatting as for Google Sheets
+                    all_notes_text += format_note_display(note, tab)
+                all_notes_text += "\n"
+                #all_notes_text += "\n".join(f"- {n}" for n in notes) + "\n\n"
 
         st.session_state.all_notes_text = all_notes_text
         st.success("✅ Logbook is ready to download!")
 
     # --- Step 2: Show download button only if content exists ---
     if "all_notes_text" in st.session_state and st.session_state.all_notes_text:
+        # formatted_notes = ""
+        # for tab_name, notes in st.session_state.notes.items():
+        #     for note in notes:
+        #         formatted_notes += format_note_display(note, tab_name)
+
         buffer = io.BytesIO(st.session_state.all_notes_text.encode("utf-8"))
+
+         # Current datetime string
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        file_name = f"logbook_{timestamp}.txt"
+
         st.download_button(
             label="📥 Download Logbook (.txt)",
             data=buffer,
-            file_name="logbook.txt",
+            file_name=file_name,
             mime="text/plain",
             key="logbook_download"
         )
@@ -440,28 +763,21 @@ else:
     # --- Define the function ---
     def send_notes_to_host(all_notes_text):
         try:
-            # Parse the JSON string from secrets into a dictionary
-            creds_dict = json.loads(st.secrets["gcp_service_account"])
-    
             # Authenticate with Google Sheets
-            creds = Credentials.from_service_account_info(
-                creds_dict,
-                scopes=["https://www.googleapis.com/auth/spreadsheets"]
-            )
+            creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"],  scopes=["https://www.googleapis.com/auth/spreadsheets"])
             client = gspread.authorize(creds)
-    
-            # Open the target sheet by ID
+
+            # Open the target sheet by ID (no need for an extra ["google_sheets"] key)
             sheet = client.open_by_key("1mLnW5UHnRU8Cs5tD1NKtvr-ODlFPdFOoZi0lqXTEj10").sheet1
-    
+
             # Append a new anonymous submission
             sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), all_notes_text])
-    
+
             return True
-    
         except Exception as e:
-            st.error(f"❌ Error sending notes: {e}")
+            st.error(f"Error sending notes: {e}")
             return False
-    
+
 
     # --- In your Logbook section, keep all this under the same indentation ---
     st.markdown("---")
@@ -472,6 +788,22 @@ else:
         "No personal information is collected — only your text notes are shared.\n\n"
         "*It may take a few seconds to confirm whether your notes were successfully sent to the host. Thank you for your patience 🙂*"
     )
+#     st.markdown(
+#     """
+#     <div style="
+#         background-color: transparent;  /* transparent background */
+#         color: white;               /* white text */
+#         padding: 15px;
+#         border-radius: 5px;
+#     ">
+#         🧠 By sharing your notes <em>anonymously</em>, you help the host improve their
+#         data interpretation, statistical analysis, and app development skills.<br><br>
+#         No personal information is collected — only your text notes are shared.<br><br>
+#         <em>It may take a few seconds to confirm whether your notes were successfully sent to the host. Thank you for your patience 🙂</em>
+#     </div>
+#     """,
+#     unsafe_allow_html=True
+# )
 
     send_to_host = st.checkbox("Send my notes to the host (optional)")
 
@@ -480,47 +812,189 @@ else:
             # Gather all notes + final observation into one text block
             all_notes_text = "📝 FINAL OBSERVATION:\n" + st.session_state.final_observation + "\n\n"
             all_notes_text += "📔 INDIVIDUAL NOTES:\n\n"
+
+
             for tab_name, notes in st.session_state.notes.items():
                 if notes:
                     all_notes_text += f"[{tab_name}] ({len(notes)} notes):\n"
-                    all_notes_text += "\n".join(f"- {note}" for note in notes) + "\n"
+                    for note in notes:
+                        all_notes_text += format_note_display(note, tab_name)
+                    all_notes_text += "\n"
+                    #all_notes_text += "\n".join(f"- {note}" for note in notes) + "\n"
             
-            # Send to Google Sheets
-            success = send_notes_to_host(all_notes_text)
+            # Show spinner while sending
+            with st.spinner("⏳ Connecting to Google Sheets... This may take a few seconds."):
+                    success = send_notes_to_host(all_notes_text)
+
 
             if success:
-                st.success("✅ Your notes (including final observation) were sent successfully and remain anonymous. Thank you for contributing!")
+                st.session_state.toast_message = "✅ Upload to Google Sheets successful!"
+                st.success("✅ Your notes were sent anonymously. Thank you!")
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
-            # Spacer
-    
-    # 🌊 Next app button
-    st.markdown("---")
-    # 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
-    st.markdown("""
-    <div style="
-        background-color: rgba(10, 47, 68, 0.7);
-        padding: 1rem;
-        border-radius: 10px;
-        text-align: center;
-        color: #FFD700;
-        font-size: 18px;
-        margin-top: 2rem;
-    ">
-        🐙 <b>Coming Soon: Ocean Dynamics!</b><br>
-        Dive into the next adventure where we explore squid Surplus Production & Biomass Estimation. 🌊<br>
-        Get ready to simulate how squid populations respond to climate warming 🌡️ using SST and Depth drivers.<br>
-        Can you predict which habitats will thrive or decline? 🧐 Stay tuned—it’s going to be an eye-opening deep-sea journey! """, unsafe_allow_html=True)
-    
-    # Button click triggers the warning
-    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
-        st.session_state.show_warning = True
-    
-    # Show the warning if the button was clicked
-    if st.session_state.show_warning:
-        st.warning("⚠️ This app is under construction. Check back soon!")
+
+        #then then "Send to host" button appears here
+
+# Radio with a hidden label (keeps accessibility happy) 
+# page = st.sidebar.radio(
+#     label="Select page",
+#     options=tabs,
+#     label_visibility="collapsed"
+# )
+
+# if "page" not in st.session_state:
+#     st.session_state.page = tabs[0]  # default first tab
+
+# st.session_state.page = page  # update current page
+
+# # ---------------------- Initialize Session State ----------------------
+# if "notes" not in st.session_state:
+#     st.session_state.notes = {tab_name: [] for tab_name in tabs if tab_name != "Logbook"}
+
+# if "edit_target" not in st.session_state:
+#     st.session_state.edit_target = None
 
 
+#  # Ensure all note keys exist to prevent AttributeError
+# for tab in tabs:
+#     if tab != "Logbook":
+#         key = f"note_input_{tab}"
+#         if key not in st.session_state:
+#             st.session_state[key] = ""
+
+# st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+# # --- Divider Line ---
+# st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
+
+# # ---------------------- Collapsible Notes Panel ----------------------
+# if page != "Logbook":
+#     with st.sidebar:
+#         st.markdown("### 💬 Notes Panel")
+#         with st.expander(f"**Notes for {page} tab**", expanded=False):
+#             note_key = f"note_input_{page}"
+
+#             # Initial value: empty if just saved, else current value
+#             note_text_value = "" if st.session_state.get("just_saved") else st.session_state.get(note_key, "")
+            
+#             # current_text = st.session_state.get(note_key, "")
+
+#             # Determine initial value
+#         #     if st.session_state.edit_target and st.session_state.edit_target[0] == page:
+#         #         edit_index = st.session_state.edit_target[1]
+#         #         if 0 <= edit_index < len(st.session_state.notes[page]):
+#         #             note_text_value = st.session_state.notes[page][edit_index]
+#         #         else:
+#         #             st.session_state.edit_target = None
+#         #             note_text_value = ""
+#         #    # Determine initial value for the textarea
+#         #     if st.session_state.get("clear_note") and st.session_state.get("last_page") == page:
+#         #         note_text_value = ""      # empty on clear
+#         #         st.session_state["clear_note"] = False  # reset the flag
+#         #     else:
+#         #         note_text_value = st.session_state.get(note_key, "")
+
+#             # Create text area with this value
+#             note_text = st.text_area(
+#                 "Write your note here:",
+#                 value=note_text_value,
+#                 key=note_key,
+#                 height=120,
+#                 placeholder="Write something..."
+#             )
+
+#             # --- Smart button activation ---
+#             content = st.session_state.get(note_key, "").strip()
+#             save_disabled = not bool(content)
+           
+
+
+#             # Save button
+#             if st.button("💾 Save Note", key=f"save_{page}", disabled=save_disabled):
+#                 if content:
+#                     if st.session_state.edit_target and st.session_state.edit_target[0] == page:
+#                         idx = st.session_state.edit_target[1]
+#                         st.session_state.notes[page][idx] = content
+#                         st.session_state.edit_target = None
+#                         st.toast("✏️ Note updated!")
+#                     else:
+#                         st.session_state.notes[page].append(content)
+#                         st.toast("✅ Note saved successfully!")
+#                     # Clear text area on next rerun
+#                     st.session_state["just_saved"] = True
+#                     st.rerun()
+
+#             # Reset flag after rerun so text_area works normally again
+#             if st.session_state.get("just_saved") and note_text_value == "":
+#                 st.session_state["just_saved"] = False
+
+# # ---------------------- LOGBOOK PAGE ----------------------
+# elif page == "Logbook":
+#     st.title("📔 Logbook: All Notes")
+
+#     if not any(st.session_state.notes[tab] for tab in st.session_state.notes):
+#         st.info("No notes yet. Go back to other tabs and add some notes!")
+#     else:
+#         for tab_name, notes in st.session_state.notes.items():
+#             if notes:
+#                 # Track expander state
+#                 expander_key = f"expander_{tab_name}"
+#                 if expander_key not in st.session_state:
+#                     st.session_state[expander_key] = False  # default collapsed
+
+#                 with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=st.session_state[expander_key]):
+#                     # Update session_state whenever user toggles
+#                     st.session_state[expander_key] = st.session_state.get(expander_key, False)
+#                 #with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
+#                     for i, note in enumerate(notes):
+#                         cols = st.columns([5, 1, 1])
+
+#                         # --- Note text ---
+#                         with cols[0]:
+#                             st.write(f"{i+1}. {note}")
+
+#                         # --- Delete logic ---
+#                         with cols[1]:
+#                             delete_key = f"del_{tab_name}_{i}"
+#                             confirm_key = f"confirm_delete_{tab_name}_{i}"
+
+#                             if st.session_state.get(confirm_key):
+#                                 col_confirm, col_cancel = st.columns(2)
+#                                 with col_confirm:
+#                                     if st.button("✅ Confirm", key=f"confirm_{tab_name}_{i}"):
+#                                         st.session_state.notes[tab_name].pop(i)
+#                                         st.session_state.pop(confirm_key, None)
+#                                         st.toast(f"🗑️ Note deleted from **{tab_name}**", icon="🗑️")
+#                                         st.rerun()
+#                                 with col_cancel:
+#                                     if st.button("❌ Cancel", key=f"cancel_{tab_name}_{i}"):
+#                                         st.session_state.pop(confirm_key, None)
+#                                         st.toast("🚫 Delete cancelled", icon="🚫")
+#                             else:
+#                                 # ✅ Confirm + Cancel appear on first click
+#                                 if st.button("🗑️ Delete", key=delete_key):
+#                                     st.session_state[confirm_key] = True
+#                                     st.toast("⚠️ Click ✅ to confirm or ❌ to cancel", icon="⚠️")
+#                                     st.rerun()
+
+#                         # --- Edit logic ---
+#                         with cols[2]:
+#                             if st.button("✏️ Edit", key=f"edit_{tab_name}_{i}"):
+#                                 st.session_state.edit_target = (tab_name, i)
+#                                 st.toast(f"✏️ Go back to **{tab_name}** tab to edit this note.", icon="💡")
+#                                 time.sleep(1.2)
+#                                 st.rerun()
+
+#         # --- Download Button ---
+#         notes_json = json.dumps(st.session_state.notes, indent=2)
+#         st.download_button(
+#             label="📥 Download Logbook",
+#             data=notes_json,
+#             file_name="logbook.json",
+#             mime="application/json"
+#         )
+
+
+st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
 
 # --- Divider Line ---
 st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
@@ -549,7 +1023,94 @@ st.sidebar.markdown("""
 # ---------------------- Data Loaders ----------------------
 model_summary, cv_results, eval_results = load_model_data()
 
-# ---------------------- Page Content ----------------------
+# ---------------------- Session State Init ----------------------
+# if page != "Logbook":
+#     with st.sidebar:
+#         st.markdown("### 💬 Notes Panel")
+#         with st.expander(f"Notes for {page} tab", expanded=False):
+#             note_key = f"note_input_{page}"
+
+#             # Prefill text area if editing
+#             if st.session_state.edit_target and st.session_state.edit_target[0] == page:
+#                 edit_index = st.session_state.edit_target[1]
+#                 st.session_state[note_key] = st.session_state.notes[page][edit_index]
+#                 st.toast("✏️ Editing your saved note...", icon="✏️")
+#             elif note_key not in st.session_state:
+#                 st.session_state[note_key] = ""
+
+#             # Text area
+#             note_text = st.text_area(
+#                 "Write your note here:",
+#                 value=st.session_state.get(note_key, ""),
+#                 key=note_key,
+#                 height=120,
+#                 placeholder="Write something..."
+#             )
+
+#             col1, col2 = st.columns(2)
+#             with col1:
+#                 save_clicked = st.button("💾 Save Note", key=f"save_{page}")
+#             with col2:
+#                 clear_clicked = st.button("🧹 Clear", key=f"clear_{page}")
+
+#             if save_clicked:
+#                 content = st.session_state.get(note_key, "").strip()
+#                 if content:
+#                     if st.session_state.get("edit_target") and st.session_state.edit_target[0] == page:
+#                         idx = st.session_state.edit_target[1]
+#                         st.session_state.notes[page][idx] = content
+#                         st.toast("✅ Note updated!", icon="✅")
+#                     else:
+#                         st.session_state.notes[page].append(content)
+#                         st.toast("✅ Note saved!", icon="✅")
+#                     # Clear the text area safely
+#                     st.session_state[note_key] = ""
+#                     st.session_state.edit_target = None
+#                     st.experimental_rerun()
+#                 else:
+#                     st.warning("⚠️ Cannot save empty note.")
+
+#             if clear_clicked:
+#                 st.session_state[note_key] = ""
+#                 st.session_state.edit_target = None
+#                 st.experimental_rerun()
+
+
+# ---------------------- LOGBOOK PAGE ----------------------
+# else:
+#     st.title("📔 Logbook: All Notes")
+
+#     if not any(st.session_state.notes[tab] for tab in st.session_state.notes):
+#         st.info("No notes yet. Go back to other tabs and add some notes!")
+#     else:
+#         for tab_name, notes in st.session_state.notes.items():
+#             if notes:
+#                 with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
+#                     for i, note in enumerate(notes):
+#                         cols = st.columns([5, 1, 1])
+#                         with cols[0]:
+#                             st.write(f"{i+1}. {note}")
+#                         with cols[1]:
+#                             if st.button("🗑️", key=f"del_{tab_name}_{i}"):
+#                                 st.session_state.notes[tab_name].pop(i)
+#                                 st.experimental_rerun()
+#                         with cols[2]:
+#                             if st.button("✏️", key=f"edit_{tab_name}_{i}"):
+#                                 st.session_state.edit_target = (tab_name, i)
+#                                 st.session_state.update({f"note_input_{tab_name}": st.session_state.notes[tab_name][i]})
+#                                 st.info(f"Go to the **{tab_name}** tab to edit this note.")
+#                                 st.rerun()
+
+#         # Download button
+#         notes_json = json.dumps(st.session_state.notes, indent=2)
+#         st.download_button(
+#             label="📥 Download Logbook",
+#             data=notes_json,
+#             file_name="logbook.json",
+#             mime="application/json"
+#         )
+
+
 if page == "Overview":
     #st.image("assets/animated_catch.gif", use_column_width=True)
     #st.video('assets/animated_catch.mp4', use_column_width=True, format='video/mp4', start_time=0, loop=True)
@@ -563,6 +1124,7 @@ if page == "Overview":
 # """
 #     st.markdown(video_html, unsafe_allow_html=True)
 
+# -------------------- Cached video loader --------------------
     @st.cache_resource
     def load_video(path: str):
         """Read and encode video once per session."""
@@ -571,13 +1133,8 @@ if page == "Overview":
         video_b64 = base64.b64encode(video_bytes).decode()
         return video_b64
 
-    video_path = os.path.join(assets_dir, "animated_catch.mp4")
-
-
-    # with open(video_path, 'rb') as f:
-    #     video_file = f.read()
-    video_b64 = load_video(video_path)
-    
+    # -------------------- Display video --------------------
+    video_b64 = load_video("assets/animated_catch.mp4")
     video_html = f"""
     <div style="
         display: flex;
@@ -608,8 +1165,6 @@ if page == "Overview":
 
     st.markdown(video_html, unsafe_allow_html=True)
   
-  
-
     st.title("🎣 CPUE Standardization & Forecasting – Overview")
 
     st.markdown("""
@@ -736,6 +1291,7 @@ if page == "Overview":
 
 
 
+
 elif page == "Model Comparison":
     st.header("🔍 Model Comparison Table")
     
@@ -801,6 +1357,15 @@ elif page == "Residual Analysis":
     - **Temporal patterns:** to ensure no residual autocorrelation across years  
     """)
 
+    st.markdown(
+    """
+    <div style='color:red; font-weight:bold; text-align:center; margin-top:10px;'>
+    💡 Note: The animated map above displays <b>catch in kilograms (kg)</b> for finer spatial resolution,<br>
+    while all model evaluation results in later tabs are expressed in <b>tons (t)</b> for clarity and comparability.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
     residual_dict = load_residual_data()
 
     if not residual_dict:
@@ -971,8 +1536,32 @@ elif page == "Predictions":
     for monitoring *Illex argentinus* stock productivity under environmental change.
     """)
 
+# 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
+    st.markdown("""
+    <div style="
+        background-color: rgba(10, 47, 68, 0.7);
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        color: #FFD700;
+        font-size: 18px;
+        margin-top: 2rem;
+    ">
+        🐙 <b>Next Stage:</b> Ocean Dynamics – Surplus Production & Biomass Estimation<br>
+        Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl-a drivers.
+    </div>
+    """, unsafe_allow_html=True)
+
+# 🔹 Centered "Coming Soon" button (functional version)
+    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+
+    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+        st.warning("⚠️ This app is under construction. Check back soon!")
+
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
-
+    # Streamlit button for “Coming Soon”
     
-
+    
+    st.markdown("</div>", unsafe_allow_html=True)
