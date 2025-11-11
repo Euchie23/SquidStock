@@ -14,6 +14,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from google.oauth2.service_account import Credentials
 from PIL import Image
+from pathlib import Path
 
 # ---------------- Local/Project Imports ----------------
 from utils.data_utils import (
@@ -1125,45 +1126,49 @@ if page == "Overview":
 #     st.markdown(video_html, unsafe_allow_html=True)
 
 # -------------------- Cached video loader --------------------
-    @st.cache_resource
-    def load_video(path: str):
-        """Read and encode video once per session."""
-        with open(path, "rb") as f:
-            video_bytes = f.read()
-        video_b64 = base64.b64encode(video_bytes).decode()
-        return video_b64
+@st.cache_resource
+def load_video(path: str):
+    """Read and encode video once per session."""
+    with open(path, "rb") as f:
+        video_bytes = f.read()
+    video_b64 = base64.b64encode(video_bytes).decode()
+    return video_b64
 
-    # -------------------- Display video --------------------
-    video_b64 = load_video("assets/animated_catch.mp4")
-    video_html = f"""
-    <div style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 0;
-        margin-bottom: 10px;
-        width: 100%;
-    ">
-        <video 
-            autoplay 
-            loop 
-            muted 
-            playsinline 
-            style="
-                width: 100%;
-                max-width: 1600px;
-                height: auto;
-                border-radius: 12px;
-                box-shadow: 0px 4px 20px rgba(0,0,0,0.4);
-            "
-        >
-            <source src="data:video/mp4;base64,{video_b64}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    """
+# -------------------- Determine path relative to this script --------------------
+BASE_DIR = Path(__file__).parent
+video_path = BASE_DIR / "assets" / "animated_catch.mp4"
 
-    st.markdown(video_html, unsafe_allow_html=True)
+# -------------------- Display video --------------------
+video_b64 = load_video(video_path)
+video_html = f"""
+<div style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    width: 100%;
+">
+    <video 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        style="
+            width: 100%;
+            max-width: 1600px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.4);
+        "
+    >
+        <source src="data:video/mp4;base64,{video_b64}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+"""
+
+st.markdown(video_html, unsafe_allow_html=True)
   
     st.title("🎣 CPUE Standardization & Forecasting – Overview")
 
