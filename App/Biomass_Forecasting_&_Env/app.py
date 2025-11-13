@@ -29,18 +29,9 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-
 # =========================================================
-# 🧮 MODELING FUNCTIONS (OPTIONAL FUTURE EXPANSION)
+# ⚙️ CSS
 # =========================================================
-# from edspm_model import simulate_biomass, compute_environmental_index
-# from helpers import normalize_index# ============================
-# 🌊 Illex Biomass Simulator App
-# ============================
-
-# ============================
-# 2️⃣ CUSTOM CSS (Your ocean theme)
-# ============================
 st.markdown("""
 <style>
 
@@ -391,9 +382,6 @@ st.sidebar.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# # ---------------- Page Selection ----------------
-# page = st.sidebar.radio("Select page", tabs, label_visibility="collapsed")
-# st.session_state.page = page
 
 # ---------------- Initialize Session State ----------------
 
@@ -420,8 +408,6 @@ if "notes_expanded" not in st.session_state:
 
 if "clear_note_input" not in st.session_state:
     st.session_state.clear_note_input = False  # ✅ added for safe clearing
-# if page not in st.session_state.notes:
-#     st.session_state.notes[page] = []  # list of entries
 
 # ---------------- Toast Message Handler ----------------
 if "toast_message" in st.session_state and st.session_state.toast_message:
@@ -491,6 +477,16 @@ def format_note_display(note, tab_name):
     )
     return formatted
 
+# Helper function to save notes
+def save_note(tab):
+    note = st.session_state.get("current_note", "").strip()
+    if note:
+        st.session_state.notes[tab].append(
+            {"timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "note": note}
+        )
+        st.session_state.current_note = ""
+        st.success("📝 Note saved to Logbook!")
+
 
 # New structure for each note
 new_entry = {
@@ -503,7 +499,7 @@ new_entry = {
     "notes": st.session_state.note_input.strip()
 }
 
-# ---------------- Notes Panel ----------------
+# ---------------- Notes Panels ----------------
 if page != "Logbook":
     with st.sidebar:
         # --- Divider ---
@@ -604,14 +600,6 @@ else:
                     col1, col2, col3 = st.columns([6, 1, 1])
                     with col1:
                         st.markdown(format_note_display(note, tab_name))
-                        # st.markdown(
-                        #     f"""
-                        #     🕒 **{note['timestamp'].strftime('%Y-%m-%d %H:%M:%S')}**  
-                        #     🗒️ **Note:** {note['notes']}  
-                        #     {"🔧 **Parameters:** " + str(note['inputs']) if note['inputs'] else ""}
-                        #     """
-                        # )
-
                     with col2:
                         if st.button("✏️", key=f"edit_{tab_name}_{i}"):
                             #entry = note
@@ -673,11 +661,7 @@ else:
             if notes:
                 all_notes_text += f"{tab} ({len(notes)} notes):\n"
                 for note in notes:
-                    # Use the same formatting as for Google Sheets
-                    #all_notes_text += f"- {note['timestamp'].strftime('%Y-%m-%d %H:%M:%S')}: {note['notes']}\n"
                     all_notes_text += format_note_display(note, tab)
-                    # if note["inputs"]:
-                    #     all_notes_text += f"  Parameters: {note['inputs']}\n"
                 all_notes_text += "\n"
 
         st.session_state.all_notes_text = all_notes_text
@@ -695,7 +679,6 @@ else:
             file_name=file_name,
             mime="text/plain"
         )
-    # 📤 Send to Host Section (appears after download)
     
     # --- Define the function ---
     def send_notes_to_host(all_notes_text, tab_name="ocean_dynamics"):
@@ -739,261 +722,17 @@ else:
                     for note in notes:
                         all_notes_text += format_note_display(note, tab_name)
                     all_notes_text += "\n"
-                    #all_notes_text += "\n".join(f"- {note}" for note in notes) + "\n"
             
             
             # Show spinner while sending
             with st.spinner("⏳ Connecting to Google Sheets... This may take a few seconds."):
                     # Send to Google Sheets
                     success = send_notes_to_host(all_notes_text)
-            #success = send_notes_to_host(all_notes_text)
 
             if success:
-                #st.session_state.toast_message = "✅ Upload to Google Sheets successful!"
                 st.success("✅ Upload to Google Sheets successful! Your notes were sent anonymously. Thank you!")
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
-
-# # ---------------- Notes Panel ----------------
-# if page != "Logbook":
-#     with st.sidebar:
-#         #st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
-    
-#         # Create session state defaults if not exist
-#         if "params" not in st.session_state:
-#             st.session_state["params"] = {}
-
-#         # Contextual sidebar parameters depending on the active tab
-#         params = st.session_state["params"]
-
-#         # Contextual sidebar parameters depending on the active tab
-#         if page == "Baseline Simulation":
-#             st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
-#             st.sidebar.markdown("<h3 style='color:#FFD700;'>⚙️ Simulation Controls</h3>", unsafe_allow_html=True)
-#             with st.sidebar.expander("🔧 Expand to adjust core EDPSM parameter", expanded=False):
-#                 params["K"] = st.slider("Carrying Capacity (tons)", 500, 2000, 1000, 50)
-#                 params["N0"] = st.slider("Initial Biomass (tons)", 100, 800, 300, 50)
-#                 params ["r0"] = st.slider("Max Intrinsic Growth Rate (r₀)", 0.1, 1.0, 0.4, 0.05)
-#                 params ["T_opt"] = st.slider("Optimal Temperature (°C)", 10.0, 20.0, 15.0, 0.5)
-#                 params ["sigma_T"] = st.slider("Temperature Tolerance (σₜ)", 1.0, 5.0, 2.0, 0.1)
-
-#         elif page == "Warming Scenario":
-#             st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
-#             st.sidebar.markdown("<h3 style='color:#FFD700;'>⚙️ Simulation Controls</h3>", unsafe_allow_html=True)
-#             with st.sidebar.expander("🌍 Expand to adjust Warming Scenario Controls 🌡️", expanded=False):
-#                 params["delta_T"] = st.slider("Temperature Increase (°C)", 0.0, 3.0, 2.0, 0.1)
-#                 params["duration"] = st.slider("Warming Period (months)", 1, 60, 24, 1)
-#                 params["show_baseline"] = st.checkbox("Show Baseline for Comparison", True)
-
-#         # elif page == "Sensitivity Analysis":
-#         #     st.sidebar.info("Expand below to tune sensitivity settings 📊")
-#         #     with st.sidebar.expander("📈 Expand to adjust Sensitivity Parameters", expanded=False):
-#         #         params["variable"] = st.selectbox("Variable to Perturb", ["Temperature (SST)", "Carrying Capacity (K)", "Growth Rate (r₀)", "Tolerance (σₜ)"])
-#         #         params["increment"] = st.slider("Sensitivity Increment (±)", 0.01, 0.5, 0.1, 0.01)
-#         #         params["iterations"] = st.slider("Number of Simulations", 10, 100, 50, 5)
-
-#         # Add spacing before contact block
-#         st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
-#         st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
-#         # --- Divider Line ---
-#         st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
-#         st.markdown("### 🗒️ Notes Panel")
-#         with st.expander(
-#             f"💬 Notes for {page}",
-#             expanded=st.session_state.notes_expanded
-#         ):
-#             note_text = st.text_area(
-#                 "Write your note here:",
-#                 key="note_input",
-#                 height=150,
-#                 placeholder="Type your note..."
-#             )
-
-#             # 💾 Save Button
-#             # Define which tabs should save parameters
-#             TABS_WITH_PARAMS = ["Baseline Simulation", "Warming Scenario"]
-
-#             if st.button("💾 Save Note", key=f"save_{page}"):
-#                 content = st.session_state.note_input.strip()
-#                 if content:
-#                     # Only include parameter summary for selected tabs
-#                # Include both note content and a snapshot of sidebar parameters
-#                     if page in TABS_WITH_PARAMS:
-#                         full_note = {
-#                             "notes": content,
-#                             "inputs": st.session_state.get("params", {}).copy()  # Save slider/checkbox state
-#                         }
-#                     else:
-#                         full_note = {"notes": content, "inputs": {}}
-
-#                     # If editing an existing note
-#                     if (
-#                         st.session_state.edit_mode["active"]
-#                         and st.session_state.edit_mode["tab"] == page
-#                     ):
-#                         idx = st.session_state.edit_mode["index"]
-#                         st.session_state.notes[page][idx] = full_note
-#                         st.toast(f"✏️ Note updated in {page}!", icon="✏️")
-#                         st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
-#                     else:
-#                         st.session_state.notes[page].append(full_note)
-#                         st.toast(f"✅ Note saved to {page}!")
-#                 else:
-#                     st.toast("⚠️ Nothing to save (note is empty).")
-
-
-#     # 🔹 Keep expander open if user is editing or typing
-#     st.session_state.notes_expanded = (
-#         bool(st.session_state.note_input.strip())
-#         or st.session_state.edit_mode["active"]
-#     )
-
-# # ---------------- Logbook ----------------
-# else:
-#     st.title("📔 Logbook")
-
-#     notes_exist = any(st.session_state.notes[tab] for tab in st.session_state.notes)
-#     if not notes_exist:
-#         st.info("No notes yet. Go to any tab to add some notes!")
-#     else:
-#         for tab_name, notes in st.session_state.notes.items():
-#             if not notes:
-#                 continue
-
-#             with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
-#                 for i, note in enumerate(notes):
-#                     col1, col2, col3 = st.columns([6, 1, 1])
-
-#                     with col1:
-#                         st.markdown(f"- {note}")
-
-#                     with col2:
-#                         # ✏️ Edit button
-#                         if st.button("✏️", key=f"edit_{tab_name}_{i}"):
-#                        # Restore note text and sidebar inputs
-#                             st.session_state.note_input = note["notes"]
-
-#                             # Restore sidebar sliders and checkbox
-#                             for k, v in note["inputs"].items():
-#                                 st.session_state["params"][k] = v
-
-#                             st.session_state.edit_mode = {
-#                                 "active": True,
-#                                 "tab": tab_name,
-#                                 "index": i,
-#                             }
-#                             st.toast(f"Snapshot Reload: ✏️ Go back to **{tab_name}** tab to edit this note.")
-
-#                     with col3:
-#                         # 🗑 Delete button
-#                         delete_key = f"{tab_name}_{i}"
-#                         if not st.session_state.delete_confirm.get(delete_key, False):
-#                             if st.button("🗑", key=f"delete_{tab_name}_{i}"):
-#                                 st.session_state.delete_confirm[delete_key] = True
-#                         else:
-#                             c1, c2 = st.columns(2)
-#                             with c1:
-#                                 if st.button("✅", key=f"confirm_del_{tab_name}_{i}"):
-#                                     del st.session_state.notes[tab_name][i]
-#                                     st.session_state.delete_confirm.pop(delete_key, None)
-#                                     st.toast(f"🗑 Deleted note {i+1} from {tab_name}")
-#                                     st.rerun()
-#                             with c2:
-#                                 if st.button("❌", key=f"cancel_del_{tab_name}_{i}"):
-#                                     st.session_state.delete_confirm[delete_key] = False
-
-
-#     # 🧾 Final Observation Section
-#     st.subheader("🧾 Final Observation")
-#     if "final_observation" not in st.session_state:
-#         st.session_state.final_observation = ""
-
-#     st.session_state.final_observation = st.text_area(
-#         "Write your final observation here:",
-#         value=st.session_state.final_observation,
-#         height=150,
-#         placeholder="Summarize your findings or conclusions..."
-#     )
-
-#     st.markdown("---")
-#     st.warning(
-#         "⚠️ **Important:** Your notes are stored only for this session. "
-#         "If you leave or refresh the app, they will be lost.\n\n"
-#         "💾 Please download them to your computer if you wish to keep a copy."
-#     )
-
-#     # --- Step 1: Prepare content only when clicked ---
-#     if st.button("🧩 Prepare Logbook for Download"):
-#         all_notes_text = f"📝 FINAL OBSERVATION:\n{st.session_state.final_observation}\n\n📔 INDIVIDUAL NOTES:\n\n"
-#         for tab, notes in st.session_state.notes.items():
-#             if notes:
-#                 all_notes_text += f"{tab} ({len(notes)} notes):\n"
-#                 all_notes_text += "\n".join(f"- {n}" for n in notes) + "\n\n"
-
-#         st.session_state.all_notes_text = all_notes_text
-#         st.success("✅ Logbook is ready to download!")
-
-#     # --- Step 2: Show download button only if content exists ---
-#     if "all_notes_text" in st.session_state and st.session_state.all_notes_text:
-#         buffer = io.BytesIO(st.session_state.all_notes_text.encode("utf-8"))
-#         st.download_button(
-#             label="📥 Download Logbook (.txt)",
-#             data=buffer,
-#             file_name="logbook.txt",
-#             mime="text/plain",
-#             key="logbook_download"
-#         )
-
-#     # 📤 Send to Host Section (appears after download)
-    
-#     # --- Define the function ---
-#     def send_notes_to_host(all_notes_text):
-#         try:
-#             # Authenticate with Google Sheets
-#             creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"],  scopes=["https://www.googleapis.com/auth/spreadsheets"])
-#             client = gspread.authorize(creds)
-
-#             # Open the target sheet by ID (no need for an extra ["google_sheets"] key)
-#             sheet = client.open_by_key("1mLnW5UHnRU8Cs5tD1NKtvr-ODlFPdFOoZi0lqXTEj10").sheet1
-
-#             # Append a new anonymous submission
-#             sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), all_notes_text])
-
-#             return True
-#         except Exception as e:
-#             st.error(f"Error sending notes: {e}")
-#             return False
-
-
-#     # --- In your Logbook section, keep all this under the same indentation ---
-#     st.markdown("---")
-#     st.subheader("📤 Send to Host (Optional)")
-#     st.info(
-#         "🧠 By sharing your notes *anonymously*, you help the host improve their "
-#         "data interpretation, statistical analysis, and app development skills.\n\n"
-#         "No personal information is collected — only your text notes are shared.\n\n"
-#         "*It may take a few seconds to confirm whether your notes were successfully sent to the host. Thank you for your patience 🙂*"
-#     )
-
-#     send_to_host = st.checkbox("Send my notes to the host (optional)")
-
-#     if send_to_host:
-#         if st.button("📤 Confirm & Send"):
-#             # Gather all notes + final observation into one text block
-#             all_notes_text = "📝 FINAL OBSERVATION:\n" + st.session_state.final_observation + "\n\n"
-#             all_notes_text += "📔 INDIVIDUAL NOTES:\n\n"
-#             for tab_name, notes in st.session_state.notes.items():
-#                 if notes:
-#                     all_notes_text += f"[{tab_name}] ({len(notes)} notes):\n"
-#                     all_notes_text += "\n".join(f"- {note}" for note in notes) + "\n"
-            
-#             # Send to Google Sheets
-#             success = send_notes_to_host(all_notes_text)
-
-#             if success:
-#                 st.success("✅ Your notes (including final observation) were sent successfully and remain anonymous. Thank you for contributing!")
-#             else:
-#                 st.error("❌ Failed to send notes. Please try again later.")
 
 
 st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
@@ -1021,37 +760,6 @@ st.sidebar.markdown("""
   </ul>
 </div>
 """, unsafe_allow_html=True)
-
-# ========================================
-#  SESSION STATE INITIALIZATION
-# ========================================
-# ---------------- Initialize Session State ----------------
-# if "notes" not in st.session_state:
-#     st.session_state.notes = {tab: [] for tab in tabs if tab != "Logbook"}
-
-# if "note_input" not in st.session_state:
-#     st.session_state.note_input = ""
-
-# if "edit_mode" not in st.session_state:
-#     st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
-
-# if "delete_confirm" not in st.session_state:
-#     st.session_state.delete_confirm = {}
-
-# if "notes_expanded" not in st.session_state:
-#     st.session_state.notes_expanded = False  # collapsed by default
-
-    
-
-# Helper function to save notes
-def save_note(tab):
-    note = st.session_state.get("current_note", "").strip()
-    if note:
-        st.session_state.notes[tab].append(
-            {"timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "note": note}
-        )
-        st.session_state.current_note = ""
-        st.success("📝 Note saved to Logbook!")
         
 
 # ========================================
@@ -1108,11 +816,6 @@ def load_data():
 
 df_monthly = load_data()
 
-
-# ========================================
-#  TABS
-# ========================================
-#tabs = st.tabs(["Overview", " Baseline Simulation", "Warming Scenario", "Sensitivity & CPUE", "Logbook"])
 
 # ========================================
 #  TAB 1: OVERVIEW
@@ -1310,70 +1013,11 @@ if page == "Overview":
 
     st.markdown(html_links, unsafe_allow_html=True)
 
-    # --- Notes Section
-    # st.divider()
-    # st.subheader("✍️ Notes for Overview")
-    # st.text_area("Write your observations:", key="current_note", height=120)
-    # st.button("💾 Save Note", on_click=save_note, args=("Overview",))
 
 # ========================================
 #  TAB 2: BASELINE SIMULATION
 # ========================================
 elif page == "Baseline Simulation":
-# with tabs[1]:
-    #st.header("⚙️ Baseline Biomass Simulation")
-
-    # --- Load sidebar parameters from session state
-    # params = st.session_state.get("params", {})
-    # K = params.get("K", 1000)
-    # N0 = params.get("N0", 300)
-    # r0 = params.get("r0", 0.4)
-    # T_opt = params.get("T_opt", 15.0)
-    # sigma_T = params.get("sigma_T", 2.0)
-
-    # #     st.subheader("🗒 Notes")
-    # #     st.text_area("Write your observations:", key="current_note", height=120)
-    # #     st.button("💾 Save Note", on_click=save_note, args=("Baseline",))
-
-    # # Environmental normalization
-    # sst_min, sst_max = df_monthly["SST"].min(), df_monthly["SST"].max()
-    # chla_min, chla_max = df_monthly["ChlA"].min(), df_monthly["ChlA"].max()
-    # df_monthly["E"] = ((df_monthly["SST"] - sst_min) / (sst_max - sst_min)) * 0.6 + ((df_monthly["ChlA"] - chla_min) / (chla_max - chla_min)) * 0.4
-    # df_monthly["r_t"] = r0 * np.exp(-((df_monthly["SST"] - T_opt) ** 2) / (2 * sigma_T**2))
-
-    # # Biomass simulation
-    # biomass = [N0]
-    # for t in range(len(df_monthly)):
-    #     N_prev = biomass[-1]
-    #     Et = df_monthly["E"].iloc[t]
-    #     r_t = df_monthly["r_t"].iloc[t]
-    #     N_next = max(N_prev + r_t * N_prev * (1 - N_prev / K) * Et, 0)
-    #     biomass.append(N_next)
-    #     print(biomass)
-
-    # df_monthly["Biomass_tons"] = biomass[:-1]
-
-    # # --- Plot
-    # fig = go.Figure()
-    # fig.add_trace(go.Scatter(y=df_monthly["Biomass_tons"], mode="lines+markers", name="Biomass (tons)", line=dict(color="teal")))
-    # fig.update_layout(title="Baseline Biomass Simulation", xaxis_title="Time Steps (Months)", yaxis_title="Biomass (tons)", height=500)
-    # st.plotly_chart(fig, use_container_width=True)
-
-    #     # --- Non-technical observation
-    # avg_change = (df_monthly["Biomass_tons"].iloc[-1] - df_monthly["Biomass_tons"].iloc[0]) / df_monthly["Biomass_tons"].iloc[0]
-    # if avg_change > 0.05:
-    #     obs_text = "Biomass is generally increasing under these baseline conditions 📈. Populations are doing well compared to the starting point."
-    # elif avg_change < -0.05:
-    #     obs_text = "Biomass is generally decreasing under these baseline conditions 📉. Populations may be struggling compared to the start."
-    # else:
-    #     obs_text = "Biomass is relatively stable under these baseline conditions ⚖️. No major changes observed."
-    
-    # st.info(obs_text)
-
-
-# --- Default ecological parameters (based on Jan–Jun calibration)
-# These represent realistic midpoints from 20 years of observed data.
-
     params = st.session_state.get("params", {})
     K = params.get("K", 5_000_000)       # Carrying capacity (tons) – upper biomass limit ecosystem can support
     N0 = params.get("N0", 1_500_000)       # Initial biomass (tons) – approx. start-of-season stock
@@ -1597,140 +1241,10 @@ elif page == "Baseline Simulation":
 
 
 
-
 # ========================================
 #  TAB 3: WARMING SCENARIO
 # ========================================
 elif page == "Warming Scenario":
-    #st.header("🔥 Climate Warming Scenarios")
-
-    # --- Load parameters from session state or set defaults
-    # params = st.session_state.get("params", {})
-    # delta_T = params.get("warming", 2.0)          # Temperature increase
-    # duration = params.get("duration", 24)         # Number of months to simulate
-    # show_baseline = params.get("show_baseline", True)  # Toggle baseline display
-    # N0 = params.get("N0", 300)                      # Initial Biomass
-    # K = params.get("K", 1000)                      #Carrying Capacity
-    # r0 = params.get("r0", 0.4)                    # Intrinsic growth rate
-    # T_opt = params.get("T_opt", 15.0)            # Optimal SST
-    # sigma_T = params.get("sigma_T", 2.0)         # Temperature tolerance
-
-    # # --- Prepare dataframe for warming scenario
-    # df_warm = df_monthly.iloc[:duration].copy()
-    # sst_min, sst_max = df_warm["SST"].min(), df_warm["SST"].max()
-    # chla_min, chla_max = df_warm["ChlA"].min(), df_warm["ChlA"].max()
-
-    # # Apply warming
-    # df_warm["SST"] += np.linspace(0, delta_T, len(df_warm))
-
-    # # Calculate temperature-dependent growth rate
-    # df_warm["r_t"] = r0 * np.exp(-((df_warm["SST"] - T_opt) ** 2) / (2 * sigma_T ** 2))
-
-    # # Environmental index
-    # df_warm["E"] = ((df_warm["SST"] - sst_min) / (sst_max - sst_min)) * 0.6 + \
-    #                ((df_warm["ChlA"] - chla_min) / (chla_max - chla_min)) * 0.4
-
-    # # --- Simulate biomass under warming
-    # biomass_warm = [N0]
-    # for t in range(len(df_warm)):
-    #     N_prev = biomass_warm[-1]
-    #     Et = df_warm["E"].iloc[t]
-    #     r_t = df_warm["r_t"].iloc[t]
-    #     N_next = max(N_prev + r_t * N_prev * (1 - N_prev / K) * Et, 0)
-    #     biomass_warm.append(N_next)
-    # df_warm["Biomass_tons"] = biomass_warm[:-1]
-
-    # # Compute percentage change compared to baseline
-    # biomass_change_pct = 100 * (df_warm["Biomass_tons"] - df_monthly["Biomass_tons"].iloc[:duration]) / \
-    #                      df_monthly["Biomass_tons"].iloc[:duration]
-
-    # # --- Plot
-    # fig = make_subplots(
-    #     rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.07,
-    #     subplot_titles=("Simulated Biomass", "% Change in Biomass", "Environmental Index E(t)")
-    # )
-
-    # if show_baseline:
-    #     fig.add_trace(go.Scatter(
-    #         y=df_monthly["Biomass_tons"].iloc[:duration],
-    #         name="Baseline Biomass",
-    #         line=dict(color="blue")
-    #     ), row=1, col=1)
-    #     fig.add_trace(go.Scatter(
-    #         y=df_monthly["E"].iloc[:duration],
-    #         name="Baseline E(t)",
-    #         line=dict(color="green")
-    #     ), row=3, col=1)
-
-    # fig.add_trace(go.Scatter(
-    #     y=df_warm["Biomass_tons"],
-    #     name=f"Warming (+{delta_T}°C)",
-    #     line=dict(color="orange", dash="dash")
-    # ), row=1, col=1)
-
-    # fig.add_trace(go.Scatter(
-    #     y=biomass_change_pct,
-    #     name="% Change in Biomass",
-    #     line=dict(color="red")
-    # ), row=2, col=1)
-
-    # fig.add_trace(go.Scatter(
-    #     y=df_warm["E"],
-    #     name=f"Warming E(t) (+{delta_T}°C)",
-    #     line=dict(color="red", dash="dash")
-    # ), row=3, col=1)
-
-    # fig.update_layout(
-    #     height=900,
-    #     showlegend=True,
-    #     title="Warming Scenario Comparison"
-    # )
-    # st.plotly_chart(fig, use_container_width=True)
-
-    # # --- Non-technical dynamic observation
-    # avg_pct_change = biomass_change_pct.mean()
-    # if avg_pct_change > 5:
-    #     obs_text = f"Under a +{delta_T}°C warming, biomass is noticeably higher than the baseline 📈. Conditions are generally favorable for growth."
-    # elif avg_pct_change < -5:
-    #     obs_text = f"Under a +{delta_T}°C warming, biomass is noticeably lower than the baseline 📉. Conditions are less favorable than normal."
-    # else:
-    #     obs_text = f"Under a +{delta_T}°C warming, biomass is roughly similar to the baseline ⚖️. No major changes observed."
-    
-    # st.info(obs_text)
-
-# --- Example baseline monthly data (replace with your actual df)
-# df_monthly should have at least columns: ["SST", "ChlA"]
-# For demonstration:
-#     df_monthly = pd.DataFrame({
-#     "SST": np.linspace(10, 20, 24),
-#     "ChlA": np.random.uniform(0.5, 1.5, 24)
-# })
-
-    # K = 1000000  # Carrying capacity, adjust as needed
-
-    # # --- Load session state parameters or set defaults
-    # params = st.session_state.get("params", {})
-    # delta_T = params.get("delta_T", 2.0)
-    # r0 = params.get("r0", 0.15)
-    # T_opt = params.get("T_opt", 12.0)
-    # sigma_T = params.get("sigma_T", 3.0)
-    # N0 = params.get("N0", 150000)
-    # duration = params.get("duration", 24)
-    # show_baseline = params.get("show_baseline", True)
-
-    # Save updated params to session state
-    # st.session_state["params"] = {
-    #     "warming": delta_T,
-    #     "r0": r0,
-    #     "T_opt": T_opt,
-    #     "sigma_T": sigma_T,
-    #     "N0": N0,
-    #     "duration": duration,
-    #     "show_baseline": show_baseline
-    # }
-
-    # ----- WARMING SCENARIO TAB (replacement) -----
-
 # --- Load parameters (ensure you included params['q'] in sidebar)
     params = st.session_state.get("params", {})
     delta_T = params.get("delta_T", 2.0)
@@ -1889,12 +1403,6 @@ elif page == "Warming Scenario":
     fig.update_yaxes(title_text="Biomass (tons)", row=1, col=1)
     fig.update_yaxes(title_text="% Change", row=2, col=1)
     fig.update_yaxes(title_text="EnvIndex (unitless)", row=3, col=1)
-    # add secondary y axis for effort
-    # fig.update_layout(
-    #     yaxis3=dict(title="EnvIndex", side="left"),
-    #     yaxis=dict(title="Biomass (tons)"),
-    #     yaxis2=dict(title="r_t", overlaying="y", side="right")
-    # )
 
     st.plotly_chart(fig, width='stretch')
 
@@ -2173,28 +1681,4 @@ elif page == "Sensitivity & CPUE":
     # --- Store updated dataframe back to session_state ---
     st.session_state["latest_df"] = df_latest
 
-
-
-
-# ========================================
-#  TAB 5: LOGBOOK
-# ========================================
-# with tabs[4]:
-#     st.header("📔 Simulation Logbook")
-#     st.write("Here are your saved notes for each section:")
-
-#     for section, notes in st.session_state.notes.items():
-#         if notes:
-#             st.subheader(f"🧩 {section} Notes")
-#             for n in notes:
-#                 st.markdown(f"- *{n['timestamp']}*: {n['note']}")
-#         else:
-#             st.markdown(f"*(No notes yet for {section})*")
-
-#     st.divider()
-#     st.write("📤 Download / Send options coming soon...")
-
-# =======================================================
-# SIDEBAR PARAMETER CONTROLS (CONTEXTUAL TO SELECTED TAB)
-# =======================================================
 
