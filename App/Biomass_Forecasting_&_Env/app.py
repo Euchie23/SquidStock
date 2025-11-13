@@ -4,6 +4,7 @@
 import numpy as np
 import pandas as pd
 import io
+import os
 import time
 from datetime import datetime
 import gspread
@@ -765,10 +766,14 @@ st.sidebar.markdown("""
 # ========================================
 #  LOAD DATA
 # ========================================
+
+APP_PATH = os.path.dirname(__file__)  # folder where app.py is
+DATA_PATH = os.path.join(APP_PATH, "data/Final_dataset_imputed.csv")
+
 @st.cache_data
 def load_data():
     # Load dataset and filter for consistent months (Jan–Jun only)
-    df = pd.read_csv("../../data/Final_dataset_imputed.csv")
+    df = pd.read_csv(DATA_PATH)
     df = df[df["Month"].between(1, 6)]
 
     # Convert catch to tons for easier interpretation
