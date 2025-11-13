@@ -793,8 +793,8 @@ if page == "Overview":
 
     st.markdown(
     """
-    <div style='color:red; font-weight:bold; font-size:20px; text-align:Justify; margin-top:10px;'>
-    💡 Note: The animated map above displays <b>catch in kilograms (kg)</b> for finer spatial resolution,<br>
+    <div style='color:red; font-weight:bold; font-size:20px; text-align:center; margin-top:10px;'>
+    💡 Note: The animated map above displays <b>catch (Jan-Jun) in kilograms (kg)</b> for finer spatial resolution,<br>
     while all model evaluation results in later tabs are expressed in <b>tons (t)</b> for clarity and comparability.
     </div>
     """,
@@ -975,15 +975,6 @@ elif page == "Residual Analysis":
     - **Temporal patterns:** to ensure no residual autocorrelation across years  
     """)
 
-    st.markdown(
-    """
-    <div style='color:red; font-weight:bold; text-align:center; margin-top:10px;'>
-    💡 Note: The animated map above displays <b>catch in kilograms (kg)</b> for finer spatial resolution,<br>
-    while all model evaluation results in later tabs are expressed in <b>tons (t)</b> for clarity and comparability.
-    </div>
-    """,
-    unsafe_allow_html=True
-)
     residual_dict = load_residual_data()
 
     if not residual_dict:
