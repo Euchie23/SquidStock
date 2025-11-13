@@ -26,30 +26,6 @@ from utils.data_utils import (
     load_observed_vs_standardized
 )
 
-
-# # -------------------- Caching --------------------
-# @st.cache_data
-# def load_model_data_cached():
-#     return load_model_data()
-
-# @st.cache_data
-# def load_prediction_data_cached():
-#     return load_prediction_data()
-
-# @st.cache_data
-# def load_residual_data_cached():
-#     return load_residual_data()
-
-# @st.cache_data
-# def load_monthly_cpue_cached():
-#     return load_monthly_cpue()
-
-# @st.cache_data
-# def load_observed_vs_standardized_cached():
-#     return load_observed_vs_standardized()
-
-#st.write("Streamlit version:", st.__version__)
-
 @st.cache_resource
 def get_monthly_cpue_plot(df):
     fig = px.line(
@@ -61,15 +37,6 @@ def get_monthly_cpue_plot(df):
     )
     fig.update_layout(width=900, height=600)
     return fig
-
-# -------------------- Usage --------------------
-# st.header("📊 Monthly CPUE")
-# df_cpue = load_monthly_cpue_cached()
-# fig_cpue = get_monthly_cpue_plot(df_cpue)
-# st.plotly_chart(fig_cpue, use_container_width=True)
-
-
-#from utils.plots_utils import plot_predictions 
 
 # ---------------------- Page Configuration ----------------------
 st.set_page_config(page_title="Course Correction", layout="wide")
@@ -423,9 +390,6 @@ st.sidebar.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ---------------------- Sidebar ----------------------
-
-
 # ---------------- Initialize Session State ----------------
 
 if "page" not in st.session_state:
@@ -443,11 +407,11 @@ if "edit_mode" not in st.session_state:
 if "delete_confirm" not in st.session_state:
     st.session_state.delete_confirm = {}
 
+if "auto_expand_notes" not in st.session_state:
+    st.session_state.auto_expand_notes = False
+
 if "notes_expanded" not in st.session_state:
     st.session_state.notes_expanded = False  # collapsed by default
-
-# if page not in st.session_state.notes:
-#     st.session_state.notes[page] = []  # list of entries
 
 # ---------------- Toast Message Handler ----------------
 if "toast_message" in st.session_state and st.session_state.toast_message:
@@ -482,33 +446,6 @@ if st.session_state.edit_mode["active"]:
     st.warning("⚠️ You are editing a reloaded note. You must save before switching tabs.")
 
 
-
-# Ensure page reflects edit_mode before rendering the radio
-# if st.session_state.edit_mode["active"] and st.session_state.edit_mode["tab"] in tabs:
-#     st.session_state.page = st.session_state.edit_mode["tab"]
-
-# # Determine selected index for the radio
-# selected_index = tabs.index(st.session_state.page) if st.session_state.page in tabs else 0
-# page = st.sidebar.radio("Select page", tabs, index=selected_index, key="page")
-# #st.session_state.page = page
-
-# # Locking tab during snapshot reload and notifying user
-# selected_index = tabs.index(st.session_state.page) if st.session_state.page in tabs else 0
-
-# # If in edit mode, lock the tab
-# if st.session_state.edit_mode["active"]:
-#     page = st.sidebar.radio(
-#         "Select page",
-#         [st.session_state.edit_mode["tab"]],
-#         index=0,
-#         key="page",
-#         disabled=True
-#     )
-#     st.warning("⚠️ You are editing a reloaded note. You must save before switching tabs.")
-# else:
-#     page = st.sidebar.radio("Select page", tabs, index=selected_index, key="page")
-
-
 # Keep notes panel expander open if typing or editing
 st.session_state.notes_expanded = bool(st.session_state.note_input.strip()) or st.session_state.edit_mode["active"]
 
@@ -517,6 +454,7 @@ st.session_state.notes_expanded = bool(st.session_state.note_input.strip()) or s
 st.session_state.notes_expanded = (
     bool(st.session_state.note_input.strip())
     or st.session_state.edit_mode["active"]
+    or st.session_state.auto_expand_notes
 )
 
 # ---------------- Helper Functions ----------------
@@ -536,25 +474,6 @@ def format_note_display(note, tab_name):
         f"{'-'*50}\n\n"
     )
     return formatted
-
-
-# def format_note_for_log(note, tab_name):
-#     # Format inputs nicely
-#     inputs = note.get("inputs", {})
-#     input_text = ", ".join(f"{k}: {v}" for k, v in inputs.items() if v is not None) or "N/A"
-    
-#     timestamp = note.get("timestamp")
-#     timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S") if timestamp else "Unknown time"
-    
-#     content = note.get("notes", "")
-    
-#     formatted = (
-#         f"🕒 {timestamp_str} 📍 Source: {tab_name} 🔧 Snapshot Inputs: {input_text}\n\n"
-#         f"🗒️ Notes: {content}\n"
-#         f"{'-'*50}\n"
-#     )
-#     return formatted
-
 
 # New structure for each note
 new_entry = {
@@ -578,14 +497,7 @@ if page != "Logbook":
             f"💬 Notes for {page}",
             expanded=st.session_state.notes_expanded
         ):
-            # note_text = st.text_area(
-            #     "Write your note here:",
-            #     value=st.session_state.note_input,
-            #     key="note_input",
-            #     height=150,
-            #     placeholder="Type your note..."
-            # )
-
+            st.session_state.auto_expand_notes = False
             note_text = st.text_area(
                 "Write your note here:",
                 key="note_input",
@@ -622,13 +534,6 @@ if page != "Logbook":
                     st.rerun()
                 else:
                     st.session_state.toast_message = "⚠️ Nothing to save (note is empty)."
-
-    # 🔹 Keep expander open if user is editing or typing
-    # st.session_state.notes_expanded = (
-    #     bool(st.session_state.note_input.strip())
-    #     or st.session_state.edit_mode["active"]
-    # )
-
 
 # ---------------- Logbook ----------------
 else:
@@ -668,18 +573,9 @@ else:
                                 "tab": tab_name,
                                 "index": i,
                             }
-
-                            # Set target tab & show message on next load
-                            # Set target tab & dynamic toast message
-                            #st.session_state.page = tab_name
-                            #st.session_state.note_input = entry["notes"]
-                            #st.session_state.edit_mode = {"active": True, "tab": tab_name, "index": i}
                             st.session_state.toast_message = f"📸 Snapshot reloaded for {tab_name}. You can now edit your note."
-                            #st.rerun()
-
+                            st.session_state.auto_expand_notes = True
                             st.rerun()  # <- this triggers immediate rerun with updated session_state
-
-                            #st.toast(f"📝 Snapshot reloaded for editing. Go back to {tab_name} tab to edit.")
 
                     with col3:
                         # 🗑 Delete button
@@ -733,18 +629,12 @@ else:
             # Use the same formatting as for Google Sheets
                     all_notes_text += format_note_display(note, tab)
                 all_notes_text += "\n"
-                #all_notes_text += "\n".join(f"- {n}" for n in notes) + "\n\n"
 
         st.session_state.all_notes_text = all_notes_text
         st.success("✅ Logbook is ready to download!")
 
     # --- Step 2: Show download button only if content exists ---
     if "all_notes_text" in st.session_state and st.session_state.all_notes_text:
-        # formatted_notes = ""
-        # for tab_name, notes in st.session_state.notes.items():
-        #     for note in notes:
-        #         formatted_notes += format_note_display(note, tab_name)
-
         buffer = io.BytesIO(st.session_state.all_notes_text.encode("utf-8"))
 
          # Current datetime string
@@ -762,14 +652,14 @@ else:
     # 📤 Send to Host Section (appears after download)
     
     # --- Define the function ---
-    def send_notes_to_host(all_notes_text):
+    def send_notes_to_host(all_notes_text, tab_name="course_correction"):
         try:
             # Authenticate with Google Sheets
             creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"],  scopes=["https://www.googleapis.com/auth/spreadsheets"])
             client = gspread.authorize(creds)
 
             # Open the target sheet by ID (no need for an extra ["google_sheets"] key)
-            sheet = client.open_by_key("1mLnW5UHnRU8Cs5tD1NKtvr-ODlFPdFOoZi0lqXTEj10").sheet1
+            sheet = client.open_by_key("1mLnW5UHnRU8Cs5tD1NKtvr-ODlFPdFOoZi0lqXTEj10").worksheet(tab_name)
 
             # Append a new anonymous submission
             sheet.append_row([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), all_notes_text])
@@ -789,22 +679,6 @@ else:
         "No personal information is collected — only your text notes are shared.\n\n"
         "*It may take a few seconds to confirm whether your notes were successfully sent to the host. Thank you for your patience 🙂*"
     )
-#     st.markdown(
-#     """
-#     <div style="
-#         background-color: transparent;  /* transparent background */
-#         color: white;               /* white text */
-#         padding: 15px;
-#         border-radius: 5px;
-#     ">
-#         🧠 By sharing your notes <em>anonymously</em>, you help the host improve their
-#         data interpretation, statistical analysis, and app development skills.<br><br>
-#         No personal information is collected — only your text notes are shared.<br><br>
-#         <em>It may take a few seconds to confirm whether your notes were successfully sent to the host. Thank you for your patience 🙂</em>
-#     </div>
-#     """,
-#     unsafe_allow_html=True
-# )
 
     send_to_host = st.checkbox("Send my notes to the host (optional)")
 
@@ -821,178 +695,15 @@ else:
                     for note in notes:
                         all_notes_text += format_note_display(note, tab_name)
                     all_notes_text += "\n"
-                    #all_notes_text += "\n".join(f"- {note}" for note in notes) + "\n"
             
             # Show spinner while sending
             with st.spinner("⏳ Connecting to Google Sheets... This may take a few seconds."):
                     success = send_notes_to_host(all_notes_text)
 
-
             if success:
-                st.session_state.toast_message = "✅ Upload to Google Sheets successful!"
-                st.success("✅ Your notes were sent anonymously. Thank you!")
+                st.success("✅ Upload to Google Sheets successful! Your notes were sent anonymously. Thank you!")
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
-
-        #then then "Send to host" button appears here
-
-# Radio with a hidden label (keeps accessibility happy) 
-# page = st.sidebar.radio(
-#     label="Select page",
-#     options=tabs,
-#     label_visibility="collapsed"
-# )
-
-# if "page" not in st.session_state:
-#     st.session_state.page = tabs[0]  # default first tab
-
-# st.session_state.page = page  # update current page
-
-# # ---------------------- Initialize Session State ----------------------
-# if "notes" not in st.session_state:
-#     st.session_state.notes = {tab_name: [] for tab_name in tabs if tab_name != "Logbook"}
-
-# if "edit_target" not in st.session_state:
-#     st.session_state.edit_target = None
-
-
-#  # Ensure all note keys exist to prevent AttributeError
-# for tab in tabs:
-#     if tab != "Logbook":
-#         key = f"note_input_{tab}"
-#         if key not in st.session_state:
-#             st.session_state[key] = ""
-
-# st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
-# # --- Divider Line ---
-# st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
-
-# # ---------------------- Collapsible Notes Panel ----------------------
-# if page != "Logbook":
-#     with st.sidebar:
-#         st.markdown("### 💬 Notes Panel")
-#         with st.expander(f"**Notes for {page} tab**", expanded=False):
-#             note_key = f"note_input_{page}"
-
-#             # Initial value: empty if just saved, else current value
-#             note_text_value = "" if st.session_state.get("just_saved") else st.session_state.get(note_key, "")
-            
-#             # current_text = st.session_state.get(note_key, "")
-
-#             # Determine initial value
-#         #     if st.session_state.edit_target and st.session_state.edit_target[0] == page:
-#         #         edit_index = st.session_state.edit_target[1]
-#         #         if 0 <= edit_index < len(st.session_state.notes[page]):
-#         #             note_text_value = st.session_state.notes[page][edit_index]
-#         #         else:
-#         #             st.session_state.edit_target = None
-#         #             note_text_value = ""
-#         #    # Determine initial value for the textarea
-#         #     if st.session_state.get("clear_note") and st.session_state.get("last_page") == page:
-#         #         note_text_value = ""      # empty on clear
-#         #         st.session_state["clear_note"] = False  # reset the flag
-#         #     else:
-#         #         note_text_value = st.session_state.get(note_key, "")
-
-#             # Create text area with this value
-#             note_text = st.text_area(
-#                 "Write your note here:",
-#                 value=note_text_value,
-#                 key=note_key,
-#                 height=120,
-#                 placeholder="Write something..."
-#             )
-
-#             # --- Smart button activation ---
-#             content = st.session_state.get(note_key, "").strip()
-#             save_disabled = not bool(content)
-           
-
-
-#             # Save button
-#             if st.button("💾 Save Note", key=f"save_{page}", disabled=save_disabled):
-#                 if content:
-#                     if st.session_state.edit_target and st.session_state.edit_target[0] == page:
-#                         idx = st.session_state.edit_target[1]
-#                         st.session_state.notes[page][idx] = content
-#                         st.session_state.edit_target = None
-#                         st.toast("✏️ Note updated!")
-#                     else:
-#                         st.session_state.notes[page].append(content)
-#                         st.toast("✅ Note saved successfully!")
-#                     # Clear text area on next rerun
-#                     st.session_state["just_saved"] = True
-#                     st.rerun()
-
-#             # Reset flag after rerun so text_area works normally again
-#             if st.session_state.get("just_saved") and note_text_value == "":
-#                 st.session_state["just_saved"] = False
-
-# # ---------------------- LOGBOOK PAGE ----------------------
-# elif page == "Logbook":
-#     st.title("📔 Logbook: All Notes")
-
-#     if not any(st.session_state.notes[tab] for tab in st.session_state.notes):
-#         st.info("No notes yet. Go back to other tabs and add some notes!")
-#     else:
-#         for tab_name, notes in st.session_state.notes.items():
-#             if notes:
-#                 # Track expander state
-#                 expander_key = f"expander_{tab_name}"
-#                 if expander_key not in st.session_state:
-#                     st.session_state[expander_key] = False  # default collapsed
-
-#                 with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=st.session_state[expander_key]):
-#                     # Update session_state whenever user toggles
-#                     st.session_state[expander_key] = st.session_state.get(expander_key, False)
-#                 #with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
-#                     for i, note in enumerate(notes):
-#                         cols = st.columns([5, 1, 1])
-
-#                         # --- Note text ---
-#                         with cols[0]:
-#                             st.write(f"{i+1}. {note}")
-
-#                         # --- Delete logic ---
-#                         with cols[1]:
-#                             delete_key = f"del_{tab_name}_{i}"
-#                             confirm_key = f"confirm_delete_{tab_name}_{i}"
-
-#                             if st.session_state.get(confirm_key):
-#                                 col_confirm, col_cancel = st.columns(2)
-#                                 with col_confirm:
-#                                     if st.button("✅ Confirm", key=f"confirm_{tab_name}_{i}"):
-#                                         st.session_state.notes[tab_name].pop(i)
-#                                         st.session_state.pop(confirm_key, None)
-#                                         st.toast(f"🗑️ Note deleted from **{tab_name}**", icon="🗑️")
-#                                         st.rerun()
-#                                 with col_cancel:
-#                                     if st.button("❌ Cancel", key=f"cancel_{tab_name}_{i}"):
-#                                         st.session_state.pop(confirm_key, None)
-#                                         st.toast("🚫 Delete cancelled", icon="🚫")
-#                             else:
-#                                 # ✅ Confirm + Cancel appear on first click
-#                                 if st.button("🗑️ Delete", key=delete_key):
-#                                     st.session_state[confirm_key] = True
-#                                     st.toast("⚠️ Click ✅ to confirm or ❌ to cancel", icon="⚠️")
-#                                     st.rerun()
-
-#                         # --- Edit logic ---
-#                         with cols[2]:
-#                             if st.button("✏️ Edit", key=f"edit_{tab_name}_{i}"):
-#                                 st.session_state.edit_target = (tab_name, i)
-#                                 st.toast(f"✏️ Go back to **{tab_name}** tab to edit this note.", icon="💡")
-#                                 time.sleep(1.2)
-#                                 st.rerun()
-
-#         # --- Download Button ---
-#         notes_json = json.dumps(st.session_state.notes, indent=2)
-#         st.download_button(
-#             label="📥 Download Logbook",
-#             data=notes_json,
-#             file_name="logbook.json",
-#             mime="application/json"
-#         )
 
 
 st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
@@ -1024,107 +735,8 @@ st.sidebar.markdown("""
 # ---------------------- Data Loaders ----------------------
 model_summary, cv_results, eval_results = load_model_data()
 
-# ---------------------- Session State Init ----------------------
-# if page != "Logbook":
-#     with st.sidebar:
-#         st.markdown("### 💬 Notes Panel")
-#         with st.expander(f"Notes for {page} tab", expanded=False):
-#             note_key = f"note_input_{page}"
-
-#             # Prefill text area if editing
-#             if st.session_state.edit_target and st.session_state.edit_target[0] == page:
-#                 edit_index = st.session_state.edit_target[1]
-#                 st.session_state[note_key] = st.session_state.notes[page][edit_index]
-#                 st.toast("✏️ Editing your saved note...", icon="✏️")
-#             elif note_key not in st.session_state:
-#                 st.session_state[note_key] = ""
-
-#             # Text area
-#             note_text = st.text_area(
-#                 "Write your note here:",
-#                 value=st.session_state.get(note_key, ""),
-#                 key=note_key,
-#                 height=120,
-#                 placeholder="Write something..."
-#             )
-
-#             col1, col2 = st.columns(2)
-#             with col1:
-#                 save_clicked = st.button("💾 Save Note", key=f"save_{page}")
-#             with col2:
-#                 clear_clicked = st.button("🧹 Clear", key=f"clear_{page}")
-
-#             if save_clicked:
-#                 content = st.session_state.get(note_key, "").strip()
-#                 if content:
-#                     if st.session_state.get("edit_target") and st.session_state.edit_target[0] == page:
-#                         idx = st.session_state.edit_target[1]
-#                         st.session_state.notes[page][idx] = content
-#                         st.toast("✅ Note updated!", icon="✅")
-#                     else:
-#                         st.session_state.notes[page].append(content)
-#                         st.toast("✅ Note saved!", icon="✅")
-#                     # Clear the text area safely
-#                     st.session_state[note_key] = ""
-#                     st.session_state.edit_target = None
-#                     st.experimental_rerun()
-#                 else:
-#                     st.warning("⚠️ Cannot save empty note.")
-
-#             if clear_clicked:
-#                 st.session_state[note_key] = ""
-#                 st.session_state.edit_target = None
-#                 st.experimental_rerun()
-
-
-# ---------------------- LOGBOOK PAGE ----------------------
-# else:
-#     st.title("📔 Logbook: All Notes")
-
-#     if not any(st.session_state.notes[tab] for tab in st.session_state.notes):
-#         st.info("No notes yet. Go back to other tabs and add some notes!")
-#     else:
-#         for tab_name, notes in st.session_state.notes.items():
-#             if notes:
-#                 with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
-#                     for i, note in enumerate(notes):
-#                         cols = st.columns([5, 1, 1])
-#                         with cols[0]:
-#                             st.write(f"{i+1}. {note}")
-#                         with cols[1]:
-#                             if st.button("🗑️", key=f"del_{tab_name}_{i}"):
-#                                 st.session_state.notes[tab_name].pop(i)
-#                                 st.experimental_rerun()
-#                         with cols[2]:
-#                             if st.button("✏️", key=f"edit_{tab_name}_{i}"):
-#                                 st.session_state.edit_target = (tab_name, i)
-#                                 st.session_state.update({f"note_input_{tab_name}": st.session_state.notes[tab_name][i]})
-#                                 st.info(f"Go to the **{tab_name}** tab to edit this note.")
-#                                 st.rerun()
-
-#         # Download button
-#         notes_json = json.dumps(st.session_state.notes, indent=2)
-#         st.download_button(
-#             label="📥 Download Logbook",
-#             data=notes_json,
-#             file_name="logbook.json",
-#             mime="application/json"
-#         )
-
 
 if page == "Overview":
-    #st.image("assets/animated_catch.gif", use_column_width=True)
-    #st.video('assets/animated_catch.mp4', use_column_width=True, format='video/mp4', start_time=0, loop=True)
-#     video_file = open('assets/animated_catch.mp4', 'rb').read()
-#     video_html = f"""
-#     <div style="height:800px; overflow:hidden; position:relative;">
-#       <video autoplay loop muted playsinline style="width:100%; height:auto; position:absolute; top:-40px;">
-#         <source src="data:video/mp4;base64,{base64.b64encode(video_file).decode()}" type="video/mp4">
-#       </video>
-#     </div>
-# """
-#     st.markdown(video_html, unsafe_allow_html=True)
-
     # -------------------- Cached video loader --------------------
     @st.cache_resource
     def load_video(path: str):
