@@ -1023,6 +1023,7 @@ if page == "Overview":
 #  TAB 2: BASELINE SIMULATION
 # ========================================
 elif page == "Baseline Simulation":
+    st.header("⚙️ Baseline Biomass Simulation")
     params = st.session_state.get("params", {})
     K = params.get("K", 5_000_000)       # Carrying capacity (tons) – upper biomass limit ecosystem can support
     N0 = params.get("N0", 1_500_000)       # Initial biomass (tons) – approx. start-of-season stock
@@ -1250,6 +1251,7 @@ elif page == "Baseline Simulation":
 #  TAB 3: WARMING SCENARIO
 # ========================================
 elif page == "Warming Scenario":
+    st.header("🔥 Climate Warming Scenarios")
 # --- Load parameters (ensure you included params['q'] in sidebar)
     params = st.session_state.get("params", {})
     delta_T = params.get("delta_T", 2.0)
