@@ -926,6 +926,7 @@ elif page == "Model Comparison":
         st.warning("Model summary data not found.")
 
 elif page == "Evaluation Metrics":
+    st.header("📊 Evaluation Metrics Tables")
     col1, col2 = st.columns(2)
 
     with col1:
