@@ -1025,50 +1025,66 @@ if page == "Overview":
 elif page == "Baseline Simulation":
     st.header("⚙️ Baseline Biomass Simulation")
     params = st.session_state.get("params", {})
-    K = params.get("K", 5_000_000)       # Carrying capacity (tons) – upper biomass limit ecosystem can support
-    N0 = params.get("N0", 1_500_000)       # Initial biomass (tons) – approx. start-of-season stock
-    r0 = params.get("r0", 0.15)          # Maximum intrinsic growth rate (per month)
-    T_opt = params.get("T_opt", 12.0)    # Optimal temperature for growth (°C)
-    sigma_T = params.get("sigma_T", 3.0) # Temperature tolerance (°C)
-    q = params.get("q", 5e-5) # catchability
+    K = params.get("K", 5_000_000)
+    N0 = params.get("N0", 1_500_000)
+    r0 = params.get("r0", 0.15)
+    T_opt = params.get("T_opt", 12.0)
+    sigma_T = params.get("sigma_T", 3.0)
+    q = params.get("q", 5e-5)
 
-    sst_min, sst_max = df_monthly["SST"].min(), df_monthly["SST"].max()
-    chla_min, chla_max = df_monthly["ChlA"].min(), df_monthly["ChlA"].max()
+    num_sim = 500  # reduced for performance
 
-    df_monthly["E_env"] = ((df_monthly["SST"] - sst_min) / (sst_max - sst_min)) * 0.6 + \
-                    ((df_monthly["ChlA"] - chla_min) / (chla_max - chla_min)) * 0.4
-    df_monthly["r_t"] = r0 * np.exp(-((df_monthly["SST"] - T_opt) ** 2) / (2 * sigma_T**2))
-    df_monthly["E_eff"] = df_monthly["VesselDays"]
+    # --- STEP 1: Lightweight preprocessing cache
+    @st.cache_data(show_spinner=False)
+    def preprocess_env(df):
+        df = df.copy()
+        sst_min, sst_max = df["SST"].min(), df["SST"].max()
+        chla_min, chla_max = df["ChlA"].min(), df["ChlA"].max()
+        df["E_env"] = ((df["SST"] - sst_min) / (sst_max - sst_min)) * 0.6 + \
+                      ((df["ChlA"] - chla_min) / (chla_max - chla_min)) * 0.4
+        return df
 
-  # --- Monte Carlo simulation
-    num_sim = 1000
-    biomass_sim = []
+    df_monthly = preprocess_env(df_monthly)
 
-    for i in range(num_sim):
-        biomass = [N0]
-        for t in range(len(df_monthly)):
-            N_prev = biomass[-1]
-            r_t = df_monthly["r_t"].iloc[t]
-            E_env = df_monthly["E_env"].iloc[t]
-            E_eff = df_monthly["E_eff"].iloc[t]
+    # --- STEP 2: Vectorized simulation core (heavy compute, fully cached)
+    @st.cache_data(show_spinner=True, ttl=3600, max_entries=3)
+    def run_baseline_simulation(df, K, N0, r0, T_opt, sigma_T, q, num_sim):
+        df = df.copy()
+        T = len(df)
 
-            # Logistic growth + fishing mortality
-            growth = r_t * E_env * N_prev * (1 - N_prev / K)
-            catch_loss = q * E_eff * N_prev
+        # temperature-dependent growth
+        r_t = r0 * np.exp(-((df["SST"] - T_opt) ** 2) / (2 * sigma_T**2))
+        E_env = df["E_env"].values
+        E_eff = df["VesselDays"].values
 
-            N_next = max(N_prev + growth - catch_loss, 0)
-            biomass.append(N_next)
+        # initialize matrix for biomass simulations
+        biomass = np.zeros((num_sim, T))
+        biomass[:, 0] = N0
 
-    biomass_sim.append(biomass[:-1])
+        # Vectorized Monte Carlo simulation
+        for t in range(1, T):
+            N_prev = biomass[:, t - 1]
+            growth = r_t.iloc[t] * E_env[t] * N_prev * (1 - N_prev / K)
+            catch_loss = q * E_eff[t] * N_prev
+            biomass[:, t] = np.maximum(N_prev + growth - catch_loss, 0)
 
-    biomass_array = np.array(biomass_sim)
-    df_monthly["Biomass_mean"] = biomass_array.mean(axis=0)
-    df_monthly["Biomass_CI_lower"] = np.percentile(biomass_array, 2.5, axis=0)
-    df_monthly["Biomass_CI_upper"] = np.percentile(biomass_array, 97.5, axis=0)
+        df["Biomass_mean"] = biomass.mean(axis=0)
+        df["Biomass_CI_lower"] = np.percentile(biomass, 2.5, axis=0)
+        df["Biomass_CI_upper"] = np.percentile(biomass, 97.5, axis=0)
+        df["r_t"] = r_t
 
-    # --- Cap biomass to 1.2*K
-    df_monthly["Biomass_mean"] = np.minimum(df_monthly["Biomass_mean"], 1.2 * K)
-    df_monthly["Biomass_CI_upper"] = np.minimum(df_monthly["Biomass_CI_upper"], 1.2 * K)
+        # cap biomass
+        df["Biomass_mean"] = np.minimum(df["Biomass_mean"], 1.2 * K)
+        df["Biomass_CI_upper"] = np.minimum(df["Biomass_CI_upper"], 1.2 * K)
+        return df
+
+    # --- STEP 3: Cache persistent baseline result (memory-safe)
+    @st.cache_resource(show_spinner=False)
+    def get_baseline_result(df, K, N0, r0, T_opt, sigma_T, q, num_sim):
+        return run_baseline_simulation(df, K, N0, r0, T_opt, sigma_T, q, num_sim)
+
+    with st.spinner("Running baseline simulation..."):
+        df_monthly = get_baseline_result(df_monthly, K, N0, r0, T_opt, sigma_T, q, num_sim)
 
     # --- Exploitation rate
     mean_catch = df_monthly["TotalCatch_tons"].mean()
