@@ -36,27 +36,27 @@ It integrates insights from **CPUE-based models (Module 2)** and moves toward **
 The Environmentally Dependent Surplus Production Model (EDSPM) modifies the classical logistic growth framework:
 
 **Biomass dynamics**
-$$
+```math
 B_{t+1} = B_t + P_t - C_t
-$$
+```
 
 **Surplus production**
-$$
+```math
 P_t = r_t \, B_t \left(1 - \frac{B_t}{K}\right)
-$$
+```
 
 **Temperature-dependent growth**
-$$
+```math
 r_t = r_{\max} \exp\!\left( -\frac{(T_t - T_{opt})^2}{2\sigma_T^{\,2}} \right)
-$$
+```
 
 **Environmental index**
-$$
+```math
 E(t) = 0.6\,\widetilde{SST} + 0.4\,\widetilde{Chl}
-$$
+```
 
 Environmental conditions modulate growth over time  
-(higher \(E(t)\) → more favorable growth).
+(higher $E(t)$ → more favorable growth).
 
 
 ---
@@ -94,18 +94,6 @@ Environmental conditions modulate growth over time
 
 ---
 
-## 📊 Outputs (saved under `../outputs/EDSPM/`)
-
-| File | What it shows |
-|---|---|
-| `temperature_dependent_growth_rate.png` | Gaussian thermal response (rₜ vs SST) |
-| `biomass_scenarios_comparison.png` | 3-panel: biomass (baseline vs warming), % change, EnvIndex + effort |
-| `cpue_vs_biomass_comparison.png` | Normalized time series — CPUE vs biomass (correlation) |
-| `cpue_vs_biomass_scatter_fig.png` | Scatter + trend line (CPUE vs biomass index) |
-| `biomass_uncertainty_simulation.png` | Mean biomass ± 95% CI (Monte Carlo) |
-
----
-
 ## 🌎 Real-World Relevance
 
 Short-lived cephalopods like *Illex argentinus* exhibit rapid adaptation but limited persistence under changing conditions.  
@@ -134,7 +122,7 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 
 ---
 
-## 📊 Visual Outputs
+## 📊 Visual Outputs (saved under `../outputs/EDSPM/`)
 
 | Visualization | Description | Output |
 |----------------|--------------|---------|
