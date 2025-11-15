@@ -33,29 +33,31 @@ It integrates insights from **CPUE-based models (Module 2)** and moves toward **
 
 ## 🧮 Model Specification
 
-The **Environmentally Dependent Surplus Production Model (EDSPM)** modifies the classical logistic growth framework:
+The Environmentally Dependent Surplus Production Model (EDSPM) modifies the classical logistic growth framework:
 
-**Dynamics**
-\[
+**Biomass dynamics**
+$$
 B_{t+1} = B_t + P_t - C_t
-\]
+$$
 
 **Surplus production**
-\[
-P_t = r_t B_t \left(1 - \frac{B_t}{K}\right)
-\]
+$$
+P_t = r_t \, B_t \left(1 - \frac{B_t}{K}\right)
+$$
 
 **Temperature-dependent growth**
-\[
-r_t = r_{\max}\exp\!\left(-\frac{(T_t - T_{opt})^2}{2\sigma_T^2}\right)
-\]
+$$
+r_t = r_{\max} \exp\!\left( -\frac{(T_t - T_{opt})^2}{2\sigma_T^{\,2}} \right)
+$$
 
 **Environmental index**
-\[
-E(t)=0.6\cdot\widetilde{SST} + 0.4\cdot\widetilde{Chl}
-\]
+$$
+E(t) = 0.6\,\widetilde{SST} + 0.4\,\widetilde{Chl}
+$$
 
-Environmental conditions modulate growth over time (higher E → more favorable growth).
+Environmental conditions modulate growth over time  
+(higher \(E(t)\) → more favorable growth).
+
 
 ---
 
@@ -140,8 +142,8 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 | **Biomass Under Warming Scenarios** | Baseline vs. +2 °C trajectories | [`biomass_simulation (Panel 1)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png) |
 | **% Change in Biomass** | Relative warming effect | `biomass_simulation (Panel 2)` |
 | **Environmental Index E(t)** | Seasonality under baseline vs warming | `biomass_simulation (Panel 3)` |
-| **CPUE vs Biomass** | Decoupling | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
-| **CPUE vs Biomass** | Correlation | [`cpue_vs_biomass_scatter_fig.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)|
+| **CPUE vs Biomass** | Time Series | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
+| **CPUE vs Biomass** | Scatter Plot | [`cpue_vs_biomass_scatter_fig.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)|
 
 [See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting/Biomass_Forecasting_Environment.ipynb).
 
@@ -197,10 +199,10 @@ It does not represent official stock assessment data and is intended for methodo
 - **Panel 3 – Environmental Effect Index E(t)**
 ![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)<br><br>
 
- ### **CPUE vs Biomass Relationship (decoupling)**  
+ ### **CPUE vs Biomass Relationship (time series)**  
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
 
-### **CPUE vs Biomass Relationship (correlation)**  
+### **CPUE vs Biomass Relationship (scatter plot)**  
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)
 
 
