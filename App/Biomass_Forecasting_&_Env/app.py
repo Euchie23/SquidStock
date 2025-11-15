@@ -1426,6 +1426,7 @@ elif page == "Warming Scenario":
     fig.update_yaxes(title_text="Biomass (tons)", row=1, col=1)
     fig.update_yaxes(title_text="% Change", row=2, col=1)
     fig.update_yaxes(title_text="EnvIndex (unitless)", row=3, col=1)
+    fig.update_xaxes(title_text = "Time (Months)", row=3)
 
     st.plotly_chart(fig, width='stretch')
 
@@ -1597,7 +1598,7 @@ elif page == "Sensitivity & CPUE":
 
     fig.update_layout(
         title=f"CPUE vs Biomass Index (Correlation = {correlation:.2f}, {strength} relationship)",
-        xaxis_title="Date", yaxis_title="Normalized Index (0–1)",
+        xaxis_title="Time (Years)", yaxis_title="Normalized Index (0–1)",
         height=500,
         template="plotly_dark",
         legend=dict(orientation="h", y=-0.25, x=0.5, xanchor="center")
