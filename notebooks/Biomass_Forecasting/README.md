@@ -122,7 +122,7 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 
 ---
 
-## 📊 Visual Outputs (saved under `../outputs/EDSPM/`)
+## 📊 Visual Outputs (saved under `../outputs/Biomass_Forecasting/`)
 
 | Visualization | Description | Output |
 |----------------|--------------|---------|
