@@ -1,7 +1,6 @@
 # 🌊 Ocean Dynamics — Environmentally Driven Biomass Simulation (warming scenarios)
 
-This notebook expands the *SquidStock* analytical series by linking **Illex argentinus** population dynamics to environmental variability and climate scenarios.  
-Using an **Environmentally Dependent Surplus Production Model (EDSPM)**, this module quantifies how sea temperature and primary productivity shape biomass growth, stability, and resilience under both baseline and warming conditions.
+This module implements an **Environmentally Dependent Surplus Production Model (EDSPM)** to show how *Illex argentinus* biomass responds to environmental variability (SST & chlorophyll-a) and a moderate warming scenario. Analysis focuses on **January–June** (20-year dataset) — the most consistent seasonal window.
 
 It integrates insights from **CPUE-based models (Module 2)** and moves toward **ecosystem-aware simulation**, forming a key bridge between fishery-dependent and environment-driven population indicators.
 
@@ -9,22 +8,26 @@ It integrates insights from **CPUE-based models (Module 2)** and moves toward **
 
 ## 📘 Executive Summary
 
-This module simulates the biomass trajectory of *Illex argentinus* under two temperature scenarios — baseline and +2 °C warming — using a **nonlinear EDSPM formulation**.  
-Environmental variability (temperature and chlorophyll) is expressed through a composite **Environmental Effect Index (Eₜ)**, driving changes in population growth rate over time.
+- **What we did:** Linked temperature and productivity to a logistic surplus-production model, added fishing removals and Monte Carlo uncertainty, and compared baseline vs **+2 °C warming**.
+- **Main outcome:** Warming gives a **small, short-lived** biomass boost during early months; long-term biomass returns toward the same equilibrium because of density dependence.
+- **CPUE vs biomass:** Normalized CPUE is **volatile** and weakly correlated with biomass — CPUE reflects catchability, aggregation and effort, not necessarily total stock.
+- **Why it matters:** Environment-aware indicators are more reliable than CPUE alone for detecting ecologically meaningful change and guiding seasonal management (closures, adaptive quotas).
+- **Data scope:** Results apply to **Jan–Jun** only (20 years); full-year behaviour may differ.
 
-Key outcomes reveal that *Illex argentinus* biomass demonstrates **strong short-term sensitivity** to warming but **long-term resilience** due to density dependence and ecological feedbacks.  
-Despite warming-induced fluctuations in early growth, the system stabilizes near carrying capacity, showing self-regulation typical of opportunistic cephalopods.
-
+**Key additions integrated:**  
+- CPUE often **does not** reliably reflect true abundance during January–June; catch rates are influenced by movement, hotspots, and gear efficiency.  
+- Actionable takeaways: use environment-informed indicators, consider seasonal closures, and adapt quotas/timing around key growth months.
+  
 ---
 
 ## 🧩 Module Overview
 ### “Modeling Resilience Under Climate Pressure”
 
 **Core Objectives:**
-1. Integrate environmental drivers (SST, Chl-a) into a dynamic biomass simulation model.  
-2. Evaluate biomass responses under baseline vs. +2 °C warming scenarios.  
-3. Examine short-term productivity shifts vs. long-term equilibrium behavior.  
-4. Compare model-derived biomass trends with fishery-dependent CPUE indices.  
+- Build an environmental index (0.6·SST + 0.4·Chl-a)  
+- Run EDSPM baseline and +2 °C warming scenarios  
+- Propagate uncertainty with Monte Carlo runs (mean + 95% CI)  
+- Compare normalized biomass index vs CPUE index  
 
 ---
 
@@ -32,118 +35,72 @@ Despite warming-induced fluctuations in early growth, the system stabilizes near
 
 The **Environmentally Dependent Surplus Production Model (EDSPM)** modifies the classical logistic growth framework:
 
+**Dynamics**
 \[
-\frac{dB_t}{dt} = r_t B_t \left(1 - \frac{B_t}{K}\right) - C_t
+B_{t+1} = B_t + P_t - C_t
 \]
 
-where  
-- \( B_t \): biomass at time t  
-- \( r_t \): temperature-dependent growth rate  
-- \( K \): carrying capacity  
-- \( C_t \): catch (tons)
-
-The growth rate varies nonlinearly with **Sea Surface Temperature (SST)** through a Gaussian thermal response:
-
+**Surplus production**
 \[
-r_t = r_{max} \cdot \exp\left[-\frac{(T_t - T_{opt})^2}{2\sigma_T^2}\right]
+P_t = r_t B_t \left(1 - \frac{B_t}{K}\right)
 \]
 
-and the **environmental favorability index** combines SST and Chlorophyll-a:
-
+**Temperature-dependent growth**
 \[
-E(t) = 0.6 \cdot \text{SST}_{norm} + 0.4 \cdot \text{Chl-a}_{norm}
+r_t = r_{\max}\exp\!\left(-\frac{(T_t - T_{opt})^2}{2\sigma_T^2}\right)
 \]
 
-This structure allows temperature and productivity to dynamically influence population growth over time.
+**Environmental index**
+\[
+E(t)=0.6\cdot\widetilde{SST} + 0.4\cdot\widetilde{Chl}
+\]
+
+Environmental conditions modulate growth over time (higher E → more favorable growth).
 
 ---
 
-## 📈 Simulation Design
+## 🔧 Default parameters (used in app & notebook)
 
-| Parameter | Description | Value / Source |
-|------------|-------------|----------------|
-| \(r_{max}\) | Maximum intrinsic growth rate | 0.4 |
-| \(K\) | Carrying capacity (tons) | 1000 |
-| \(B_0\) | Initial biomass (tons) | 300 |
-| \(ΔT\) | Warming increment | +2 °C |
-| Time Horizon | 120 months | (10 years) |
-
-Two scenarios were simulated:  
-- **Baseline:** Current mean SST  
-- **Warming:** SST + 2 °C increase  
-
-Environmental forcing was represented by monthly \(E(t)\) oscillations reflecting typical seasonal cycles in SST and Chl-a.
+| Parameter | Default value | Typical range | Meaning |
+|---:|---:|---:|---|
+| **K** | **5,000,000 tons** | 4–6 million | Ecosystem carrying capacity |
+| **N₀** | **1,500,000 tons** | 1–4 million | Start-season biomass |
+| **r₀ (r_max)** | **0.15 day⁻¹** | 0.015–0.30 | Max intrinsic growth |
+| **Tₒₚₜ** | **12 °C** | 10–14 °C | Thermal optimum |
+| **σₜ** | **3 °C** | 2–4 °C | Thermal sensitivity |
+| **ΔT** | **+2.0 °C** | 0–4 °C | Warming scenario tested |
+| **q** | **5e-5** | tuneable | Catchability (harvest efficiency) |
 
 ---
 
-## 🧠 Model Interpretations
+## 📈 What was simulated
 
-### **Panel 1 – Simulated Biomass Under Two Scenarios**
-
-Both trajectories start from ~300 t and stabilize near 1000 t.  
-The warming case rises slightly faster (months 10–15) but converges later (~month 70).
-
-📘 *Ecological meaning:*  
-Warming accelerates early productivity, but **density-dependent limits** (food, space, competition) restore equilibrium.  
-This demonstrates **short-term environmental sensitivity** but **long-term stability**.
-
-🟢 *Simplified takeaway:*  
-A warmer ocean gives squid a small head start — not a permanent advantage.
+- **Baseline:** observed Jan–Jun forcing (SST, Chl-a)  
+- **Warming:** SST increased by +2 °C over the simulation window  
+- **Uncertainty:** Monte Carlo repeats to produce mean trajectories and 95% CI  
+- **Comparisons:** biomass (mean + CI), % change vs baseline, environmental index, and CPUE vs biomass (normalized indices)
 
 ---
 
-### **Panel 2 – % Change in Biomass Due to Warming**
+# 🔬 Key Takeaways
 
-The relative difference peaks at **+1.5% around month 25** and gradually fades to zero by month 100.
-
-📘 *Ecological meaning:*  
-Warming produces a **temporary biomass gain** that dissipates as the population saturates.  
-Squid respond quickly to better conditions, but ecosystem limits prevent indefinite growth.
-
-🟢 *Simplified takeaway:*  
-Squid populations bounce, not boom, under moderate warming.
+- **Short-term:** Warming slightly increases early-season productivity (a few percent), but this effect fades.  
+- **Long-term:** The population returns to equilibrium — density dependence prevents runaway growth.  
+- **Seasonality:** Timing of seasons is unchanged; peaks become somewhat stronger under warming.  
+- **CPUE vs biomass:** CPUE is noisy and often decoupled from biomass (gear/behaviour & hotspots matter).  
+- **Management implication:** Favor environment-informed indicators for seasonal decisions (timing and quotas); don’t rely on CPUE alone.
 
 ---
 
-### **Panel 3 – Environmental Effect Index E(t)**
+## 📊 Outputs (saved under `../outputs/EDSPM/`)
 
-E(t) cycles seasonally, with slightly higher peaks under warming but no change in frequency.  
-This indicates **strong environmental rhythm** — warmer years amplify intensity, not timing.
-
-📘 *Ecological meaning:*  
-Productivity pulses become sharper but remain predictable.  
-Warming changes **how strong** the good years are, not **when** they occur.
-
-🟢 *Simplified takeaway:*  
-Seasons stay the same, just a bit stronger.
-
----
-
-### **CPUE vs Biomass Correlation**
-
-A weak negative correlation (**r = –0.17**) reveals **decoupling** between fishery catch rates and actual biomass.
-
-- Biomass stabilizes upward, while CPUE fluctuates erratically.  
-- Fishing success (CPUE) reflects **availability and behavior**, not abundance.  
-
-📘 *Ecological implication:*  
-Environmental factors (temperature, prey fields, migration) and fleet patterns distort the CPUE–biomass link.
-
-🟢 *Simplified takeaway:*  
-Big catches don’t always mean more squid — sometimes they’re just easier to find.
-
----
-
-## 🌍 Key Takeaways
-
-| **Aspect** | **Observation** | **Ecological Implication** |
-|:------------|:----------------|:----------------------------|
-| **Biomass stability** | Near-identical under warming and baseline | Density feedback buffers climate impact |
-| **Early growth** | Short-term warming boost | Enhanced metabolism and recruitment |
-| **Temperature effect** | Nonlinear; peak 8–14 °C | Defines optimal growth window |
-| **E(t) variability** | Stronger peaks, same rhythm | Climate amplifies intensity, not timing |
-| **CPUE–Biomass link** | Weak (r = –0.17) | Catch rates don’t reflect real abundance |
-| **Long-term behavior** | Convergent equilibrium (~1000 t) | Population self-regulation through feedbacks |
+| File | What it shows |
+|---|---|
+| `temperature_dependent_growth_rate.png` | Gaussian thermal response (rₜ vs SST) |
+| `biomass_scenarios_comparison.png` | 3-panel: biomass (baseline vs warming), % change, EnvIndex + effort |
+| `cpue_vs_biomass_comparison.png` | Normalized time series — CPUE vs biomass (correlation) |
+| `cpue_vs_biomass_scatter_fig.png` | Scatter + trend line (CPUE vs biomass index) |
+| `biomass_uncertainty_simulation.png` | Mean biomass ± 95% CI (Monte Carlo) |
 
 ---
 
@@ -166,7 +123,8 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 `pandas`, `numpy`, `matplotlib`, `plotly`, `scipy`, `pygam`
 
 **Methods implemented:**  
-- Environmental data normalization  
+- Environmental data normalization
+- Monte Carlo Simulations for uncertainty
 - Nonlinear temperature-dependent modeling  
 - Scenario-based biomass simulations  
 - Climate sensitivity analysis  
@@ -182,7 +140,8 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 | **Biomass Under Warming Scenarios** | Baseline vs. +2 °C trajectories | [`biomass_simulation (Panel 1)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png) |
 | **% Change in Biomass** | Relative warming effect | `biomass_simulation (Panel 2)` |
 | **Environmental Index E(t)** | Seasonality under baseline vs warming | `biomass_simulation (Panel 3)` |
-| **CPUE vs Biomass** | Correlation and decoupling | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
+| **CPUE vs Biomass** | Decoupling | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
+| **CPUE vs Biomass** | Correlation | [`cpue_vs_biomass_scatter_fig.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)|
 
 [See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting/Biomass_Forecasting_Environment.ipynb).
 
@@ -238,8 +197,12 @@ It does not represent official stock assessment data and is intended for methodo
 - **Panel 3 – Environmental Effect Index E(t)**
 ![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)<br><br>
 
- ### **CPUE vs Biomass Relationship**  
+ ### **CPUE vs Biomass Relationship (decoupling)**  
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
+
+### **CPUE vs Biomass Relationship (correlation)**  
+![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)
+
 
 ---
 
