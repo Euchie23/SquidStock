@@ -117,10 +117,10 @@ Medium CPUE had the **highest misclassification**, confirming it is the least pr
 
 Regression was applied separately for **Low**, **Medium**, and **High** CPUE.
 
-> *Go to Visual Outputs section below to view the residual plots*
-
 ⚠️ **Key finding: all regression models achieved negative R² values.**  
 This means environmental predictors could not explain week-to-week CPUE variation.
+
+> *Go to Visual Outputs section below to view the residual plots*
 
 This is *normal* for squid fisheries:
 
@@ -160,7 +160,7 @@ This is *normal* for squid fisheries:
 
 As part of the workflow, we investigated **feature drift** and **data anomalies**:
 
-> *Go to Visual Outputs section below to view the residual plots*
+> *Go to Visual Outputs section below to view the feature drift and anomaly detection plots*
 
 ### Feature Drift (KS Test)
 [Feature Drift Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/feature_drift_plot.png)
