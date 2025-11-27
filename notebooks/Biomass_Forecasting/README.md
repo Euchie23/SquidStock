@@ -169,10 +169,10 @@ Contributions and extensions are welcome — especially from researchers working
 
 ---
 
-## 🔒 Data Disclaimer
+## 🔒 Data Confidentiality Notice  
 
-This module uses **synthetic and interpolated environmental data** based on observed patterns for *Illex argentinus* in the Southwest Atlantic.  
-It does not represent official stock assessment data and is intended for methodological demonstration and educational purposes only.
+This project uses a simulated and anonymized dataset modeled after patterns observed during my work as a part-time research assistant at National Taiwan University. It is designed exclusively for methodological demonstration and skill development in machine learning, fisheries analysis, and environmental data science. The dataset does not represent official assessments, and no confidential or proprietary information is included.
+
 
 ---
 
