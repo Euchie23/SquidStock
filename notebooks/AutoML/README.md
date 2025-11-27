@@ -229,13 +229,6 @@ As part of the workflow, we investigated **feature drift** and **data anomalies*
 
 ---
 
-## 🔒 Data Confidentiality Notice  
-
-This project uses a simulated and anonymized dataset modeled after patterns observed during my work as a part-time research assistant at National Taiwan University. It is designed exclusively for methodological demonstration and skill development in machine learning, fisheries analysis, and environmental data science. The dataset does not represent official assessments, and no confidential or proprietary information is included.
-
-
----
-
 ## 🤝 Collaboration & Contact
 
 Contributions and extensions are welcome — especially from researchers working on **cephalopod ecology, stock assessment modeling, or environmental forecasting**.  
