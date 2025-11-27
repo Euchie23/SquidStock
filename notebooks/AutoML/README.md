@@ -147,23 +147,20 @@ This is *normal* for squid fisheries:
 
 # 🚨 Drift & Anomaly Detection
 
-### **Feature drift**
-Significant drift detected in:
-- Seasonal variables  
-- Environmental variables (SST, Chl-a)  
-- Depth lags  
+As part of the workflow, we investigated **feature drift** and **data anomalies**:
 
-This is expected—CPUE drivers shift every year.
+### Feature Drift (KS Test)
+![Feature Drift Plot](../outputs/AutoML/plots/feature_drift_plot.png)
 
-### **Anomalies**
-Isolation Forest flagged:
-- **63 anomalous weeks**
-- **29 normal weeks**
+- Most physical/environmental variables (temperature, SSH, chlorophyll, etc.) showed **significant drift** (p < 0.05), meaning they changed between 2000–2015 and 2016–2020.
+- Effort- and season-related variables (weekly_effort, WeekOfYear, cos_week, sin_week, Avg_weekly_Lon) did **not drift**, indicating stable fishing timing and fleet distribution across years.
 
-This indicates:
-- CPUE is highly volatile  
-- Environmental predictors do not fully explain spikes  
-- Fisher behavior + movement contribute heavily to anomalies  
+### Anomaly Detection (Isolation Forest)
+![Anomaly Detection Counts](../outputs/AutoML/plots/anomaly_detection_counts.png)
+
+- More anomalies were detected in the test period (2016–2020) than in the training period (2000–2015).
+- This suggests that recent environmental conditions differ substantially from historical patterns, flagging unusual observations.
+
 
 ---
 
