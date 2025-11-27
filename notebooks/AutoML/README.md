@@ -160,8 +160,6 @@ This is *normal* for squid fisheries:
 
 As part of the workflow, we investigated **feature drift** and **data anomalies**:
 
-> *Go to Visual Outputs section below to view the feature drift and anomaly detection plots*
-
 ### Feature Drift (KS Test)
 [Feature Drift Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/feature_drift_plot.png)
 
