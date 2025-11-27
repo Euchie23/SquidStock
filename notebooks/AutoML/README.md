@@ -163,8 +163,8 @@ As part of the workflow, we investigated **feature drift** and **data anomalies*
 ### Feature Drift (KS Test)
 [Feature Drift Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/feature_drift_plot.png)
 
-- Most physical/environmental variables (temperature, SSH, chlorophyll, etc.) showed **significant drift** (p < 0.05), meaning they changed between 2000–2015 and 2016–2020.
-- Effort- and season-related variables (weekly_effort, WeekOfYear, cos_week, sin_week, Avg_weekly_Lon) did **not drift**, indicating stable fishing timing and fleet distribution across years.
+- Most physical/environmental variables (Average Weekly Water Temperature, Sea Surface (SSH), Chlorophyll_A, Average Weekly Depth and Average Weekly Latitude and Longitude) showed **significant drift** (p < 0.05), meaning they changed between 2000–2015 and 2016–2020.
+- Effort- and season-related variables (weekly_effort, cos_week, sin_week) did **not drift**, indicating stable fishing timing across years.
 
 ### Anomaly Detection (Isolation Forest)
 [Anomaly Detection Counts](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/anomaly_detection_counts.png)
