@@ -1,4 +1,4 @@
-# 🦑 The Engine Room: Weekly Squid CPUE Prediction  
+# 🦾 ⚙️🦿 The Engine Room: Weekly Squid CPUE Prediction  
 ### **End-to-End ML Workflow • Feature Engineering • AutoML • Drift & Anomaly Detection**
 
 This repository contains a full machine-learning workflow developed to model **weekly CPUE (Catch-Per-Unit-Effort)** for *Illex argentinus* using environmental and temporal predictors.  
@@ -214,6 +214,7 @@ This indicates:
 - Critical interpretation
 - Real-world fisheries reasoning
 - Deployment-ready workflow
+>
 
 ---
 # 📸 Visual Outputs 
