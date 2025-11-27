@@ -150,13 +150,13 @@ This is *normal* for squid fisheries:
 As part of the workflow, we investigated **feature drift** and **data anomalies**:
 
 ### Feature Drift (KS Test)
-![Feature Drift Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/Auto_ML/feature_drift_plot.png)
+[Feature Drift Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/feature_drift_plot.png)
 
 - Most physical/environmental variables (temperature, SSH, chlorophyll, etc.) showed **significant drift** (p < 0.05), meaning they changed between 2000–2015 and 2016–2020.
 - Effort- and season-related variables (weekly_effort, WeekOfYear, cos_week, sin_week, Avg_weekly_Lon) did **not drift**, indicating stable fishing timing and fleet distribution across years.
 
 ### Anomaly Detection (Isolation Forest)
-![Anomaly Detection Counts](https://github.com/Euchie23/SquidStock/blob/main/outputs/Auto_ML/anomaly_detection_counts.png)
+[Anomaly Detection Counts](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/anomaly_detection_counts.png)
 
 - More anomalies were detected in the test period (2016–2020) than in the training period (2000–2015).
 - This suggests that recent environmental conditions differ substantially from historical patterns, flagging unusual observations.
@@ -216,16 +216,16 @@ As part of the workflow, we investigated **feature drift** and **data anomalies*
 # 📸 Visual Outputs 
 
 ### **Classification**
-![Temperature-Dependent Growth (EDSPM)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) <br><br>
+![Confusion Matrix](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/temperature_dependent_growth_rate.png) <br><br>
 
 ### **Regression**  
-- **Panel 1 – Simulated Biomass Under Two Scenarios**
-- **Panel 2 – % Change in Biomass Due to Warming**
-- **Panel 3 – Environmental Effect Index E(t)**
-![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)<br><br>
+![Regression Residuals Low CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/regression_residuals_Low.png)
+![Regression Residuals Medium CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/regression_residuals_Medium.png)
+![Regression Residuals High CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/regression_residuals_High.png)<br><br>
 
  ### **Drift & Anomalies**  
-![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
+![Drift Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/feature_drift_plot.png)
+![Anomaly Detection](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/anomaly_detection_counts.png)
 
 ---
 
