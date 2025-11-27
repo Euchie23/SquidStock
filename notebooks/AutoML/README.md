@@ -216,16 +216,16 @@ As part of the workflow, we investigated **feature drift** and **data anomalies*
 # 📸 Visual Outputs 
 
 ### **Classification**
-![Confusion Matrix](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/temperature_dependent_growth_rate.png) <br><br>
+![Confusion Matrix](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/classification_confusion_matrix.png) <br><br>
 
 ### **Regression**  
 ![Regression Residuals Low CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/regression_residuals_Low.png)
 ![Regression Residuals Medium CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/regression_residuals_Medium.png)
 ![Regression Residuals High CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/regression_residuals_High.png)<br><br>
 
- ### **Drift & Anomalies**  
+ ### **Feature Drift & Anomaly Detection**  
 ![Drift Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/feature_drift_plot.png)
-![Anomaly Detection](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/anomaly_detection_counts.png)
+![Anomaly Detection](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/anomaly_detection_counts.png)<br><br>
 
 ---
 
