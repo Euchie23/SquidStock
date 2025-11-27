@@ -204,17 +204,16 @@ This indicates:
 
 ## 🧭 Summary Statement
 
-> This project demonstrates a **rigorous, honest, and transparent application of AutoML** to an ecologically complex problem. 
->  
-> It reflects the real-world difficulty of predicting CPUE for **short-lived cephalopods**, *Illex argentinus*, and highlights the importance of pairing machine learning with ecological understanding.  
->  
-> Despite limited predictive performance, the project showcases:
-- A full scientific ML pipeline
-- Strong data engineering
-- Critical interpretation
-- Real-world fisheries reasoning
-- Deployment-ready workflow
+> This project demonstrates a **rigorous, honest, and transparent application of AutoML** to an ecologically complex problem.  
 >
+> It reflects the real-world difficulty of predicting CPUE for **short-lived cephalopods**, *Illex argentinus*, and highlights the importance of pairing machine learning with ecological understanding.  
+>
+> Despite limited predictive performance, the project showcases:  
+> - A full scientific ML pipeline  
+> - Strong data engineering  
+> - Critical interpretation  
+> - Real-world fisheries reasoning  
+> - Deployment-ready workflow
 
 ---
 # 📸 Visual Outputs 
