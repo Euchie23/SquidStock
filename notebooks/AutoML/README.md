@@ -13,6 +13,11 @@ The goal is not to produce perfect forecasts — CPUE is inherently noisy and in
 ### **What this project does**
 - Builds a **complete ML workflow**: data wrangling, feature engineering, feature selection, classification, class-conditioned regression, model diagnostics, drift detection, and anomaly identification.
 - Uses **AutoML (PyCaret)** to compare tree-based methods for both classification and regression.
+  -   Only **tree-based models** were used for both classification and regression because they:
+      - Handle **nonlinear relationships** and **feature interactions** naturally, which are common in CPUE data.
+      - Are robust to **outliers** and **missing values**, frequent in ecological datasets.
+      - Offer **feature importance measures**, helping link model outputs to ecological drivers.
+      - Perform well even when the target variable is **log-transformed**, as in our regression models (CPUE_log1p), to stabilize variance and reduce skew.
 - Applies **Boruta + manual feature refinement** to ensure ecological interpretability.
 - Evaluates performance honestly, identifies weaknesses, and explains why CPUE remains difficult to predict.
 
@@ -61,7 +66,7 @@ No confidential or proprietary assessment data are used.
 - Tree-based model comparison  
 - Hyperparameter tuning  
 - Feature importance extraction  
-- Confusion matrices  
+- Confusion matrix  
 - Residual diagnostics  
 - Feature drift detection  
 - Anomaly detection  
@@ -90,12 +95,16 @@ No confidential or proprietary assessment data are used.
 - Medium CPUE most difficult (expected due to ecological noise)
 
 ### 🧭 **Confusion matrix key insight**
+
+> **(Go to Visual Outputs section below to view the confusion mtrix)**
+
 Diagonal hits:  
 - Low = **10 correct**  
 - Medium = **11 correct**  
 - High = **9 correct**
 
 Medium CPUE had the **highest misclassification**, confirming it is the least predictable regime.
+
 
 ### 🐟 Real-World Interpretation
 - **Low CPUE** → driven by seasonal timing & depth  
@@ -107,6 +116,8 @@ Medium CPUE had the **highest misclassification**, confirming it is the least pr
 # 📈 Regression Results (Class-Conditioned Models)
 
 Regression was applied separately for **Low**, **Medium**, and **High** CPUE.
+
+> **(Go to Visual Outputs section below to view the residual plots)**
 
 ⚠️ **Key finding: all regression models achieved negative R² values.**  
 This means environmental predictors could not explain week-to-week CPUE variation.
@@ -149,6 +160,8 @@ This is *normal* for squid fisheries:
 
 As part of the workflow, we investigated **feature drift** and **data anomalies**:
 
+> **(Go to Visual Outputs section below to view the residual plots)**
+
 ### Feature Drift (KS Test)
 [Feature Drift Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/feature_drift_plot.png)
 
@@ -160,7 +173,6 @@ As part of the workflow, we investigated **feature drift** and **data anomalies*
 
 - More anomalies were detected in the test period (2016–2020) than in the training period (2000–2015).
 - This suggests that recent environmental conditions differ substantially from historical patterns, flagging unusual observations.
-
 
 ---
 
