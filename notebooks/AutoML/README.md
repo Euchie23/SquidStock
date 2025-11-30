@@ -1,4 +1,4 @@
-# 🦾 ⚙️🦿 The Engine Room: Predictive Catch Modelling  
+# 🦾 ⚙️🦿 The Engine Room: Weekly CPUE Catch Modelling
 ### **End-to-End ML Workflow • Feature Engineering • AutoML • Drift & Anomaly Detection**
 
 ## 🌍 Real-World Value
