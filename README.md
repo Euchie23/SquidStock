@@ -1,5 +1,22 @@
 # 🐙📈 SquidStock — Charting Squid Catch Trends & Sustainable Fisheries
 
+## 🌍 Real-World Value
+
+SquidStock transforms 20 years of catch and environmental data into **actionable insights for sustainable fisheries management**.  
+It links fishing trends, ocean conditions, and predictive models to help organizations understand how squid stocks respond to climate variability and fishing pressure.
+
+### Who This Helps
+- **Fisheries agencies:** monitor long-term catch trends & stock stress indicators  
+- **Marine managers:** integrate CPUE normalization and environmental drivers into planning  
+- **NGOs & policy groups:** assess sustainability trajectories using transparent analytics  
+- **Data scientists:** explore reproducible workflows for ecological time-series forecasting  
+
+### Why It Matters
+Squid fisheries are economically important but under-modeled.  
+SquidStock fills this gap with accessible, reproducible tools that support **evidence-based harvest decisions**, climate-aware stock assessments, and proactive ecosystem management.
+
+---
+
 **SquidStock** is part of the curated public side of the `Squid_Fest` project, focusing on 20 years (2000–2020) of *Illex argentinus* catch data.<br><br> 
 Let’s set the scene:<br> 
 **SquidStack** dove deep into pollutant bioindicators — like exploring a remote underwater trench which is rare, rigorous, and deeply exploratory — while **SquidStock** surveyed the ocean shelf and coastal waters (including that same trench), using stock assessments, environmental modeling, and predictive tools to surface hidden patterns across familiar seas.
