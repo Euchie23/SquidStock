@@ -1,4 +1,4 @@
-# 🗺️ The Navigation Course — Temporal Catch Analysis
+# 🧭 The Navigation Course — Temporal Catch Analysis
 
 This notebook serves as the **first step in the analysis pipeline**, aimed at understanding the structure, distribution, and temporal dynamics of the raw dataset before applying statistical models. It does so by exploring temporal dynamics in *Illex argentinus* catch data (2000–2020), and introduces clean, reproducible workflows to later analyze Catch Per Unit Effort (CPUE), track inter-annual shifts, and link them to environmental drivers such as sea Water Temperature, and fishing depth.
 
