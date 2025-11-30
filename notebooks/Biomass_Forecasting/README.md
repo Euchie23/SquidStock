@@ -1,5 +1,24 @@
 # 🌊 Ocean Dynamics — Environmentally Driven Biomass Simulation (warming scenarios)
 
+## 🌍 Real-World Value
+
+Ocean Dynamics brings environmental realism into fisheries analytics by linking temperature, productivity, and fishing removals to **forecast squid biomass under climate change**.  
+It moves beyond CPUE and demonstrates population-level modeling — a major gap in most environmental data projects.
+
+### Who This Helps
+- **Fisheries agencies:** test warming scenarios & evaluate resilience  
+- **Climate adaptation teams:** understand how marine stocks react to environmental change  
+- **Marine NGOs & policy groups:** support ecosystem-based management plans  
+- **Research labs:** explore EDSPM-style models with uncertainty  
+
+### Why It Matters
+CPUE alone cannot track abundance — especially for fast-moving species like squid.  
+This module shows how biomass responds to warming, uncertainty, and ecological limits, enabling more informed decisions around quotas, season timing, and stock resilience.
+
+It demonstrates skills in **scenario modeling, climate analysis, and population dynamics** — all highly valued in modern ESG, fisheries, and climate-data roles.
+
+---
+
 This module implements an **Environmentally Dependent Surplus Production Model (EDSPM)** to show how *Illex argentinus* biomass responds to environmental variability (SST & chlorophyll-a) and a moderate warming scenario. Analysis focuses on **January–June** (20-year dataset) — the most consistent seasonal window.
 
 It integrates insights from **CPUE-based models (Module 2)** and moves toward **ecosystem-aware simulation**, forming a key bridge between fishery-dependent and environment-driven population indicators.
