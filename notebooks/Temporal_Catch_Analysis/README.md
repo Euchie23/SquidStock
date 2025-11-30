@@ -1,5 +1,21 @@
 # 🧭 The Navigation Course — Temporal Catch Analysis
 
+## 📈 Real-World Value
+
+The Navigation Course provides a clear, data-driven picture of how squid catch and ocean conditions have changed over two decades.  
+It highlights shifts in CPUE, temperature, and fishing depth — enabling early detection of **stock stress, environmental change, and effort dynamics**.
+
+### Who This Helps
+- **Fisheries scientists:** understand baseline patterns before formal CPUE standardization  
+- **Marine managers:** identify warning signs like declining CPUE or warming waters  
+- **Sustainability teams:** integrate long-term indicators into ecological reporting  
+
+### Why It Matters
+Before building models or forecasts, managers need to understand what the raw data is saying.  
+This module makes those trends visible and interpretable — giving decision-makers a reliable foundation for sustainable stock management.
+
+---
+
 This notebook serves as the **first step in the analysis pipeline**, aimed at understanding the structure, distribution, and temporal dynamics of the raw dataset before applying statistical models. It does so by exploring temporal dynamics in *Illex argentinus* catch data (2000–2020), and introduces clean, reproducible workflows to later analyze Catch Per Unit Effort (CPUE), track inter-annual shifts, and link them to environmental drivers such as sea Water Temperature, and fishing depth.
 
 
