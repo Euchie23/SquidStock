@@ -1,7 +1,33 @@
-# 🦾 ⚙️🦿 The Engine Room: Weekly Squid CPUE Prediction  
+# 🦾 ⚙️🦿 The Engine Room: Predictive Catch Modelling  
 ### **End-to-End ML Workflow • Feature Engineering • AutoML • Drift & Anomaly Detection**
 
-This repository contains a full machine-learning workflow developed to model **weekly CPUE (Catch-Per-Unit-Effort)** for *Illex argentinus* using environmental and temporal predictors.  
+## 🌍 Real-World Value
+
+The Engine Room showcases a **full, production-ready ML workflow** applied to one of the hardest real-world problems in fisheries science: predicting weekly CPUE for a fast-moving, environmentally sensitive species.  
+Instead of chasing unrealistic accuracy, it demonstrates **transparent, rigorous machine-learning practice** under real ecological constraints.
+
+### Who This Helps
+- **Fisheries agencies:** evaluate when CPUE trends are meaningful vs. noise  
+- **Environmental data teams:** understand drift, anomalies, and shifting ecological regimes  
+- **ML engineers / data scientists:** see how to build robust pipelines on unstable, non-stationary datasets  
+- **Research groups:** explore how ML complements (not replaces) ecological models  
+
+### Why It Matters
+Squid CPUE is highly variable, often decoupled from abundance, and driven by rapid ocean changes.  
+This project adds value not by accuracy alone, but by demonstrating:
+
+- Feature engineering tailored for ecological time series  
+- Class-conditioned modeling for asymmetric CPUE behavior  
+- Drift + anomaly detection to flag shifting environmental regimes  
+- Honest model diagnostics that explain *why* predictions are difficult  
+- A workflow that would be deployable in real fisheries or environmental monitoring systems  
+
+In a field where many models overpromise, **The Engine Room shows what responsible, scientifically grounded ML looks like** — and how to interpret results in an ecological context.  
+It highlights ML strengths, limitations, and how data instability shapes real management decisions.
+
+---
+
+This project contains a full machine-learning workflow developed to model **weekly CPUE (Catch-Per-Unit-Effort)** for *Illex argentinus* using environmental and temporal predictors.  
 The analysis focuses on **January–June**, the most stable seasonal window for this species.
 
 The goal is not to produce perfect forecasts — CPUE is inherently noisy and influenced by unobserved ecological processes — but to demonstrate a **transparent, scientific, and production-ready ML pipeline**.
