@@ -41,12 +41,6 @@ import streamlit as st
 warnings.filterwarnings("ignore")
 
 
-import os
-st.write("Current working directory:", os.getcwd())
-st.write("Files here:", os.listdir())
-st.write("Data folder contents:", os.listdir("data"))
-
-
 # ============================
 # 2️⃣ CUSTOM CSS 
 # ============================
