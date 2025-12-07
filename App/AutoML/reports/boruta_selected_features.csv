@@ -1,1 +1,12 @@
-
+selected_feature
+Year
+WeekOfYear
+Avg_weekly_Lat
+Avg_weekly_Lon
+Avg_weekly_Depth_2wk
+Avg_weekly_Depth_3wk
+Temp_x_Depth_3wk
+Temp_x_Depth_5wk
+Chlor_a_mg_m3_5wk
+sin_week
+Temp_x_Depth
