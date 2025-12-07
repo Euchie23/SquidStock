@@ -20,7 +20,7 @@ import joblib
 # =========================================================
 import gspread
 from google.oauth2.service_account import Credentials
-from utils.preprocess import load_weekly_dataset  # local utility function
+#from utils.preprocess import load_weekly_dataset  # local utility function
 
 # =========================================================
 # 🎨 VISUALIZATION
