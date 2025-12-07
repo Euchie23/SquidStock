@@ -2355,6 +2355,7 @@ elif page == "Anomaly Detection":
 # ========================================
 elif page == "Model Evaluation":
     import json
+    BASE_DIR = Path(__file__).parent  # App/AutoML
 
     st.title("📊 Model Evaluation")
 
@@ -2366,8 +2367,9 @@ elif page == "Model Evaluation":
     st.header("🔵 Classification Evaluation")
 
     # ---- Confusion Matrix ----
+    conf_matrix_path = BASE_DIR / "figures" / "classification_confusion_matrix.png"
     st.subheader("Confusion Matrix")
-    st.image("figures/classification_confusion_matrix.png")
+    st.image(conf_matrix_path)
 
     # Convert text report to a DataFrame
     def report_to_df(report_text):
@@ -2410,10 +2412,13 @@ elif page == "Model Evaluation":
 
         df = pd.DataFrame(rows, columns=headers)
         return df
-    
+
+    # Classification report
     st.subheader("Classification Report")
-    with open("reports/classification_report.txt") as f:
+    report_path = BASE_DIR / "reports" / "classification_report.txt"
+    with open(report_path, "r") as f:
         report_text = f.read()
+
 
     df_class_report = report_to_df(report_text)
     st.dataframe(df_class_report)
@@ -2421,7 +2426,8 @@ elif page == "Model Evaluation":
     st.header("🟢 Regression Evaluation")
 
     # Load regression metrics
-    with open("reports/regression_metrics.json", "r") as f:
+    reg_metrics_path = BASE_DIR / "reports" / "regression_metrics.json"
+    with open(reg_metrics_path, "r") as f:
         reg_metrics = json.load(f)
 
     def round_metrics(metrics, decimals=2):
@@ -2437,11 +2443,15 @@ elif page == "Model Evaluation":
 
     # Plot per group
     for grp in ["Low", "Medium", "High"]:
+
+        scatter_path = BASE_DIR / "figures" / f"regression_scatter_{grp}.png"
+        residual_path = BASE_DIR / "figures" / f"regression_residuals_{grp}.png"
+        
         st.subheader(f"Regression Fit — {grp}")
-        st.image(f"figures/regression_scatter_{grp}.png")
+        st.image(scatter_path)
 
         st.subheader(f"Residual Plot — {grp}")
-        st.image(f"figures/regression_residuals_{grp}.png")
+        st.image(residual_path)
 
 
 
