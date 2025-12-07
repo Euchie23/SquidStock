@@ -5,8 +5,8 @@ BASE_DIR = os.path.dirname(__file__)  # points to App/AutoML
 DATA_PATH = os.path.join(BASE_DIR, "data", "weekly_processed.csv")
 
 def load_weekly_dataset():
-     """Loads your cleaned dataset."""
-    return pd.read_csv(DATA_PATH)
+"""Loads your cleaned dataset."""
+     return pd.read_csv(DATA_PATH)
 
 # FINAL_FEATURES = [
 # "Year", "WeekOfYear",
