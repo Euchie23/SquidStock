@@ -40,6 +40,9 @@ import streamlit as st
 # =========================================================
 warnings.filterwarnings("ignore")
 
+import os
+print("Current working dir:", os.getcwd())
+print("Files in data folder:", os.listdir(DATA_DIR))
 
 # ============================
 # 2️⃣ CUSTOM CSS 
