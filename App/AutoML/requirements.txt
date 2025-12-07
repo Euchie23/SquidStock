@@ -1,3 +1,4 @@
+pip>=25.3
 catboost==1.2.8
 lightgbm==4.6.0
 streamlit==1.51.0
