@@ -1329,6 +1329,7 @@ from pathlib import Path
 import pandas as pd
 import joblib
 import streamlit as st
+import requests
 
 # Base directory relative to app.py
 BASE_DIR = Path(__file__).parent
@@ -1370,18 +1371,43 @@ def build_feature_row(df_weekly, week_index, overrides=None):
 
 
 # Load all models
+MODEL_URLS = {
+    "anom": "https://drive.google.com/uc?export=download&id=1WpzTiik2KWvfmx5P7ZOPRZOxMoyrpNqq",
+    "clf_top1": "https://drive.google.com/uc?export=download&id=1XhKt8O3fLs_ds_A1zypmQYmMbpdvsSi5",
+    "clf_top2": "https://drive.google.com/uc?export=download&id=15xOGE6omuUjuvm7kcxW-h6cJ2I5NosFc",
+    "clf_top3": "https://drive.google.com/uc?export=download&id=1IIuxBkWLa4hUGp0ect3KeN8FTpDCDd-o",
+    "reg_low": "https://drive.google.com/uc?export=download&id=1Y1E5HNyJBsk30JGpP3RqUEamB5W3Bqj-",
+    "reg_med": "https://drive.google.com/uc?export=download&id=1boLCLCMKNjPaZIn2TYrgs9xXH_yW-ZRh",
+    "reg_high": "https://drive.google.com/uc?export=download&id=1qIDfvuLhUAGrbLeoJBsq5ESfup2kEI8H",
+}
+
+
 @st.cache_data
+def download_model(url: str, save_as: str):
+    """Download a file from a URL and save it locally."""
+    r = requests.get(url)
+    with open(save_as, "wb") as f:
+        f.write(r.content)
+    return save_as
+
+@st.cache_resource
+def load_model(path: str):
+    """Load a model from a local path."""
+    return joblib.load(path)
+
+
+
+@st.cache_resource
 def load_all_models():
     """Loads every model required for classification, regression, anomaly detection."""
-    return {
-        "anom": joblib.load(MODELS_DIR / "isolation_forest.pkl"),
-        "clf_top1": joblib.load(MODELS_DIR / "classifier_top1.pkl"),
-        "clf_top2": joblib.load(MODELS_DIR / "classifier_top2.pkl"),
-        "clf_top3": joblib.load(MODELS_DIR / "classifier_top3.pkl"),
-        "reg_low": joblib.load(MODELS_DIR / "regressor_bin_Low.pkl"),
-        "reg_med": joblib.load(MODELS_DIR / "regressor_bin_Medium.pkl"),
-        "reg_high": joblib.load(MODELS_DIR / "regressor_bin_High.pkl"),
-    }
+    loaded = {}
+    
+    for name, url in MODEL_URLS.items():
+        local_filename = f"{name}.pkl"     # e.g., anom.pkl, clf_top1.pkl
+        path = download_model(url, local_filename)
+        loaded[name] = load_model(path)
+    
+    return loaded
 
 
 
