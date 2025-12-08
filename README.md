@@ -46,7 +46,7 @@ Here’s how your work is structured, moving from exploration to deployment:
 | [**CPUE Standardization & Prediction**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb) | *Course Correction* | Normalize catch via GAM/GLM, compare prediction performance | ✅ Complete | [View README](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction)  | [ 🧭 Course Correction](https://squidstock-course-correction.streamlit.app) |
 | [**Biomass Forecasting + Environment**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting/Biomass_Forecasting_Environment.ipynb)  | *Ocean Dynamics* | Surplus production modeling including environmental drivers (SST, SSH, Chl‑a) | ✅ Complete | [View README](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting)  | [🌊 Ocean Dynamics](https://squidstock-ocean-dynamics.streamlit.app)  |
 | [**AutoML / Predictive Catch Models**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/AutoML/AutoML.ipynb) | *The Engine Room* | Automated modeling pipelines for daily/weekly catch | ✅ Complete | [View README](https://github.com/Euchie23/SquidStock/blob/main/notebooks/AutoML) | [⚙️ The Engine Room](https://squidstock-the-engine-room.streamlit.app)  |
-| **(Future) MLOps / Deployment + Versioning** | *Launch Control* | Model deployment, versioning, monitoring; experimental | 🧪 Planned | 🔄 TBD | 🔄 TBD |
+| **(Future) MLOps / Deployment + Versioning** | *Launch Control* | Model deployment, versioning, monitoring; experimental | 🚀 Future Goal 🚀 | 🔄 TBD | 🔄 TBD |
 
 ---
 
