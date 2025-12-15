@@ -11,6 +11,9 @@
 - More modifications made to streamlit app for both catch analysis and prediction projects
 - Deployed Streamlit app for Temporal Catch Analysis Project
 - Deployed Streamlit app for CPUE Standardization and Prediction Project
+- Continued working on Biomass Estimation Project (notebook and app)
+- Added READme for Biomass Estimation Project
+- Deployed streamlit app for Biomass Estimation Project
 
 ## [October 2025]
 - Began Temporal Catch Analysis Project (notebook and app)
@@ -21,3 +24,4 @@
 ## [September 2025]
 - Added READme for SquidStock Repository
 - Began Predictive Catch Model project using AutoML
+- Began Biomass Estimation project with EDSPM
