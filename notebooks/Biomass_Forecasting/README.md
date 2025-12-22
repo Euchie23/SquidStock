@@ -180,12 +180,9 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 
 ## 🧭 Summary Statement
 
-> *Illex argentinus* populations show **climate sensitivity without instability** — a hallmark of resilient but responsive species.  
->  
-> Under moderate warming, biomass gains are **short-lived**, CPUE decouples from true abundance, and environmental cycles strengthen but stay rhythmic.  
->  
-> The EDSPM framework therefore provides a realistic, mechanistic basis for **forecasting squid productivity under changing ocean conditions.**
-> 
+*Illex argentinus* populations show **climate sensitivity without instability** — a hallmark of resilient but responsive species.  
+Under moderate warming, biomass gains are **short-lived**, CPUE decouples from true abundance, and environmental cycles strengthen but stay rhythmic.  
+The EDSPM framework therefore provides a realistic, mechanistic basis for **forecasting squid productivity under changing ocean conditions.** 
 In practice, this framework enables agencies and consultancies to stress-test seasonal management strategies under plausible climate scenarios before implementation, rather than reacting to CPUE signals after change has already occurred.
 
 ---
@@ -223,7 +220,6 @@ Baseline vs +2 °C warming (Jan–Jun)
  ### **CPUE vs Biomass Relationship (time series)** 
  - Normalized comparison
  - Key insight: CPUE fluctuates independently of biomass, especially during aggregation periods
-📌 [Insert time series image]
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
 
 ### **CPUE vs Biomass Relationship (scatter plot)** 
