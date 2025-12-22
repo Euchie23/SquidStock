@@ -36,7 +36,16 @@ It integrates insights from **CPUE-based models (Module 2)** and moves toward **
 **Key additions integrated:**  
 - CPUE often **does not** reliably reflect true abundance during January–June; catch rates are influenced by movement, hotspots, and gear efficiency.  
 - Actionable takeaways: use environment-informed indicators, consider seasonal closures, and adapt quotas/timing around key growth months.
-  
+
+### Decision Use Case (Applied Example)
+
+Under a +2 °C warming scenario, simulated squid biomass shows a modest early-season increase (January–March) but converges back toward baseline levels by mid-season due to density-dependent limits.
+
+**Operational implication:**
+- Early-season catch rates may temporarily increase without reflecting long-term stock growth
+- Seasonal quotas or effort decisions based solely on CPUE risk overestimating stock health
+- Environment-aware indicators can support adaptive timing of quotas, seasonal closures, or survey scheduling
+
 ---
 
 ## 🧩 Module Overview
@@ -176,6 +185,8 @@ This module’s results illustrate **why CPUE-only assessments can be misleading
 > Under moderate warming, biomass gains are **short-lived**, CPUE decouples from true abundance, and environmental cycles strengthen but stay rhythmic.  
 >  
 > The EDSPM framework therefore provides a realistic, mechanistic basis for **forecasting squid productivity under changing ocean conditions.**
+> 
+In practice, this framework enables agencies and consultancies to stress-test seasonal management strategies under plausible climate scenarios before implementation, rather than reacting to CPUE signals after change has already occurred.
 
 ---
 
@@ -198,18 +209,26 @@ This project uses a simulated and anonymized dataset modeled after patterns obse
 ## 📸 Static Previews
 
 ### **Temperature-Dependent Growth (EDSPM)**  
+This curve defines how intrinsic population growth responds to temperature, peaking at the species’ thermal optimum and declining outside that range. It ensures the model responds realistically to warming scenarios rather than increasing growth indefinitely.
 ![Temperature-Dependent Growth (EDSPM)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) <br><br>
 
-### **Simulated Biomass Under Two Scenarios**  
+### **Simulated Biomass Under Two Scenarios** 
+Baseline vs +2 °C warming (Jan–Jun)  
+*Shows short-lived biomass gains under warming that fade due to density dependence*
 - **Panel 1 – Simulated Biomass Under Two Scenarios**
 - **Panel 2 – % Change in Biomass Due to Warming**
 - **Panel 3 – Environmental Effect Index E(t)**
 ![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)<br><br>
 
- ### **CPUE vs Biomass Relationship (time series)**  
+ ### **CPUE vs Biomass Relationship (time series)** 
+ - Normalized comparison
+ - Key insight: CPUE fluctuates independently of biomass, especially during aggregation periods
+📌 [Insert time series image]
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
 
-### **CPUE vs Biomass Relationship (scatter plot)**  
+### **CPUE vs Biomass Relationship (scatter plot)** 
+- Weak correlation highlights decoupling
+- Management implication: CPUE should not be used as a sole abundance proxy
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)
 
 
