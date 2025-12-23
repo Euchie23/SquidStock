@@ -58,8 +58,7 @@ Course Correction addresses a critical gap in squid fisheries data analysis:
 **Observed vs Standardized CPUE:**  
 ![Observed vs Standardized CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png)  
 - Standardized indices remove effort bias.
-- Multi-year (~8-year) oscillations 
-- Seasonal peaks (March–May) persist → biological signal confirmed.  
+- Multi-year (~8-year) oscillations where seasonal peaks (March–May) persist across most years → biological signal confirmed.  
 
 **Yearly Summary (Jan–Jun):**  
 ![Yearly Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
