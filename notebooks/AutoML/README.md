@@ -29,7 +29,7 @@ This module demonstrates a production-ready ML workflow for ecological time seri
 
 ---
 
-# 🔍 Classification Results (Low / Medium / High)
+## 🔍 Classification Results (Low / Medium / High)
 
 ### 🔧 **Best model: Random Forest Classifier**
 - Accuracy: ~0.48  
@@ -47,14 +47,14 @@ Diagonal hits:
 Medium CPUE had the **highest misclassification**, confirming it is the least predictable regime.
 
 
-### 🐟 Real-World Interpretation
+## 🐟 Real-World Interpretation
 - **Low CPUE** → driven by seasonal timing & depth  
 - **High CPUE** → driven by interannual cycles + seasonality  
 - **Medium CPUE** → highly unstable, weakly related to environmental predictors
 
 ---
 
-# 📈 Regression Results (Class-Conditioned Models)
+## 📈 Regression Results (Class-Conditioned Models)
 
 Regression was applied separately for **Low**, **Medium**, and **High** CPUE.
 > *See residual plots below for your reference* 
@@ -93,7 +93,7 @@ This is *normal* for squid fisheries:
 ![Regression Residuals High CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/AutoML/regression_residuals_High.png)
 ---
 
-# 🚨 Drift & Anomaly Detection
+## 🚨 Drift & Anomaly Detection
 
 As part of the workflow, we investigated **feature drift** and **data anomalies**:
 
@@ -134,7 +134,7 @@ Outcome: Guides adaptive management decisions by highlighting where CPUE trends 
 
 ---
 
-🎯 Applied Use Case  
+## 🎯 Applied Use Case  
 Scenario: Detecting meaningful CPUE trends in fisheries management  
 
 - Sharp weekly CPUE drop? Use drift detection + anomaly flags to distinguish:
@@ -146,7 +146,7 @@ Scenario: Detecting meaningful CPUE trends in fisheries management
 
 ---
 
-# 🛠️ Tools & Techniques  
+## 🛠️ Tools & Techniques  
 **Core libraries:**  
 `pandas`, `numpy`, `scikit-learn`, `PyCaret`, `seaborn`, `matplotlib`
 
@@ -181,14 +181,14 @@ Scenario: Detecting meaningful CPUE trends in fisheries management
 
 ---
 
-# 🔒 Data Confidentiality Notice
+## 🔒 Data Confidentiality Notice
 This project uses a **simulated and anonymized dataset** modeled after patterns observed during my work as a part-time research assistant at **National Taiwan University**.  
 It is intended **solely for methodological demonstration and portfolio development**.  
 No confidential or proprietary assessment data are used.
 
 ---
 
-# 📉 Limitations & Future Work
+## 📉 Limitations & Future Work
 
 ### Current limitations
 - Small, noisy dataset  
