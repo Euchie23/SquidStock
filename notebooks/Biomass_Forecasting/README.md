@@ -206,5 +206,6 @@ Baseline vs +2 °C warming (Jan–Jun)
 ---
 
 > 🦑 *Project 3 of the [SquidStock](https://github.com/Euchie23/SquidStock) series — advancing data-driven, climate-aware squid fishery modeling.* <br>
-> 📌 This project is the continuation of [**Temporal_Catch_Analysis Module**](https://github.com/Euchie23/SquidStock/edit/main/notebooks/Temporal_Catch_Analysis/README.md) and [**CPUE_Standardization_&_Prediction (2000-2020)**](https://github.com/Euchie23/SquidStock/tree/main/notebooks/CPUE_Standardization_%26_Prediction/) [Click here fro App](https://squidstock-course-correction.streamlit.app)
+> 📌 This project is the continuation of [**Temporal_Catch_Analysis Module**](https://github.com/Euchie23/SquidStock/edit/main/notebooks/Temporal_Catch_Analysis/README.md) and [**CPUE_Standardization_&_Prediction (2000-2020)**](https://github.com/Euchie23/SquidStock/tree/main/notebooks/CPUE_Standardization_%26_Prediction/) <br>
+[Click here for App](https://squidstock-course-correction.streamlit.app)
 
