@@ -24,13 +24,13 @@ In a field where CPUE is often misinterpreted, this module provides **methodolog
 
 This notebook advances the *SquidStock* analytical series by standardizing and modeling *Illex argentinus* catch data (2000–2020) with the added help of remote sensing data Sea Surface Height (SSH) and Chlorophyll A. This builds on the exploratory work in **Module 1**, it applies **Generalized Additive Models (GAMs)** and **Tweedie Regressor** to remove effort bias and reveal underlying ecological structure in **Catch Per Unit Effort (CPUE)**.
 
+This module develops a robust, reproducible workflow for CPUE standardization of Illex argentinus over a 20-year subset (January – June each year), chosen for consistent data coverage and comparability. Missing environmental data (Chl-a, SSH, Depth) were addressed via linear interpolation, preserving natural seasonal trends.
+
 ---
 
 ## 📘 Executive Summary
 
-This module develops a robust, reproducible workflow for CPUE standardization of Illex argentinus over a 20-year subset (January – June each year), chosen for consistent data coverage and comparability. Missing environmental data (Chl-a, SSH, Depth) were addressed via linear interpolation, preserving natural seasonal trends.
-
-Overall Outcome:<br>
+**Overall Outcome:**<br>
 Standardized CPUE reveals consistent biological patterns that are largely decoupled from fishing effort, with recurrent seasonal peaks (March–May) and multi-year cycles (~8 years) likely linked to ecological or oceanographic drivers. Flexible, distribution-aware models (GammaGAM and TweedieRegressor) reliably capture these dynamics, with Tweedie providing the best predictive accuracy and GammaGAM offering interpretable fits.
 
 ### 🔍 Key Insights
@@ -49,6 +49,76 @@ Together, these results underscore the value of flexible, distribution-aware mod
 
 ---
 
+## 🎯 Applied Use Case — CPUE Standardization in Practice
+
+This module demonstrates how raw, effort-biased catch data can be transformed into a standardized CPUE index suitable for:
+
+- annual stock status reporting,
+- quota-setting and harvest control rules,
+- monitoring climate-driven shifts in productivity,
+- cross-year comparison free from changes in fishing effort.
+
+In practice, outputs from this workflow would feed directly into:
+- stock assessment models,
+- ecosystem indicators used by fisheries agencies,
+- sustainability reporting and management strategy evaluation.
+
+The standardized CPUE index produced here is designed to support real management decisions, not just statistical inference.
+
+---
+
+## 📈 Exploratory Data Analysis (EDA)
+
+### 📊 CPUE Distribution
+Raw CPUE is **strongly right-skewed**, dominated by a few very large catches.  
+After **log transformation**, the distribution approaches normality — a key assumption for regression modeling.
+
+### 🗓️ Monthly CPUE Variability (Jan–Jun)
+Boxplots reveal peaks between **March and May**, consistent with seasonal migration of the South Patagonian Stock.  
+High interquartile ranges during these months suggest environmental or operational variability.
+
+### 🌡️ CPUE vs Temperature
+A slight **negative correlation** appears — higher SST tends to coincide with lower CPUE, hinting that warming may reduce catchability.
+
+✅ *These EDA insights justify using flexible, non-Gaussian models (Gamma / Tweedie) to capture ecological complexity.*
+
+---
+
+## 🧾 Model Evaluation Results (based on mean monthly CPUE vessel days (tons))
+
+| Model | RMSE | MAE |
+|:------|------:|------:|
+| GAM (log(CPUE + c)) | 864 | 472 |
+| GAM (log(CPUE + 1)) | 881 | 504 |
+| **Gamma GAM** | 810 | 458 |
+| **Tweedie Regressor** | 476 | 313 |
+
+**Cross-validation means (RMSE):**  
+LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | Tweedie Regressor = 477  
+
+📊 [**Model Performance (PNG)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png)  
+📄 [**Model Performance (PDF)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.pdf)
+
+> 🧠 *Gamma GAM and Tweedie GLM consistently yielded lower errors, supporting their suitability for skewed ecological data.*
+
+---
+
+## 📉 Yearly Summary (2000 – 2020, Jan–Jun Subset)
+
+| Variable | Trend | Interpretation |
+|-----------|--------|----------------|
+| **Monthly CPUE mean** | ↓ Declining | Highly variable; overall decrease from early 2000s (≈ 1 300 tons) to 2019 (≈ 218 tons). Suggests declining productivity or catchability. |
+| **Water Temperature mean** | ↑ Increasing | Gradual warming (≈ 10.99 → 11.41 °C). May drive squid to deeper / southern waters, lowering CPUE. |
+| **SSH mean** | ↑ Increasing | Rising SSH (0.01 → 0.08 m) could signal reduced upwelling and nutrient supply, impacting productivity. |
+| **Chlorophyll-a mean** | → Stable / slightly decreasing | Mixed pattern; productivity fluctuations don’t always boost CPUE, indicating trophic mismatch. |
+| **Depth mean** | ↑ Increasing | Fishing depth rose (≈ 92 → 152 m), implying migration to cooler zones. May reflect adaptive fishing or habitat shifts. |
+
+📄 [**Yearly Summary (2000 – 2020, Jan–Jun Subset)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
+> *Trends derived from descriptive summary (mean, SD, min, max) with directional arrows for clarity.* <br>
+> *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
+
+---
+
 ## 🧭 Module Overview  
 ### “The Modeling Course: Standardizing the Catch”
 
@@ -57,6 +127,18 @@ Outputs include fitted models, diagnostics, and standardized CPUE indices.
 
 ---
 
+## 🧠 Modeling Framework
+
+| Model | Transformation | Distribution | Strength |
+|:------|:----------------|:--------------|:----------|
+| **LinearGAM (log(CPUE + c))** | Variance stabilization | Normal | Interpretable baseline |
+| **LinearGAM (log(CPUE + 1))** | Benchmark log-scale | Normal | Consistent comparison |
+| **Gamma GAM** | Raw CPUE | Gamma | Best for positive, right-skewed data |
+| **Tweedie Regressor** | Raw CPUE | Tweedie | Robust to zero-inflation & overdispersion |
+
+All models were evaluated via **5-fold cross-validation** using RMSE and MAE.
+
+---
 ## 🗃️ Dataset Schema
 
 | Column | Description | Type |
@@ -102,70 +184,6 @@ Environmental predictors were extracted from **NASA MODIS** and **Copernicus Mar
 7. **Evaluation:** Compare performance metrics (RMSE / MAE).  
 8. **Diagnostics:** Inspect residuals and fitted vs observed trends.  
 9. **Outputs:** Generate standardized CPUE time-series and visual summaries.  
-
----
-
-## 📈 Exploratory Data Analysis (EDA)
-
-### 📊 CPUE Distribution
-Raw CPUE is **strongly right-skewed**, dominated by a few very large catches.  
-After **log transformation**, the distribution approaches normality — a key assumption for regression modeling.
-
-### 🗓️ Monthly CPUE Variability (Jan–Jun)
-Boxplots reveal peaks between **March and May**, consistent with seasonal migration of the South Patagonian Stock.  
-High interquartile ranges during these months suggest environmental or operational variability.
-
-### 🌡️ CPUE vs Temperature
-A slight **negative correlation** appears — higher SST tends to coincide with lower CPUE, hinting that warming may reduce catchability.
-
-✅ *These EDA insights justify using flexible, non-Gaussian models (Gamma / Tweedie) to capture ecological complexity.*
-
----
-
-## 📉 Yearly Summary (2000 – 2020, Jan–Jun Subset)
-
-| Variable | Trend | Interpretation |
-|-----------|--------|----------------|
-| **Monthly CPUE mean** | ↓ Declining | Highly variable; overall decrease from early 2000s (≈ 1 300 tons) to 2019 (≈ 218 tons). Suggests declining productivity or catchability. |
-| **Water Temperature mean** | ↑ Increasing | Gradual warming (≈ 10.99 → 11.41 °C). May drive squid to deeper / southern waters, lowering CPUE. |
-| **SSH mean** | ↑ Increasing | Rising SSH (0.01 → 0.08 m) could signal reduced upwelling and nutrient supply, impacting productivity. |
-| **Chlorophyll-a mean** | → Stable / slightly decreasing | Mixed pattern; productivity fluctuations don’t always boost CPUE, indicating trophic mismatch. |
-| **Depth mean** | ↑ Increasing | Fishing depth rose (≈ 92 → 152 m), implying migration to cooler zones. May reflect adaptive fishing or habitat shifts. |
-
-📄 [**Yearly Summary (2000 – 2020, Jan–Jun Subset)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
-> *Trends derived from descriptive summary (mean, SD, min, max) with directional arrows for clarity.* <br>
-> *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
----
-
-## 🧠 Modeling Framework
-
-| Model | Transformation | Distribution | Strength |
-|:------|:----------------|:--------------|:----------|
-| **LinearGAM (log(CPUE + c))** | Variance stabilization | Normal | Interpretable baseline |
-| **LinearGAM (log(CPUE + 1))** | Benchmark log-scale | Normal | Consistent comparison |
-| **Gamma GAM** | Raw CPUE | Gamma | Best for positive, right-skewed data |
-| **Tweedie Regressor** | Raw CPUE | Tweedie | Robust to zero-inflation & overdispersion |
-
-All models were evaluated via **5-fold cross-validation** using RMSE and MAE.
-
----
-
-## 🧾 Model Evaluation Results (based on mean monthly CPUE vessel days (tons))
-
-| Model | RMSE | MAE |
-|:------|------:|------:|
-| GAM (log(CPUE + c)) | 864 | 472 |
-| GAM (log(CPUE + 1)) | 881 | 504 |
-| **Gamma GAM** | 810 | 458 |
-| **Tweedie Regressor** | 476 | 313 |
-
-**Cross-validation means (RMSE):**  
-LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | Tweedie Regressor = 477  
-
-📊 [**Model Performance (PNG)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png)  
-📄 [**Model Performance (PDF)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.pdf)
-
-> 🧠 *Gamma GAM and Tweedie GLM consistently yielded lower errors, supporting their suitability for skewed ecological data.*
 
 ---
 
