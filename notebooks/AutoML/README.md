@@ -54,12 +54,6 @@ The goal is not to produce perfect forecasts — CPUE is inherently noisy and in
   This is *normal* for short-lived cephalopods: CPUE ≠ biomass, and environmental variability is high.
 - **Feature drift and anomalies** were detected, reinforcing that CPUE data are unstable and sensitive to fishing behavior.
 
-### **Why this matters**
-This project demonstrates real-world ML challenges in fisheries science:  
-noisy data, high environmental variability, and the gap between catch rates and true abundance.
-
-The value lies in the **workflow**, **transparency**, and **scientific reasoning**, not in accuracy alone.
-
 ---
 
 ### Decision Context (Applied Use Case)
