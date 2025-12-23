@@ -80,15 +80,23 @@ Environmental conditions modulate growth over time
 
 ---
 
-## 📈 What was simulated
 
-- **Baseline:** observed Jan–Jun forcing (SST, Chl-a)  
-- **Warming:** SST increased by +2 °C over the simulation window  
-- **Uncertainty:** Monte Carlo repeats to produce mean trajectories and 95% CI  
-- **Comparisons:** biomass (mean + CI), % change vs baseline, environmental index, and CPUE vs biomass (normalized indices)
+## 📊 Simulation & Visual Outputs 
+> (saved under `../outputs/Biomass_Forecasting/`)
+> Scroll below for rendered outputs in "📸 Static Previews" section
+
+| Visualization | Description | Output |
+|----------------|--------------|---------|
+| **Temperature-dependent Growth (EDSPM)** | Nonlinear SST–growth rate relationship | [`Temperature-Dependent Growth (EDSPM)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) |
+| **Biomass Under Warming Scenarios** | Baseline vs. +2 °C trajectories | [`biomass_simulation (Panel 1)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png) |
+| **% Change in Biomass** | Relative warming effect | `biomass_simulation (Panel 2)` |
+| **Environmental Index E(t)** | Seasonality under baseline vs warming | `biomass_simulation (Panel 3)` |
+| **CPUE vs Biomass** | Time Series | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
+| **CPUE vs Biomass** | Scatter Plot | [`cpue_vs_biomass_scatter_fig.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)|
+
+[See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting/Biomass_Forecasting_Environment.ipynb).
 
 ---
-
 
 ## 🎯 Applied Use Case
 
@@ -97,6 +105,8 @@ Environmental conditions modulate growth over time
 - Early-season biomass (Jan–Mar) slightly increases, then returns to baseline due to density dependence  
 - **Management implication:** Early CPUE boosts do **not** indicate sustainable stock growth  
 - Use **environment-informed indicators** to guide seasonal closures, adaptive quotas, or survey timing
+
+Interactive App: Explore biomass forecasting based on different scenarios in a concise, user-friendly interface: [Launch the App](https://squidstock-ocean-dynamics.streamlit.app)
 
 ---
 
@@ -115,18 +125,25 @@ Environmental conditions modulate growth over time
 
 ---
 
-## 📊 Visual Outputs (saved under `../outputs/Biomass_Forecasting/`)
+## 🛠️ How to Run This Notebook
 
-| Visualization | Description | Output |
-|----------------|--------------|---------|
-| **Temperature-dependent Growth (EDSPM)** | Nonlinear SST–growth rate relationship | [`Temperature-Dependent Growth (EDSPM)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) |
-| **Biomass Under Warming Scenarios** | Baseline vs. +2 °C trajectories | [`biomass_simulation (Panel 1)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png) |
-| **% Change in Biomass** | Relative warming effect | `biomass_simulation (Panel 2)` |
-| **Environmental Index E(t)** | Seasonality under baseline vs warming | `biomass_simulation (Panel 3)` |
-| **CPUE vs Biomass** | Time Series | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
-| **CPUE vs Biomass** | Scatter Plot | [`cpue_vs_biomass_scatter_fig.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)|
+1. Clone this repository. 
+      -  git clone https://github.com/Euchie23/SquidStock.git
+2. Ensure you have Python 3 installed. 
 
-[See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting/Biomass_Forecasting_Environment.ipynb).
+3. Install dependencies via pip:
+      -  e.g., pip install pandas numpy matplotlib seaborn statsmodels pygam jupyter
+        
+4. Launch Jupyter Notebook and open /notebooks/Biomass_Forecasting_Environment.ipynb
+   
+5. Run cells sequentially to reproduce the analysis.
+   
+---
+
+## 🔒 Data Confidentiality Notice  
+
+This project uses a simulated and anonymized dataset modeled after patterns observed during my work as a part-time research assistant at National Taiwan University. It is designed exclusively for methodological demonstration and skill development in machine learning, fisheries analysis, and environmental data science. The dataset does not represent official assessments, and no confidential or proprietary information is included.
+
 
 ---
 
@@ -152,12 +169,6 @@ In practice, this framework enables agencies and consultancies to stress-test se
 
 ---
 
-## 🔒 Data Confidentiality Notice  
-
-This project uses a simulated and anonymized dataset modeled after patterns observed during my work as a part-time research assistant at National Taiwan University. It is designed exclusively for methodological demonstration and skill development in machine learning, fisheries analysis, and environmental data science. The dataset does not represent official assessments, and no confidential or proprietary information is included.
-
-
----
 
 ## 🤝 Collaboration & Contact
 
