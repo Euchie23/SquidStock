@@ -52,11 +52,25 @@ This notebook serves as the **first step in the analysis pipeline**, exploring t
 - **Catch Time-Series Plot:** Seasonal trends and inter-annual variability  
   ![Catch Trend Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/monthly_catch_plot.png)  
 - **Yearly Summary Table:** Environmental features with trend arrows  
-  ![Yearly Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/yearly_feature_summary.png)  
-- **Data Distribution Table:** Long-term variability of environmental variables  
-  ![Data Distribution Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/data_distribution_summary.png)  
+  ![Yearly Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/yearly_feature_summary.png)
+  > Arrow Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change
+- **Data Distribution Table:**  Catch data distribution throughout the 20 years  
+  ![Data Distribution Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/data_distribution_summary.png) <br><br>
 
-> Arrow Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change
+
+> 🔗 Viewing Interactive Plots
+> (Works best on desktop or tablet in Chrome or Firefox)
+
+> ✅ Option 1: View Online (Recommended)
+> We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
+
+> 💾 Option 2: Download and Open Locally
+> 📝 If the online version doesn’t load or you want to view offline:
+
+> Navigate to the Temporal Catch Plot folder in this repo.
+> Right-click the file → "Save link as..."
+> Save the file to your computer and double-click to open in your browser (Chrome, Firefox, Edge).
+
 
 ---
 
