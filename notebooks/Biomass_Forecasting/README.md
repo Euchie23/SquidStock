@@ -172,7 +172,7 @@ In practice, this framework enables agencies and consultancies to stress-test se
 
 ## 🤝 Collaboration & Contact
 
-Contributions and extensions are welcome — especially from researchers working on **cephalopod ecology, stock assessment modeling, or environmental forecasting**.  
+Contributions and extensions are welcome — especially from researchers, data Scientists, fishereies experts or consultants working on **cephalopod/marine ecology, stock assessment modeling, or environmental forecasting**  
 
 📬 [**Email**](mailto:euchiejnpierre@gmail.com) | [**LinkedIn**](https://linkedin.com/in/euchiejnpierre)  
 
