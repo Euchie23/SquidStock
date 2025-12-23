@@ -11,9 +11,11 @@ This module implements a full machine-learning workflow to model weekly CPUE for
 - Regression models (class-conditioned) achieve negative R² values — expected for short-lived, mobile cephalopods.  
 - Feature drift and anomalies were detected, emphasizing that CPUE is sensitive to environmental change and fishing behavior.  
 
-**Management Insight:** This workflow allows managers to distinguish meaningful CPUE signals from noise, avoiding premature reactions to short-term fluctuations.  
+**Management Insight:** This workflow allows managers to distinguish meaningful CPUE signals from noise, avoiding premature reactions to short-term fluctuations.
 
-📈 Real-World Value  
+---
+
+## 📈 Real-World Value  
 This module demonstrates a production-ready ML workflow for ecological time series with unstable targets.  
 
 **Who This Helps:**
@@ -24,20 +26,6 @@ This module demonstrates a production-ready ML workflow for ecological time seri
 - Research groups: explore ML complementing ecological models  
 
 **Why It Matters:** CPUE is decoupled from abundance; environmental predictors explain only part of the variance. A transparent, interpretable ML pipeline supports informed, adaptive management.  
-
----
-
-### Decision Context (Applied Use Case)
-
-This workflow is designed for situations where managers need to distinguish meaningful CPUE signals from noise.
-
-**Example application:**
-If weekly CPUE drops sharply, this framework helps determine whether the change reflects:
-- a genuine environmental shift (flagged by drift detection),
-- anomalous conditions (flagged by Isolation Forest),
-- or normal ecological variability where prediction is unreliable.
-
-In practice, this allows agencies to avoid reacting prematurely to short-term CPUE fluctuations and instead focus on regime-level change.
 
 ---
 
@@ -123,6 +111,29 @@ As part of the workflow, we investigated **feature drift** and **data anomalies*
 
 ---
 
+## 🧩 Module Overview  
+**Core Objectives:**
+
+- Build temporal and environmental features  
+- Classify weekly CPUE into Low / Medium / High  
+- Apply class-conditioned regression models  
+- Detect feature drift and anomalies  
+- Provide interpretable insights for fisheries management  
+
+Outcome: Guides adaptive management decisions by highlighting where CPUE trends are ecologically meaningful vs noise-dominated.  
+
+---
+
+## 🧮 Model Specification  
+- **Classification:** Random Forest Classifier (Low / Medium / High CPUE)  
+- **Regression (class-conditioned):** LightGBM / Extra Trees per CPUE class  
+- **Feature selection:** Boruta + manual refinement  
+- **Drift detection:** KS Test (2000–2015 vs 2016–2020)  
+- **Anomaly detection:** Isolation Forest  
+- **Evaluation:** Confusion matrix, residuals, R², MAE, RMSE
+
+---
+
 🎯 Applied Use Case  
 Scenario: Detecting meaningful CPUE trends in fisheries management  
 
@@ -131,7 +142,7 @@ Scenario: Detecting meaningful CPUE trends in fisheries management
   - Unusual observation (anomaly)  
   - Normal variability (prediction unreliable)  
 - **Management implication:** Avoid overreacting to short-term CPUE fluctuations; focus on regime-level changes and seasonal context.  
-- **Interactive App:** Explore weekly CPUE predictions and anomaly alerts in an intuitive interface: Launch App  
+- **Interactive App:** Explore weekly CPUE predictions and anomaly alerts in an intuitive interface: [Launch the App](https://squidstock-the-engine-room.streamlit.app)  
 
 ---
 
@@ -165,6 +176,8 @@ Scenario: Detecting meaningful CPUE trends in fisheries management
 4. Launch Jupyter Notebook and open /notebooks/AutoML.ipynb
    
 5. Run cells sequentially to reproduce the analysis.
+   
+[See notebook for reference](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Biomass_Forecasting/AutoML.ipynb).
 
 ---
 
