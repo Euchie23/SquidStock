@@ -4,10 +4,9 @@
 Temporal catch patterns reveal that squid catches are largely shaped by biological cycles and environmental conditions. Seasonal peaks from **March to June** align with migration and spawning behavior, while declining mean CPUE after 2015, alongside increasing water temperatures and deeper fishing depths, suggest that squid are shifting vertically and possibly experiencing stock stress, rather than changes being driven by fishing effort alone.
 
 **Key Insights:**
-- 🎣 **Seasonal Peaks:** March–June catches reflect migration and spawning cycles.  
-- 📉 **Declining CPUE:** Mean catch decreases post-2015 indicate potential stock stress or reduced catch efficiency.  
-- 🌡️ **Increasing Temperature:** Rising SST likely pushes squid to deeper or cooler waters.  
-- ⏬ **Fishing Depth Increase:** Suggests vertical squid movement or adaptive fishing behavior.  
+- 🎣 **Seasonal Peaks Observed**   
+- 📉 **CPUE declines post-2015** 
+- 🌡️⏬ **SST and depth trends co-vary with CPUE** 
 
 ---
 
@@ -71,29 +70,25 @@ This notebook serves as the **first step in the analysis pipeline**, exploring t
 > Right-click the file → "Save link as..."
 > Save the file to your computer and double-click to open in your browser (Chrome, Firefox, Edge).
 
-
 ---
 
 ## 🎯 Applied Use Case — Early Detection & Monitoring
-**Objective:** Use raw catch and environmental data to detect trends, seasonality, and potential stress in squid stocks before formal modeling.  
 
-**Supports:**  
-- Early warning for stock stress  
-- Identification of environmental changes affecting CPUE  
-- Evidence-based planning for sustainable fisheries  
+**Decision context:**  
+Before CPUE standardization or predictive modeling, managers need to understand whether observed declines reflect ecological change or sampling noise.
 
-**Interactive App:** Explore trends and yearly summaries in a **concise, user-friendly interface**: [Launch the App](https://squidstock-course-correction.streamlit.app)  
+**How this module is used:**
+- Identify seasonal baselines for expected catch
+- Detect sustained deviations in CPUE over time
+- Flag environmental conditions (warming, deeper fishing) associated with declining catch
 
----
+**Operational value:**
+- Early warning signals for potential stock stress
+- Context for interpreting later standardized CPUE indices
+- Evidence base for adjusting survey timing or spatial focus
 
-## 📓 Notebook — Reproducibility & Interactive Exploration
-This analysis is implemented in a **Jupyter notebook**:  
-
-- **Exploration:** Temporal CPUE, environmental trends, seasonality  
-- **Static Outputs:** PNG/PDF plots for reports  
-- **Interactive Outputs:** Plotly HTML graphs for dynamic analysis  
-
-[Click here to view Temporal Catch Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_Catch_Analysis/Temporal_Catch_Analysis.ipynb)
+**Interactive App:**  
+Explore seasonal trends, yearly summaries, and environmental co-variation in a concise interface: [**Launch the App**](https://squidstock-course-correction.streamlit.app)  
 
 ---
 
@@ -122,7 +117,9 @@ To run the notebook locally:
         
 4. Launch Jupyter Notebook and open /notebooks/Temporal_Catch_Analysis.ipynb
    
-5. Run cells sequentially to reproduce the analysis. 
+5. Run cells sequentially to reproduce the analysis.
+
+[Click here to view Temporal Catch Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_Catch_Analysis/Temporal_Catch_Analysis.ipynb)
    
 ---
 
