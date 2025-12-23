@@ -50,11 +50,11 @@ This notebook serves as the **first step in the analysis pipeline**, exploring t
 
 ### Figures
 - **Catch Time-Series Plot:** Seasonal trends and inter-annual variability  
-  ![Catch Trend Plot](outputs/temporal_catch_plot.png)  
+  ![Catch Trend Plot](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/temporal_catch_plot.png)  
 - **Yearly Summary Table:** Environmental features with trend arrows  
-  ![Yearly Summary Table](outputs/yearly_feature_summary.png)  
+  ![Yearly Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/yearly_feature_summary.png)  
 - **Data Distribution Table:** Long-term variability of environmental variables  
-  ![Data Distribution Summary](outputs/data_distribution_summary.png)  
+  ![Data Distribution Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/data_distribution_summary.png)  
 
 > Arrow Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change
 
@@ -79,7 +79,7 @@ This analysis is implemented in a **Jupyter notebook**:
 - **Static Outputs:** PNG/PDF plots for reports  
 - **Interactive Outputs:** Plotly HTML graphs for dynamic analysis  
 
-[Click here to view Temporal Catch Analysis notebook](notebooks/Temporal_Catch_Analysis.ipynb)
+[Click here to view Temporal Catch Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_Catch_Analysis.ipynb)
 
 ---
 
