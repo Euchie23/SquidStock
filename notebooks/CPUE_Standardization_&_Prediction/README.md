@@ -194,5 +194,5 @@ Thank you for exploring **SquidStock** — advancing sustainable squid fisheries
 ---
 
 > 🦑 *Project 2 of the [SquidStock](https://github.com/Euchie23/SquidStock) series — advancing data-driven, climate-aware squid fishery modeling.* <br>
-> 📌 This project is part 2 of the [**Temporal Catch Analysis Module**](https://github.com/Euchie23/SquidStock/edit/main/notebooks/Temporal_Catch_Analysis/)
+> 📌 This project is part 2 of the [**Temporal Catch Analysis Module**](https://github.com/Euchie23/SquidStock/edit/main/notebooks/Temporal_Catch_Analysis/) | 
 [Click here for App](https://squidstock-course-correction.streamlit.app).
