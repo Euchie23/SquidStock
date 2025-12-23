@@ -63,8 +63,9 @@ Here’s how your work is structured, moving from exploration to deployment:
 ## 🛠 Tools & Techniques Used
 
 - **Data & Arrays:** `pandas`, `numpy`, `xarray`, `netCDF4`  
-- **Statistical & Predictive Modeling:** `pygam`, `statsmodels` (GAM, GLM, Tweedie)  
-- **AutoML / Machine Learning:** `scikit-learn`, `PyCaret`  
+- **Statistical & Predictive Modeling:**  `matplotlib`, `pygam`, `scipy`, `statsmodels` (GAM, GLM, Tweedie)  
+- **AutoML / Machine Learning:** `scikit-learn`, `PyCaret`
+- **Visualization:** `seaborn`
 - **Spatial & Dashboard Tools:** `folium`, `plotly`, `streamlit`  
 - **Remote Sensing Processing:** extraction of Chlorophyll‑a and SSH from NetCDF layers  
 - **Missing Data Imputation:** median of nearby spatial/temporal neighbors — chosen for stability across gaps and variable neighbor distributions  
@@ -76,11 +77,14 @@ Here’s how your work is structured, moving from exploration to deployment:
 
 - Base dataset included: `catch_kg`, `longitude`, `latitude`, `vessel_id`, `SST`, `depth`, `year`, `month`, `day`  
 - Augmented with satellite layers (Chlorophyll‑a, SSH) pulled from NASA / Copernicus portals  
-- Missing environmental values imputed via median of local neighbors to mitigate influence of extreme values or sparse coverage  
+- Missing environmental values imputed via linear interpolation to mitigate influence of extreme values or sparse coverage
 - Modeling workflows:
   - GAMs, GLMs for CPUE normalization and prediction  
   - Environmentally dependent surplus production model for biomass forecasts  
-  - AutoML experiments for short-term catch prediction  
+  - AutoML experiments for short-term catch prediction (anomaly detection, hyperparameter tuning, feature drift, feature engineering, tree-based model comparison, model evaluation metrics, etc)
+  - Residuals Diagnostics & Cross Validation
+  - Nonlinear temperature-dependent modelling
+  - Monte Carlo simulations for uncertainty in biomass forecasting 
 
 ---
 
