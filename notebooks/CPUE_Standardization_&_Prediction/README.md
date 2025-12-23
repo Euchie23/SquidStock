@@ -194,5 +194,5 @@ Thank you for exploring **SquidStock** — advancing sustainable squid fisheries
 ---
 
 > 🦑 *Project 2 of the [SquidStock](https://github.com/Euchie23/SquidStock) series — advancing data-driven, climate-aware squid fishery modeling.* <br>
-> 📁 For more on the times-series analysis and visualizations using the full dataset, see the **Temporal CPUE Analysis Module** 
+> 📌 This project is part 2 of the [**Temporal CPUE Analysis Module**](https://github.com/Euchie23/SquidStock/edit/main/notebooks/Temporal CPUE Analysis/README.md).
 
