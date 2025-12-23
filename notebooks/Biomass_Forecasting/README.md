@@ -21,13 +21,14 @@ It demonstrates skills in **scenario modeling, climate analysis, and population 
 
 This module implements an **Environmentally Dependent Surplus Production Model (EDSPM)** to show how *Illex argentinus* biomass responds to environmental variability (SST & chlorophyll-a) and a moderate warming scenario. Analysis focuses on **January–June** (20-year dataset) — the most consistent seasonal window.
 
-It integrates insights from **CPUE-based models (Module 2)** and moves toward **ecosystem-aware simulation**, forming a key bridge between fishery-dependent and environment-driven population indicators.
+### **What this project does**
+It links temperature and productivity to a logistic surplus-production model, adding fishing removals and Monte Carlo uncertainty, and comparing baseline vs **+2 °C warming**.
+
+Additionally, it integrates insights from **CPUE-based models (Module 2)** and moves toward **ecosystem-aware simulation**, forming a key bridge between fishery-dependent and environment-driven population indicators.
 
 ---
 
 ## 📘 Executive Summary
-
-- **What we did:** Linked temperature and productivity to a logistic surplus-production model, added fishing removals and Monte Carlo uncertainty, and compared baseline vs **+2 °C warming**.
 - **Main outcome:** Warming gives a **small, short-lived** biomass boost during early months; long-term biomass returns toward the same equilibrium because of density dependence.
 - **CPUE vs biomass:** Normalized CPUE is **volatile** and weakly correlated with biomass — CPUE reflects catchability, aggregation and effort, not necessarily total stock.
 - **Why it matters:** Environment-aware indicators are more reliable than CPUE alone for detecting ecologically meaningful change and guiding seasonal management (closures, adaptive quotas).
@@ -37,6 +38,8 @@ It integrates insights from **CPUE-based models (Module 2)** and moves toward **
 - CPUE often **does not** reliably reflect true abundance during January–June; catch rates are influenced by movement, hotspots, and gear efficiency.  
 - Actionable takeaways: use environment-informed indicators, consider seasonal closures, and adapt quotas/timing around key growth months.
 
+---
+
 ### Decision Use Case (Applied Example)
 
 Under a +2 °C warming scenario, simulated squid biomass shows a modest early-season increase (January–March) but converges back toward baseline levels by mid-season due to density-dependent limits.
@@ -45,6 +48,29 @@ Under a +2 °C warming scenario, simulated squid biomass shows a modest early-se
 - Early-season catch rates may temporarily increase without reflecting long-term stock growth
 - Seasonal quotas or effort decisions based solely on CPUE risk overestimating stock health
 - Environment-aware indicators can support adaptive timing of quotas, seasonal closures, or survey scheduling
+
+---
+
+# 🔬 Key Takeaways
+
+- **Short-term:** Warming slightly increases early-season productivity (a few percent), but this effect fades.  
+- **Long-term:** The population returns to equilibrium — density dependence prevents runaway growth.  
+- **Seasonality:** Timing of seasons is unchanged; peaks become somewhat stronger under warming.  
+- **CPUE vs biomass:** CPUE is noisy and often decoupled from biomass (gear/behaviour & hotspots matter).  
+- **Management implication:** Favor environment-informed indicators for seasonal decisions (timing and quotas); don’t rely on CPUE alone.
+
+---
+
+## 🌎 Real-World Relevance
+
+Short-lived cephalopods like *Illex argentinus* exhibit rapid adaptation but limited persistence under changing conditions.  
+This module’s results illustrate **why CPUE-only assessments can be misleading** — and why ecosystem-based modeling is crucial.
+
+**Applied insights:**
+- Fisheries may experience **temporary catch boosts** under mild warming.  
+- Long-term biomass remains stable due to **ecological ceilings**.  
+- Environmental models (like EDSPM) better capture **true population resilience**.  
+- Climate adaptation strategies should consider **variability and timing**, not just mean warming.  
 
 ---
 
@@ -112,29 +138,6 @@ Environmental conditions modulate growth over time
 
 ---
 
-# 🔬 Key Takeaways
-
-- **Short-term:** Warming slightly increases early-season productivity (a few percent), but this effect fades.  
-- **Long-term:** The population returns to equilibrium — density dependence prevents runaway growth.  
-- **Seasonality:** Timing of seasons is unchanged; peaks become somewhat stronger under warming.  
-- **CPUE vs biomass:** CPUE is noisy and often decoupled from biomass (gear/behaviour & hotspots matter).  
-- **Management implication:** Favor environment-informed indicators for seasonal decisions (timing and quotas); don’t rely on CPUE alone.
-
----
-
-## 🌎 Real-World Relevance
-
-Short-lived cephalopods like *Illex argentinus* exhibit rapid adaptation but limited persistence under changing conditions.  
-This module’s results illustrate **why CPUE-only assessments can be misleading** — and why ecosystem-based modeling is crucial.
-
-**Applied insights:**
-- Fisheries may experience **temporary catch boosts** under mild warming.  
-- Long-term biomass remains stable due to **ecological ceilings**.  
-- Environmental models (like EDSPM) better capture **true population resilience**.  
-- Climate adaptation strategies should consider **variability and timing**, not just mean warming.  
-
----
-
 ## 🛠️ Tools & Techniques
 
 **Core libraries:**  
@@ -187,19 +190,19 @@ In practice, this framework enables agencies and consultancies to stress-test se
 
 ---
 
+## 🔒 Data Confidentiality Notice  
+
+This project uses a simulated and anonymized dataset modeled after patterns observed during my work as a part-time research assistant at National Taiwan University. It is designed exclusively for methodological demonstration and skill development in machine learning, fisheries analysis, and environmental data science. The dataset does not represent official assessments, and no confidential or proprietary information is included.
+
+
+---
+
 ## 🤝 Collaboration & Contact
 
 Contributions and extensions are welcome — especially from researchers working on **cephalopod ecology, stock assessment modeling, or environmental forecasting**.  
 
 📬 [**Email**](mailto:euchiejnpierre@gmail.com) | [**LinkedIn**](https://linkedin.com/in/euchiejnpierre)  
 🧠 Explore more modules at [**SquidStock Repository**](https://github.com/Euchie23/SquidStock)
-
----
-
-## 🔒 Data Confidentiality Notice  
-
-This project uses a simulated and anonymized dataset modeled after patterns observed during my work as a part-time research assistant at National Taiwan University. It is designed exclusively for methodological demonstration and skill development in machine learning, fisheries analysis, and environmental data science. The dataset does not represent official assessments, and no confidential or proprietary information is included.
-
 
 ---
 
