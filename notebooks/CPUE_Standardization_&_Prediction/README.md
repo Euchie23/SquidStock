@@ -1,90 +1,71 @@
 # 🗺️ Course Correction — CPUE Standardization & Prediction (2000–2020)
 
-## 🌍 Real-World Value
-
-Course Correction converts noisy, effort-biased squid catch data into **clean, standardized CPUE indicators** that better reflect true ecological patterns rather than fishing effort.  
-This is the backbone of any modern stock assessment — and one of the most requested skills in environmental and fisheries data roles.
-
-### Who This Helps
-- **Fisheries managers:** get unbiased indices for quota decisions  
-- **Marine ecologists:** separate environmental effects from fishing pressure  
-- **Sustainability teams:** track stock health with validated indicators  
-- **Data scientists:** learn distribution-aware modeling for skewed ecological data  
-
-### Why It Matters
-Squid fisheries rarely get rigorous statistical standardization.  
-This module fills that gap with GAM/Tweedie models that:  
-- remove effort bias,  
-- highlight real biological cycles, and  
-- make CPUE trends reliable for management.  
-
-In a field where CPUE is often misinterpreted, this module provides **methodologically sound, decision-ready indices**.
-
----
-
-This notebook advances the *SquidStock* analytical series by standardizing and modeling *Illex argentinus* catch data (2000–2020) with the added help of remote sensing data Sea Surface Height (SSH) and Chlorophyll A. This builds on the exploratory work in **Module 1**, it applies **Generalized Additive Models (GAMs)** and **Tweedie Regressor** to remove effort bias and reveal underlying ecological structure in **Catch Per Unit Effort (CPUE)**.
-
-This module develops a robust, reproducible workflow for CPUE standardization of Illex argentinus over a 20-year subset (January – June each year), chosen for consistent data coverage and comparability. Missing environmental data (Chl-a, SSH, Depth) were addressed via linear interpolation, preserving natural seasonal trends.
-
----
-
 ## 📘 Executive Summary
 
-**Overall Outcome:**<br>
-Standardized CPUE reveals consistent biological patterns that are largely decoupled from fishing effort, with recurrent seasonal peaks (March–May) and multi-year cycles (~8 years) likely linked to ecological or oceanographic drivers. Flexible, distribution-aware models (GammaGAM and TweedieRegressor) reliably capture these dynamics, with Tweedie providing the best predictive accuracy and GammaGAM offering interpretable fits.
+Course Correction transforms noisy, effort-biased squid catch data into **clean, standardized CPUE indicators**, revealing true ecological patterns. Over 2000–2020 (Jan–Jun), the workflow identified:
 
-### 🔍 Key Insights
+- **Seasonal CPUE peaks** (March–May) consistent with migration cycles.  
+- **Multi-year (~8-year) oscillations** likely linked to environmental/ecological drivers.  
+- **Model performance:** Tweedie Regressor provided the lowest RMSE/MAE; GammaGAM offered highly interpretable fits.  
 
-- **GammaGAM** and **TweedieRegressor** delivered superior model fit and stability compared to log-transformed GAMs.  
-- **Cross-validation** and **test-set evaluation** confirm that **TweedieRegressor** achieved the lowest RMSE and MAE, showing the best predictive accuracy, while **GammaGAM** provided the most stable and interpretable fits.  
-- **Residual diagnostics** reveal distinct behaviors across models:  
-  → Log-GAMs show increasing dispersion at high CPUE;  
-  → GammaGAM residuals are balanced and centered around zero;  
-  → Tweedie residuals display the most uniform spread, indicating strong generalization.  
-- Seasonal CPUE peaks (March–May) persist after standardization, confirming that observed variability reflects **biological processes (e.g., migration)** rather than fishing effort.  
-- The CPUE time series exhibits a **recurrent ~8-year cycle**, likely influenced by broader **environmental or ecological drivers**—further validation with external indices is recommended.
-
-Together, these results underscore the value of flexible, distribution-aware modeling approaches for effective squid fishery standardization and monitoring.
-
+> This module produces **decision-ready indices** for fisheries management, not just statistical outputs.
 
 ---
 
-## 🎯 Applied Use Case — CPUE Standardization in Practice
+## 🌍 Real-World Value
 
-This module demonstrates how raw, effort-biased catch data can be transformed into a standardized CPUE index suitable for:
+Course Correction addresses a critical gap in squid fisheries data analysis:
 
-- annual stock status reporting,
-- quota-setting and harvest control rules,
-- monitoring climate-driven shifts in productivity,
-- cross-year comparison free from changes in fishing effort.
+- **Who Benefits**
+  - **Fisheries managers:** unbiased indices for quota decisions.  
+  - **Marine ecologists:** separate environmental effects from fishing pressure.  
+  - **Sustainability teams:** monitor stock health using validated indicators.  
+  - **Data scientists:** experience distribution-aware modeling for skewed ecological data.
 
-In practice, outputs from this workflow would feed directly into:
-- stock assessment models,
-- ecosystem indicators used by fisheries agencies,
-- sustainability reporting and management strategy evaluation.
+- **Why It Matters**
+  - Squid fisheries rarely get rigorous statistical standardization.  
+  - GAM/Tweedie models:
+    - Remove effort bias.  
+    - Highlight true biological cycles.  
+    - Make CPUE trends reliable for management.  
 
-The standardized CPUE index produced here is designed to support real management decisions, not just statistical inference.
-
----
-
-## 📈 Exploratory Data Analysis (EDA)
-
-### 📊 CPUE Distribution
-Raw CPUE is **strongly right-skewed**, dominated by a few very large catches.  
-After **log transformation**, the distribution approaches normality — a key assumption for regression modeling.
-
-### 🗓️ Monthly CPUE Variability (Jan–Jun)
-Boxplots reveal peaks between **March and May**, consistent with seasonal migration of the South Patagonian Stock.  
-High interquartile ranges during these months suggest environmental or operational variability.
-
-### 🌡️ CPUE vs Temperature
-A slight **negative correlation** appears — higher SST tends to coincide with lower CPUE, hinting that warming may reduce catchability.
-
-✅ *These EDA insights justify using flexible, non-Gaussian models (Gamma / Tweedie) to capture ecological complexity.*
+> Provides **transparent, methodologically sound indices** for real-world fisheries decision-making.
 
 ---
 
-## 🧾 Model Evaluation Results (based on mean monthly CPUE vessel days (tons))
+## 🧾 Data & Modeling Overview
+
+**Dataset:** *Illex argentinus* catch data (2000–2020, Jan–Jun) with environmental covariates:  
+- Sea Surface Temperature (SST)  
+- Sea Surface Height (SSH)  
+- Chlorophyll-a (Chl-a)  
+- Fishing Depth  
+
+**Key Modeling Steps:**  
+1. Preprocessing & linear interpolation for missing environmental values.  
+2. Exploratory Data Analysis (EDA) to assess distributions and correlations.  
+3. Modeling frameworks: LinearGAM (log-transformed), GammaGAM, Tweedie Regressor.  
+4. Evaluation: 5-fold cross-validation, RMSE/MAE, residual diagnostics.  
+
+**Skills demonstrated:** ecological data cleaning, distribution-aware modeling, residual diagnostics, reproducible workflow.
+
+---
+
+## 📊 Key Results & Interpretation
+
+### Standardization Outcomes
+
+**Observed vs Standardized CPUE:**  
+![Observed vs Standardized CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png)  
+- Standardized indices remove effort bias.  
+- Seasonal peaks (March–May) persist → biological signal confirmed.  
+
+**Yearly Summary (Jan–Jun):**  
+![Yearly Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
+- Declining CPUE trend suggests lower productivity or catchability.  
+- SST, SSH, Depth trends indicate environmental drivers and habitat shifts.
+
+### Predictive Modeling
 
 | Model | RMSE | MAE |
 |:------|------:|------:|
@@ -96,140 +77,41 @@ A slight **negative correlation** appears — higher SST tends to coincide with 
 **Cross-validation means (RMSE):**  
 LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | Tweedie Regressor = 477  
 
-📊 [**Model Performance (PNG)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png)  
-📄 [**Model Performance (PDF)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.pdf)
+**Predicted vs Actual CPUE:**  
+![Predicted vs Actual CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png)  
 
-> 🧠 *Gamma GAM and Tweedie GLM consistently yielded lower errors, supporting their suitability for skewed ecological data.*
+**Residual Plots:**  
+![Residuals](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png)  
 
----
-
-## 📉 Yearly Summary (2000 – 2020, Jan–Jun Subset)
-
-| Variable | Trend | Interpretation |
-|-----------|--------|----------------|
-| **Monthly CPUE mean** | ↓ Declining | Highly variable; overall decrease from early 2000s (≈ 1 300 tons) to 2019 (≈ 218 tons). Suggests declining productivity or catchability. |
-| **Water Temperature mean** | ↑ Increasing | Gradual warming (≈ 10.99 → 11.41 °C). May drive squid to deeper / southern waters, lowering CPUE. |
-| **SSH mean** | ↑ Increasing | Rising SSH (0.01 → 0.08 m) could signal reduced upwelling and nutrient supply, impacting productivity. |
-| **Chlorophyll-a mean** | → Stable / slightly decreasing | Mixed pattern; productivity fluctuations don’t always boost CPUE, indicating trophic mismatch. |
-| **Depth mean** | ↑ Increasing | Fishing depth rose (≈ 92 → 152 m), implying migration to cooler zones. May reflect adaptive fishing or habitat shifts. |
-
-📄 [**Yearly Summary (2000 – 2020, Jan–Jun Subset)**](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
-> *Trends derived from descriptive summary (mean, SD, min, max) with directional arrows for clarity.* <br>
-> *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
+**Interpretation:**  
+- **Log-GAMs:** underpredict high CPUE; heteroscedastic residuals.  
+- **GammaGAM:** stable, centered residuals; interpretable smooth effects.  
+- **Tweedie Regressor:** most uniform residuals; robust to zero-inflation and overdispersion.  
+- **Conclusion:** Robust, ecologically meaningful standardization and predictive modeling.
 
 ---
 
-## 🧭 Module Overview  
-### “The Modeling Course: Standardizing the Catch”
+## 🎯 Applied Use Case — CPUE Standardization for Management
 
-This module focuses on **temporal standardization and model benchmarking**, linking CPUE variation to environmental drivers (SST, SSH, Chl-a, Depth).  
-Outputs include fitted models, diagnostics, and standardized CPUE indices.
-
----
-
-## 🧠 Modeling Framework
-
-| Model | Transformation | Distribution | Strength |
-|:------|:----------------|:--------------|:----------|
-| **LinearGAM (log(CPUE + c))** | Variance stabilization | Normal | Interpretable baseline |
-| **LinearGAM (log(CPUE + 1))** | Benchmark log-scale | Normal | Consistent comparison |
-| **Gamma GAM** | Raw CPUE | Gamma | Best for positive, right-skewed data |
-| **Tweedie Regressor** | Raw CPUE | Tweedie | Robust to zero-inflation & overdispersion |
-
-All models were evaluated via **5-fold cross-validation** using RMSE and MAE.
-
----
-## 🗃️ Dataset Schema
-
-| Column | Description | Type |
-|---------|-------------|------|
-| **POINTID** | Unique record identifier | Integer |
-| **CTNO** | Catch trip number | Integer |
-| **Year**, **Month**, **Day** | Temporal fields | Integer |
-| **Lon**, **Lat** | Catch coordinates | Float |
-| **WaterTemp** | Sea surface temperature (°C) | Float |
-| **SSH** | Sea surface height (m) | Float |
-| **Depth** | Fishing depth (m) | Float |
-| **Chlor_a_mg_m3** | Chlorophyll-a concentration (mg/m³) | Float |
-| **SqCatch_Kg** | Squid catch (kg) | Float |
-
-During data preprocessing and modeling, additional columns were created to assist analysis, including:  
-- Standardized CPUE (kg and tons)  
-- Vessel effort metrics (e.g., vessel days)  
-- Weighted longitude and latitude variables to account for spatial heterogeneity  
-
-Details on these transformations and derived features can be found in the [notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb), specifically in Cells **2–4** and **8**.
+- **Objective:** Transform raw catch data into a standardized CPUE index for management decisions.  
+- **Supports:**  
+  - Stock assessment & quota setting.  
+  - Harvest control rules & reporting.  
+  - Detection of environmental thresholds & climate impacts.  
+  - Ecosystem-based management integration.
+- Interactive App: Explore standardized CPUE and trends in a concise, user-friendly interface: [Launch the App](https://squidstock-course-correction.streamlit.app)
+- 
+**Workflow Outcome:** Transparent, reproducible, **decision-ready CPUE indices** for fisheries management.
 
 ---
 
-## 🌐 Environmental Data & Pre-Processing
+## 📒 Notebook & Reproducibility
 
-Environmental predictors were extracted from **NASA MODIS** and **Copernicus Marine Service** products and merged by `date × location`.
+All analysis is implemented in a Jupyter Notebook with interactive visualizations:  
+[**CPUE_Standardization_&_Prediction Notebook**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb)
 
-### ⚙️ Missing Data Handling
-- **Temporal gaps** in SST, SSH, and Chl-a were filled using **linear interpolation**.  
-- **Spatial gaps** were imputed via nearest-neighbor lookups to preserve local gradients.  
-- This ensured continuous predictors across the Jan–Jun subset without introducing unrealistic variability.
-
----
-
-## 📊 Workflow Overview
-
-1. **Data Filtering:** Retain only **Jan–Jun** months per year.
-2. **Data Wrangling:** Create additional columns to assist analysis (Vessel days, CPUE_vday_kgs, CPUE_vday_tons etc).
-3. **Feature Engineering** Modify environmental variables for modeling (weighted longitude and latitude columns)
-4. **Exploratory Analysis:** Examine CPUE distributions, environmental variability, and correlations.  
-5. **Yearly Summary:** Compute mean ± SD for key variables (Jan–Jun subset).  
-6. **Modeling:** Fit LinearGAM, GammaGAM, and Tweedie GLM frameworks.  
-7. **Evaluation:** Compare performance metrics (RMSE / MAE).  
-8. **Diagnostics:** Inspect residuals and fitted vs observed trends.  
-9. **Outputs:** Generate standardized CPUE time-series and visual summaries.  
-
----
-
-## 📈 Core Visualizations & Diagnostics
-
-| Visualization | Output | Purpose |
-|---------------|-----------|----------|
-| **Observed vs Standardized CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png) / [HTML File](https://euchie23.github.io/SquidStock/observed_vs_standardized.html) | Compare raw and standardized indices |
-| **Predicted vs Actual CPUE** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png) / [HTML File](https://euchie23.github.io/SquidStock/predicted_vs_actual.html)| Assess predictive accuracy |
-| **Residual Plots** |[PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png) | Check error distribution |
-| **Model Performance Table** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/model_performance.png) | Summarize RMSE / MAE |
-| **Yearly Summary (Jan–Jun)** | [PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png) | Context for environmental trends |
-
-> 🕹️ Interactive versions (`.html`) can be downloaded by right clicking.
-
----
-
-## 🧭 Interpretation of Model Results
-
-- **Log-GAMs** — Underpredict high CPUE events due to transformation compression; residuals show heteroscedasticity at upper values.
-- **GammaGAM** — Most stable residuals with symmetric, centered distribution; fits right-skewed CPUE effectively and provides interpretable smooth effects of environmental and temporal predictors.  
-- **Tweedie Regressor** — Most uniform residual spread and lowest error; highly robust to overdispersion and zero-inflated months, capturing real variability in CPUE.    
-- **Standardized Indices** — Seasonal peaks persist post-standardization, reinforcing that CPUE fluctuations are biologically rather than operationally driven.  
-
-✅ Residual plots and error metrics together confirm **robust, ecologically meaningful** standardization and predictive modeling.
- 
----
-
-## 🌍 Real-World Applications
-
-- Enhanced **stock assessment** and quota setting through unbiased CPUE indices supported by validated residual diagnostics.  
-- Detection of **environmental thresholds** in squid abundance.  
-- Support for **ecosystem-based fisheries management**.  
-- Demonstration of transparent, reproducible modeling workflow.  
-
----
-
-## 🛠️ Tools & Techniques
-
-**Core libraries:** `pandas`, `numpy`, `matplotlib`, `plotly`, `pygam`, `statsmodels`  
-**Skills demonstrated:**  
-- Data cleaning & linear interpolation  
-- GAM / GLM modeling for ecological data  
-- Residual diagnostics & cross-validation  
-- Reproducible notebook workflow  
-- Interpretation of environmental drivers on CPUE  
+- Explore CPUE distributions, environmental drivers, and model diagnostics interactively.  
+- Reproduce all figures and results.  
 
 ---
 
@@ -261,6 +143,12 @@ To run the notebook locally:
 
 [Click here to view CPUE_Standardization_&_Prediction notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb) 
    
+---
+
+## 🔒 Data Confidentiality Notice
+
+This dataset is a simulated approximation of a real-world squid stock assessment dataset used during my tenure as a part-time research assistant at National Taiwan University. Although it closely resembles actual data, any interpretation or conclusions drawn here cannot be assumed to represent real conditions in the region. This project primarily demonstrates analytical methods, data processing workflows, and skill development in fisheries and environmental data science.
+
 ---
 
 ## 📉 Limitations & Future Work
@@ -304,26 +192,6 @@ Open an issue or submit a pull request to collaborate on future modules.
 [**Email**](mailto:euchiejnpierre@gmail.com) | [**LinkedIn**](https://linkedin.com/in/euchiejnpierre)  
 
 Thank you for exploring **SquidStock** — advancing sustainable squid fisheries through data transparency and ecological insight.
-
----
-
-## 🔒 Data Confidentiality Notice
-
-This dataset is a simulated approximation of a real-world squid stock assessment dataset used during my tenure as a part-time research assistant at National Taiwan University. Although it closely resembles actual data, any interpretation or conclusions drawn here cannot be assumed to represent real conditions in the region. This project primarily demonstrates analytical methods, data processing workflows, and skill development in fisheries and environmental data science.
-
----
-
-## 📸 Static Previews
-
-**Observed vs Standardized CPUE** 
-- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png) <br>
-**Predicted vs Actual CPUE**  
-- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png)
-**Residual Plots**  
-- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/residuals.png)
-**Yearly Summary (Jan–Jun)** 
-- ![PNG File](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/yearly_seasonal_feature_summary.png)  
-> *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
 
 ---
 
