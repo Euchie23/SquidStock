@@ -1,129 +1,85 @@
 # 🧭 The Navigation Course — Temporal Catch Analysis
 
-## 📈 Real-World Value
-
-The Navigation Course provides a clear, data-driven picture of how squid catch and ocean conditions have changed over two decades.  
-It highlights shifts in CPUE, temperature, and fishing depth — enabling early detection of **stock stress, environmental change, and effort dynamics**.
-
-### Who This Helps
-- **Fisheries scientists:** understand baseline patterns before formal CPUE standardization  
-- **Marine managers:** identify warning signs like declining CPUE or warming waters  
-- **Sustainability teams:** integrate long-term indicators into ecological reporting  
-
-### Why It Matters
-Before building models or forecasts, managers need to understand what the raw data is saying.  
-This module makes those trends visible and interpretable — giving decision-makers a reliable foundation for sustainable stock management.
-
----
-
-This notebook serves as the **first step in the analysis pipeline**, aimed at understanding the structure, distribution, and temporal dynamics of the raw dataset before applying statistical models. It does so by exploring temporal dynamics in *Illex argentinus* catch data (2000–2020), and introduces clean, reproducible workflows to later analyze Catch Per Unit Effort (CPUE), track inter-annual shifts, and link them to environmental drivers such as sea Water Temperature, and fishing depth.
-
-
 ## 📘 Executive Summary
+Temporal catch patterns reveal that squid catches are largely shaped by biological cycles and environmental conditions. Seasonal peaks from **March to June** align with migration and spawning behavior, while declining mean CPUE after 2015, alongside increasing water temperatures and deeper fishing depths, suggest that squid are shifting vertically and possibly experiencing stock stress, rather than changes being driven by fishing effort alone.
 
-Temporal catch patterns reveal that squid catches are largely shaped by biological cycles and environmental conditions. Seasonal peaks from March to June align with migration and spawning behavior, while declining mean CPUE after 2015, alongside increasing water temperatures and deeper fishing depths, suggest that squid are shifting vertically and possibly experiencing stock stress, rather than changes being driven by fishing effort alone.
-
-Key insights include:
-
-- 🎣 **Seasonal peaks** in squid catch consistently occur between **March and June**, reflecting biological migration and spawning cycles.
-- 📉 Mean catch shows a **general decline after 2015**, indicating potential stock stress or reduced catch efficiency.
-- 🌡️ **Water temperature** steadily increases over time, likely pushing squid into **cooler or deeper zones**.
-- ⏬ **Fishing depth** has increased over time, pointing to possible **vertical movement** of squid or shifts in fishing behavior.
-  
----
-
-## 🧭 Module Overview: The Navigation Course
-
-This module provides an **exploratory analysis** of raw squid CPUE and environmental data.  
-It includes descriptive statistics, time-series plots, and yearly summary tables — forming the **analytical foundation** for later modeling and hypothesis testing.
-
-> While originally scoped to include spatial maps, this module focuses solely on **temporal dynamics** to characterize long-term trends and seasonality.
----
-
-## 🗃️ Data Schema
-
-| Column         | Description                                          | Type        |
-|----------------|------------------------------------------------------|-------------|
-| POINTID        | Unique point identifier                              | Integer     |
-| CTNO           | Catch trip number                                   | Integer     |
-| Year           | Year of catch                                      | Integer     |
-| Month          | Month of catch                                     | Integer     |
-| Day            | Day of catch                                       | Integer     |
-| Lon            | Longitude coordinate of catch location             | Float       |
-| Lat            | Latitude coordinate of catch location              | Float       |
-| WaterTemp      | Water temperature (°C) at catch location           | Float       |
-| Depth          | Fishing depth (m)                                   | Integer     |
-| SqCatch_Kg     | Squid catch weight (Kg)                             | Float       |
+**Key Insights:**
+- 🎣 **Seasonal Peaks:** March–June catches reflect migration and spawning cycles.  
+- 📉 **Declining CPUE:** Mean catch decreases post-2015 indicate potential stock stress or reduced catch efficiency.  
+- 🌡️ **Increasing Temperature:** Rising SST likely pushes squid to deeper or cooler waters.  
+- ⏬ **Fishing Depth Increase:** Suggests vertical squid movement or adaptive fishing behavior.  
 
 ---
 
-## 📊 Contents & Workflow
+## 📈 Real-World Value
+The Navigation Course provides a clear, **data-driven picture of how squid catch and ocean conditions have changed** over two decades.  
 
-The notebook progresses as follows:
+**Who This Helps:**
+- **Fisheries scientists:** Understand baseline patterns before formal CPUE standardization  
+- **Marine managers:** Detect early warning signs like declining CPUE or warming waters  
+- **Sustainability teams:** Integrate long-term indicators into ecological reporting  
 
-1. **Data Loading & Cleaning**  
-   Import and preprocess catch and environmental data (Catch (tons), WaterTemp, Depth).
-
-2. **Exploratory Data Analysis**  
-   Visualization of catch trends across months and years with static and interactive plots.
-
-3. **Summary Table with Trend Arrows**  
-   A detailed yearly summary table shows mean, standard deviation, min, and max for environmental variables, augmented with arrows indicating year-over-year increases (↑), decreases (↓), or stability/initial record (→).
-
-4. **Output Export**  
-   Static plots and summary tables are saved as PDF files within the repository’s `/outputs` folder for sharing and inclusion in reports.
+**Why It Matters:**  
+Before building models or forecasts, managers need to understand what the raw data is telling them. This module **makes trends visible and interpretable**, forming a reliable foundation for sustainable stock management.
 
 ---
 
-## 📈 Visualizations & Tables
+## 🗃️ Data & Modeling Overview
+This notebook serves as the **first step in the analysis pipeline**, exploring temporal dynamics in *Illex argentinus* catch data (2000–2020). It introduces **clean, reproducible workflows** for later CPUE standardization and links trends to environmental drivers such as **Water Temperature** and **Fishing Depth**.
 
-Note: These static visualizations are saved as PNG or PDF files in `/outputs/`. You can click now to view them or quickly scroll down to the 📸 Screenshots section for a preview.
+### Dataset Schema
 
-- **Catch Trend Plots:** Show monthly and yearly variations in catch rates.
-  - [Static monthly trend plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/monthly_catch_plot.pdf)  
-  - Interactive monthly trend plot *(See ⚠️ Viewing Interactive HTML Plots section below)*
-
-- **Summary Tables:** Present yearly environmental feature statistics with trend arrows and data distribution summaries:
-  - [Yearly feature summary (PNG)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/yearly_feature_summary.png)
-    - ↑ means the value increased compared to the previous year.
-    - ↓ means the value decreased compared to the previous year.
-    - → means no change or first year (no previous data to compare).
-    > *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
-  - [Data distribution summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/data_distribution_summary.pdf)
-
----
-
-## ⚠️ Viewing Interactive HTML Plots (Catch Analysis)
-
-Interactive plots (e.g., Plotly graphs) are saved as `.html` files and **cannot be previewed directly on GitHub** due to file size limits.
-
-### ✅ Option 1: View Online (Recommended)
-
-We’ve hosted the interactive plot via GitHub Pages for immediate viewing:
-
-🔗 [View Interactive CPUE Plot](https://euchie23.github.io/SquidStock/monthly_catch_plot.html)  
-*(Works best on desktop or tablet in Chrome or Firefox)*
-
-### 💾 Option 2: Download and Open Locally
-
-📝 If the online version doesn’t load or you want to view offline:
-
-- Navigate to the [`Temporal Catch Plot`](https://euchie23.github.io/SquidStock/monthly_catch_plot.html) folder in this repo.
-- Right-click the file → "Save link as..."
-- Save the file to your computer and double-click to open in your browser (Chrome, Firefox, Edge).
+| Column | Description | Type |
+|--------|-------------|------|
+| POINTID | Unique record identifier | Integer |
+| CTNO | Catch trip number | Integer |
+| Year, Month, Day | Temporal fields | Integer |
+| Lon, Lat | Catch coordinates | Float |
+| WaterTemp | Sea surface temperature (°C) | Float |
+| Depth | Fishing depth (m) | Integer |
+| SqCatch_Kg | Squid catch (kg) | Float |
 
 ---
 
-## 🛠️ Tools, Skills & Techniques Demonstrated
+## 📊 Key Results & Interpretation
 
-This project highlights several key data science and environmental analytics techniques:
+### Temporal Patterns
+- **Seasonality:** March–June peaks consistent across years  
+- **Decline in mean CPUE:** Post-2015 trend suggests potential stock stress  
+- **Environmental Drivers:** Rising SST and increasing fishing depth correspond to decreasing CPUE  
 
-- **Data Cleaning & Transformation** using `pandas`, `numpy`
-- **Interactive Visualization** with `plotly.express`
-- **Static Plotting & Reporting** using `matplotlib`, `seaborn`, and PDF export
-- **Time-Series Aggregation & Exploration** (monthly/yearly trends)
-- **Data Interpretation in Ecological Contexts** (Water Temperature, Depth)
-- **Jupyter Notebook Workflow Design** and reproducibility
+### Figures
+- **Catch Time-Series Plot:** Seasonal trends and inter-annual variability  
+  ![Catch Trend Plot](outputs/temporal_catch_plot.png)  
+- **Yearly Summary Table:** Environmental features with trend arrows  
+  ![Yearly Summary Table](outputs/yearly_feature_summary.png)  
+- **Data Distribution Table:** Long-term variability of environmental variables  
+  ![Data Distribution Summary](outputs/data_distribution_summary.png)  
+
+> Arrow Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change
+
+---
+
+## 🎯 Applied Use Case — Early Detection & Monitoring
+**Objective:** Use raw catch and environmental data to detect trends, seasonality, and potential stress in squid stocks before formal modeling.  
+
+**Supports:**  
+- Early warning for stock stress  
+- Identification of environmental changes affecting CPUE  
+- Evidence-based planning for sustainable fisheries  
+
+**Interactive App:** Explore trends and yearly summaries in a **concise, user-friendly interface**: [Launch the App](https://squidstock-course-correction.streamlit.app)  
+
+---
+
+## 📓 Notebook — Reproducibility & Interactive Exploration
+This analysis is implemented in a **Jupyter notebook**:  
+
+- **Exploration:** Temporal CPUE, environmental trends, seasonality  
+- **Static Outputs:** PNG/PDF plots for reports  
+- **Interactive Outputs:** Plotly HTML graphs for dynamic analysis  
+
+[Click here to view Temporal Catch Analysis notebook](notebooks/Temporal_Catch_Analysis.ipynb)
 
 ---
 
@@ -152,10 +108,14 @@ To run the notebook locally:
         
 4. Launch Jupyter Notebook and open /notebooks/Temporal_Catch_Analysis.ipynb
    
-5. Run cells sequentially to reproduce the analysis.
-
-[Click here to view Temporal Catch Analysis notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/Temporal_Catch_Analysis/Temporal_Catch_Analysis.ipynb) 
+5. Run cells sequentially to reproduce the analysis. 
    
+---
+
+## 🔒 Data Confidentiality Notice
+
+This dataset is a simulated approximation of a real-world squid stock assessment dataset used during my tenure as a part-time research assistant at National Taiwan University. Although it closely resembles actual data, any interpretation or conclusions drawn here cannot be assumed to represent real conditions in the region. This project primarily demonstrates analytical methods, data processing workflows, and skill development in fisheries and environmental data science.
+
 ---
 
 ## 📉 Limitations and Future Work
@@ -190,28 +150,4 @@ Thank you for exploring **SquidStock** — advancing sustainable squid fisheries
 
 ---
 
-## 🔒 Data Confidentiality Notice
-
-This dataset is a simulated approximation of a real-world squid stock assessment dataset used during my tenure as a part-time research assistant at National Taiwan University. Although it closely resembles actual data, any interpretation or conclusions drawn here cannot be assumed to represent real conditions in the region. This project primarily demonstrates analytical methods, data processing workflows, and skill development in fisheries and environmental data science.
-
-
-## 📸 Screenshots
-
-**Figure 1:** Catch time-series plot showing seasonal catch trends.  
-![View Static Monthly Catch Plot (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/monthly_catch_plot.png)  
-
----
-
-**Figure 2:** Yearly summary table with trend arrows for environmental features.  
-![Feature Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/yearly_feature_summary.png)  
-
-- ↑ means the value increased compared to the previous year.  
-- ↓ means the value decreased compared to the previous year.  
-- → means no change or first year (no previous data to compare).  
-> *Arrow Color Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change*
----
-
-**Figure 3:** Yearly summary table showing data distribution throughout the 20 years.  
-![View Data Distribution Summary (PDF)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/data_distribution_summary.png)  
-
----
+> 📁 For more on the times-series analysis and visualizations using the full dataset, see the **Temporal CPUE Analysis Module** in the [SquidStock](https://github.com/Euchie23/SquidStock).
