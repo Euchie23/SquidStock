@@ -6,7 +6,7 @@ Course Correction transforms noisy, effort-biased squid catch data into **clean,
 
 - **Seasonal CPUE peaks** (March–May) consistent with migration cycles.  
 - **Multi-year (~8-year) oscillations** likely linked to environmental/ecological drivers.  
-- **Model performance:** Tweedie Regressor provided the lowest RMSE/MAE; GammaGAM offered highly interpretable fits.  
+- **Model performance:** Tweedie Regressor provided the lowest RMSE/MAE, showing the best predictive accuracy, while GammaGAM offered highly interpretable fits.  
 
 > This module produces **decision-ready indices** for fisheries management, not just statistical outputs.
 
@@ -57,7 +57,8 @@ Course Correction addresses a critical gap in squid fisheries data analysis:
 
 **Observed vs Standardized CPUE:**  
 ![Observed vs Standardized CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/observed_vs_standardized.png)  
-- Standardized indices remove effort bias.  
+- Standardized indices remove effort bias.
+- Multi-year (~8-year) oscillations 
 - Seasonal peaks (March–May) persist → biological signal confirmed.  
 
 **Yearly Summary (Jan–Jun):**  
@@ -100,7 +101,7 @@ LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | 
   - Detection of environmental thresholds & climate impacts.  
   - Ecosystem-based management integration.
 - Interactive App: Explore standardized CPUE and trends in a concise, user-friendly interface: [Launch the App](https://squidstock-course-correction.streamlit.app)
-- 
+
 **Workflow Outcome:** Transparent, reproducible, **decision-ready CPUE indices** for fisheries management.
 
 ---
@@ -140,8 +141,6 @@ To run the notebook locally:
 4. Launch Jupyter Notebook and open /notebooks/CPUE_Standardization_&_Prediction.ipynb
    
 5. Run cells sequentially to reproduce the analysis.
-
-[Click here to view CPUE_Standardization_&_Prediction notebook](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb) 
    
 ---
 
