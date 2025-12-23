@@ -1,58 +1,29 @@
 # 🦾 ⚙️🦿 The Engine Room: Weekly Squid CPUE Prediction
 ### **End-to-End ML Workflow • Feature Engineering • AutoML • Drift & Anomaly Detection**
 
-## 🌍 Real-World Value
+## 📘 Executive Summary  
+This module implements a full machine-learning workflow to model weekly CPUE for *Illex argentinus*, focusing on January–June (the most stable seasonal window).  
 
-The Engine Room showcases a **full, production-ready ML workflow** applied to one of the hardest real-world problems in fisheries science: predicting weekly CPUE for a fast-moving, environmentally sensitive species.  
-Instead of chasing unrealistic accuracy, it demonstrates **transparent, rigorous machine-learning practice** under real ecological constraints.
+**Key Findings:**
 
-### Who This Helps
-- **Fisheries agencies:** evaluate when CPUE trends are meaningful vs. noise  
-- **Environmental data teams:** understand drift, anomalies, and shifting ecological regimes  
-- **ML engineers / data scientists:** see how to build robust pipelines on unstable, non-stationary datasets  
-- **Research groups:** explore how ML complements (not replaces) ecological models  
+- Weekly CPUE is highly unstable and weakly predictable from environmental variables.  
+- Classification models moderately identify general CPUE regimes (Low / Medium / High), but Medium CPUE is least predictable.  
+- Regression models (class-conditioned) achieve negative R² values — expected for short-lived, mobile cephalopods.  
+- Feature drift and anomalies were detected, emphasizing that CPUE is sensitive to environmental change and fishing behavior.  
 
-### Why It Matters
-Squid CPUE is highly variable, often decoupled from abundance, and driven by rapid ocean changes.  
-This project adds value not by accuracy alone, but by demonstrating:
+**Management Insight:** This workflow allows managers to distinguish meaningful CPUE signals from noise, avoiding premature reactions to short-term fluctuations.  
 
-- Feature engineering tailored for ecological time series  
-- Class-conditioned modeling for asymmetric CPUE behavior  
-- Drift + anomaly detection to flag shifting environmental regimes  
-- Honest model diagnostics that explain *why* predictions are difficult  
-- A workflow that would be deployable in real fisheries or environmental monitoring systems  
+📈 Real-World Value  
+This module demonstrates a production-ready ML workflow for ecological time series with unstable targets.  
 
-In a field where many models overpromise, **The Engine Room shows what responsible, scientifically grounded ML looks like** — and how to interpret results in an ecological context.  
-It highlights ML strengths, limitations, and how data instability shapes real management decisions.
+**Who This Helps:**
 
----
+- Fisheries agencies: detect meaningful CPUE trends vs noise  
+- Environmental data teams: monitor drift, anomalies, and shifting regimes  
+- ML engineers / data scientists: build robust pipelines on noisy, non-stationary datasets  
+- Research groups: explore ML complementing ecological models  
 
-This project contains a full machine-learning workflow developed to model **weekly CPUE (Catch-Per-Unit-Effort)** for *Illex argentinus* using environmental and temporal predictors.  
-The analysis focuses on **January–June**, the most stable seasonal window for this species.
-
-### **What this project does**
-- Builds a **complete ML workflow**: data wrangling, feature engineering, feature selection, classification, class-conditioned regression, model diagnostics, drift detection, and anomaly identification.
-- Uses **AutoML (PyCaret)** to compare tree-based methods for both classification and regression.
-  -   Only **tree-based models** were used for both classification and regression because they:
-      - Handle **nonlinear relationships** and **feature interactions** naturally, which are common in CPUE data.
-      - Are robust to **outliers** and **missing values**, frequent in ecological datasets.
-      - Offer **feature importance measures**, helping link model outputs to ecological drivers.
-      - Perform well even when the target variable is **log-transformed**, as in our regression models (CPUE_log1p), to stabilize variance and reduce skew.
-- Applies **Boruta + manual feature refinement** to ensure ecological interpretability.
-- Evaluates performance honestly, identifies weaknesses, and explains why CPUE remains difficult to predict.
-  
-The goal is not to produce perfect forecasts — CPUE is inherently noisy and influenced by unobserved ecological processes — but to demonstrate a **transparent, scientific, and production-ready ML pipeline**.
-
----
-
-# 📘 Executive Summary
-
-### **Main outcome**
-- **Weekly CPUE** is highly unstable and weakly predictable from environmental variables.
-- **Classification models performed moderately**, correctly identifying general trends but struggling with Medium CPUE — consistent with ecological expectations.
-- **Regression models performed poorly**, with negative R² scores across all CPUE levels.  
-  This is *normal* for short-lived cephalopods: CPUE ≠ biomass, and environmental variability is high.
-- **Feature drift and anomalies** were detected, reinforcing that CPUE data are unstable and sensitive to fishing behavior.
+**Why It Matters:** CPUE is decoupled from abundance; environmental predictors explain only part of the variance. A transparent, interpretable ML pipeline supports informed, adaptive management.  
 
 ---
 
@@ -152,32 +123,15 @@ As part of the workflow, we investigated **feature drift** and **data anomalies*
 
 ---
 
-# 🌎 Real-World Interpretation
+🎯 Applied Use Case  
+Scenario: Detecting meaningful CPUE trends in fisheries management  
 
-### **What this project teaches**
-- CPUE is **not a reliable proxy for biomass**  
-- Environmental predictors only explain part of the variance  
-- Machine learning struggles with unstable ecological processes  
-- Classification can approximate general patterns  
-- Regression should be paired with ecological models (e.g., EDSPM)
-
-### **Practical fisheries implications**
-- Medium CPUE levels are typically noise-dominated  
-- Environmental indicators (SST, Chl-a, depth) help characterize Low/High regimes  
-- Adaptive management requires **seasonal context**, not raw CPUE predictions
-
----
-
-# 🧩 Project Overview  
-**“Learning CPUE with Machine Learning — What Works, What Doesn't.”**
-
-### Core objectives:
-- Build temporal + environmental features  
-- Learn CPUE *levels* (Low / Medium / High)  
-- Model CPUE *within each class* using regression  
-- Apply feature selection (Boruta + manual refinement)  
-- Detect drift & anomalies  
-- Provide interpretable fisheries-relevant insights
+- Sharp weekly CPUE drop? Use drift detection + anomaly flags to distinguish:
+  - Environmental regime shift (drift)  
+  - Unusual observation (anomaly)  
+  - Normal variability (prediction unreliable)  
+- **Management implication:** Avoid overreacting to short-term CPUE fluctuations; focus on regime-level changes and seasonal context.  
+- **Interactive App:** Explore weekly CPUE predictions and anomaly alerts in an intuitive interface: Launch App  
 
 ---
 
@@ -199,9 +153,25 @@ As part of the workflow, we investigated **feature drift** and **data anomalies*
 
 ---
 
-# 📊 Data & Features
+## 🛠️ How to Run This Notebook
 
-Environmental, temporal, and interaction features were engineered, with class-specific subsets used due to known CPUE instability.
+1. Clone this repository. 
+      -  git clone https://github.com/Euchie23/SquidStock.git
+2. Ensure you have Python 3 installed. 
+
+3. Install dependencies via pip:
+      -  e.g., pip install pandas numpy matplotlib seaborn statsmodels pygam, pycaret jupyter
+        
+4. Launch Jupyter Notebook and open /notebooks/AutoML.ipynb
+   
+5. Run cells sequentially to reproduce the analysis.
+
+---
+
+# 🔒 Data Confidentiality Notice
+This project uses a **simulated and anonymized dataset** modeled after patterns observed during my work as a part-time research assistant at **National Taiwan University**.  
+It is intended **solely for methodological demonstration and portfolio development**.  
+No confidential or proprietary assessment data are used.
 
 ---
 
@@ -239,20 +209,14 @@ It reflects the real-world difficulty of predicting CPUE for **short-lived cepha
 
 ---
 
-# 🔒 Data Confidentiality Notice
-This project uses a **simulated and anonymized dataset** modeled after patterns observed during my work as a part-time research assistant at **National Taiwan University**.  
-It is intended **solely for methodological demonstration and portfolio development**.  
-No confidential or proprietary assessment data are used.
-
----
-
 ## 🤝 Collaboration & Contact
 
-Contributions and extensions are welcome — especially from researchers working on **cephalopod ecology, stock assessment modeling, or environmental forecasting**.  
+Contributions and extensions are welcome — especially from researchers, data scientists, fisheries experts or consultants working on **cephalopod/marine ecology, stock assessment modeling, or environmental forecasting**.  
 
 📬 [**Email**](mailto:euchiejnpierre@gmail.com) | [**LinkedIn**](https://linkedin.com/in/euchiejnpierre)  
-🧠 Explore more modules at [**SquidStock Repository**](https://github.com/Euchie23/SquidStock)
 
 ---
 
-> 🦑 *Project 4 of the SquidStock series — Predictive Modelling*
+> 🦑 *Project 4 of the [SquidStock](https://github.com/Euchie23/SquidStock) series — advancing data-driven, climate-aware squid fishery modeling.* <br>
+> 📌 This project is the continuation of [**Temporal_Catch_Analysis Module**](https://github.com/Euchie23/SquidStock/edit/main/notebooks/Temporal_Catch_Analysis/README.md), [**CPUE_Standardization_&_Prediction (2000-2020)**](https://github.com/Euchie23/SquidStock/tree/main/notebooks/CPUE_Standardization_%26_Prediction/README.md) and
+> [**Predictive Catch Modelling**](https://github.com/Euchie23/SquidStock/tree/main/notebooks/AutoML/README.md) 
