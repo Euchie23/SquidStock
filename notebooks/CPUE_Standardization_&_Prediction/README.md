@@ -84,7 +84,7 @@ Course Correction addresses a critical gap in squid fisheries data analysis:
 | GAM (log(CPUE + c))  | 863.62 | 472.40 |
 | GAM (log(CPUE + 1))  | 880.54 | 504.39 |
 | GammaGAM             | 810.04 | 458.44 |
-| **Tweedie GLM**          | **476.01** | **313.47** |
+| **Tweedie Regressor**  | **476.01** | **313.47** |
 
 
 **Predicted vs Actual CPUE:**  
