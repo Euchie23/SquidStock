@@ -1,5 +1,10 @@
 # 🌊 Ocean Dynamics — Environmentally Driven Biomass Simulation (warming scenarios)
 
+## 🧭 Problem Framing & Data Context
+Building on **CPUE standardization** ([Course Correction](https://github.com/Euchie23/SquidStock/edit/main/notebooks/CPUE_Standardization_&_Prediction)), we now explore how environmental drivers shape *Illex argentinus* biomass. Standardized CPUE is a reliable index but **does not fully capture underlying population dynamics**—especially under climate change scenarios. This module uses an **Environmentally Dependent Surplus Production Model (EDSPM)** to link biomass dynamics with environmental forcing, providing **forward-looking insights for adaptive management**.
+
+---
+
 ## 📘 Executive Summary
 This module simulates *Illex argentinus* biomass under **baseline and +2 °C warming scenarios** using an **Environmentally Dependent Surplus Production Model (EDSPM)**.  
 
@@ -125,29 +130,9 @@ Interactive App: Explore biomass forecasting based on different scenarios in a c
 
 ---
 
-## 🛠️ How to Run This Notebook
-
-1. Clone this repository. 
-      -  git clone https://github.com/Euchie23/SquidStock.git
-2. Ensure you have Python 3 installed. 
-
-3. Install dependencies via pip:
-      -  e.g., pip install pandas numpy matplotlib seaborn statsmodels pygam jupyter
-        
-4. Launch Jupyter Notebook and open /notebooks/Biomass_Forecasting_Environment.ipynb
-   
-5. Run cells sequentially to reproduce the analysis.
-   
----
-
-## 🔒 Data Confidentiality Notice  
-
-This project uses a simulated and anonymized dataset modeled after patterns observed during my work as a part-time research assistant at National Taiwan University. It is designed exclusively for methodological demonstration and skill development in machine learning, fisheries analysis, and environmental data science. The dataset does not represent official assessments, and no confidential or proprietary information is included.
-
-
----
-
 ## 📉 Limitations & Future Work
+
+> These simulations inform strategic management under climate stress, but assumptions and simplifications may impact operational decisions such as quota setting, survey timing, or risk assessment
 
 - **Simplified climate forcing:**  
   Only +2 °C scenarios tested; future work should include full IPCC-aligned projections (e.g., SSP2-4.5, SSP5-8.5).  
@@ -169,6 +154,27 @@ In practice, this framework enables agencies and consultancies to stress-test se
 
 ---
 
+## 🛠️ How to Run This Notebook
+
+1. Clone this repository. 
+      -  git clone https://github.com/Euchie23/SquidStock.git
+2. Ensure you have Python 3 installed. 
+
+3. Install dependencies via pip:
+      -  e.g., pip install pandas numpy matplotlib seaborn statsmodels pygam jupyter
+        
+4. Launch Jupyter Notebook and open /notebooks/Biomass_Forecasting_Environment.ipynb
+   
+5. Run cells sequentially to reproduce the analysis.
+   
+---
+
+## 🔒 Data Confidentiality Notice  
+
+This project uses a simulated and anonymized dataset modeled after patterns observed during my work as a part-time research assistant at National Taiwan University. It is designed exclusively for methodological demonstration and skill development in machine learning, fisheries analysis, and environmental data science. The dataset does not represent official assessments, and no confidential or proprietary information is included.
+
+
+---
 
 ## 🤝 Collaboration & Contact
 
