@@ -43,7 +43,7 @@ Course Correction addresses a critical gap in squid fisheries data analysis:
 1. Preprocessing & linear interpolation for missing environmental values.  
 2. Exploratory Data Analysis (EDA) to assess distributions and correlations.  
 3. Modeling frameworks: LinearGAM (log-transformed), GammaGAM, Tweedie Regressor.  
-4. Evaluation: 5-fold cross-validation, RMSE/MAE, residual diagnostics.  
+4. Evaluation: 5-fold cross-validation for model selection (RMSE), then final model performace (RMSE & MAE) with residual diagnostics.  
 
 **Skills demonstrated:** ecological data cleaning, distribution-aware modeling, residual diagnostics, reproducible workflow.
 
@@ -65,15 +65,28 @@ Course Correction addresses a critical gap in squid fisheries data analysis:
 
 ### Predictive Modeling
 
-| Model | RMSE | MAE |
-|:------|------:|------:|
-| GAM (log(CPUE + c)) | 864 | 472 |
-| GAM (log(CPUE + 1)) | 881 | 504 |
-| **Gamma GAM** | 810 | 458 |
-| **Tweedie Regressor** | 476 | 313 |
+**Model Evaluation Summaries** 
+Model Selection — 5-Fold Cross-Validation (RMSE):
+> Cross-validation was used to compare models robustly and avoid dependence on a single train/test split.
 
-**Cross-validation means (RMSE):**  
-LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | Tweedie Regressor = 477  
+| Model                     | Mean CV RMSE |
+|---------------------------|--------------|
+| LinearGAM (log(CPUE + c)) | 2136.00 |
+| LinearGAM (log(CPUE + 1)) | 1106.71 |
+| GammaGAM                  | 723.97 |
+| Tweedie Regressor (tuned) | **477.05** |  
+
+ 
+Final Model Performance — Hold-Out Test Set (RMSE & MAE):
+> After model selection, final performance was evaluated on an independent test set.
+
+| Model                | RMSE  | MAE  |
+|----------------------|-------|------|
+| GAM (log(CPUE + c))  | 863.62 | 472.40 |
+| GAM (log(CPUE + 1))  | 880.54 | 504.39 |
+| GammaGAM             | 810.04 | 458.44 |
+| Tweedie GLM          | **476.01** | **313.47** |
+
 
 **Predicted vs Actual CPUE:**  
 ![Predicted vs Actual CPUE](https://github.com/Euchie23/SquidStock/blob/main/outputs/CPUE_Standardization_%26_Prediction/predicted_vs_actual.png)  
