@@ -29,8 +29,6 @@ Course Correction addresses a critical gap in squid fisheries data analysis:
     - Highlight true biological cycles.  
     - Make CPUE trends reliable for management.  
 
-> Provides **transparent, methodologically sound indices** for real-world fisheries decision-making.
-
 ---
 
 ## 🧾 Data & Modeling Overview
@@ -87,7 +85,7 @@ LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | 
 - **Log-GAMs:** underpredict high CPUE; heteroscedastic residuals.  
 - **GammaGAM:** stable, centered residuals; interpretable smooth effects.  
 - **Tweedie Regressor:** most uniform residuals; robust to zero-inflation and overdispersion.  
-- **Conclusion:** Robust, ecologically meaningful standardization and predictive modeling.
+See Executive Summary for key takeaways on model robustness and ecological interpretability.
 
 ---
 
@@ -102,16 +100,6 @@ LinearGAM (+c) = 2 136 | LinearGAM (+1) = 1 106 | Gamma GAM = 723 | 
 - Interactive App: Explore standardized CPUE and trends in a concise, user-friendly interface: [Launch the App](https://squidstock-course-correction.streamlit.app)
 
 **Workflow Outcome:** Transparent, reproducible, **decision-ready CPUE indices** for fisheries management.
-
----
-
-## 📒 Notebook & Reproducibility
-
-All analysis is implemented in a Jupyter Notebook with interactive visualizations:  
-[**CPUE_Standardization_&_Prediction Notebook**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb)
-
-- Explore CPUE distributions, environmental drivers, and model diagnostics interactively.  
-- Reproduce all figures and results.  
 
 ---
 
@@ -140,7 +128,9 @@ To run the notebook locally:
 4. Launch Jupyter Notebook and open /notebooks/CPUE_Standardization_&_Prediction.ipynb
    
 5. Run cells sequentially to reproduce the analysis.
-   
+
+[**Click to see notebook**](https://github.com/Euchie23/SquidStock/blob/main/notebooks/CPUE_Standardization_&_Prediction/CPUE_Standardization_&_Prediction.ipynb)
+
 ---
 
 ## 🔒 Data Confidentiality Notice
