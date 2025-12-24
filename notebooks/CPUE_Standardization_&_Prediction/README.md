@@ -65,7 +65,7 @@ Course Correction addresses a critical gap in squid fisheries data analysis:
 
 ### Predictive Modeling
 
-**Model Evaluation Summaries** 
+**Model Evaluation Summaries** <br>
 Model Selection — 5-Fold Cross-Validation (RMSE):
 > Cross-validation was used to compare models robustly and avoid dependence on a single train/test split.
 
