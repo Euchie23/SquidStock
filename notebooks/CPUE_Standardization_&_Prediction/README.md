@@ -91,6 +91,8 @@ Cross-validation results aligned with hold-out test performance, indicating stab
 
 ## 📉 Limitations & Future Work
 
+> While these standardized CPUE indices provide reliable guidance for seasonal stock monitoring and inter-annual comparison, certain data and modeling constraints may affect operational decisions. Managers should consider these caveats when using indices for quota setting, survey planning, or risk assessment.
+
 - **Temporal scope:**  
   Data restricted to **Jan–Jun** ensures temporal consistency across years, but excludes potential **late-season dynamics (Jul–Dec)**.  
   → Future modules could extend the analysis to the full fishing season to assess whether standardized trends persist year-round.
