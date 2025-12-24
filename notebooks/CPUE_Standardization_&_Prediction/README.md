@@ -2,7 +2,7 @@
 
 
 ## 🧭 Problem Framing & Data Context
-Exploratory temporal analysis (see *The Navigation Course*) identified strong seasonality and long-term CPUE decline, but raw CPUE remained confounded by uneven fishing effort, zero catches, and skewed distributions. To ensure comparability across years and produce indices suitable for management use, CPUE required **formal statistical standardization** capable of handling nonlinear environmental effects and zero-inflated catch processes.
+Exploratory temporal analysis (see [*The Navigation Course*](https://github.com/Euchie23/SquidStock/blob/main/notbooks/Temporal_Catch_Analysis/) identified strong seasonality and long-term CPUE decline, but raw CPUE remained confounded by uneven fishing effort, zero catches, and skewed distributions. To ensure comparability across years and produce indices suitable for management use, CPUE required **formal statistical standardization** capable of handling nonlinear environmental effects and zero-inflated catch processes.
 
 ---
 
