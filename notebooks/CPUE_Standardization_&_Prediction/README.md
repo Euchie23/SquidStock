@@ -65,8 +65,7 @@ Course Correction addresses a critical gap in squid fisheries data analysis:
 
 ### Predictive Modeling
 
-**Model Evaluation Summaries** <br>
-Model Selection — 5-Fold Cross-Validation (RMSE):
+**Model Selection — 5-Fold Cross-Validation (RMSE):**
 > Cross-validation was used to compare models robustly and avoid dependence on a single train/test split.
 
 | Model                     | Mean CV RMSE |
@@ -74,10 +73,10 @@ Model Selection — 5-Fold Cross-Validation (RMSE):
 | LinearGAM (log(CPUE + c)) | 2136.00 |
 | LinearGAM (log(CPUE + 1)) | 1106.71 |
 | GammaGAM                  | 723.97 |
-| Tweedie Regressor (tuned) | **477.05** |  
+| **Tweedie Regressor (tuned)** | **477.05** |  
 
  
-Final Model Performance — Hold-Out Test Set (RMSE & MAE):
+**Final Model Performance — Hold-Out Test Set (RMSE & MAE):**
 > After model selection, final performance was evaluated on an independent test set.
 
 | Model                | RMSE  | MAE  |
@@ -85,7 +84,7 @@ Final Model Performance — Hold-Out Test Set (RMSE & MAE):
 | GAM (log(CPUE + c))  | 863.62 | 472.40 |
 | GAM (log(CPUE + 1))  | 880.54 | 504.39 |
 | GammaGAM             | 810.04 | 458.44 |
-| Tweedie GLM          | **476.01** | **313.47** |
+| **Tweedie GLM**          | **476.01** | **313.47** |
 
 
 **Predicted vs Actual CPUE:**  
