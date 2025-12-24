@@ -1,5 +1,11 @@
 # 🗺️ Course Correction — CPUE Standardization & Prediction (2000–2020)
 
+
+## 🧭 Problem Framing & Data Context
+Exploratory temporal analysis (see *The Navigation Course*) identified strong seasonality and long-term CPUE decline, but raw CPUE remained confounded by uneven fishing effort, zero catches, and skewed distributions. To ensure comparability across years and produce indices suitable for management use, CPUE required **formal statistical standardization** capable of handling nonlinear environmental effects and zero-inflated catch processes.
+
+---
+
 ## 📘 Executive Summary
 Raw CPUE can obscure true population signals due to variation in fishing effort and environmental conditions. This module standardizes squid CPUE for *Illex argentinus* (2000–2020, January–June) using distribution-aware statistical models, producing **bias-corrected indices suitable for fisheries management**.
 
@@ -16,11 +22,6 @@ This module converts noisy catch records into **reliable indicators of stock per
 - Monitoring productivity under climate and habitat change  
 - Separating environmental effects from fishing effort  
 - Integration of standardized CPUE into assessment workflows  
-
----
-
-## 🧭 Problem Framing & Data Context
-Exploratory temporal analysis (see *The Navigation Course*) identified strong seasonality and long-term CPUE decline, but raw CPUE remained confounded by uneven fishing effort, zero catches, and skewed distributions. To ensure comparability across years and produce indices suitable for management use, CPUE required **formal statistical standardization** capable of handling nonlinear environmental effects and zero-inflated catch processes.
 
 ---
 
