@@ -806,10 +806,10 @@ if page == "Overview":
 
     st.subheader("🎯 Objective")
     st.markdown("""
-    To **standardize and model CPUE** so that trends reflect biological signals rather than confounding effects of:
-    - Fishing effort and vessel activity,
-    - Spatiotemporal variation (year, month, latitude, longitude, depth), and
-    - Environmental drivers (SST, chlorophyll-a, SSH).
+   Standardize and model CPUE for *Illex argentinus* (2000–2020, Jan–Jun) to:
+    - Remove biases due to fishing effort, spatiotemporal variability, and environmental drivers  
+    - Produce indices suitable for operational fisheries management
+    - Reveal ecological trends and multi-year variability 
 
     > Analyses focus on **January–June**, the period with consistent fishing coverage, ensuring balanced interannual comparisons.
     """)
@@ -837,8 +837,8 @@ if page == "Overview":
     st.markdown("""
     Accurate CPUE standardization allows for:
     - Improved **stock assessment** and catch limit setting,
-    - Insight into **climate-driven distribution shifts**, and
-    - Informed **ecosystem-based management** under warming scenarios.
+    - Early detection of **climate-driven distribution shifts**, and
+    - Supports **evidence-based management and ecosystem monitoring** 
 
     By connecting statistical modeling and marine ecology, this app helps bridge the gap between **data science and decision-making** in sustainable fisheries.
     """)
@@ -872,10 +872,12 @@ if page == "Overview":
     - **Chlorophyll-a** comes from **monthly remote sensing data**.  
     These differing resolutions can introduce temporal mismatch noise.
 
-    **3. Model Simplifications**  
+    **3. Model Simplifications and Setbacks**  
     - Assumes catchability and effort–CPUE relationships remain stable over time.  
     - Spatial autocorrelation and fleet behavior changes are not explicitly modeled.  
     - Environmental effects are assumed additive and smooth.
+    - Doesn't account for recruitment, predator-prey interactions, or fine-scale fleet behavior
+    
 
     **4. Forecasting Scope**  
     Forecasts are **short-term scenario-based** — not long-term predictions — and depend on historical trends rather than mechanistic dynamics.
