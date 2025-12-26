@@ -72,9 +72,9 @@ st.markdown("""
     position: relative;
     z-index: 1;
 }
-lor: rgba(0, 31, 63, 0.6);
-    z-index: 0;
-}
+# lor: rgba(0, 31, 63, 0.6);
+#     z-index: 0;
+# }
 
 /* Sidebar titles and headers */
 [data-testid="stSidebar"] h1,
@@ -360,6 +360,26 @@ div.stButton > button:first-child:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
+
+/* ---------------------- Link Buttons (st.link_button) ---------------------- */
+a[data-testid="stLinkButton"] {
+    background-color: #39FF14 !important;
+    color: #001f3f !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    padding: 0.6rem 1rem !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: block !important;
+}
+
+a[data-testid="stLinkButton"]:hover {
+    background-color: #32CD32 !important;
+    color: #FFD700 !important;
+    text-decoration: none !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
