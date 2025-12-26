@@ -733,13 +733,13 @@ else:
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        if st.button("🌊 Visit Ocean Dynamics", use_container_width=True):
-            st.markdown(
-                f"""
-                <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
-                """,
-                unsafe_allow_html=True
-            )
+         st.link_button("🌊 Visit Ocean Dynamics", OCEAN_DYNAMICS_URL, use_container_width=True):
+            # st.markdown(
+            #     f"""
+            #     <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
+            #     """,
+            #     unsafe_allow_html=True
+            # )
     #st.markdown("</div>", unsafe_allow_html=True)
     
     st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
