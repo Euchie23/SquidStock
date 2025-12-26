@@ -354,6 +354,28 @@ div.stButton > button:first-child:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
+
+/* ---------------------- Link Buttons (st.link_button) ---------------------- */
+a[data-testid="stLinkButton"] {
+    background-color: #39FF14 !important;  /* bright green */
+    color: #001f3f !important;             /* dark text */
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    padding: 0.6rem 1rem !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    width: 100% !important;                /* full width in the column */
+    border: none !important;
+}
+
+a[data-testid="stLinkButton"]:hover {
+    background-color: #32CD32 !important;  /* darker green on hover */
+    color: #FFD700 !important;             /* golden text on hover */
+    text-decoration: none !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -734,6 +756,36 @@ else:
                 st.success("✅ Upload to Google Sheets successful! Your notes were sent anonymously. Thank you!")
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
+
+# 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
+    THE_ENGINE_ROOM_URL = "https://squidstock-the-engine-room.streamlit.app"
+
+    st.markdown(
+        """
+        <div style="
+            background-color: rgba(10, 47, 68, 0.7);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            color: #FFD700;
+            margin-top: 2rem;
+        ">
+            <div style="font-size:16px; font-weight:600; margin-bottom:0.4rem;">
+                🐙 Next Stop:
+            </div>
+            <div style="font-size:18px; font-weight:500;">
+                The Engine Room – Let's now try to forecast weekly CPUE with precision using advanced ML and regime analysis.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    # 🔹 Centered "Coming Soon" button (functional version)
+    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+         st.link_button("🌊 Visit Ocean Dynamics", THE_ENGINE_ROOM_URL, use_container_width=True)
 
 
 st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
