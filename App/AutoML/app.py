@@ -1447,6 +1447,24 @@ if page == "Overview":
     st.title("🦑 Squid Stock Assessment & Forecasting Engine ⚙️")
 
     st.markdown("""
+    ### 🧭 Problem Framing & Decision Context
+    
+    Weekly CPUE predictions are often requested for operational planning, yet short-lived squid populations
+    exhibit extreme ecological variability. CPUE is strongly influenced by environmental conditions,
+    fishing effort, spatial targeting, and unobserved ecological drivers, making raw weekly trends
+    noisy and unreliable for immediate operational decisions.
+    
+    This module applies **distribution-aware, regime-sensitive machine learning models** to
+    separate meaningful ecological signals from ephemeral noise. By combining classification of CPUE
+    regimes (Low / Medium / High) with class-conditioned regression, along with anomaly and feature
+    drift detection, the workflow produces **interpretable weekly forecasts and alerts**. 
+    
+    These outputs help fisheries managers focus on **regime-level trends and adaptive decision-making**, 
+    rather than overreacting to short-term fluctuations that carry high irreducible uncertainty.
+    """)
+
+
+    st.markdown("""
     Welcome to the integrated AI-based forecasting system for weekly **squid CPUE prediction**.  
     Navigate the pages on the left to explore environmental features, anomaly signals,  
     model diagnostics, and scenario-based forecasting tools.
