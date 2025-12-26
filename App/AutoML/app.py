@@ -1296,7 +1296,7 @@ else:
     
     st.markdown("<p style='text-align:center'>For those curious to dive deeper, feel free to explore the:</p>", unsafe_allow_html=True)
     
-    st.markdown("<p style='text-align:center'>1) <a href='https://github.com/Euchie23/SquidStack/' target='_blank' style='color:#39FF14; font-weight:600;'>SquidStack Repository</a> – Extends the SquidStock series by diving deeper into specific modules, analyzing 2019–2020 squid data to understand marine environmental health and pollutant trends. A focused, year-specific lens complementing the broader SquidStock analyses.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center'>1) <a href='https://github.com/Euchie23/SquidStack/' target='_blank' style='color:#39FF14; font-weight:600;'>SquidStack Repository</a> – Extends the SquidStock series by diving deeper into specific modules, analyzing 2019–2021 squid data to uncover shifts in marine environmental health and pollutant trends, including the impacts of the COVID-19 lockdown. This focused, year-specific lens complements the broader SquidStock analyses and highlights how global events can influence local ecosystems.</p>", unsafe_allow_html=True)
     
     st.markdown("<p style='text-align:center'>2) <a href='https://github.com/Euchie23/GeoTentacles/' target='_blank' style='color:#39FF14; font-weight:600;'>GeoTentacles Repository</a> – Builds on both SquidStock and SquidStack datasets for spatial exploration. It visualizes catch hotspots, predicts swarming behavior, and maps pollution impacts using PostgreSQL/PostGIS, QGIS, and ML techniques — bridging temporal trends with spatial insights for a comprehensive understanding of marine dynamics.</p>", unsafe_allow_html=True)
     
