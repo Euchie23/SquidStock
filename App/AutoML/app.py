@@ -1288,9 +1288,11 @@ else:
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
 
+    st.markdown("---")
+
     st.markdown("<h3 style='text-align:center'>🚀 Looking Ahead</h3>", unsafe_allow_html=True)
     
-    st.markdown("<p style='text-align:center'>It’s bittersweet to wrap up the SquidStock series — thank you for exploring these insights with me. Your feedback, suggestions, and ideas have been invaluable in helping improve the apps in the repository and their analyses.</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center'>It’s bittersweet to wrap up the SquidStock series 😔 — thank you for exploring these insights with me. Your feedback, suggestions, and ideas have been invaluable in helping improve the apps in the repository and their analyses.</p>", unsafe_allow_html=True)
     
     st.markdown("<p style='text-align:center'>For those curious to dive deeper, feel free to explore the:</p>", unsafe_allow_html=True)
     
@@ -1298,7 +1300,7 @@ else:
     
     st.markdown("<p style='text-align:center'>2) <a href='https://github.com/Euchie23/GeoTentacles/' target='_blank' style='color:#39FF14; font-weight:600;'>GeoTentacles</a> – Builds on both SquidStock and SquidStack datasets for spatial exploration. It visualizes catch hotspots, predicts swarming behavior, and maps pollution impacts using PostgreSQL/PostGIS, QGIS, and ML techniques — bridging temporal trends with spatial insights for a comprehensive understanding of marine dynamics.</p>", unsafe_allow_html=True)
     
-    st.markdown("<p style='text-align:center'>With that said, our SquidStock journey continues with ambitions in scalable ML deployment, versioning, and operational workflows. Together, we’ve built a foundation for meaningful, real-world impact. Stay tuned — the next adventure awaits! Don’t miss it!!</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center'>With that said, our SquidStock journey continues with ambitions in scalable ML deployment, versioning, and operational workflows. Together, we’ve built a foundation for meaningful, real-world impact. Stay tuned — the next adventure awaits! Don’t miss it!!😁 </p>", unsafe_allow_html=True)
 
 
     # 🔹 Centered "Coming Soon" button (functional version)
