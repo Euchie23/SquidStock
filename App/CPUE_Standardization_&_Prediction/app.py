@@ -723,7 +723,7 @@ else:
 # 🔹 Centered "Coming Soon" button (functional version)
     st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
 
-    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+    if st.button("🌊 Visit Ocean Dynamics "):
        st.markdown(
         f"""
         <meta http-equiv="refresh" content="0; url={https://squidstock-course-correction.streamlit.app}">
@@ -1190,7 +1190,4 @@ elif page == "Predictions":
     for monitoring *Illex argentinus* stock productivity under environmental change.
     """)
 
-    # Streamlit button for “Coming Soon”
-    
-    
     st.markdown("</div>", unsafe_allow_html=True)
