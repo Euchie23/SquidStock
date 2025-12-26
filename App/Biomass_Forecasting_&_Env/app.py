@@ -827,6 +827,18 @@ df_monthly = load_data()
 # ========================================
 if page == "Overview":
     st.title("🐙 Ocean Dynamics: Biomass Response Simulator")
+
+    st.markdown("""
+    **Decision context:**  
+    Catch-per-unit-effort (CPUE) is widely used as a proxy for stock abundance, but for short-lived,
+    highly mobile species like squid, CPUE can decouple from true biomass—especially under changing
+    environmental conditions.
+    
+    This app allows users to test how **environmental variability and warming scenarios**
+    affect squid biomass dynamics, and to evaluate when CPUE may become a misleading indicator for
+    seasonal management and climate-adaptation decisions.
+    """)
+
     
     st.markdown("""
     This interactive app explores how **squid biomass** (*Illex argentinus*) responds to changing ocean conditions using the **nonlinear Environmentally Dependent Surplus Production Model (EDSPM)**.  
