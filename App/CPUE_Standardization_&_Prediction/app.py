@@ -729,16 +729,16 @@ else:
         unsafe_allow_html=True
     )
     # 🔹 Centered "Coming Soon" button (functional version)
-        st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
-    
-        if st.button("🌊 Visit Ocean Dynamics"):
+    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+
+    if st.button("🌊 Visit Ocean Dynamics"):
         st.markdown(
             f"""
             <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
             """,
             unsafe_allow_html=True
         )
-    
+
     st.markdown("</div>", unsafe_allow_html=True)
     
     st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
