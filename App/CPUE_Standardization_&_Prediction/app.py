@@ -706,7 +706,7 @@ else:
                 st.error("❌ Failed to send notes. Please try again later.")
 
     # 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
-    OCEAN_DYNAMICS_URL = "https://squidstock-course-correction.streamlit.app"
+    OCEAN_DYNAMICS_URL = "https://squidstock-ocean-dynamics.streamlit.app"
 
     st.markdown(
         """
@@ -730,16 +730,17 @@ else:
     )
     # 🔹 Centered "Coming Soon" button (functional version)
     st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
-
-    if st.button("🌊 Visit Ocean Dynamics"):
-        st.markdown(
-            f"""
-            <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
-            """,
-            unsafe_allow_html=True
-        )
-
-    st.markdown("</div>", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🌊 Visit Ocean Dynamics", use_container_width=True):
+            st.markdown(
+                f"""
+                <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
+                """,
+                unsafe_allow_html=True
+            )
+    #st.markdown("</div>", unsafe_allow_html=True)
     
     st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
 
