@@ -705,8 +705,8 @@ else:
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
 
-# 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
-   OCEAN_DYNAMICS_URL = "https://squidstock-course-correction.streamlit.app"
+    # 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
+    OCEAN_DYNAMICS_URL = "https://squidstock-course-correction.streamlit.app"
 
     st.markdown(
         """
