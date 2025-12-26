@@ -785,7 +785,7 @@ else:
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-         st.link_button("🌊 Visit Ocean Dynamics", THE_ENGINE_ROOM_URL, use_container_width=True)
+         st.link_button("⚙️ Visit The Engine Room", THE_ENGINE_ROOM_URL, use_container_width=True)
 
 
 st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
