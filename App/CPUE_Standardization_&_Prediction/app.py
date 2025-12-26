@@ -705,6 +705,34 @@ else:
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
 
+# 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
+    st.markdown("""
+    <div style="
+        background-color: rgba(10, 47, 68, 0.7);
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        color: #FFD700;
+        font-size: 18px;
+        margin-top: 2rem;
+    ">
+        🐙 <b>Next Stage:</b> Ocean Dynamics – Let's extend this analysis into physical ocean drivers and climate signals.
+    </div>
+    """, unsafe_allow_html=True)
+
+# 🔹 Centered "Coming Soon" button (functional version)
+    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+
+    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
+       st.markdown(
+        f"""
+        <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
 
@@ -1161,31 +1189,6 @@ elif page == "Predictions":
     Together, these methods deliver a **transparent, distribution-aware framework**  
     for monitoring *Illex argentinus* stock productivity under environmental change.
     """)
-
-# 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
-    st.markdown("""
-    <div style="
-        background-color: rgba(10, 47, 68, 0.7);
-        padding: 1rem;
-        border-radius: 10px;
-        text-align: center;
-        color: #FFD700;
-        font-size: 18px;
-        margin-top: 2rem;
-    ">
-        🐙 <b>Next Stage:</b> Ocean Dynamics – Surplus Production & Biomass Estimation<br>
-        Simulate squid biomass under climate warming scenarios using SST, SSH, and Chl-a drivers.
-    </div>
-    """, unsafe_allow_html=True)
-
-# 🔹 Centered "Coming Soon" button (functional version)
-    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
-
-    if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
-        st.warning("⚠️ This app is under construction. Check back soon!")
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
 
     # Streamlit button for “Coming Soon”
     
