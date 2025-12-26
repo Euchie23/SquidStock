@@ -726,7 +726,7 @@ else:
     if st.button("🌊 Visit Ocean Dynamics (Coming Soon)"):
        st.markdown(
         f"""
-        <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
+        <meta http-equiv="refresh" content="0; url={https://squidstock-course-correction.streamlit.app}">
         """,
         unsafe_allow_html=True
     )
