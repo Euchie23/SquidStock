@@ -708,40 +708,40 @@ else:
 # 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
    OCEAN_DYNAMICS_URL = "https://squidstock-course-correction.streamlit.app"
 
-st.markdown(
-    """
-    <div style="
-        background-color: rgba(10, 47, 68, 0.7);
-        padding: 1.2rem;
-        border-radius: 10px;
-        text-align: center;
-        color: #FFD700;
-        margin-top: 2rem;
-    ">
-        <div style="font-size:16px; font-weight:600; margin-bottom:0.4rem;">
-            🐙 Next Stage:
-        </div>
-        <div style="font-size:18px; font-weight:500;">
-            Ocean Dynamics – Let's extend this analysis into physical ocean drivers and climate signals.
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-# 🔹 Centered "Coming Soon" button (functional version)
-    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
-
-    if st.button("🌊 Visit Ocean Dynamics"):
     st.markdown(
-        f"""
-        <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
+        """
+        <div style="
+            background-color: rgba(10, 47, 68, 0.7);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            color: #FFD700;
+            margin-top: 2rem;
+        ">
+            <div style="font-size:16px; font-weight:600; margin-bottom:0.4rem;">
+                🐙 Next Stage:
+            </div>
+            <div style="font-size:18px; font-weight:500;">
+                Ocean Dynamics – Let's extend this analysis into physical ocean drivers and climate signals.
+            </div>
+        </div>
         """,
         unsafe_allow_html=True
     )
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+    # 🔹 Centered "Coming Soon" button (functional version)
+        st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
+    
+        if st.button("🌊 Visit Ocean Dynamics"):
+        st.markdown(
+            f"""
+            <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
+            """,
+            unsafe_allow_html=True
+        )
+    
+    st.markdown("</div>", unsafe_allow_html=True)
+    
+    st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
 
 # --- Divider Line ---
 st.sidebar.markdown("<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>", unsafe_allow_html=True)
