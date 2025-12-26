@@ -363,20 +363,22 @@ div.stButton > button:first-child:hover {
 
 /* ---------------------- Link Buttons (st.link_button) ---------------------- */
 a[data-testid="stLinkButton"] {
-    background-color: #39FF14 !important;
-    color: #001f3f !important;
+    background-color: #39FF14 !important;  /* bright green */
+    color: #001f3f !important;             /* dark text */
     font-size: 18px !important;
     font-weight: 700 !important;
     border-radius: 8px !important;
     padding: 0.6rem 1rem !important;
     text-align: center !important;
     text-decoration: none !important;
-    display: block !important;
+    display: inline-block !important;
+    width: 100% !important;                /* full width in the column */
+    border: none !important;
 }
 
 a[data-testid="stLinkButton"]:hover {
-    background-color: #32CD32 !important;
-    color: #FFD700 !important;
+    background-color: #32CD32 !important;  /* darker green on hover */
+    color: #FFD700 !important;             /* golden text on hover */
     text-decoration: none !important;
 }
 
