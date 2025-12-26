@@ -785,6 +785,21 @@ if page == "Overview":
     st.title("🎣 CPUE Standardization & Forecasting – Overview")
 
     st.markdown("""
+    ### 🧭 Problem Framing & Decision Context
+    
+    Raw CPUE is widely used as a proxy for relative abundance, yet it is highly sensitive
+    to changes in fishing effort, fleet behavior, spatial targeting, and environmental
+    conditions. Without formal standardization, CPUE trends can misrepresent true stock
+    dynamics—masking declines, exaggerating recovery, or confounding environmental effects
+    with operational noise.
+    
+    This module addresses that risk by applying **distribution-aware statistical models**
+    to disentangle ecological signal from sampling bias, producing **standardized CPUE
+    indices suitable for interannual comparison, monitoring, and short-term forecasting**
+    in squid fisheries.
+    """)
+
+    st.markdown("""
     This interactive module is part of the **SquidStock Expedition**, focused on understanding how **environmental and spatiotemporal variability** shape the productivity of the *Argentine shortfin squid* (*Illex argentinus*) fishery between **2000–2020**.  
 
     At the core of this analysis is the **Catch Per Unit Effort (CPUE)** — a key indicator of relative abundance, where *effort* is defined as **vessel-days** aggregated to a **monthly scale** to produce a fleet-averaged CPUE.  
