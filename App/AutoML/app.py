@@ -1288,8 +1288,7 @@ else:
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
 
-    st.markdown(
-    """
+    st.markdown("""
     <div style="
         background-color: rgba(10, 47, 68, 0.7);
         padding: 1.5rem;
@@ -1300,36 +1299,35 @@ else:
         font-weight: 500;
         margin-top: 2rem;
     ">
+    
         <div style="font-size:16px; font-weight:600; margin-bottom:1rem;">
             🚀 Looking Ahead:
         </div>
-
+    
         <div style="margin-bottom:1rem;">
             It’s bittersweet to wrap up the SquidStock series — thank you for exploring these insights with me. 
             Your feedback, suggestions, and ideas have been invaluable in helping improve the apps in the repository and their analyses.
         </div>
-
+    
         <div style="margin-bottom:1rem;">
             For those curious to dive deeper, feel free to explore the:
         </div>
-
+    
         <div style="margin-bottom:1rem;">
             1) <a href='https://github.com/Euchie23/SquidStack/' target='_blank' style='color:#39FF14; font-weight:600;'>SquidStack</a> – Extends the SquidStock series by diving deeper into specific modules, analyzing 2019–2020 squid data to understand marine environmental health and pollutant trends. A focused, year-specific lens complementing the broader SquidStock analyses.
         </div>
-
+    
         <div style="margin-bottom:1rem;">
             2) <a href='https://github.com/Euchie23/GeoTentacles/' target='_blank' style='color:#39FF14; font-weight:600;'>GeoTentacles</a> – Builds on both SquidStock and SquidStack datasets for spatial exploration. It visualizes catch hotspots, predicts swarming behavior, and maps pollution impacts using PostgreSQL/PostGIS, QGIS, and ML techniques — bridging temporal trends with spatial insights for a comprehensive understanding of marine dynamics.
         </div>
-
+    
         <div style="margin-top:1rem;">
             With that said, our SquidStock journey continues with ambitions in scalable ML deployment, versioning, and operational workflows. 
             Together, we’ve built a foundation for meaningful, real-world impact. Stay tuned — the next adventure awaits! Don’t miss it!!
         </div>
+    
     </div>
-    """,
-    unsafe_allow_html=True
-)
-
+    """, unsafe_allow_html=True)
 
     # 🔹 Centered "Coming Soon" button (functional version)
 st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
