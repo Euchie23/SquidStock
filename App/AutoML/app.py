@@ -347,7 +347,6 @@ div[data-testid="stAppViewContainer"] {
     }
 }
 
-
 /* ---------------------- Buttons & Sliders ---------------------- */
 div.stButton > button:first-child {
     background-color: #39FF14 !important;
@@ -1289,7 +1288,32 @@ else:
             else:
                 st.error("❌ Failed to send notes. Please try again later.")
 
+    st.markdown(
+        """
+        <div style="
+            background-color: rgba(10, 47, 68, 0.7);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            color: #FFD700;
+            margin-top: 2rem;
+        ">
+            <div style="font-size:16px; font-weight:600; margin-bottom:0.4rem;">
+                🚀 Looking Ahead:
+            </div>
+            <div style="font-size:18px; font-weight:500;">
+                It’s bittersweet to wrap up the SquidStock series — thank you for exploring these insights with me. 
+                Your feedback, suggestions, and ideas have been invaluable in helping improve this app and its analyses. 
+                The journey continues with ambitions in scalable ML deployment, versioning, and operational workflows. 
+                Together, we’ve built a foundation for meaningful, real-world impact. Stay tuned — the next adventure awaits 😃!
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
+    # 🔹 Centered "Coming Soon" button (functional version)
+    st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
 
 # =========================================================
 # SIDEBAR FOOTER INFORMATION
