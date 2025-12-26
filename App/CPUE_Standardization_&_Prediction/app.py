@@ -706,33 +706,40 @@ else:
                 st.error("❌ Failed to send notes. Please try again later.")
 
 # 🔹 Link to next app: Ocean Dynamics (Biomass Estimation)
-    st.markdown("""
+   OCEAN_DYNAMICS_URL = "https://squidstock-course-correction.streamlit.app"
+
+st.markdown(
+    """
     <div style="
         background-color: rgba(10, 47, 68, 0.7);
-        padding: 1rem;
+        padding: 1.2rem;
         border-radius: 10px;
         text-align: center;
         color: #FFD700;
-        font-size: 18px;
         margin-top: 2rem;
     ">
-        🐙 <b>Next Stage:</b> Ocean Dynamics – Let's extend this analysis into physical ocean drivers and climate signals.
+        <div style="font-size:16px; font-weight:600; margin-bottom:0.4rem;">
+            🐙 Next Stage:
+        </div>
+        <div style="font-size:18px; font-weight:500;">
+            Ocean Dynamics – Let's extend this analysis into physical ocean drivers and climate signals.
+        </div>
     </div>
-    """, unsafe_allow_html=True)
-
+    """,
+    unsafe_allow_html=True
+)
 # 🔹 Centered "Coming Soon" button (functional version)
     st.markdown("<div style='text-align:center; margin-top:1rem;'>", unsafe_allow_html=True)
 
-    if st.button("🌊 Visit Ocean Dynamics "):
-       st.markdown(
+    if st.button("🌊 Visit Ocean Dynamics"):
+    st.markdown(
         f"""
-        <meta http-equiv="refresh" content="0; url={https://squidstock-course-correction.streamlit.app}">
+        <meta http-equiv="refresh" content="0; url={OCEAN_DYNAMICS_URL}">
         """,
         unsafe_allow_html=True
     )
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
+st.markdown("</div>", unsafe_allow_html=True)
 
 st.sidebar.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
 
