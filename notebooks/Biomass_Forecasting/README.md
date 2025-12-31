@@ -111,7 +111,10 @@ Environmental conditions modulate growth over time
 - **Management implication:** Early CPUE boosts do **not** indicate sustainable stock growth  
 - Use **environment-informed indicators** to guide seasonal closures, adaptive quotas, or survey timing
 
-Interactive App: Explore biomass forecasting based on different scenarios in a concise, user-friendly interface: [Launch the App](https://squidstock-ocean-dynamics.streamlit.app)
+Interactive App: Explore biomass forecasting based on different scenarios in a concise, user-friendly interface: 
+
+![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1dND_a6Am2K29EknTkarnWkySAj-ByreB)<br>
+[Launch the App](https://squidstock-ocean-dynamics.streamlit.app)
 
 ---
 
