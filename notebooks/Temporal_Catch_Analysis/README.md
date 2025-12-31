@@ -88,7 +88,7 @@ Before CPUE standardization or predictive modeling, managers need to understand 
 - Evidence base for adjusting survey timing or spatial focus
 
 **Interactive App:**  
-![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1k4NkoqMzoZOuBOxWQrgJl_YcBGhPZmbF)
+![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1k4NkoqMzoZOuBOxWQrgJl_YcBGhPZmbF) <br>
 Explore seasonal trends, yearly summaries, and environmental co-variation in a concise interface: [**Launch the App**](https://squidstock-course-correction.streamlit.app)  
 
 ---
