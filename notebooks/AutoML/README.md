@@ -143,7 +143,9 @@ Scenario: Detecting meaningful CPUE trends in fisheries management
   - Unusual observation (anomaly)  
   - Normal variability (prediction unreliable)  
 - **Management implication:** Avoid overreacting to short-term CPUE fluctuations; focus on regime-level changes and seasonal context.  
-- **Interactive App:** Explore weekly CPUE predictions and anomaly alerts in an intuitive interface: [Launch the App](https://squidstock-the-engine-room.streamlit.app)  
+- **Interactive App:** Explore weekly CPUE predictions and anomaly alerts in an intuitive interface:
+ ![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1zmfp3L9uOfg96q3x3SGsrbWRnCghQ_O)
+ [Launch the App](https://squidstock-the-engine-room.streamlit.app)  
 
 ---
 
