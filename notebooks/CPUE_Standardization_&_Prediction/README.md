@@ -68,7 +68,8 @@ Standardized CPUE preserves consistent **seasonal peaks from March to May**, sup
 - Consistent inter-annual comparison of squid abundance  
 - Detection of environmentally driven shifts in catchability  
 
-An interactive application allows users to explore standardized CPUE trends and environmental context:  
+An interactive application allows users to explore standardized CPUE trends and environmental context: 
+![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1k4NkoqMzoZOuBOxWQrgJl_YcBGhPZmbF)<br>
 [**Launch the App**](https://squidstock-course-correction.streamlit.app)
 
 ---
