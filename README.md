@@ -2,7 +2,7 @@
 
 ## 🌍 Real-World Value
 
-SquidStock transforms 20 years of catch and environmental data into **actionable insights for sustainable fisheries management**.  
+SquidStock transforms 21 years of catch and environmental data into **actionable insights for sustainable fisheries management**.  
 It links fishing trends, ocean conditions, and predictive models to help organizations understand how squid stocks respond to climate variability, fishing pressure, and environmental change.
 
 ### Who This Helps
@@ -17,7 +17,7 @@ SquidStock fills this gap with accessible, reproducible tools that support **evi
 
 ---
 
-**SquidStock** is part of the curated public side of the `Squid_Fest` project, focusing on 20 years (2000–2020) of *Illex argentinus* catch data.<br><br> 
+**SquidStock** is part of the curated public side of the `Squid_Fest` project, focusing on 21 years (2000–2020) of *Illex argentinus* catch data.<br><br> 
 While **SquidStack** explored pollutant bioindicators in remote locations, **SquidStock** surveyed the ocean shelf and coastal waters — using stock assessments, environmental modeling, and predictive tools to surface hidden patterns across familiar seas.  
 > 🛂 This repository hosts curated dashboards and notebooks. The full research pipeline and experimental modules live in the private `Squid_Fest` repo. To request access or collaborate, [email me](mailto:euchiejnpierre@gmail.com).
 
