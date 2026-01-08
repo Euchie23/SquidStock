@@ -1044,7 +1044,7 @@ if page == "Overview":
     st.markdown("""
     - **SST (Sea Surface Temperature):** measured per vessel-day; can vary across trips  
     - **Chlorophyll-a (ChlA):** obtained from monthly remote sensing; smoother temporal resolution  
-    - Only **January to June** is used (6 months) to maintain consistency across the 20-year dataset
+    - Only **January to June** is used (6 months) to maintain consistency across the 21-year dataset
     """)
     
     st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
