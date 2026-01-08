@@ -12,7 +12,7 @@ This module simulates *Illex argentinus* biomass under **baseline and +2 °C war
 - **Short-term warming effect:** Early-season biomass (Jan–Mar) slightly increases, then converges back to baseline due to density dependence.  
 - **CPUE vs Biomass:** Normalized CPUE is noisy and weakly correlated with actual biomass — catch rates reflect aggregation, effort, and gear efficiency rather than stock size.  
 - **Management Insight:** Environment-aware indicators are more reliable than CPUE alone for seasonal quota and closure decisions.  
-- **Data Scope:** Analysis focuses on **January–June** (20-year dataset).  
+- **Data Scope:** Analysis focuses on **January–June** (21-year dataset).  
 
 ---
 
