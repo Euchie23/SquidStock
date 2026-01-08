@@ -53,7 +53,7 @@ This notebook serves as the **first step in the analysis pipeline**, exploring t
 - **Yearly Summary Table:** Environmental features with trend arrows  
   ![Yearly Summary Table](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/yearly_feature_summary.png)
   > Arrow Key: Red ↑↓ = Negative/Unfavorable Trend | Green ↑↓ = Positive/Favorable Trend | Black → = Stable/No Change
-- **Data Distribution Table:**  Catch data distribution throughout the 20 years  
+- **Data Distribution Table:**  Catch data distribution throughout the 21 years  
   ![Data Distribution Summary](https://github.com/Euchie23/SquidStock/blob/main/outputs/Temporal_Catch_Analysis/data_distribution_summary.png) <br><br>
 
 
