@@ -1555,7 +1555,7 @@ elif page == "Sensitivity & CPUE":
 
     df_latest = st.session_state.get("latest_df", None)
 
-    print(df_latest.columns)
+    #print(df_latest.columns)
 
     # --- Check if the raw simulation data is available ---
     if df_latest is None or "CPUE_tons" not in df_latest.columns or "Biomass_mean" not in df_latest.columns:
