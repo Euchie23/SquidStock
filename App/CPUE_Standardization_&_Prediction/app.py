@@ -441,6 +441,34 @@ if "toast_message" in st.session_state and st.session_state.toast_message:
     st.session_state.toast_message = ""
 
 
+# ---------------- Toast Reminder for Notes ----------------
+# Show reminder on all tabs except Logbook for 7 seconds
+if st.session_state.page != "Logbook":
+    # We check if the message has already been shown for the current tab
+    toast_key = f"toast_shown_{st.session_state.page}"
+
+    # Only show if not already shown for this tab
+    if toast_key not in st.session_state or not st.session_state[toast_key]:
+        # Set the toast message
+        st.session_state.toast_message = (
+            "💡 Don't forget to record any notes or interpretations in the Notes section on the sidebar. "
+            "All notes or interpretations are saved to the Logbook tab automatically."
+        )
+        
+        # Display the toast message
+        st.toast(st.session_state.toast_message)
+        
+        # Set the flag that this toast has been shown
+        st.session_state[toast_key] = True
+        
+        # Remove the toast message after 7 seconds
+        time.sleep(7)  # this will make the message last for 7 seconds
+
+        # Clear the message after the delay
+        st.session_state.toast_message = ""
+        st.session_state[toast_key] = False  # Allow it to show again next time the user switches to this tab
+
+
 # ---------------- Page Selection ----------------
 
 # Determine which pages are available
