@@ -1223,12 +1223,30 @@ elif page == "Predictions":
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- Toast Reminder for Notes ----------------
-# Run after all tab content is rendered
+# Show reminder on all tabs except Logbook for 7 seconds
 if page != "Logbook":
+    # Create a unique key for each page
     toast_key = f"toast_shown_{page}"
+
+    # Check if the page has already been visited (if not shown yet)
     if toast_key not in st.session_state or not st.session_state[toast_key]:
-        st.toast(
+        # Set the toast message
+        st.session_state.toast_message = (
             "💡 Don't forget to record any notes or interpretations in the Notes section on the sidebar. "
             "All notes or interpretations are saved to the Logbook tab automatically."
         )
+
+        # Display the toast message
+        st.toast(st.session_state.toast_message)
+        
+        # Set the flag that this toast has been shown for this tab
         st.session_state[toast_key] = True
+        
+        # Add a flag for when the tab is changed, allowing it to be shown again
+        # Clear the flag once the tab is switched away
+        st.session_state.page_previous = st.session_state.page
+
+    # If the page has changed (not the same page as before), reset the toast flag for that page
+    if "page_previous" in st.session_state and st.session_state.page != st.session_state.page_previous:
+        st.session_state[toast_key] = False  # Reset the flag so the toast can be shown again
+        st.session_state.page_previous = st.session_state.page  # Update the previous page
