@@ -460,6 +460,11 @@ page = st.sidebar.radio(
     disabled=disabled_radio
 )
 
+# Reset toast flags for other tabs when switching tabs
+for tab in tabs:
+    if tab != page:
+        st.session_state[f"toast_shown_{tab}"] = False
+
 # Optional warning
 if st.session_state.edit_mode["active"]:
     st.warning("⚠️ You are editing a reloaded note. You must save before switching tabs.")
@@ -1770,4 +1775,20 @@ elif page == "Sensitivity & CPUE":
     # --- Store updated dataframe back to session_state ---
     st.session_state["latest_df"] = df_latest
 
+# ---------------- Toast Reminder for Notes ----------------
+if page != "Logbook":
+    toast_key = f"toast_shown_{page}"
+
+    # Initialize the flag if it doesn't exist yet
+    if toast_key not in st.session_state:
+        st.session_state[toast_key] = False
+
+    # Show toast if it hasn't been shown yet for this tab click
+    if not st.session_state[toast_key]:
+        st.toast(
+            "💡 Don't forget to record any notes or interpretations in the Notes section on the sidebar. "
+            "All notes or interpretations are saved to the Logbook tab automatically.",
+            duration=7  # 7 seconds
+        )
+        st.session_state[toast_key] = True  # mark as shown for this visit
 
