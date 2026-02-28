@@ -1238,8 +1238,8 @@ if page != "Logbook":
     # Show toast if it hasn't been shown yet for this tab click
     if not st.session_state[toast_key]:
         st.toast(
-            "💡 Don't forget to record any notes or interpretations in the Notes section on the sidebar. "
-            "All notes or interpretations are saved to the Logbook tab automatically.",
+            "💡Take a moment to capture your observations or interpretations in the sidebar notes panel!🙂 " 
+            " When you're done, Click Save to store them in the Log Book tab",
             duration=7  # 7 seconds
         )
         st.session_state[toast_key] = True  # mark as shown for this visit
