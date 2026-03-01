@@ -469,35 +469,6 @@ for tab in tabs:
 if st.session_state.edit_mode["active"]:
     st.warning("⚠️ You are editing a reloaded note. You must save before switching tabs.")
 
-
-    # Center button in the main panel using HTML and CSS
-    st.markdown(
-        """
-        <style>
-            .center-button {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                width: 100%;
-            }
-            .center-button button {
-                padding: 10px 20px;
-                font-size: 18px;
-                cursor: pointer;
-                background-color: #f44336;
-                color: white;
-                border: none;
-                border-radius: 5px;
-            }
-        </style>
-        <div class="center-button">
-            <button onclick="window.location.reload()">❌ Cancel Edit</button>
-        </div>
-        """, 
-        unsafe_allow_html=True
-    )
-
     # Handle button click
     if st.button("❌ Cancel Edit"):
         st.session_state.redirect_page = st.session_state.edit_mode["tab"]
