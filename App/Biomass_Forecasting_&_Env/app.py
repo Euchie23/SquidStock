@@ -470,9 +470,9 @@ if st.session_state.edit_mode["active"]:
     st.warning("⚠️ You are editing a reloaded note. You must save before switching tabs.")
 
    # Use columns to center the button
-    col1, col2, col3 = st.columns([1, 4, 1])  # Adjust the middle column width
+    col1, col2, col3 = st.columns([1, 6, 1])  # Adjust the middle column width
 
-    with col3:
+    with col2:
         if st.button("❌ Cancel Edit"):
             st.session_state.redirect_page = st.session_state.edit_mode["tab"]
             st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
