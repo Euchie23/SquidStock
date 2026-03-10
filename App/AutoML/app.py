@@ -1210,12 +1210,12 @@ else:
                                     st.session_state.delete_confirm.pop(delete_key, None)
                                     st.session_state.toast_message = f"🗑 Deleted note {i+1} from {tab_name}"
                                     st.session_state[expander_state_key] = True
-                                    #st.rerun()
+                                    st.rerun()
                             with c2:
                                 if st.button("❌", key=f"cancel_del_{tab_name}_{i}"):
                                     st.session_state.delete_confirm[delete_key] = False
                                     st.session_state[expander_state_key] = True
-                                    #st.rerun()
+                                    st.rerun()
                                     
                 if 'auto_expand_notes' in st.session_state:
                     st.session_state[expander_state_key] = st.session_state.auto_expand_notes
