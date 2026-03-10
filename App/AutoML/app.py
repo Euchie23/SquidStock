@@ -1058,8 +1058,13 @@ else:
         for tab_name, notes in st.session_state.notes.items():
             if not notes:
                 continue
+                
+             # Check if the expander should be open
+            expander_state_key = f"expander_state_{tab_name}"
+            if expander_state_key not in st.session_state:
+                st.session_state[expander_state_key] = False
 
-            with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
+            with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=st.session_state[expander_state_key]):
                 for i, note in enumerate(notes):
                     col1, col2, col3 = st.columns([6, 1, 1])
                     with col1:
@@ -1195,6 +1200,7 @@ else:
                         if not st.session_state.delete_confirm.get(delete_key, False):
                             if st.button("🗑", key=f"delete_{tab_name}_{i}"):
                                 st.session_state.delete_confirm[delete_key] = True
+                                st.session_state[expander_state_key] = True
                                 st.rerun()
                         else:
                             c1, c2 = st.columns(2)
@@ -1203,10 +1209,12 @@ else:
                                     del st.session_state.notes[tab_name][i]
                                     st.session_state.delete_confirm.pop(delete_key, None)
                                     st.session_state.toast_message = f"🗑 Deleted note {i+1} from {tab_name}"
+                                    st.session_state[expander_state_key] = True
                                     st.rerun()
                             with c2:
                                 if st.button("❌", key=f"cancel_del_{tab_name}_{i}"):
                                     st.session_state.delete_confirm[delete_key] = False
+                                    st.session_state[expander_state_key] = True
                                     st.rerun()
 
     # --- Final Observation + Download ---
