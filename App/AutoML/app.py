@@ -1200,7 +1200,7 @@ else:
                         if not st.session_state.delete_confirm.get(delete_key, False):
                             if st.button("🗑", key=f"delete_{tab_name}_{i}"):
                                 st.session_state.delete_confirm[delete_key] = True
-                                st.session_state[expander_state_key] = True
+                                #st.session_state[expander_state_key] = True
                                 st.rerun()
                         else:
                             c1, c2 = st.columns(2)
