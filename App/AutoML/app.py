@@ -1216,7 +1216,9 @@ else:
                                     st.session_state.delete_confirm[delete_key] = False
                                     st.session_state[expander_state_key] = True
                                     st.rerun()
-
+                                    
+                if 'auto_expand_notes' in st.session_state:
+                    st.session_state[expander_state_key] = st.session_state.auto_expand_notes
     # --- Final Observation + Download ---
     st.subheader("🧾 Final Observation")
     st.session_state.final_observation = st.text_area(
