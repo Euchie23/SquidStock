@@ -86,11 +86,11 @@ st.markdown("""
 /* -------------------------------------------------- */
 
 header[data-testid="stHeader"],
-[data-testid="stToolbar"],
-button[data-testid="collapsedControl"],
-div[data-testid="stSidebarResizer"] {
-    display: none !important;
-}
+# [data-testid="stToolbar"],
+# button[data-testid="collapsedControl"],
+# div[data-testid="stSidebarResizer"] {
+#     display: none !important;
+# }
 
 
 /* -------------------------------------------------- */
