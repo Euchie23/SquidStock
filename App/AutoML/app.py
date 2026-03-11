@@ -267,9 +267,9 @@ p span.emoji {
 
 /* ---------------------- Sidebar + Main Layout Fix ---------------------- */
 
-# header[data-testid="stHeader"] {
-#     display: none !important;
-# }
+header[data-testid="stHeader"] {
+    display: none !important;
+}
 
 # [data-testid="stToolbar"] {
 #     display: none !important;
