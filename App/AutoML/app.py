@@ -71,10 +71,6 @@ st.markdown("""
 #     width: 370px !important;
 # }
 
-section[data-testid="stSidebar"][aria-expanded="true"] {
-    width: 370px !important;
-}
-
 /* Ensure sidebar content is above overlay */
 [data-testid="stSidebar"] > div:first-child > * {
     position: relative;
@@ -279,7 +275,11 @@ header[data-testid="stHeader"] {
 #     height: 100vh !important;
 # }
 
-[data-testid="stSidebar"] {
+# [data-testid="stSidebar"] {
+#     width: 370px !important;
+# }
+
+section[data-testid="stSidebar"][aria-expanded="true"] {
     width: 370px !important;
 }
 
