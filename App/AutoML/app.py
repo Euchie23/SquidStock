@@ -45,7 +45,6 @@ warnings.filterwarnings("ignore")
 # 2️⃣ CUSTOM CSS 
 # ============================ 
 
-```python
 st.markdown("""
 <style>
 /* ---------------------- Sidebar ---------------------- */
