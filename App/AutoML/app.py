@@ -156,20 +156,20 @@ div[data-testid="stSidebarResizer"] {
 }
 
 /* Make main panel content start to the right of the sidebar */
-# .block-container {
-#     margin-left: 360px !important;   /* slightly larger than sidebar width (350px) */
-#     padding: 2rem !important;        /* inner spacing */
-#     max-width: none !important;      /* fill available space */
-#     width: auto !important;
-# }
+.block-container {
+    margin-left: 360px !important;   /* slightly larger than sidebar width (350px) */
+    padding: 2rem !important;        /* inner spacing */
+    max-width: none !important;      /* fill available space */
+    width: auto !important;
+}
 
 # /* For smaller screens, remove offset so content is full width */
-# @media (max-width: 992px) {
-#     .block-container {
-#         margin-left: 0 !important;
-#         padding: 1rem !important;
-#     }
-# }
+@media (max-width: 992px) {
+    .block-container {
+        margin-left: 0 !important;
+        padding: 1rem !important;
+    }
+}
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
