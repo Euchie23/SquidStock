@@ -1405,7 +1405,7 @@ if page == "Overview":
         font-weight: 600;
         font-size: 16px;
     ">
-        🎬 <a href="https://raw.githubusercontent.com/<username>/<repo>/main/dashboard_tour.html" 
+        🎬 <a href="https://github.com/Euchie23/GeoTentacles/blob/main/Scripts/python/assets/video_under_construction.html" 
            target="_blank" style="color:#FFD700; text-decoration:underline;">
            Watch Dashboard Tour
         </a> — optional overview of the dashboard features
