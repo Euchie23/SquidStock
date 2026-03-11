@@ -292,29 +292,29 @@ div[data-testid="stAppViewContainer"] {
 }
 
 # /* Sidebar fixed below top bar */
-# [data-testid="stSidebar"] {
-#     position: fixed !important;
-#     top: 0rem !important;      /* below top bar */
-#     left: 0 !important;
-#     width: 370px !important;
-#     height: calc(100vh - 3.5rem) !important;
-#     overflow-y: auto !important;
-#     z-index: 100;
-# }
+[data-testid="stSidebar"] {
+    position: fixed !important;
+    top: 0rem !important;      /* below top bar */
+    left: 0 !important;
+    width: 370px !important;
+    height: calc(100vh - 3.5rem) !important;
+    overflow-y: auto !important;
+    z-index: 100;
+}
 
 # /* Main content shifted to the right and below top bar */
-# [data-testid="stAppViewContainer"] {
-#     margin-left: 370px !important;  /* match sidebar width */
-#     margin-top: 0rem !important;  /* below top bar */
-#     padding: 0 2rem !important;
-# }
+[data-testid="stAppViewContainer"] {
+    margin-left: 370px !important;  /* match sidebar width */
+    margin-top: 0rem !important;  /* below top bar */
+    padding: 0 2rem !important;
+}
 
 # /* Block container inside main content */
-# .block-container {
-#     padding: 2rem !important;
-#     margin: 0 !important;
-#     max-width: 100% !important;
-# }
+.block-container {
+    padding: 2rem !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+}
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 992px) {
