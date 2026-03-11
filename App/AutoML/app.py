@@ -1393,22 +1393,31 @@ def feature_engineer(weekly):
 # ========================================
 if page == "Overview":
     
-    # Optional dashboard tour link
+     # Centered Dashboard Tour banner
     st.markdown("""
     <div style="
-        background-color: rgba(255, 215, 0, 0.1);  /* subtle golden background */
-        color: #FFD700;
-        padding: 8px 15px;
-        border-left: 4px solid #FFD700;
-        border-radius: 4px;
-        margin-bottom: 20px;
-        font-weight: 600;
-        font-size: 16px;
+        display: flex;
+        justify-content: center;          /* center horizontally */
+        margin-top: 10px;                 /* distance from top of panel */
+        margin-bottom: 25px;              /* space below banner */
     ">
-        🎬 <a href="https://github.com/Euchie23/GeoTentacles/blob/main/Scripts/python/assets/video_under_construction.html" 
-           target="_blank" style="color:#FFD700; text-decoration:underline;">
-           Watch Dashboard Tour
-        </a> — optional overview of the dashboard features
+        <div style="
+            background-color: rgba(255, 215, 0, 0.1);   /* subtle gold background */
+            color: #FFD700;
+            padding: 8px 20px;
+            border-left: 4px solid #FFD700;            /* small gold accent */
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            max-width: 600px;                           /* keeps it neat */
+            text-align: center;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        ">
+            🎬 <a href="https://github.com/Euchie23/GeoTentacles/blob/main/Scripts/python/assets/video_under_construction.html"
+               target="_blank" style="color:#FFD700; text-decoration:underline;">
+               Watch Dashboard Tour
+            </a> — optional overview of the dashboard features
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
