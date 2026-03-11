@@ -279,13 +279,13 @@ header[data-testid="stHeader"] {
 #     height: 100vh !important;
 # }
 
-[data-testid="stSidebar"] {
-    width: 370px !important;
-}
+# [data-testid="stSidebar"] {
+#     width: 370px !important;
+# }
 
-section[data-testid="stSidebar"] {
-    flex-shrink: 0 !important;
-}
+# section[data-testid="stSidebar"] {
+#     flex-shrink: 0 !important;
+# }
 
 div[data-testid="stAppViewContainer"] {
     margin-top: 0 !important;
