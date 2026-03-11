@@ -121,10 +121,10 @@ div[data-testid="stSidebarResizer"] {
 
 /* MAIN CONTENT OFFSET */
 
-[data-testid="stAppViewContainer"] > .main {
-    margin-left: 370px !important;
-    padding: 0 2rem !important;
-}
+# [data-testid="stAppViewContainer"] > .main {
+#     margin-left: 370px !important;
+#     padding: 0 2rem !important;
+# }
 
 
 /* MAIN CONTENT CONTAINER */
