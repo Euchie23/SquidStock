@@ -330,13 +330,21 @@ div[data-testid="stAppViewContainer"] {
 #     height: auto !important;
 # }
 
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
-    margin-left: 60px !important; /* shift main panel */
+/* Main panel default (sidebar expanded) */
+[data-testid="stAppViewContainer"] > .main {
+    margin-left: 370px !important;    /* matches expanded sidebar width */
     transition: margin-left 0.3s ease;
 }
 
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
-    padding-left: 1rem !important;  /* prevent content under strip */
+/* Main panel adjustment when sidebar is collapsed */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main {
+    margin-left: 60px !important;      /* matches the visible collapsed sidebar strip */
+    padding-left: 1rem !important;     /* ensures content doesn't slide under sidebar */
+}
+
+/* Optional: adjust block container inside main panel */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main .block-container {
+    padding-left: 1rem !important;   /* aligns blocks with main panel padding */
 }
 
 
