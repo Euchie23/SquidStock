@@ -49,7 +49,6 @@ st.markdown("""
 
 /* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
-    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
@@ -96,17 +95,9 @@ st.markdown("""
     margin-bottom: 10px !important;
 }
 
-# /* Each sidebar radio button (tab option) */
-[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
-    font-size: 25px !important;
-    font-weight: 600 !important;
-    color: #E1EAF2 !important;
-    line-height: 1.6 !important;
-}
-
-# /* Each radio option (“Overview”, etc.) */
-[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
-    font-size: 25px !important;
+/* Sidebar radio button text */
+[data-testid="stSidebar"] [role="radiogroup"] label p {
+    font-size: 20px !important;
     font-weight: 600 !important;
     color: #E1EAF2 !important;
 }
@@ -275,9 +266,12 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-[data-testid="stSidebar"] {
-    top: 0 !important;
-    height: 100vh !important;
+[data-testid="stSidebar"] { 
+width: 350px !important;
+}
+
+section[data-testid="stSidebar"] { 
+min-height: 100vh !important; 
 }
 
 div[data-testid="stAppViewContainer"] {
@@ -285,29 +279,29 @@ div[data-testid="stAppViewContainer"] {
 }
 
 /* Sidebar fixed below top bar */
-[data-testid="stSidebar"] {
-    position: fixed !important;
-    top: 0rem !important;      /* below top bar */
-    left: 0 !important;
-    width: 370px !important;
-    height: 100vh !important;
-    overflow-y: auto !important;
-    z-index: 100 !important;
-}
+# [data-testid="stSidebar"] {
+#     position: fixed !important;
+#     top: 0rem !important;      /* below top bar */
+#     left: 0 !important;
+#     width: 370px !important;
+#     height: 100vh !important;
+#     overflow-y: auto !important;
+#     z-index: 100 !important;
+# }
 
 /* Main content shifted to the right and below top bar */
-[data-testid="stAppViewContainer"] {
-    margin-left: 370px !important;  /* match sidebar width */
-    margin-top: 0rem !important;  /* below top bar */
-    padding: 0 2rem !important;
-}
+# [data-testid="stAppViewContainer"] {
+#     margin-left: 370px !important;  /* match sidebar width */
+#     margin-top: 0rem !important;  /* below top bar */
+#     padding: 0 2rem !important;
+# }
 
-/* Block container inside main content */
-.block-container {
-    padding: 2rem !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-}
+# /* Block container inside main content */
+# .block-container {
+#     padding: 2rem !important;
+#     margin: 0 !important;
+#     max-width: 100% !important;
+# }
 
 
 /* Responsive adjustments for smaller screens */
@@ -343,10 +337,6 @@ div.stButton > button:first-child:hover {
 div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
-}
-
-button[data-testid="collapsedControl"] {
-    display: none !important;
 }
 
 </style>
