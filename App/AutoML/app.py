@@ -67,6 +67,10 @@ st.markdown("""
     background-position: center;
 }
 
+[data-testid="stSidebar"] {
+    width: 370px !important;
+}
+
 /* Ensure sidebar content is above overlay */
 [data-testid="stSidebar"] > div:first-child > * {
     position: relative;
