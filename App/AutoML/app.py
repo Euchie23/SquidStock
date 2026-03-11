@@ -1392,12 +1392,17 @@ def feature_engineer(weekly):
 #  TAB 1: OVERVIEW
 # ========================================
 if page == "Overview":
-
-    # Dashboard Tour Link
+    
+    # Centered Dashboard Tour Link
     st.markdown("""
-    ### 🎬 Dashboard Tour
-    [Click here to watch the Dashboard Tour](https://example.com/dashboard-tour)
-    """)
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h3>🎬 Dashboard Tour</h3>
+        <a href="https://raw.githubusercontent.com/<username>/<repo>/main/dashboard_tour.html" 
+           target="_blank" style="font-size:20px; color:#FFD700; text-decoration:none;">
+           Click here to watch the Dashboard Tour
+        </a>
+    </div>
+""", unsafe_allow_html=True)
     
    # -------------------- Page Title & Welcome Text --------------------
     st.title("🦑 Squid Stock Assessment & Forecasting Engine ⚙️")
