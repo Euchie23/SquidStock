@@ -34,6 +34,10 @@ from plotly.subplots import make_subplots
 # 🌐 WEB & INTERACTIVITY
 # =========================================================
 import streamlit as st
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 # =========================================================
 # ⚠️ WARNINGS
