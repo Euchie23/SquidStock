@@ -99,17 +99,9 @@ st.markdown("""
     margin-bottom: 10px !important;
 }
 
-# /* Each sidebar radio button (tab option) */
-[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
-    font-size: 25px !important;
-    font-weight: 600 !important;
-    color: #E1EAF2 !important;
-    line-height: 1.6 !important;
-}
-
-# /* Each radio option (“Overview”, etc.) */
-[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
-    font-size: 25px !important;
+/* Sidebar radio button text */
+[data-testid="stSidebar"] [role="radiogroup"] label p {
+    font-size: 26px !important;
     font-weight: 600 !important;
     color: #E1EAF2 !important;
 }
@@ -278,9 +270,17 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
+# [data-testid="stSidebar"] {
+#     top: 0 !important;
+#     height: 100vh !important;
+# }
+
 [data-testid="stSidebar"] {
-    top: 0 !important;
-    height: 100vh !important;
+    width: 370px !important;
+}
+
+section[data-testid="stSidebar"] {
+    flex-shrink: 0 !important;
 }
 
 div[data-testid="stAppViewContainer"] {
