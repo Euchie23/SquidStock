@@ -48,25 +48,25 @@ st.markdown("""
 <style>
 
 /* ---------------------- Sidebar ---------------------- */
-[data-testid="stSidebar"] > div:first-child {
-    position: relative;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: inherit;
-    overflow-y: auto;        /* allows scrolling */
-    min-height: 100vh;
-    padding-top: 0.5rem !important;
-    color: #E1EAF2;
+# [data-testid="stSidebar"] > div:first-child {
+#     position: relative;
+#     top: 0;
+#     left: 0;
+#     bottom: 0;
+#     width: inherit;
+#     overflow-y: auto;        /* allows scrolling */
+#     min-height: 100vh;
+#     padding-top: 0.5rem !important;
+#     color: #E1EAF2;
     
-    /* Combine background image + overlay so it scrolls with content */
-    background:
-        linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
-        url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
+#     /* Combine background image + overlay so it scrolls with content */
+#     background:
+#         linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
+#         url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
+#     background-repeat: no-repeat;
+#     background-size: cover;
+#     background-position: center;
+# }
 
 # /* Ensure sidebar content is above overlay */
 # [data-testid="stSidebar"] > div:first-child > * {
