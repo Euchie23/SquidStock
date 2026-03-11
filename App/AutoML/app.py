@@ -270,21 +270,13 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-# [data-testid="stSidebar"] {
-#     top: 0 !important;
-#     height: 100vh !important;
-# }
 
-# [data-testid="stSidebar"] {
-#     width: 370px !important;
-# }
-
-section[data-testid="stSidebar"][aria-expanded="true"] {
+[data-testid="stSidebar"] {
     width: 370px !important;
 }
 
 section[data-testid="stSidebar"] {
-    flex-shrink: 0 !important;
+    min-height: 100vh !important;
 }
 
 div[data-testid="stAppViewContainer"] {
