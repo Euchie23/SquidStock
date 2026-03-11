@@ -100,12 +100,12 @@ header[data-testid="stHeader"],
 }
 
 /* Fully remove the sidebar collapse toggle, including hover */
-button[data-testid="collapsedControl"],
-div[data-testid="collapsedControl"] {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
+# button[data-testid="collapsedControl"],
+# div[data-testid="collapsedControl"] {
+#     display: none !important;
+#     visibility: hidden !important;
+#     pointer-events: none !important;
+# }
 
 /* -------------------------------------------------- */
 /* FIXED SIDEBAR LAYOUT */
