@@ -159,21 +159,21 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-/* Sidebar collapsed width */
-[data-testid="stSidebar"][aria-expanded="false"] {
-    width: 60px !important;   /* visible strip */
-}
+# /* Sidebar collapsed width */
+# [data-testid="stSidebar"][aria-expanded="false"] {
+#     width: 60px !important;   /* visible strip */
+# }
 
-/* Shift main panel to the right of the collapsed sidebar */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
-    margin-left: 60px !important; /* same as collapsed sidebar width */
-    transition: margin-left 0.3s ease;
-}
+# /* Shift main panel to the right of the collapsed sidebar */
+# [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
+#     margin-left: 60px !important; /* same as collapsed sidebar width */
+#     transition: margin-left 0.3s ease;
+# }
 
-/* Optional: add padding inside main content so text doesn't touch the strip */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
-    padding-left: 1rem !important;
-}
+# /* Optional: add padding inside main content so text doesn't touch the strip */
+# [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
+#     padding-left: 1rem !important;
+# }
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
