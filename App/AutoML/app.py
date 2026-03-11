@@ -159,21 +159,20 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-/* Main panel default (sidebar expanded) */
-[data-testid="stAppViewContainer"] > .main {
-    margin-left: 370px !important;    /* matches expanded sidebar width */
+/* Sidebar collapsed width */
+[data-testid="stSidebar"][aria-expanded="false"] {
+    width: 60px !important;   /* visible strip */
+}
+
+/* Shift main panel to the right of the collapsed sidebar */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
+    margin-left: 60px !important; /* same as collapsed sidebar width */
     transition: margin-left 0.3s ease;
 }
 
-/* Main panel adjustment when sidebar is collapsed */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main {
-    margin-left: 60px !important;      /* matches the visible collapsed sidebar strip */
-    padding-left: 1rem !important;     /* ensures content doesn't slide under sidebar */
-}
-
-/* Optional: adjust block container inside main panel */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main .block-container {
-    padding-left: 1rem !important;   /* aligns blocks with main panel padding */
+/* Optional: add padding inside main content so text doesn't touch the strip */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
+    padding-left: 1rem !important;
 }
 
 /* ---------------------- Titles ---------------------- */
