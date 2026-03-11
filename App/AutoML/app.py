@@ -160,9 +160,9 @@ div[data-testid="stSidebarResizer"] {
 }
 
 # /* Sidebar collapsed width */
-# [data-testid="stSidebar"][aria-expanded="false"] {
-#     width: 60px !important;   /* visible strip */
-# }
+[data-testid="stSidebar"][aria-expanded="false"] {
+    width: 60px !important;   /* visible strip */
+}
 
 # /* Shift main panel to the right of the collapsed sidebar */
 [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
