@@ -271,9 +271,9 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-[data-testid="stToolbar"] {
-    display: none !important;
-}
+# [data-testid="stToolbar"] {
+#     display: none !important;
+# }
 
 # [data-testid="stSidebar"] {
 #     top: 0 !important;
