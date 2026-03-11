@@ -352,13 +352,18 @@ div[data-testid="stSlider"] label p {
     font-weight: 600 !important;
 }
 
-/* Make sure the collapsed toggle button is visible */
+/* Allow the collapsed toggle button to sit outside sidebar content */
+[data-testid="stSidebar"] {
+    overflow: visible !important;
+}
+
+/* Position the toggle button over the collapsed strip */
 button[data-testid="collapsedControl"] {
-    display: block !important;     /* allow it to display */
-    position: absolute !important; /* position over sidebar strip */
+    display: block !important;
+    position: absolute !important;
     top: 1rem !important;
-    right: 1rem !important;        /* adjust so it’s on visible strip */
-    z-index: 50 !important;        /* above main panel and sidebar content */
+    left: 5px !important;    /* align to the visible sidebar strip */
+    z-index: 100 !important;
     width: auto !important;
     height: auto !important;
 }
