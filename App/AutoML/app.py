@@ -129,11 +129,11 @@ div[data-testid="stSidebarResizer"] {
 
 /* MAIN CONTENT CONTAINER */
 
-.block-container {
-    padding: 2rem !important;
-    margin: 0 !important;
-    max-width: 1400px !important;
-}
+# .block-container {
+#     padding: 2rem !important;
+#     margin: 0 !important;
+#     max-width: 1400px !important;
+# }
 
 
 /* -------------------------------------------------- */
