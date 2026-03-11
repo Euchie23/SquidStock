@@ -285,14 +285,15 @@ div[data-testid="stAppViewContainer"] {
 }
 
 /* Sidebar fixed below top bar */
-# [data-testid="stSidebar"] {
-#     top: 0rem !important;      /* below top bar */
-#     left: 0 !important;
-#     width: 370px !important;
-#     height: calc(100vh - 3.5rem) !important;
-#     overflow-y: auto !important;
-#     z-index: 100;
-# }
+[data-testid="stSidebar"] {
+    position: fixed !important;
+    top: 0rem !important;      /* below top bar */
+    left: 0 !important;
+    width: 370px !important;
+    height: 100vh !important;
+    overflow-y: auto !important;
+    z-index: 9999 !important;
+}
 
 /* Main content shifted to the right and below top bar */
 [data-testid="stAppViewContainer"] {
