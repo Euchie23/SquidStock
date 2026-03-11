@@ -85,13 +85,19 @@ st.markdown("""
 /* REMOVE STREAMLIT UI ELEMENTS */
 /* -------------------------------------------------- */
 
-header[data-testid="stHeader"],
+# header[data-testid="stHeader"],
 # [data-testid="stToolbar"],
 # button[data-testid="collapsedControl"],
 # div[data-testid="stSidebarResizer"] {
 #     display: none !important;
 # }
 
+
+/* Hide top header and toolbar */
+header[data-testid="stHeader"],
+[data-testid="stToolbar"] {
+    display: none !important;
+}
 
 /* -------------------------------------------------- */
 /* FIXED SIDEBAR LAYOUT */
