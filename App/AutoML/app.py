@@ -270,9 +270,9 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-[data-testid="stToolbar"] {
-    display: none !important;
-}
+# [data-testid="stToolbar"] {
+#     display: none !important;
+# }
 
 # [data-testid="stSidebar"] { 
 # width: 350px !important;
