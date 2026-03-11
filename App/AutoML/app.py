@@ -56,7 +56,7 @@ st.markdown("""
     width: inherit;
     overflow-y: auto;        /* allows scrolling */
     min-height: 100vh;
-    padding-top: 1rem !important;
+    padding-top: 0.5rem !important;
     color: #E1EAF2;
     
     /* Combine background image + overlay so it scrolls with content */
@@ -166,6 +166,7 @@ div[data-testid="stSidebarResizer"] {
 
 [data-testid="stAppViewContainer"] > .main {
     margin-left: 370px !important;
+    margin-top: 0 !important;      /* flush with top */
     transition: margin-left 0.3s ease;
 }
 
