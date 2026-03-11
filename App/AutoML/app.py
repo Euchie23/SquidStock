@@ -175,6 +175,23 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
+/* Main panel default (sidebar expanded) */
+[data-testid="stAppViewContainer"] > .main {
+    margin-left: 370px !important;    /* matches expanded sidebar width */
+    transition: margin-left 0.3s ease;
+}
+
+/* Main panel adjustment when sidebar is collapsed */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main {
+    margin-left: 60px !important;      /* matches the visible collapsed sidebar strip */
+    padding-left: 1rem !important;     /* ensures content doesn't slide under sidebar */
+}
+
+/* Optional: adjust block container inside main panel */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main .block-container {
+    padding-left: 1rem !important;   /* aligns blocks with main panel padding */
+}
+
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
     font-size: 34px !important;
@@ -315,37 +332,6 @@ div[data-testid="stAppViewContainer"] {
     max-width: 100% !important;
 }
 
-
-[data-testid="stSidebar"][aria-expanded="false"] {
-    width: 60px !important;  /* collapsed width */
-}
-
-# button[data-testid="collapsedControl"] {
-#     display: block !important;
-#     position: absolute !important;
-#     top: 1rem !important;
-#     left: 5px !important;    /* align toggle button on strip */
-#     z-index: 101 !important;
-#     width: auto !important;
-#     height: auto !important;
-# }
-
-/* Main panel default (sidebar expanded) */
-[data-testid="stAppViewContainer"] > .main {
-    margin-left: 370px !important;    /* matches expanded sidebar width */
-    transition: margin-left 0.3s ease;
-}
-
-/* Main panel adjustment when sidebar is collapsed */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main {
-    margin-left: 60px !important;      /* matches the visible collapsed sidebar strip */
-    padding-left: 1rem !important;     /* ensures content doesn't slide under sidebar */
-}
-
-/* Optional: adjust block container inside main panel */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main .block-container {
-    padding-left: 1rem !important;   /* aligns blocks with main panel padding */
-}
 
 
 /* Responsive adjustments for smaller screens */
