@@ -155,21 +155,15 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-# [data-testid="stAppViewContainer"] > .main {
-#     margin-left: 370px !important;
-#     margin-top: 0 !important;      /* flush with top */
-#     transition: margin-left 0.3s ease;
-# }
-
 /* Main panel container */
 div[data-testid="stAppViewContainer"] {
     margin-top: 0 !important;
-    padding: 0 !important;          /* remove horizontal padding here */
+    padding: 0 !important;          /* no horizontal padding here */
     width: 100% !important;
     transition: margin-left 0.3s ease;
 }
 
-/* Main panel shifted by sidebar width */
+/* Shift main panel by sidebar width */
 [data-testid="stSidebar"][aria-expanded="true"] ~ div[data-testid="stAppViewContainer"] {
     margin-left: 350px !important;   /* expanded sidebar width */
 }
@@ -178,12 +172,14 @@ div[data-testid="stAppViewContainer"] {
     margin-left: 60px !important;    /* collapsed sidebar strip */
 }
 
-/* Inner content padding inside main panel */
+/* Inner content inside main panel */
 .block-container {
-    padding: 2rem !important;        /* now only adds spacing inside main panel */
-    margin: 0 !important;            /* no centering */
-    width: auto !important;           /* fill the shifted panel */
+    padding: 2rem !important;        /* inner spacing */
+    margin: 0 !important;            /* remove centering */
+    max-width: none !important;       /* ignore Streamlit max-width */
+    width: auto !important;           /* fill available space */
 }
+
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
