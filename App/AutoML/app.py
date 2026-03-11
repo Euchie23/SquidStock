@@ -159,13 +159,16 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-# [data-testid="stAppViewContainer"] > .main {
-#     margin-left: 370px !important;
-#     margin-top: 0 !important;      /* flush with top */
-#     transition: margin-left 0.3s ease;
-# }
+/* Main panel default (sidebar expanded) */
+[data-testid="stAppViewContainer"] > .main {
+    margin-left: 370px !important;    /* matches expanded sidebar width */
+    transition: margin-left 0.3s ease;
+}
 
-
+/* Main panel adjustment when sidebar is collapsed */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main {
+    margin-left: 60px !important;    /* width of collapsed strip */
+}
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
