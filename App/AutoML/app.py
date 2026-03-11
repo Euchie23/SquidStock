@@ -85,13 +85,6 @@ st.markdown("""
 /* REMOVE STREAMLIT UI ELEMENTS */
 /* -------------------------------------------------- */
 
-# header[data-testid="stHeader"],
-# [data-testid="stToolbar"],
-# button[data-testid="collapsedControl"],
-# div[data-testid="stSidebarResizer"] {
-#     display: none !important;
-# }
-
 
 /* Hide top header and toolbar */
 header[data-testid="stHeader"],
@@ -99,13 +92,6 @@ header[data-testid="stHeader"],
     display: none !important;
 }
 
-/* Fully remove the sidebar collapse toggle, including hover */
-# button[data-testid="collapsedControl"],
-# div[data-testid="collapsedControl"] {
-#     display: none !important;
-#     visibility: hidden !important;
-#     pointer-events: none !important;
-# }
 
 /* -------------------------------------------------- */
 /* FIXED SIDEBAR LAYOUT */
@@ -131,24 +117,6 @@ header[data-testid="stHeader"],
 
     border-right: 2px solid rgba(255,255,255,0.15);
 }
-
-
-/* MAIN CONTENT OFFSET */
-
-# [data-testid="stAppViewContainer"] > .main {
-#     margin-left: 370px !important;
-#     padding: 0 2rem !important;
-# }
-
-
-/* MAIN CONTENT CONTAINER */
-
-# .block-container {
-#     padding: 2rem !important;
-#     margin: 0 !important;
-#     max-width: 1400px !important;
-# }
-
 
 /* -------------------------------------------------- */
 /* SIDEBAR TYPOGRAPHY */
@@ -1424,6 +1392,13 @@ def feature_engineer(weekly):
 #  TAB 1: OVERVIEW
 # ========================================
 if page == "Overview":
+
+    # Dashboard Tour Link
+    st.markdown("""
+    ### 🎬 Dashboard Tour
+    [Click here to watch the Dashboard Tour](https://example.com/dashboard-tour)
+    """)
+    
    # -------------------- Page Title & Welcome Text --------------------
     st.title("🦑 Squid Stock Assessment & Forecasting Engine ⚙️")
 
