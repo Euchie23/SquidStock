@@ -309,26 +309,19 @@ div[data-testid="stAppViewContainer"] {
     max-width: 100% !important;
 }
 
-[data-testid="stSidebar"] {
-    position: relative !important;   /* remove fixed positioning */
-    left: 0 !important;              /* make sure it’s on-screen */
-    top: 0 !important;               /* reset offset */
-    display: block !important;       /* force visible */
-    z-index: 1 !important;           /* below main panel to avoid overlap issues */
-}
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 992px) {
-    [data-testid="stAppViewContainer"] {
-        margin-left: 0 !important;
-    }
-    [data-testid="stSidebar"] {
-        position: relative !important;
-        width: 100% !important;
-        top: 0 !important;
-        height: auto !important;
-    }
-}
+# /* Responsive adjustments for smaller screens */
+# @media (max-width: 992px) {
+#     [data-testid="stAppViewContainer"] {
+#         margin-left: 0 !important;
+#     }
+#     [data-testid="stSidebar"] {
+#         position: relative !important;
+#         width: 100% !important;
+#         top: 0 !important;
+#         height: auto !important;
+#     }
+# }
 
 
 /* ---------------------- Buttons & Sliders ---------------------- */
