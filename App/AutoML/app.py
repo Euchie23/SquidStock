@@ -48,13 +48,6 @@ st.markdown("""
 <style>
 
 /* ---------------------- Sidebar ---------------------- */
-
-[data-testid="stSidebar"] {
-    transform: none !important;
-    left: 0 !important;
-    display: block !important;
-}
-
 [data-testid="stSidebar"] > div:first-child {
     position: fixed;
     top: 0;
@@ -272,7 +265,7 @@ p span.emoji {
 }
         
 
-# /* ---------------------- Sidebar + Main Layout Fix ---------------------- */
+/* ---------------------- Sidebar + Main Layout Fix ---------------------- */
 
 header[data-testid="stHeader"] {
     display: none !important;
@@ -291,7 +284,7 @@ div[data-testid="stAppViewContainer"] {
     margin-top: 0 !important;
 }
 
-# /* Sidebar fixed below top bar */
+/* Sidebar fixed below top bar */
 [data-testid="stSidebar"] {
     position: fixed !important;
     top: 0rem !important;      /* below top bar */
@@ -302,14 +295,14 @@ div[data-testid="stAppViewContainer"] {
     z-index: 100;
 }
 
-# /* Main content shifted to the right and below top bar */
+/* Main content shifted to the right and below top bar */
 [data-testid="stAppViewContainer"] {
     margin-left: 370px !important;  /* match sidebar width */
     margin-top: 0rem !important;  /* below top bar */
     padding: 0 2rem !important;
 }
 
-# /* Block container inside main content */
+/* Block container inside main content */
 .block-container {
     padding: 2rem !important;
     margin: 0 !important;
