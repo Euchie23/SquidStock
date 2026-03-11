@@ -320,15 +320,15 @@ div[data-testid="stAppViewContainer"] {
     width: 60px !important;  /* collapsed width */
 }
 
-button[data-testid="collapsedControl"] {
-    display: block !important;
-    position: absolute !important;
-    top: 1rem !important;
-    left: 5px !important;    /* align toggle button on strip */
-    z-index: 101 !important;
-    width: auto !important;
-    height: auto !important;
-}
+# button[data-testid="collapsedControl"] {
+#     display: block !important;
+#     position: absolute !important;
+#     top: 1rem !important;
+#     left: 5px !important;    /* align toggle button on strip */
+#     z-index: 101 !important;
+#     width: auto !important;
+#     height: auto !important;
+# }
 
 [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
     margin-left: 60px !important; /* shift main panel */
