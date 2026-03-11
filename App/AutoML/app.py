@@ -275,10 +275,10 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-[data-testid="stSidebar"] {
-    top: 0 !important;
-    height: 100vh !important;
-}
+# [data-testid="stSidebar"] {
+#     top: 0 !important;
+#     height: 100vh !important;
+# }
 
 # div[data-testid="stAppViewContainer"] {
 #     margin-top: 0 !important;
@@ -310,18 +310,18 @@ header[data-testid="stHeader"] {
 }
 
 
-# /* Responsive adjustments for smaller screens */
-# @media (max-width: 992px) {
-#     [data-testid="stAppViewContainer"] {
-#         margin-left: 0 !important;
-#     }
-#     [data-testid="stSidebar"] {
-#         position: relative !important;
-#         width: 100% !important;
-#         top: 0 !important;
-#         height: auto !important;
-#     }
-# }
+/* Responsive adjustments for smaller screens */
+@media (max-width: 992px) {
+    [data-testid="stAppViewContainer"] {
+        margin-left: 0 !important;
+    }
+    [data-testid="stSidebar"] {
+        position: relative !important;
+        width: 100% !important;
+        top: 0 !important;
+        height: auto !important;
+    }
+}
 
 
 /* ---------------------- Buttons & Sliders ---------------------- */
