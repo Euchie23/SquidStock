@@ -302,11 +302,11 @@ div[data-testid="stAppViewContainer"] {
 }
 
 /* Block container inside main content */
-.block-container {
-    padding: 2rem !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-}
+# .block-container {
+#     padding: 2rem !important;
+#     margin: 0 !important;
+#     max-width: 100% !important;
+# }
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 992px) {
