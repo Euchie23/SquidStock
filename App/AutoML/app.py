@@ -287,42 +287,42 @@ div[data-testid="stAppViewContainer"] {
             
 /* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
 
-/* Keep the top bar visible and consistent */
-header[data-testid="stHeader"] {
-    background-color: #001f3f !important;
-    height: 3.5rem !important;
-    z-index: 1000 !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-}
+# /* Keep the top bar visible and consistent */
+# header[data-testid="stHeader"] {
+#     background-color: #001f3f !important;
+#     height: 3.5rem !important;
+#     z-index: 1000 !important;
+#     position: fixed !important;
+#     top: 0 !important;
+#     left: 0 !important;
+#     right: 0 !important;
+# }
 
-/* Sidebar should start just below the fixed top bar */
-[data-testid="stSidebar"] {
-    position: fixed !important;
-    top: 3.5rem !important;      /* push it down below header */
-    height: calc(100vh - 3.5rem) !important;
-    margin: 0 !important;
-}
+# /* Sidebar should start just below the fixed top bar */
+# [data-testid="stSidebar"] {
+#     position: fixed !important;
+#     top: 3.5rem !important;      /* push it down below header */
+#     height: calc(100vh - 3.5rem) !important;
+#     margin: 0 !important;
+# }
 
-/* Sidebar inner div scrolls normally */
-[data-testid="stSidebar"] > div:first-child {
-    height: 100% !important;
-    overflow-y: auto !important;
-}
+# /* Sidebar inner div scrolls normally */
+# [data-testid="stSidebar"] > div:first-child {
+#     height: 100% !important;
+#     overflow-y: auto !important;
+# }
 
-/* Main app container shifts down equally */
-div[data-testid="stAppViewContainer"] {
-    margin-top: 3.5rem !important;   /* align with sidebar */
-    padding-top: 0 !important;
-}
+# /* Main app container shifts down equally */
+# div[data-testid="stAppViewContainer"] {
+#     margin-top: 3.5rem !important;   /* align with sidebar */
+#     padding-top: 0 !important;
+# }
 
-/* The block container keeps its scroll and padding */
-.block-container {
-    height: calc(100vh - 3.5rem) !important;
-    overflow-y: auto !important;
-}
+# /* The block container keeps its scroll and padding */
+# .block-container {
+#     height: calc(100vh - 3.5rem) !important;
+#     overflow-y: auto !important;
+# }
 
 /* ---------------------- Sidebar + Main Layout Fix ---------------------- */
 
