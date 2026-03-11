@@ -171,9 +171,9 @@ div[data-testid="stSidebarResizer"] {
 }
 
 # /* Optional: add padding inside main content so text doesn't touch the strip */
-# [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
-#     padding-left: 1rem !important;
-# }
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
+    padding-left: 1rem !important;
+}
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
