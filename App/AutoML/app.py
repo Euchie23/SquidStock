@@ -167,7 +167,13 @@ div[data-testid="stSidebarResizer"] {
 
 /* Main panel adjustment when sidebar is collapsed */
 [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main {
-    margin-left: 60px !important;    /* width of collapsed strip */
+    margin-left: 60px !important;      /* matches the visible collapsed sidebar strip */
+    padding-left: 1rem !important;     /* ensures content doesn't slide under sidebar */
+}
+
+/* Optional: adjust block container inside main panel */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main .block-container {
+    padding-left: 1rem !important;   /* aligns blocks with main panel padding */
 }
 
 /* ---------------------- Titles ---------------------- */
