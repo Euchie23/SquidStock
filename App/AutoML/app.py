@@ -286,7 +286,7 @@ div[data-testid="stAppViewContainer"] {
 
 /* Sidebar fixed below top bar */
 [data-testid="stSidebar"] {
-    position: fixed !important;
+    position: relative !important;
     top: 0rem !important;      /* below top bar */
     left: 0 !important;
     width: 370px !important;
