@@ -264,8 +264,16 @@ p span.emoji {
 }
 
 /* ---------------------- Top bar ---------------------- */
-header, .css-nahz7x {
-    background-color: #001f3f !important;
+# header, .css-nahz7x {
+#     background-color: #001f3f !important;
+# }
+
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+[data-testid="stToolbar"] {
+    display: none !important;
 }
             
 /* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
