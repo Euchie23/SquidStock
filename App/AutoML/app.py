@@ -155,23 +155,19 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-/* Default padding-left for main panel (expanded sidebar) */
-.stApp {
-    padding-left: 350px !important;       /* expanded sidebar width */
-    transition: padding-left 0.3s ease;   /* smooth shift when sidebar toggles */
-}
-
-/* When sidebar is collapsed, reduce padding */
-[data-testid="stSidebar"][aria-expanded="false"] ~ .stApp {
-    padding-left: 60px !important;        /* collapsed sidebar width */
-}
-
-/* Inner content container */
+/* Inner content inside main panel */
 .block-container {
     padding: 2rem !important;             /* spacing inside main panel */
     margin: 0 !important;                 /* do not center */
     max-width: none !important;           /* remove Streamlit max-width centering */
     width: auto !important;               /* fill available space */
+}
+
+/* Optional: adjust for smaller screens */
+@media (max-width: 992px) {
+    .block-container {
+        padding: 1rem !important;         /* reduce padding on mobile */
+    }
 }
 
 /* ---------------------- Titles ---------------------- */
