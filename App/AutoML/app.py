@@ -275,6 +275,15 @@ header[data-testid="stHeader"] {
 [data-testid="stToolbar"] {
     display: none !important;
 }
+
+[data-testid="stSidebar"] {
+    top: 0 !important;
+    height: 100vh !important;
+}
+
+div[data-testid="stAppViewContainer"] {
+    margin-top: 0 !important;
+}
             
 /* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
 
