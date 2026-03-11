@@ -285,22 +285,22 @@ div[data-testid="stAppViewContainer"] {
 }
 
 /* Sidebar fixed below top bar */
-[data-testid="stSidebar"] {
-    position: fixed !important;
-    top: 0rem !important;      /* below top bar */
-    left: 0 !important;
-    width: 370px !important;
-    height: 100vh !important;
-    overflow-y: auto !important;
-    z-index: 100 !important;
-}
+# [data-testid="stSidebar"] {
+#     position: fixed !important;
+#     top: 0rem !important;      /* below top bar */
+#     left: 0 !important;
+#     width: 370px !important;
+#     height: 100vh !important;
+#     overflow-y: auto !important;
+#     z-index: 100 !important;
+# }
 
 /* Main content shifted to the right and below top bar */
-[data-testid="stAppViewContainer"] {
-    margin-left: 370px !important;  /* match sidebar width */
-    margin-top: 0rem !important;  /* below top bar */
-    padding: 0 2rem !important;
-}
+# [data-testid="stAppViewContainer"] {
+#     margin-left: 370px !important;  /* match sidebar width */
+#     margin-top: 0rem !important;  /* below top bar */
+#     padding: 0 2rem !important;
+# }
 
 /* Block container inside main content */
 .block-container {
@@ -343,10 +343,6 @@ div.stButton > button:first-child:hover {
 div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
-}
-
-button[data-testid="collapsedControl"] {
-    display: none !important;
 }
 
 </style>
