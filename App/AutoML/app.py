@@ -278,9 +278,9 @@ header[data-testid="stHeader"] {
 # width: 350px !important;
 # }
 
-section[data-testid="stSidebar"] { 
-min-height: 100vh !important; 
-}
+# section[data-testid="stSidebar"] { 
+# min-height: 100vh !important; 
+# }
 
 # div[data-testid="stAppViewContainer"] {
 #     margin-top: 0 !important;
