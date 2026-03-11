@@ -344,6 +344,11 @@ div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
 }
+
+button[data-testid="collapsedControl"] {
+    display: none !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
