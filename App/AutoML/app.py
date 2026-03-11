@@ -99,6 +99,11 @@ header[data-testid="stHeader"],
     display: none !important;
 }
 
+/* Hide the sidebar collapse toggle (the << button) */
+button[data-testid="collapsedControl"] {
+    display: none !important;
+}
+
 /* -------------------------------------------------- */
 /* FIXED SIDEBAR LAYOUT */
 /* -------------------------------------------------- */
