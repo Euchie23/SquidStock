@@ -330,7 +330,7 @@ div[data-testid="stAppViewContainer"] {
 /* Sidebar fixed below top bar */
 [data-testid="stSidebar"] {
     position: fixed !important;
-    top: 3.5rem !important;      /* below top bar */
+    top: 0rem !important;      /* below top bar */
     left: 0 !important;
     width: 370px !important;
     height: calc(100vh - 3.5rem) !important;
@@ -341,7 +341,7 @@ div[data-testid="stAppViewContainer"] {
 /* Main content shifted to the right and below top bar */
 [data-testid="stAppViewContainer"] {
     margin-left: 370px !important;  /* match sidebar width */
-    margin-top: 3.5rem !important;  /* below top bar */
+    margin-top: 0rem !important;  /* below top bar */
     padding: 0 2rem !important;
 }
 
