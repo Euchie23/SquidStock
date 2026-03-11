@@ -165,10 +165,10 @@ div[data-testid="stSidebarResizer"] {
 # }
 
 # /* Shift main panel to the right of the collapsed sidebar */
-# [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
-#     margin-left: 60px !important; /* same as collapsed sidebar width */
-#     transition: margin-left 0.3s ease;
-# }
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
+    margin-left: 60px !important; /* same as collapsed sidebar width */
+    transition: margin-left 0.3s ease;
+}
 
 # /* Optional: add padding inside main content so text doesn't touch the strip */
 # [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
