@@ -385,6 +385,10 @@ st.sidebar.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 
 # =========================================================
