@@ -97,11 +97,12 @@ div[data-testid="stSidebarResizer"] {
 /* FIXED SIDEBAR LAYOUT */
 /* -------------------------------------------------- */
 
-[data-testid="stSidebar"] {
-    position: fixed !important;
+/* Fix sidebar */
+[data-testid="stSidebar"] > div:first-child {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 370px !important;
+    width: 370px;
     height: 100vh;
     overflow-y: auto;
     z-index: 1000;
@@ -120,7 +121,7 @@ div[data-testid="stSidebarResizer"] {
 
 /* MAIN CONTENT OFFSET */
 
-[data-testid="stAppViewContainer"] {
+[data-testid="stAppViewContainer"] > .main {
     margin-left: 370px !important;
     padding: 0 2rem !important;
 }
