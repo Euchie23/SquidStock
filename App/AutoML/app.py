@@ -126,9 +126,9 @@ st.markdown("""
 }
             
 /* Make the sidebar background extend the full height */
-# section[data-testid="stSidebar"] {
-#     min-height: 100vh !important;
-# }
+section[data-testid="stSidebar"] {
+    min-height: 100vh !important;
+}
 
 /* Optional: adjust padding for expanders inside sidebar */
 section[data-testid="stSidebar"] .st-expander {
