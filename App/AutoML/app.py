@@ -161,32 +161,29 @@ div[data-testid="stSidebarResizer"] {
 #     transition: margin-left 0.3s ease;
 # }
 
-/* Main content container */
-.block-container {
-    padding: 2rem !important;  /* keep spacing inside */
-    margin: 0 !important;      /* remove centering */
-    width: 100% !important;    /* span full panel */
-}
-
 /* Main panel container */
 div[data-testid="stAppViewContainer"] {
     margin-top: 0 !important;
-    padding: 0 2rem !important;  /* horizontal padding */
+    padding: 0 !important;          /* remove horizontal padding here */
     width: 100% !important;
-    transition: margin-left 0.3s ease; /* smooth shift when sidebar toggles */
+    transition: margin-left 0.3s ease;
 }
 
-/* Shift main panel when sidebar is expanded */
+/* Main panel shifted by sidebar width */
 [data-testid="stSidebar"][aria-expanded="true"] ~ div[data-testid="stAppViewContainer"] {
-    margin-left: 350px !important; /* match sidebar width */
+    margin-left: 350px !important;   /* expanded sidebar width */
 }
 
-/* Shift main panel when sidebar is collapsed */
 [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
-    margin-left: 60px !important; /* collapsed sidebar strip */
+    margin-left: 60px !important;    /* collapsed sidebar strip */
 }
 
-
+/* Inner content padding inside main panel */
+.block-container {
+    padding: 2rem !important;        /* now only adds spacing inside main panel */
+    margin: 0 !important;            /* no centering */
+    width: auto !important;           /* fill the shifted panel */
+}
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
