@@ -68,78 +68,78 @@ st.markdown("""
     background-position: center;
 }
 
-/* Ensure sidebar content is above overlay */
-[data-testid="stSidebar"] > div:first-child > * {
-    position: relative;
-    z-index: 1;
-}
+# /* Ensure sidebar content is above overlay */
+# [data-testid="stSidebar"] > div:first-child > * {
+#     position: relative;
+#     z-index: 1;
+# }
 
 
-/* Sidebar titles and headers */
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3 {
-    font-size: 28px !important;
-    font-weight: 800 !important;
-    color: #39FF14 !important;
-    margin-top: 4px !important;
-}
+# /* Sidebar titles and headers */
+# [data-testid="stSidebar"] h1,
+# [data-testid="stSidebar"] h2,
+# [data-testid="stSidebar"] h3 {
+#     font-size: 28px !important;
+#     font-weight: 800 !important;
+#     color: #39FF14 !important;
+#     margin-top: 4px !important;
+# }
 
-/* Sidebar 'Tabs' section header */
-[data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
-    font-size: 25px !important;
-    font-weight: 800 !important;
-    color: #FFD700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    text-align: center !important;
-    margin-bottom: 10px !important;
-}
+# /* Sidebar 'Tabs' section header */
+# [data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
+#     font-size: 25px !important;
+#     font-weight: 800 !important;
+#     color: #FFD700 !important;
+#     text-transform: uppercase !important;
+#     letter-spacing: 0.5px !important;
+#     text-align: center !important;
+#     margin-bottom: 10px !important;
+# }
 
-/* Each sidebar radio button (tab option) */
-[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
-    font-size: 20px !important;
-    font-weight: 600 !important;
-    color: #E1EAF2 !important;
-    line-height: 1.6 !important;
-}
+# /* Each sidebar radio button (tab option) */
+# [data-testid="stSidebar"] [data-baseweb="radio"] label div p {
+#     font-size: 20px !important;
+#     font-weight: 600 !important;
+#     color: #E1EAF2 !important;
+#     line-height: 1.6 !important;
+# }
 
-/* Each radio option (“Overview”, etc.) */
-[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
-    font-size: 20px !important;
-    font-weight: 600 !important;
-    color: #E1EAF2 !important;
-}
+# /* Each radio option (“Overview”, etc.) */
+# [data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
+#     font-size: 20px !important;
+#     font-weight: 600 !important;
+#     color: #E1EAF2 !important;
+# }
 
-/* Sidebar links */
-[data-testid="stSidebar"] a {
-    font-size: 20px !important;
-    color: #39FF14 !important;
-}
+# /* Sidebar links */
+# [data-testid="stSidebar"] a {
+#     font-size: 20px !important;
+#     color: #39FF14 !important;
+# }
 
-/* Sidebar footer */
-.sidebar-footer {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    padding: 10px;
-}
+# /* Sidebar footer */
+# .sidebar-footer {
+#     position: absolute;
+#     bottom: 10px;
+#     width: 100%;
+#     padding: 10px;
+# }
             
-/* Make the sidebar background extend the full height */
-section[data-testid="stSidebar"] {
-    min-height: 100vh !important;
-}
+# /* Make the sidebar background extend the full height */
+# section[data-testid="stSidebar"] {
+#     min-height: 100vh !important;
+# }
 
-/* Optional: adjust padding for expanders inside sidebar */
-section[data-testid="stSidebar"] .st-expander {
-    margin-bottom: 1rem;
-}
+# /* Optional: adjust padding for expanders inside sidebar */
+# section[data-testid="stSidebar"] .st-expander {
+#     margin-bottom: 1rem;
+# }
             
-/* Disable sidebar resize handle */
-div[data-testid="stSidebarResizer"] {
-    display: none !important;
-    pointer-events: none !important;
-}
+# /* Disable sidebar resize handle */
+# div[data-testid="stSidebarResizer"] {
+#     display: none !important;
+#     pointer-events: none !important;
+# }
 
 
 /* ---------------------- Main panel ---------------------- */
