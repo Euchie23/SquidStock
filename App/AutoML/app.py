@@ -47,14 +47,6 @@ warnings.filterwarnings("ignore")
 st.markdown("""
 <style>
 
-[data-testid="stSidebar"] {
-    position: relative !important;   /* remove fixed positioning */
-    left: 0 !important;              /* make sure it’s on-screen */
-    top: 0 !important;               /* reset offset */
-    display: block !important;       /* force visible */
-    z-index: 1 !important;           /* below main panel to avoid overlap issues */
-}
-
 /* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
     position: fixed;
@@ -315,6 +307,14 @@ div[data-testid="stAppViewContainer"] {
     padding: 2rem !important;
     margin: 0 !important;
     max-width: 100% !important;
+}
+
+[data-testid="stSidebar"] {
+    position: relative !important;   /* remove fixed positioning */
+    left: 0 !important;              /* make sure it’s on-screen */
+    top: 0 !important;               /* reset offset */
+    display: block !important;       /* force visible */
+    z-index: 1 !important;           /* below main panel to avoid overlap issues */
 }
 
 /* Responsive adjustments for smaller screens */
