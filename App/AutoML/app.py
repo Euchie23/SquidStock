@@ -154,21 +154,21 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-/* Sidebar collapsed width */
-[data-testid="stSidebar"][aria-expanded="false"] {
-    width: 60px !important;
-}
+# /* Sidebar collapsed width */
+# [data-testid="stSidebar"][aria-expanded="false"] {
+#     width: 60px !important;
+# }
 
-/* Shift main panel to the right of the collapsed sidebar */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
-    margin-left: 60px !important;
-    transition: margin-left 0.3s ease;
-}
+# /* Shift main panel to the right of the collapsed sidebar */
+# [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
+#     margin-left: 60px !important;
+#     transition: margin-left 0.3s ease;
+# }
 
-/* Optional: add padding inside main content */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
-    padding-left: 1rem !important;
-}
+# /* Optional: add padding inside main content */
+# [data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
+#     padding-left: 1rem !important;
+# }
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
