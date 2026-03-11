@@ -295,6 +295,12 @@ div[data-testid="stAppViewContainer"] {
     z-index: 100;
 }
 
+[data-testid="stAppViewContainer"] {
+    margin-left: 370px !important;
+    margin-top: 0rem !important;
+    padding: 0 2rem !important;
+}
+
 
 /* Block container inside main content */
 .block-container {
