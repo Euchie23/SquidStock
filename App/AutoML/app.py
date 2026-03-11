@@ -41,35 +41,29 @@ import streamlit as st
 warnings.filterwarnings("ignore")
 
 
-# ============================
+# ============================ 
 # 2️⃣ CUSTOM CSS 
-# ============================
+# ============================ 
 st.markdown("""
-<style>
 
+<style>
 /* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
     top: 0;
     left: 0;
     bottom: 0;
     width: inherit;
-    overflow-y: auto;        /* allows scrolling */
+    overflow-y: auto; /* allows scrolling */
     min-height: 100vh;
     padding-top: 0.5rem !important;
     color: #E1EAF2;
-    
     /* Combine background image + overlay so it scrolls with content */
-    background:
-        linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
-        url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
+    background: linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
+                url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
-
-# [data-testid="stSidebar"] {
-#     width: 370px !important;
-# }
 
 /* Ensure sidebar content is above overlay */
 [data-testid="stSidebar"] > div:first-child > * {
@@ -77,8 +71,7 @@ st.markdown("""
     z-index: 1;
 }
 
-
-# /* Sidebar titles and headers */
+/* Sidebar titles and headers */
 [data-testid="stSidebar"] h1,
 [data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3 {
@@ -88,7 +81,7 @@ st.markdown("""
     margin-top: 4px !important;
 }
 
-# /* Sidebar 'Tabs' section header */
+/* Sidebar 'Tabs' section header */
 [data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
     font-size: 25px !important;
     font-weight: 800 !important;
@@ -106,52 +99,35 @@ st.markdown("""
     color: #E1EAF2 !important;
 }
 
-# /* Sidebar links */
+/* Sidebar links */
 [data-testid="stSidebar"] a {
     font-size: 20px !important;
     color: #39FF14 !important;
 }
 
-# /* Sidebar footer */
+/* Sidebar footer */
 .sidebar-footer {
     position: absolute;
     bottom: 10px;
     width: 100%;
     padding: 10px;
 }
-            
-# /* Make the sidebar background extend the full height */
+
+/* Make the sidebar background extend the full height */
 section[data-testid="stSidebar"] {
     min-height: 100vh !important;
 }
 
-# /* Optional: adjust padding for expanders inside sidebar */
+/* Optional: adjust padding for expanders inside sidebar */
 section[data-testid="stSidebar"] .st-expander {
     margin-bottom: 1rem;
 }
-            
-# /* Disable sidebar resize handle */
+
+/* Disable sidebar resize handle */
 div[data-testid="stSidebarResizer"] {
     display: none !important;
     pointer-events: none !important;
 }
-
-[data-testid="stSidebar"] {
-    width: 350px !important;           /* expanded width */
-    overflow: visible !important;      /* allow toggle button to appear */
-    position: relative !important;
-    min-height: 100vh !important;
-}
-
-/* Sidebar inner container scrolls vertically */
-[data-testid="stSidebar"] > div:first-child {
-    height: 100% !important;
-    overflow-y: auto !important;
-    width: 100% !important;
-    padding-top: 0.5rem !important;
-    color: #E1EAF2;
-}
-
 
 /* ---------------------- Main panel ---------------------- */
 .stApp {
@@ -166,7 +142,10 @@ div[data-testid="stSidebarResizer"] {
 .stApp::before {
     content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: rgba(10, 47, 68, 0.7);
     z-index: 0;
 }
@@ -175,21 +154,20 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-/* Main panel default (sidebar expanded) */
-[data-testid="stAppViewContainer"] > .main {
-    margin-left: 370px !important;    /* matches expanded sidebar width */
+/* Sidebar collapsed width */
+[data-testid="stSidebar"][aria-expanded="false"] {
+    width: 60px !important;
+}
+
+/* Shift main panel to the right of the collapsed sidebar */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
+    margin-left: 60px !important;
     transition: margin-left 0.3s ease;
 }
 
-/* Main panel adjustment when sidebar is collapsed */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main {
-    margin-left: 60px !important;      /* matches the visible collapsed sidebar strip */
-    padding-left: 1rem !important;     /* ensures content doesn't slide under sidebar */
-}
-
-/* Optional: adjust block container inside main panel */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main .block-container {
-    padding-left: 1rem !important;   /* aligns blocks with main panel padding */
+/* Optional: add padding inside main content */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
+    padding-left: 1rem !important;
 }
 
 /* ---------------------- Titles ---------------------- */
@@ -205,20 +183,14 @@ h1, .stTitle {
     line-height: 1.8 !important;
     color: #E1EAF2 !important;
 }
-            
- /* Allow emojis to render using system default emoji font */
-h1 span.emoji, 
-h2 span.emoji,
-h3 span.emoji,
-p span.emoji {
+
+/* Allow emojis to render using system default emoji font */
+h1 span.emoji, h2 span.emoji, h3 span.emoji, p span.emoji {
     font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
-    font-weight: 400 !important;   /* emojis don’t like bold */
+    font-weight: 400 !important;
 }
 
-            
 /* ---------------------- 🟢 Markdown Headers Fix ---------------------- */
-
-/* Ensure Markdown titles keep the right color and size across the app */
 .stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
 .block-container h1, .block-container h2, .block-container h3,
 [data-testid="stSidebar"] .stMarkdown h1,
@@ -231,18 +203,9 @@ p span.emoji {
 }
 
 /* Header sizes */
-.stMarkdown h1, .block-container h1,
-[data-testid="stSidebar"] .stMarkdown h1 {
-    font-size: 34px !important;
-}
-.stMarkdown h2, .block-container h2,
-[data-testid="stSidebar"] .stMarkdown h2 {
-    font-size: 28px !important;
-}
-.stMarkdown h3, .block-container h3,
-[data-testid="stSidebar"] .stMarkdown h3 {
-    font-size: 24px !important;
-}
+.stMarkdown h1, .block-container h1, [data-testid="stSidebar"] .stMarkdown h1 { font-size: 34px !important; }
+.stMarkdown h2, .block-container h2, [data-testid="stSidebar"] .stMarkdown h2 { font-size: 28px !important; }
+.stMarkdown h3, .block-container h3, [data-testid="stSidebar"] .stMarkdown h3 { font-size: 24px !important; }
 
 /* Sidebar paragraph text */
 [data-testid="stSidebar"] .stMarkdown p {
@@ -283,70 +246,13 @@ p span.emoji {
     color: #E1EAF2 !important;
     padding: 6px !important;
 }
-        
 
 /* ---------------------- Sidebar + Main Layout Fix ---------------------- */
-
-header[data-testid="stHeader"] {
-    display: none !important;
-}
-
-[data-testid="stToolbar"] {
-    display: none !important;
-}
-
-[data-testid="stSidebar"] {
-    width: 350px !important;
-}
-
-section[data-testid="stSidebar"] {
-    min-height: 100vh !important;
-}
-
-div[data-testid="stAppViewContainer"] {
-    margin-top: 0 !important;
-}
-
-/* Sidebar fixed below top bar */
-# [data-testid="stSidebar"] {
-#     position: fixed !important;
-#     top: 0rem !important;      /* below top bar */
-#     left: 0 !important;
-#     width: 370px !important;
-#     height: 100vh !important;
-#     overflow-y: auto !important;
-#     z-index: 100 !important;
-# }
-
-/* Main content shifted to the right and below top bar */
-# [data-testid="stAppViewContainer"] {
-#     margin-left: 370px !important;  /* match sidebar width */
-#     margin-top: 0rem !important;  /* below top bar */
-#     padding: 0 2rem !important;
-# }
-
-/* Block container inside main content */
-.block-container {
-    padding: 2rem !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-}
-
-
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 992px) {
-    [data-testid="stAppViewContainer"] {
-        margin-left: 0 !important;
-    }
-    [data-testid="stSidebar"] {
-        position: relative !important;
-        width: 100% !important;
-        top: 0 !important;
-        height: auto !important;
-    }
-}
-
+header[data-testid="stHeader"] { display: none !important; }
+[data-testid="stToolbar"] { display: none !important; }
+[data-testid="stSidebar"] { width: 350px !important; }
+section[data-testid="stSidebar"] { min-height: 100vh !important; }
+div[data-testid="stAppViewContainer"] { margin-top: 0 !important; }
 
 /* ---------------------- Buttons & Sliders ---------------------- */
 div.stButton > button:first-child {
@@ -363,69 +269,23 @@ div.stButton > button:first-child:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
-            
 div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
 }
-
-/* 1. Allow the collapsed toggle button to sit outside sidebar content */
-[data-testid="stSidebar"] {
-    overflow: visible !important;
-}
-
-/* 2. Position the toggle button over the collapsed strip */
+/* Make sure the collapsed toggle button is visible */
 button[data-testid="collapsedControl"] {
     display: block !important;
     position: absolute !important;
     top: 1rem !important;
-    left: 5px !important;    /* align to the visible sidebar strip */
-    z-index: 100 !important;
+    right: 1rem !important;
+    z-index: 50 !important;
     width: auto !important;
     height: auto !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
-
-# ============================
-# 3️⃣ SIDEBAR NAVIGATION
-# ============================
-# Title
-st.sidebar.markdown("""
-<h1 style="font-size: 32px; font-weight: 800; text-align: center;">
-    <img src="https://twemoji.maxcdn.com/v/latest/72x72/1f916.png" width="32" style="vertical-align:middle;"> 
-    Predictive Catch Models 
-    <img src="https://twemoji.maxcdn.com/v/latest/72x72/1f991.png" width="32" style="vertical-align:middle;">
-</h1>
-""", unsafe_allow_html=True)
-
-# Tabs
-tabs = [
-    "Overview",
-    "Data Exploration",
-    "Feature Engineering",
-    "Anomaly Detection",
-    "Model Evaluation",
-    "Classification",
-    "Regression",
-    "Predict Scenarios",
-    "Logbook"  # add logbook tab
-]
-
-# Custom "Tabs" header in the sidebar
-st.sidebar.markdown("""
-<div style="
-    font-size: 23px;
-    font-weight: 800;
-    color: #FFD700;
-    text-align: justify;
-    margin-bottom: 10px;
-">
-    Tabs:
-</div>
-""", unsafe_allow_html=True)
 
 # =========================================================
 # INITIALIZE SESSION STATE
