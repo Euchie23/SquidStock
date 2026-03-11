@@ -163,18 +163,30 @@ div[data-testid="stSidebarResizer"] {
 
 /* Main content container */
 .block-container {
-    padding: 2rem !important;  /* keeps spacing inside */
-    margin: 0 !important;      /* remove centering margin */
-    max-width: 100% !important; /* allow full width */
+    padding: 2rem !important;  /* keep spacing inside */
+    margin: 0 !important;      /* remove centering */
+    width: 100% !important;    /* span full panel */
 }
 
-/* App view container */
+/* Main panel container */
 div[data-testid="stAppViewContainer"] {
     margin-top: 0 !important;
-    margin-left: 0 !important;   /* reset if sidebar is collapsed */
-    padding: 0 2rem !important;  /* horizontal padding for content */
-    width: 100% !important;      /* fill available width */
+    padding: 0 2rem !important;  /* horizontal padding */
+    width: 100% !important;
+    transition: margin-left 0.3s ease; /* smooth shift when sidebar toggles */
 }
+
+/* Shift main panel when sidebar is expanded */
+[data-testid="stSidebar"][aria-expanded="true"] ~ div[data-testid="stAppViewContainer"] {
+    margin-left: 350px !important; /* match sidebar width */
+}
+
+/* Shift main panel when sidebar is collapsed */
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
+    margin-left: 60px !important; /* collapsed sidebar strip */
+}
+
+
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
