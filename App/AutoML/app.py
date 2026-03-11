@@ -136,6 +136,22 @@ div[data-testid="stSidebarResizer"] {
     pointer-events: none !important;
 }
 
+[data-testid="stSidebar"] {
+    width: 350px !important;           /* expanded width */
+    overflow: visible !important;      /* allow toggle button to appear */
+    position: relative !important;
+    min-height: 100vh !important;
+}
+
+/* Sidebar inner container scrolls vertically */
+[data-testid="stSidebar"] > div:first-child {
+    height: 100% !important;
+    overflow-y: auto !important;
+    width: 100% !important;
+    padding-top: 0.5rem !important;
+    color: #E1EAF2;
+}
+
 
 /* ---------------------- Main panel ---------------------- */
 .stApp {
@@ -157,22 +173,6 @@ div[data-testid="stSidebarResizer"] {
 .stApp > * {
     position: relative;
     z-index: 1;
-}
-
-# /* Sidebar collapsed width */
-[data-testid="stSidebar"][aria-expanded="false"] {
-    width: 60px !important;   /* visible strip */
-}
-
-# /* Shift main panel to the right of the collapsed sidebar */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
-    margin-left: 60px !important; /* same as collapsed sidebar width */
-    transition: margin-left 0.3s ease;
-}
-
-# /* Optional: add padding inside main content so text doesn't touch the strip */
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
-    padding-left: 1rem !important;
 }
 
 /* ---------------------- Titles ---------------------- */
@@ -278,7 +278,6 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-
 [data-testid="stSidebar"] {
     width: 350px !important;
 }
@@ -317,6 +316,30 @@ div[data-testid="stAppViewContainer"] {
 }
 
 
+[data-testid="stSidebar"][aria-expanded="false"] {
+    width: 60px !important;  /* collapsed width */
+}
+
+button[data-testid="collapsedControl"] {
+    display: block !important;
+    position: absolute !important;
+    top: 1rem !important;
+    left: 5px !important;    /* align toggle button on strip */
+    z-index: 101 !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] {
+    margin-left: 60px !important; /* shift main panel */
+    transition: margin-left 0.3s ease;
+}
+
+[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] .block-container {
+    padding-left: 1rem !important;  /* prevent content under strip */
+}
+
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 992px) {
     [data-testid="stAppViewContainer"] {
@@ -350,22 +373,6 @@ div.stButton > button:first-child:hover {
 div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
-}
-
-/* Allow the collapsed toggle button to sit outside sidebar content */
-[data-testid="stSidebar"] {
-    overflow: visible !important;
-}
-
-/* Position the toggle button over the collapsed strip */
-button[data-testid="collapsedControl"] {
-    display: block !important;
-    position: absolute !important;
-    top: 1rem !important;
-    left: 5px !important;    /* align to the visible sidebar strip */
-    z-index: 100 !important;
-    width: auto !important;
-    height: auto !important;
 }
 
 </style>
