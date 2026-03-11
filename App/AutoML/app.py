@@ -1393,16 +1393,24 @@ def feature_engineer(weekly):
 # ========================================
 if page == "Overview":
     
-    # Centered Dashboard Tour Link
+    # Optional dashboard tour link
     st.markdown("""
-    <div style="text-align: center; margin-bottom: 20px;">
-        <h3>🎬 Dashboard Tour</h3>
-        <a href="https://raw.githubusercontent.com/<username>/<repo>/main/dashboard_tour.html" 
-           target="_blank" style="font-size:20px; color:#FFD700; text-decoration:none;">
-           Click here to watch the Dashboard Tour
-        </a>
+    <div style="
+        background-color: rgba(255, 215, 0, 0.1);  /* subtle golden background */
+        color: #FFD700;
+        padding: 8px 15px;
+        border-left: 4px solid #FFD700;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 16px;
+    ">
+        🎬 <a href="https://raw.githubusercontent.com/<username>/<repo>/main/dashboard_tour.html" 
+           target="_blank" style="color:#FFD700; text-decoration:underline;">
+           Watch Dashboard Tour
+        </a> — optional overview of the dashboard features
     </div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     
    # -------------------- Page Title & Welcome Text --------------------
     st.title("🦑 Squid Stock Assessment & Forecasting Engine ⚙️")
