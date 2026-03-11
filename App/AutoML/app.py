@@ -161,7 +161,20 @@ div[data-testid="stSidebarResizer"] {
 #     transition: margin-left 0.3s ease;
 # }
 
+/* Main content container */
+.block-container {
+    padding: 2rem !important;  /* keeps spacing inside */
+    margin: 0 !important;      /* remove centering margin */
+    max-width: 100% !important; /* allow full width */
+}
 
+/* App view container */
+div[data-testid="stAppViewContainer"] {
+    margin-top: 0 !important;
+    margin-left: 0 !important;   /* reset if sidebar is collapsed */
+    padding: 0 2rem !important;  /* horizontal padding for content */
+    width: 100% !important;      /* fill available width */
+}
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
