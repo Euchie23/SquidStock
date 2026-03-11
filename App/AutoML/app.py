@@ -286,6 +286,43 @@ button[data-testid="collapsedControl"] {
 </style>
 """, unsafe_allow_html=True)
 
+# ============================
+# 3️⃣ SIDEBAR NAVIGATION
+# ============================
+# Title
+st.sidebar.markdown("""
+<h1 style="font-size: 32px; font-weight: 800; text-align: center;">
+    <img src="https://twemoji.maxcdn.com/v/latest/72x72/1f916.png" width="32" style="vertical-align:middle;"> 
+    Predictive Catch Models 
+    <img src="https://twemoji.maxcdn.com/v/latest/72x72/1f991.png" width="32" style="vertical-align:middle;">
+</h1>
+""", unsafe_allow_html=True)
+
+# Tabs
+tabs = [
+    "Overview",
+    "Data Exploration",
+    "Feature Engineering",
+    "Anomaly Detection",
+    "Model Evaluation",
+    "Classification",
+    "Regression",
+    "Predict Scenarios",
+    "Logbook"  # add logbook tab
+]
+
+# Custom "Tabs" header in the sidebar
+st.sidebar.markdown("""
+<div style="
+    font-size: 23px;
+    font-weight: 800;
+    color: #FFD700;
+    text-align: justify;
+    margin-bottom: 10px;
+">
+    Tabs:
+</div>
+""", unsafe_allow_html=True)
 
 # =========================================================
 # INITIALIZE SESSION STATE
