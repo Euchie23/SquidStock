@@ -271,18 +271,18 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-# [data-testid="stToolbar"] {
-#     display: none !important;
-# }
+[data-testid="stToolbar"] {
+    display: none !important;
+}
 
-# [data-testid="stSidebar"] {
-#     top: 0 !important;
-#     height: 100vh !important;
-# }
+[data-testid="stSidebar"] {
+    top: 0 !important;
+    height: 100vh !important;
+}
 
-# div[data-testid="stAppViewContainer"] {
-#     margin-top: 0 !important;
-# }
+div[data-testid="stAppViewContainer"] {
+    margin-top: 0 !important;
+}
 
 /* Sidebar fixed below top bar */
 [data-testid="stSidebar"] {
