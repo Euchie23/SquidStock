@@ -274,9 +274,9 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-[data-testid="stSidebar"] { 
-width: 350px !important;
-}
+# [data-testid="stSidebar"] { 
+# width: 350px !important;
+# }
 
 section[data-testid="stSidebar"] { 
 min-height: 100vh !important; 
