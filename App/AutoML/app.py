@@ -99,9 +99,12 @@ header[data-testid="stHeader"],
     display: none !important;
 }
 
-/* Hide the sidebar collapse toggle (the << button) */
-button[data-testid="collapsedControl"] {
+/* Fully remove the sidebar collapse toggle, including hover */
+button[data-testid="collapsedControl"],
+div[data-testid="collapsedControl"] {
     display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 /* -------------------------------------------------- */
