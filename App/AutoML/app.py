@@ -282,9 +282,9 @@ section[data-testid="stSidebar"] {
 min-height: 100vh !important; 
 }
 
-div[data-testid="stAppViewContainer"] {
-    margin-top: 0 !important;
-}
+# div[data-testid="stAppViewContainer"] {
+#     margin-top: 0 !important;
+# }
 
 /* Sidebar fixed below top bar */
 # [data-testid="stSidebar"] {
