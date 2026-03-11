@@ -155,21 +155,37 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-/* Make main panel content start to the right of the sidebar */
+/* ----------------- Main panel content offset from sidebar ----------------- */
 .block-container {
-    margin-left: 360px !important;   /* slightly larger than sidebar width (350px) */
-    padding: 2rem !important;        /* inner spacing */
-    max-width: none !important;      /* fill available space */
+    margin-left: 360px !important;   /* start after sidebar */
+    padding: 2rem !important;        /* internal spacing */
+    max-width: none !important;      /* fill remaining space */
     width: auto !important;
+    z-index: 1;                      /* stay above main background */
 }
 
-# /* For smaller screens, remove offset so content is full width */
+/* Ensure sidebar floats above content */
+[data-testid="stSidebar"] > div:first-child {
+    position: fixed !important;      /* keep sidebar fixed on left */
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;                    /* above main content */
+}
+
+/* Responsive for small screens */
 @media (max-width: 992px) {
     .block-container {
-        margin-left: 0 !important;
+        margin-left: 0 !important;   /* no offset on mobile */
         padding: 1rem !important;
     }
+    [data-testid="stSidebar"] > div:first-child {
+        position: relative !important; 
+        width: 100% !important;
+        height: auto !important;
+    }
 }
+
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
@@ -312,18 +328,18 @@ header[data-testid="stHeader"] {
 # }
 
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 992px) {
-    [data-testid="stAppViewContainer"] {
-        margin-left: 0 !important;
-    }
-    [data-testid="stSidebar"] {
-        position: relative !important;
-        width: 100% !important;
-        top: 0 !important;
-        height: auto !important;
-    }
-}
+# /* Responsive adjustments for smaller screens */
+# @media (max-width: 992px) {
+#     [data-testid="stAppViewContainer"] {
+#         margin-left: 0 !important;
+#     }
+#     [data-testid="stSidebar"] {
+#         position: relative !important;
+#         width: 100% !important;
+#         top: 0 !important;
+#         height: auto !important;
+#     }
+# }
 
 
 /* ---------------------- Buttons & Sliders ---------------------- */
