@@ -48,6 +48,13 @@ st.markdown("""
 <style>
 
 /* ---------------------- Sidebar ---------------------- */
+
+[data-testid="stSidebar"] {
+    transform: none !important;
+    left: 0 !important;
+    display: block !important;
+}
+
 [data-testid="stSidebar"] > div:first-child {
     position: fixed;
     top: 0;
