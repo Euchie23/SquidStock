@@ -272,7 +272,7 @@ header[data-testid="stHeader"] {
 
 
 [data-testid="stSidebar"] {
-    width: 370px !important;
+    width: 350px !important;
 }
 
 section[data-testid="stSidebar"] {
