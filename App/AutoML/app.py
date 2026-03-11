@@ -155,18 +155,19 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-/* Inner content inside main panel */
+/* Make main panel content start to the right of the sidebar */
 .block-container {
-    padding: 2rem !important;             /* spacing inside main panel */
-    margin: 0 !important;                 /* do not center */
-    max-width: none !important;           /* remove Streamlit max-width centering */
-    width: auto !important;               /* fill available space */
+    margin-left: 360px !important;   /* slightly larger than sidebar width (350px) */
+    padding: 2rem !important;        /* inner spacing */
+    max-width: none !important;      /* fill available space */
+    width: auto !important;
 }
 
-/* Optional: adjust for smaller screens */
+/* For smaller screens, remove offset so content is full width */
 @media (max-width: 992px) {
     .block-container {
-        padding: 1rem !important;         /* reduce padding on mobile */
+        margin-left: 0 !important;
+        padding: 1rem !important;
     }
 }
 
