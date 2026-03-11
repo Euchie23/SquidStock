@@ -49,7 +49,6 @@ st.markdown("""
 
 /* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
-    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
