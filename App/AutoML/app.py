@@ -67,7 +67,11 @@ st.markdown("""
     background-position: center;
 }
 
-[data-testid="stSidebar"] {
+# [data-testid="stSidebar"] {
+#     width: 370px !important;
+# }
+
+section[data-testid="stSidebar"][aria-expanded="true"] {
     width: 370px !important;
 }
 
@@ -101,7 +105,7 @@ st.markdown("""
 
 /* Sidebar radio button text */
 [data-testid="stSidebar"] [role="radiogroup"] label p {
-    font-size: 26px !important;
+    font-size: 20px !important;
     font-weight: 600 !important;
     color: #E1EAF2 !important;
 }
