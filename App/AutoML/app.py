@@ -155,21 +155,23 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-/* Shift actual main content based on sidebar state */
-[data-testid="stSidebar"][aria-expanded="true"] ~ div[data-testid="stAppViewContainer"] > .main {
-    margin-left: 350px !important;  /* sidebar width */
+/* Default padding-left for main panel (expanded sidebar) */
+.stApp {
+    padding-left: 350px !important;       /* expanded sidebar width */
+    transition: padding-left 0.3s ease;   /* smooth shift when sidebar toggles */
 }
 
-[data-testid="stSidebar"][aria-expanded="false"] ~ div[data-testid="stAppViewContainer"] > .main {
-    margin-left: 60px !important;   /* collapsed width */
+/* When sidebar is collapsed, reduce padding */
+[data-testid="stSidebar"][aria-expanded="false"] ~ .stApp {
+    padding-left: 60px !important;        /* collapsed sidebar width */
 }
 
-/* Inner content inside main panel */
+/* Inner content container */
 .block-container {
-    padding: 2rem !important;       /* inner spacing */
-    margin: 0 !important;           /* no centering */
-    max-width: none !important;     /* override Streamlit centering */
-    width: auto !important;         /* fill the shifted container */
+    padding: 2rem !important;             /* spacing inside main panel */
+    margin: 0 !important;                 /* do not center */
+    max-width: none !important;           /* remove Streamlit max-width centering */
+    width: auto !important;               /* fill available space */
 }
 
 /* ---------------------- Titles ---------------------- */
