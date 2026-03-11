@@ -56,7 +56,7 @@ st.markdown("""
     width: inherit;
     overflow-y: auto;        /* allows scrolling */
     min-height: 100vh;
-    padding-top: 1rem !important;
+    padding-top: 0.5rem !important;
     color: #E1EAF2;
     
     /* Combine background image + overlay so it scrolls with content */
@@ -164,9 +164,18 @@ div[data-testid="stSidebarResizer"] {
     z-index: 1;
 }
 
-[data-testid="stAppViewContainer"] > .main {
-    margin-left: 370px !important;
-    transition: margin-left 0.3s ease;
+/* Main content layout */
+[data-testid="stAppViewContainer"] {
+    margin-left: 370px !important;  /* match sidebar width */
+    margin-top: 0 !important;       /* flush to top */
+    padding: 0 2rem !important;
+}
+
+/* Block container inside main content */
+.block-container {
+    padding: 1rem 2rem !important;  /* reduce top padding */
+    margin: 0 !important;
+    max-width: 100% !important;
 }
 
 
@@ -264,88 +273,107 @@ p span.emoji {
 }
 
 /* ---------------------- Top bar ---------------------- */
-header, .css-nahz7x {
-    background-color: #001f3f !important;
+# header, .css-nahz7x {
+#     background-color: #001f3f !important;
+# }
+
+/* Hide Streamlit default top bar */
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+/* Hide toolbar container if it exists */
+[data-testid="stToolbar"] {
+    display: none !important;
 }
             
 /* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
 
 /* Keep the top bar visible and consistent */
-header[data-testid="stHeader"] {
-    background-color: #001f3f !important;
-    height: 3.5rem !important;
-    z-index: 1000 !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-}
+# header[data-testid="stHeader"] {
+#     background-color: #001f3f !important;
+#     height: 3.5rem !important;
+#     z-index: 1000 !important;
+#     position: fixed !important;
+#     top: 0 !important;
+#     left: 0 !important;
+#     right: 0 !important;
+# }
 
-/* Sidebar should start just below the fixed top bar */
+# /* Sidebar should start just below the fixed top bar */
+# [data-testid="stSidebar"] {
+#     position: fixed !important;
+#     top: 3.5rem !important;      /* push it down below header */
+#     height: calc(100vh - 3.5rem) !important;
+#     margin: 0 !important;
+# }
+
+# /* Sidebar inner div scrolls normally */
+# [data-testid="stSidebar"] > div:first-child {
+#     height: 100% !important;
+#     overflow-y: auto !important;
+# }
+
+# /* Main app container shifts down equally */
+# div[data-testid="stAppViewContainer"] {
+#     margin-top: 3.5rem !important;   /* align with sidebar */
+#     padding-top: 0 !important;
+# }
+
+# /* The block container keeps its scroll and padding */
+# .block-container {
+#     height: calc(100vh - 3.5rem) !important;
+#     overflow-y: auto !important;
+# }
+
 [data-testid="stSidebar"] {
-    position: fixed !important;
-    top: 3.5rem !important;      /* push it down below header */
-    height: calc(100vh - 3.5rem) !important;
-    margin: 0 !important;
+    top: 0 !important;
+    height: 100vh !important;
 }
 
-/* Sidebar inner div scrolls normally */
-[data-testid="stSidebar"] > div:first-child {
-    height: 100% !important;
-    overflow-y: auto !important;
-}
-
-/* Main app container shifts down equally */
 div[data-testid="stAppViewContainer"] {
-    margin-top: 3.5rem !important;   /* align with sidebar */
-    padding-top: 0 !important;
-}
-
-/* The block container keeps its scroll and padding */
-.block-container {
-    height: calc(100vh - 3.5rem) !important;
-    overflow-y: auto !important;
+    margin-top: 0 !important;
 }
 
 /* ---------------------- Sidebar + Main Layout Fix ---------------------- */
 
 /* Sidebar fixed below top bar */
-[data-testid="stSidebar"] {
-    position: fixed !important;
-    top: 3.5rem !important;      /* below top bar */
-    left: 0 !important;
-    width: 370px !important;
-    height: calc(100vh - 3.5rem) !important;
-    overflow-y: auto !important;
-    z-index: 100;
-}
+# [data-testid="stSidebar"] {
+#     position: fixed !important;
+#     top: 3.5rem !important;      /* below top bar */
+#     left: 0 !important;
+#     width: 370px !important;
+#     height: calc(100vh - 3.5rem) !important;
+#     overflow-y: auto !important;
+#     z-index: 100;
+# }
 
 /* Main content shifted to the right and below top bar */
-[data-testid="stAppViewContainer"] {
-    margin-left: 370px !important;  /* match sidebar width */
-    margin-top: 3.5rem !important;  /* below top bar */
-    padding: 0 2rem !important;
-}
+# [data-testid="stAppViewContainer"] {
+#     margin-left: 370px !important;  /* match sidebar width */
+#     margin-top: 0 !important;  /* below top bar */
+#     padding: 0 2rem !important;
+# }
 
 /* Block container inside main content */
-.block-container {
-    padding: 2rem !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-}
+# .block-container {
+#     padding: 2rem !important;
+#     margin: 0 !important;
+#     max-width: 100% !important;
+# }
 
 /* Responsive adjustments for smaller screens */
-@media (max-width: 992px) {
-    [data-testid="stAppViewContainer"] {
-        margin-left: 0 !important;
-    }
-    [data-testid="stSidebar"] {
-        position: relative !important;
-        width: 100% !important;
-        top: 0 !important;
-        height: auto !important;
-    }
-}
+# @media (max-width: 992px) {
+#     [data-testid="stAppViewContainer"] {
+#         margin-left: 0 !important;
+#     }
+#     [data-testid="stSidebar"] {
+#         position: relative !important;
+#         width: 100% !important;
+#         top: 0 !important;
+#         height: auto !important;
+#     }
+# }
 
 /* ---------------------- Buttons & Sliders ---------------------- */
 div.stButton > button:first-child {
@@ -366,6 +394,19 @@ div.stButton > button:first-child:hover {
 div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
+}
+
+/* ---------------------- Responsive ---------------------- */
+@media (max-width: 992px) {
+    [data-testid="stAppViewContainer"] {
+        margin-left: 0 !important;
+    }
+    [data-testid="stSidebar"] {
+        position: relative !important;
+        width: 100% !important;
+        top: 0 !important;
+        height: auto !important;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
