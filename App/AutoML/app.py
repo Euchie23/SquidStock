@@ -126,9 +126,9 @@ st.markdown("""
 }
             
 /* Make the sidebar background extend the full height */
-section[data-testid="stSidebar"] {
-    min-height: 100vh !important;
-}
+# section[data-testid="stSidebar"] {
+#     min-height: 100vh !important;
+# }
 
 /* Optional: adjust padding for expanders inside sidebar */
 section[data-testid="stSidebar"] .st-expander {
@@ -295,12 +295,6 @@ div[data-testid="stAppViewContainer"] {
     z-index: 100;
 }
 
-/* Main content shifted to the right and below top bar */
-[data-testid="stAppViewContainer"] {
-    margin-left: 370px !important;  /* match sidebar width */
-    margin-top: 0rem !important;  /* below top bar */
-    padding: 0 2rem !important;
-}
 
 /* Block container inside main content */
 .block-container {
@@ -342,6 +336,10 @@ div.stButton > button:first-child:hover {
 div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
+}
+
+button[data-testid="collapsedControl"] {
+    display: none !important;
 }
 </style>
 """, unsafe_allow_html=True)
