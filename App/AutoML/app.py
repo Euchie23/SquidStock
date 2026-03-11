@@ -49,7 +49,7 @@ st.markdown("""
 
 /* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
-    position: relative;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
@@ -286,13 +286,13 @@ div[data-testid="stAppViewContainer"] {
 
 /* Sidebar fixed below top bar */
 [data-testid="stSidebar"] {
-    position: relative !important;
+    position: fixed !important;
     top: 0rem !important;      /* below top bar */
     left: 0 !important;
     width: 370px !important;
-    height: 100vh !important;
+    height: (100vh - 3.5rem) !important;
     overflow-y: auto !important;
-    z-index: 9999 !important;
+    z-index: 100 !important;
 }
 
 /* Main content shifted to the right and below top bar */
