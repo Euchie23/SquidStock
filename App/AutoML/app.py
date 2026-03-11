@@ -290,7 +290,7 @@ div[data-testid="stAppViewContainer"] {
     top: 0rem !important;      /* below top bar */
     left: 0 !important;
     width: 370px !important;
-    height: calc(100vh - 3.5rem) !important;
+    height: 100vh !important;
     overflow-y: auto !important;
     z-index: 100;
 }
