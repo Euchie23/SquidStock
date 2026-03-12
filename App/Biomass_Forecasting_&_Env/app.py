@@ -30,82 +30,43 @@ import warnings
 warnings.filterwarnings("ignore")
 
 
-# ============================
-# CUSTOM CSS
-# ============================
-
+# =========================================================
+# ⚙️ CSS
+# =========================================================
 st.markdown("""
 <style>
 
-/* -------------------------------------------------- */
-/* GLOBAL APP BACKGROUND */
-/* -------------------------------------------------- */
-
-.stApp {
-    position: relative;
-    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    color: #E1EAF2;
-}
-
-.stApp::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(10, 47, 68, 0.70);
-    z-index: 0;
-}
-
-.stApp > * {
-    position: relative;
-    z-index: 1;
-}
-
-
-/* -------------------------------------------------- */
-/* REMOVE STREAMLIT UI ELEMENTS */
-/* -------------------------------------------------- */
-
-
-/* Hide top header and toolbar */
-header[data-testid="stHeader"],
-[data-testid="stToolbar"] {
-    display: none !important;
-}
-
-
-/* -------------------------------------------------- */
-/* FIXED SIDEBAR LAYOUT */
-/* -------------------------------------------------- */
-
-/* Fix sidebar */
+/* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
     position: fixed;
     top: 0;
     left: 0;
-    width: 370px;
-    height: 100vh;
-    overflow-y: auto;
-    z-index: 1000;
-
+    bottom: 0;
+    width: inherit;
+    overflow-y: auto;        /* allows scrolling */
+    min-height: 100vh;
+    padding-top: 1rem !important;
+    color: #E1EAF2;
+    
+    /* Combine background image + overlay so it scrolls with content */
     background:
-        linear-gradient(rgba(0,31,63,0.65), rgba(0,31,63,0.65)),
+        linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
         url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
-
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    color: #E1EAF2;
-
-    border-right: 2px solid rgba(255,255,255,0.15);
 }
 
-/* -------------------------------------------------- */
-/* SIDEBAR TYPOGRAPHY */
-/* -------------------------------------------------- */
+/* Ensure sidebar content is above overlay */
+[data-testid="stSidebar"] > div:first-child > * {
+    position: relative;
+    z-index: 1;
+}
+lor: rgba(0, 31, 63, 0.6);
+    z-index: 0;
+}
 
+/* Sidebar titles and headers */
 [data-testid="stSidebar"] h1,
 [data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3 {
@@ -115,122 +76,284 @@ header[data-testid="stHeader"],
     margin-top: 4px !important;
 }
 
-[data-testid="stSidebar"] p {
-    font-size: 18px !important;
+/* Sidebar 'Tabs' section header */
+[data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    color: #FFD700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+}
+
+/* Each sidebar radio button (tab option) */
+[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
     line-height: 1.6 !important;
 }
 
-
-# /* SIDEBAR RADIO TABS */
-
-[data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
-    font-size: 24px !important;
-    font-weight: 800 !important;
-    color: #FFD700 !important;
-    text-transform: uppercase;
-    text-align: center;
+/* Each radio option (“Overview”, etc.) */
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
 }
 
-[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
-    font-size: 32px !important;
-    font-weight: 900 !important;
+/* Sidebar links */
+[data-testid="stSidebar"] a {
+    font-size: 20px !important;
+    color: #39FF14 !important;
 }
 
-[data-testid="stSidebar"] [data-baseweb="radio"] label {
-    margin-bottom: 12px !important;
+/* Sidebar footer */
+.sidebar-footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    padding: 10px;
+}
+            
+/* Make the sidebar background extend the full height */
+section[data-testid="stSidebar"] {
+    min-height: 100vh !important;
+}
+
+/* Optional: adjust padding for expanders inside sidebar */
+section[data-testid="stSidebar"] .st-expander {
+    margin-bottom: 1rem;
+}
+
+/* ---------------------- Main panel ---------------------- */
+.stApp {
+    position: relative;
+    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #E1EAF2;
+}
+.stApp::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(10, 47, 68, 0.7);
+    z-index: 0;
+}
+.stApp > * {
+    position: relative;
+    z-index: 1;
+}
+
+.block-container {
+    overflow-y: auto !important;
+    height: 100vh !important;
+    padding-top: 4rem !important;
+    padding-bottom: 2rem !important;
+
+    /* Slightly more space on left and right */
+    padding-left: 5rem !important;  /* increased from 2rem */
+    padding-right: 2rem !important;
+
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    max-width: 100% !important;
+}
+
+section[data-testid="stSidebar"] + div {
+    margin-left: 18rem; /* sidebar width */
+}
+            
+/* ---------------------- Sidebar + Main Layout Fix ---------------------- */
+
+/* Sidebar width */
+[data-testid="stSidebar"] > div:first-child {
+    width: 370px !important;
+    min-width: 370px !important;
+}
+
+/* Remove default spacing from Streamlit wrappers */
+div[data-testid="stSidebar"],
+section[data-testid="stSidebar"] {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Force main content to start exactly at sidebar edge */
+div[data-testid="stAppViewContainer"] > div:nth-child(2) {
+    margin-left: 370px !important; /* match sidebar width */
+    padding-left: 0 !important;
+    margin-top: 0 !important;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Ensure Streamlit’s block container doesn’t add spacing */
+.block-container {
+    margin: 0 !important;
+    padding: 2rem 3rem !important;
+    max-width: 100% !important;
+    overflow-y: auto !important;
+    height: 100vh !important;
+}
+
+/* Collapsed sidebar behavior */
+@media (max-width: 992px) {
+    div[data-testid="stAppViewContainer"] > div:nth-child(2) {
+        margin-left: 0 !important;
+    }
+}
+
+/* Optional thin divider for visual clarity */
+[data-testid="stSidebar"] {
+    border-right: 1px solid rgba(57, 255, 20, 0.3);
 }
 
 
 
-/* -------------------------------------------------- */
-/* TITLES */
-/* -------------------------------------------------- */
-
+/* ---------------------- Titles ---------------------- */
 h1, .stTitle {
     font-size: 34px !important;
     font-weight: 800 !important;
     color: #39FF14 !important;
 }
 
-
-/* MARKDOWN TEXT */
-
-.stMarkdown,
-.stMarkdown p,
-.stMarkdown li {
+/* Markdown text */
+.stMarkdown, .stMarkdown p, .stMarkdown ul, .stMarkdown ol, .stMarkdown li, .stCaption {
     font-size: 20px !important;
     line-height: 1.8 !important;
     color: #E1EAF2 !important;
 }
+            
+/* ---------------------- 🟢 Markdown Headers Fix ---------------------- */
 
-
-/* MARKDOWN HEADERS */
-
-.stMarkdown h1 {font-size: 34px !important;}
-.stMarkdown h2 {font-size: 28px !important;}
-.stMarkdown h3 {font-size: 24px !important;}
-
-.stMarkdown h1,
-.stMarkdown h2,
-.stMarkdown h3 {
+/* Ensure Markdown titles keep the right color and size across the app */
+.stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
+.block-container h1, .block-container h2, .block-container h3,
+[data-testid="stSidebar"] .stMarkdown h1,
+[data-testid="stSidebar"] .stMarkdown h2,
+[data-testid="stSidebar"] .stMarkdown h3 {
     color: #39FF14 !important;
     font-weight: 800 !important;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
 }
 
+/* Header sizes */
+.stMarkdown h1, .block-container h1,
+[data-testid="stSidebar"] .stMarkdown h1 {
+    font-size: 34px !important;
+}
+.stMarkdown h2, .block-container h2,
+[data-testid="stSidebar"] .stMarkdown h2 {
+    font-size: 28px !important;
+}
+.stMarkdown h3, .block-container h3,
+[data-testid="stSidebar"] .stMarkdown h3 {
+    font-size: 24px !important;
+}
 
-/* -------------------------------------------------- */
-/* TABS */
-/* -------------------------------------------------- */
+/* Sidebar paragraph text */
+[data-testid="stSidebar"] .stMarkdown p {
+    color: #E1EAF2 !important;
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+}
 
+/* ---------------------- Tabs ---------------------- */
 .stTabs [data-baseweb="tab"] {
     font-size: 20px !important;
     padding: 12px 20px !important;
-    font-weight: 600;
-    color: #E1EAF2;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
 }
-
-.stTabs [aria-selected="true"] {
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
     color: #FFD700 !important;
     border-bottom: 3px solid #FFD700 !important;
 }
 
-
-/* -------------------------------------------------- */
-/* DATAFRAMES */
-/* -------------------------------------------------- */
-
+/* ---------------------- DataFrames ---------------------- */
+[data-testid="stDataFrame"] {
+    width: 100% !important;
+    margin-bottom: 1.5rem !important;
+}
 [data-testid="stDataFrame"] table {
     font-size: 19px !important;
+    line-height: 1.4 !important;
+    border-collapse: collapse !important;
 }
-
 [data-testid="stDataFrame"] th {
-    font-weight: 700;
-    background-color: rgba(0,31,63,0.85) !important;
+    font-weight: 700 !important;
+    background-color: rgba(0, 31, 63, 0.8) !important;
     color: #39FF14 !important;
+    padding: 8px !important;
 }
-
 [data-testid="stDataFrame"] td {
     color: #E1EAF2 !important;
+    padding: 6px !important;
 }
 
-/* -------------------------------------------------- */
-/* MOBILE RESPONSIVE */
-/* -------------------------------------------------- */
+/* ---------------------- Top bar ---------------------- */
+header, .css-nahz7x {
+    background-color: #001f3f !important;
+}
+            
+/* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
 
-@media (max-width: 992px) {
-
-    [data-testid="stSidebar"] {
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-    }
-
-    [data-testid="stAppViewContainer"] {
-        margin-left: 0 !important;
-    }
-
+/* Keep the top bar visible and consistent */
+header[data-testid="stHeader"] {
+    background-color: #001f3f !important;
+    height: 3.5rem !important;
+    z-index: 1000 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
 }
 
+/* Sidebar should start just below the fixed top bar */
+[data-testid="stSidebar"] {
+    position: fixed !important;
+    top: 3.5rem !important;      /* push it down below header */
+    height: calc(100vh - 3.5rem) !important;
+    margin: 0 !important;
+}
+
+/* Sidebar inner div scrolls normally */
+[data-testid="stSidebar"] > div:first-child {
+    height: 100% !important;
+    overflow-y: auto !important;
+}
+
+/* Main app container shifts down equally */
+div[data-testid="stAppViewContainer"] {
+    margin-top: 3.5rem !important;   /* align with sidebar */
+    padding-top: 0 !important;
+}
+
+/* The block container keeps its scroll and padding */
+.block-container {
+    height: calc(100vh - 3.5rem) !important;
+    overflow-y: auto !important;
+}
+
+/* ---------------------- Buttons ---------------------- */
+div.stButton > button:first-child {
+    background-color: #39FF14 !important;
+    color: #001f3f !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+div.stButton > button:first-child:hover {
+    background-color: #32CD32 !important;
+    color: #FFD700 !important;
+}
 
 /* ---------------------- Link Buttons (st.link_button) ---------------------- */
 a[data-testid="stLinkButton"] {
