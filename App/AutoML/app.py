@@ -147,9 +147,9 @@ header[data-testid="stHeader"],
     text-align: center;
 }
 
-[data-testid="stSidebar"] [data-baseweb="radio"] label p {
+[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
     font-size: 30px !important;
-    font-weight: 1000;
+    font-weight: 700 !important;
 }
 
 [data-testid="stSidebar"] [data-baseweb="radio"] label {
