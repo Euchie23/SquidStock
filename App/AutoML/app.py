@@ -131,7 +131,7 @@ header[data-testid="stHeader"],
     margin-top: 4px !important;
 }
 
-[data-testid="stSidebar"] p {
+[data-testid="stSidebar"] .stMarkdown p {
     font-size: 18px !important;
     line-height: 1.6 !important;
 }
