@@ -310,7 +310,7 @@ tabs = [
 # Custom "Tabs" header in the sidebar
 st.sidebar.markdown("""
 <div style="
-    font-size: 23px;
+    font-size: 28px;
     font-weight: 800;
     color: #FFD700;
     text-align: justify;
