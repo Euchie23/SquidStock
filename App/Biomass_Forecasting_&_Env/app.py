@@ -182,34 +182,34 @@ section[data-testid="stSidebar"] + div {
 /* ---------------------- Sidebar + Main Layout Fix ---------------------- */
 
 /* Sidebar width */
-[data-testid="stSidebar"] > div:first-child {
-    width: 370px !important;
-    min-width: 370px !important;
-}
+# [data-testid="stSidebar"] > div:first-child {
+#     width: 370px !important;
+#     min-width: 370px !important;
+# }
 
-/* Remove default spacing from Streamlit wrappers */
-div[data-testid="stSidebar"],
-section[data-testid="stSidebar"] {
-    padding: 0 !important;
-    margin: 0 !important;
-}
+# /* Remove default spacing from Streamlit wrappers */
+# div[data-testid="stSidebar"],
+# section[data-testid="stSidebar"] {
+#     padding: 0 !important;
+#     margin: 0 !important;
+# }
 
-/* Force main content to start exactly at sidebar edge */
-div[data-testid="stAppViewContainer"] > div:nth-child(2) {
-    margin-left: 370px !important; /* match sidebar width */
-    padding-left: 0 !important;
-    margin-top: 0 !important;
-    transition: margin-left 0.3s ease-in-out;
-}
+# /* Force main content to start exactly at sidebar edge */
+# div[data-testid="stAppViewContainer"] > div:nth-child(2) {
+#     margin-left: 370px !important; /* match sidebar width */
+#     padding-left: 0 !important;
+#     margin-top: 0 !important;
+#     transition: margin-left 0.3s ease-in-out;
+# }
 
-/* Ensure Streamlit’s block container doesn’t add spacing */
-.block-container {
-    margin: 0 !important;
-    padding: 2rem 3rem !important;
-    max-width: 100% !important;
-    overflow-y: auto !important;
-    height: 100vh !important;
-}
+# /* Ensure Streamlit’s block container doesn’t add spacing */
+# .block-container {
+#     margin: 0 !important;
+#     padding: 2rem 3rem !important;
+#     max-width: 100% !important;
+#     overflow-y: auto !important;
+#     height: 100vh !important;
+# }
 
 /* Collapsed sidebar behavior */
 @media (max-width: 992px) {
@@ -227,9 +227,9 @@ div[data-testid="stAppViewContainer"] > div:nth-child(2) {
 }
 
 /* Optional thin divider for visual clarity */
-[data-testid="stSidebar"] {
-    border-right: 1px solid rgba(57, 255, 20, 0.3);
-}
+# [data-testid="stSidebar"] {
+#     border-right: 1px solid rgba(57, 255, 20, 0.3);
+# }
 
 
 
