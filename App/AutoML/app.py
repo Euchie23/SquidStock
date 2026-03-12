@@ -1413,10 +1413,10 @@ if page == "Overview":
             text-align: center;
             box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
         ">
-            🎬 <a href="https://github.com/Euchie23/GeoTentacles/blob/main/Scripts/python/assets/video_under_construction.html"
+            🎬 <a href="https://euchie23.github.io/GeoTentacles/Scripts/python/video_under_construction.html"
                target="_blank" style="color:#FFD700; text-decoration:underline;">
                Watch Dashboard Tour
-            </a> — optional overview of the dashboard features
+            </a>
         </div>
     </div>
     """, unsafe_allow_html=True)
