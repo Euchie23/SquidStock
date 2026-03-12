@@ -131,7 +131,7 @@ header[data-testid="stHeader"],
     margin-top: 4px !important;
 }
 
-[data-testid="stSidebar"] .stMarkdown p {
+[data-testid="stSidebar"] p {
     font-size: 18px !important;
     line-height: 1.6 !important;
 }
@@ -155,6 +155,7 @@ header[data-testid="stHeader"],
 [data-testid="stSidebar"] [data-baseweb="radio"] label {
     margin-bottom: 12px !important;
 }
+
 
 
 /* -------------------------------------------------- */
