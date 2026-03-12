@@ -148,12 +148,12 @@ header[data-testid="stHeader"],
 }
 
 [data-testid="stSidebar"] [data-baseweb="radio"] label div p {
-    font-size: 30px !important;
-    font-weight: 700 !important;
+    font-size: 32px !important;
+    font-weight: 800 !important;
 }
 
 [data-testid="stSidebar"] [data-baseweb="radio"] label {
-    margin-bottom: 10px !important;
+    margin-bottom: 12px !important;
 }
 
 
