@@ -148,7 +148,7 @@ header[data-testid="stHeader"],
 }
 
 [data-testid="stSidebar"] [data-baseweb="radio"] label p {
-    font-size: 20px !important;
+    font-size: 23px !important;
     font-weight: 600;
 }
 
@@ -2577,6 +2577,24 @@ elif page == "Classification":
 
         > Note: The week number corresponds to the actual week being predicted. Models use historical trends and environmental features leading up to this week to forecast CPUE.
         """)
+    
+    elif all(p == "Medium" for p in preds.values()):
+        st.subheader(f"{week_label}: Medium CPUE Predicted")
+        st.write(f"""
+        All classifiers predict **MEDIUM CPUE** for {week_label}.
+    
+        This indicates **average catch rates and typical fishing conditions**.
+    
+        **Recommended actions:**
+    
+        - Maintain **standard fishing effort levels**.
+        - Continue **routine monitoring of squid populations**.
+        - Ensure **normal port logistics and processing capacity**.
+        - Monitor environmental indicators for potential shifts.
+    
+        > Note: The week number corresponds to the actual week being predicted.
+        """)
+    
 
     elif all(p == "Low" for p in preds.values()):
         st.subheader(f"{week_label}: Low CPUE Predicted")
