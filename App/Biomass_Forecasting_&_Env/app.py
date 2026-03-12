@@ -58,24 +58,24 @@ st.markdown("""
     z-index: 1;
 }
 
-# .block-container {
-#     overflow-y: auto !important;
-#     height: 100vh !important;
-#     padding-top: 4rem !important;
-#     padding-bottom: 2rem !important;
+.block-container {
+    overflow-y: auto !important;
+    height: 100vh !important;
+    padding-top: 4rem !important;
+    padding-bottom: 2rem !important;
 
-#     /* Slightly more space on left and right */
-#     padding-left: 5rem !important;  /* increased from 2rem */
-#     padding-right: 2rem !important;
+    /* Slightly more space on left and right */
+    padding-left: 5rem !important;  /* increased from 2rem */
+    padding-right: 2rem !important;
 
-#     margin-top: 0 !important;
-#     margin-bottom: 0 !important;
-#     max-width: 100% !important;
-# }
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    max-width: 100% !important;
+}
 
-# section[data-testid="stSidebar"] + div {
-#     margin-left: 18rem; /* sidebar width */
-# }
+section[data-testid="stSidebar"] + div {
+    margin-left: 18rem; /* sidebar width */
+}
 
 /* -------------------------------------------------- */
 /* REMOVE STREAMLIT UI ELEMENTS */
