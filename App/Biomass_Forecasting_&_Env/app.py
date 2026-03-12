@@ -36,6 +36,46 @@ warnings.filterwarnings("ignore")
 st.markdown("""
 <style>
 
+/* ---------------------- Main panel ---------------------- */
+.stApp {
+    position: relative;
+    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #E1EAF2;
+}
+.stApp::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(10, 47, 68, 0.7);
+    z-index: 0;
+}
+.stApp > * {
+    position: relative;
+    z-index: 1;
+}
+
+# .block-container {
+#     overflow-y: auto !important;
+#     height: 100vh !important;
+#     padding-top: 4rem !important;
+#     padding-bottom: 2rem !important;
+
+#     /* Slightly more space on left and right */
+#     padding-left: 5rem !important;  /* increased from 2rem */
+#     padding-right: 2rem !important;
+
+#     margin-top: 0 !important;
+#     margin-bottom: 0 !important;
+#     max-width: 100% !important;
+# }
+
+# section[data-testid="stSidebar"] + div {
+#     margin-left: 18rem; /* sidebar width */
+# }
 
 /* -------------------------------------------------- */
 /* REMOVE STREAMLIT UI ELEMENTS */
@@ -138,46 +178,6 @@ section[data-testid="stSidebar"] .st-expander {
     margin-bottom: 1rem;
 }
 
-/* ---------------------- Main panel ---------------------- */
-.stApp {
-    position: relative;
-    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    color: #E1EAF2;
-}
-.stApp::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(10, 47, 68, 0.7);
-    z-index: 0;
-}
-.stApp > * {
-    position: relative;
-    z-index: 1;
-}
-
-.block-container {
-    overflow-y: auto !important;
-    height: 100vh !important;
-    padding-top: 4rem !important;
-    padding-bottom: 2rem !important;
-
-    /* Slightly more space on left and right */
-    padding-left: 5rem !important;  /* increased from 2rem */
-    padding-right: 2rem !important;
-
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    max-width: 100% !important;
-}
-
-section[data-testid="stSidebar"] + div {
-    margin-left: 18rem; /* sidebar width */
-}
             
 /* ---------------------- Sidebar + Main Layout Fix ---------------------- */
 
