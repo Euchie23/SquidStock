@@ -165,7 +165,7 @@ header[data-testid="stHeader"],
 
 /* Radio options */
 [data-testid="stSidebar"] [data-baseweb="radio"] label div p {
-    font-size: 22px !important;
+    font-size: 25px !important;
     font-weight: 600 !important;
     color: #E1EAF2 !important;
     line-height: 1.7 !important;
