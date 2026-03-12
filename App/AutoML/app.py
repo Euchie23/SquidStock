@@ -1398,7 +1398,7 @@ if page == "Overview":
     <div style="
         display: flex;
         justify-content: center;          /* center horizontally */
-        margin-top: 10px;                 /* distance from top of panel */
+        margin-top: 5px;                 /* distance from top of panel */
         margin-bottom: 25px;              /* space below banner */
     ">
         <div style="
