@@ -122,34 +122,58 @@ header[data-testid="stHeader"],
 /* SIDEBAR TYPOGRAPHY */
 /* -------------------------------------------------- */
 
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3 {
-    font-size: 28px !important;
-    font-weight: 800 !important;
-    color: #39FF14 !important;
-    margin-top: 4px !important;
-}
+# [data-testid="stSidebar"] h1,
+# [data-testid="stSidebar"] h2,
+# [data-testid="stSidebar"] h3 {
+#     font-size: 28px !important;
+#     font-weight: 800 !important;
+#     color: #39FF14 !important;
+#     margin-top: 4px !important;
+# }
 
-[data-testid="stSidebar"] p {
-    font-size: 18px !important;
-    line-height: 1.6 !important;
-}
+# [data-testid="stSidebar"] p {
+#     font-size: 18px !important;
+#     line-height: 1.6 !important;
+# }
 
 
-/* SIDEBAR RADIO TABS */
+# /* SIDEBAR RADIO TABS */
 
+# [data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
+#     font-size: 24px !important;
+#     font-weight: 800 !important;
+#     color: #FFD700 !important;
+#     text-transform: uppercase;
+#     text-align: center;
+# }
+
+# [data-testid="stSidebar"] [data-baseweb="radio"] label p {
+#     font-size: 23px !important;
+#     font-weight: 600;
+# }
+
+/* Sidebar Tabs Header */
 [data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
-    font-size: 24px !important;
+    font-size: 25px !important;
     font-weight: 800 !important;
     color: #FFD700 !important;
-    text-transform: uppercase;
-    text-align: center;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
 }
 
-[data-testid="stSidebar"] [data-baseweb="radio"] label p {
-    font-size: 23px !important;
-    font-weight: 600;
+/* Radio options */
+[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
+    font-size: 22px !important;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
+    line-height: 1.7 !important;
+}
+
+/* Space between options */
+[data-testid="stSidebar"] [data-baseweb="radio"] label {
+    margin-bottom: 10px !important;
 }
 
 
