@@ -310,11 +310,11 @@ tabs = [
 # Custom "Tabs" header in the sidebar
 st.sidebar.markdown("""
 <div style="
-    font-size: 28px;
-    font-weight: 800;
+    font-size: 40px;
+    font-weight: 900;
     color: #FFD700;
     text-align: justify;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 ">
     Tabs:
 </div>
