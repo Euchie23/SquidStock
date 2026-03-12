@@ -149,7 +149,7 @@ header[data-testid="stHeader"],
 
 [data-testid="stSidebar"] [data-baseweb="radio"] label div p {
     font-size: 32px !important;
-    font-weight: 800 !important;
+    font-weight: 900 !important;
 }
 
 [data-testid="stSidebar"] [data-baseweb="radio"] label {
