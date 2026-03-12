@@ -83,10 +83,10 @@ section[data-testid="stSidebar"] + div {
 
 
 /* Hide top header and toolbar */
-header[data-testid="stHeader"],
-[data-testid="stToolbar"] {
-    display: none !important;
-}
+# header[data-testid="stHeader"],
+# [data-testid="stToolbar"] {
+#     display: none !important;
+# }
 
 /* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
@@ -319,9 +319,9 @@ h1, .stTitle {
 
 
 /* ---------------------- Top bar ---------------------- */
-# header, .css-nahz7x {
-#     background-color: #001f3f !important;
-# }
+header, .css-nahz7x {
+    background-color: #001f3f !important;
+}
             
 /* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
 
