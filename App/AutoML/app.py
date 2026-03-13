@@ -351,7 +351,7 @@ html, body, .stApp {
 st.sidebar.markdown("""
 <h1 style="font-size: 32px; font-weight: 800; text-align: center;">
     <img src="https://twemoji.maxcdn.com/v/latest/72x72/1f916.png" width="32" style="vertical-align:middle;"> 
-    Predictive Catch Models 
+    Predictive Catch 
     <img src="https://twemoji.maxcdn.com/v/latest/72x72/1f991.png" width="32" style="vertical-align:middle;">
 </h1>
 """, unsafe_allow_html=True)
