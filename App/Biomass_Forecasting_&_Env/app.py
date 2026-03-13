@@ -412,7 +412,6 @@ a[data-testid="stLinkButton"]:hover {
     max-width: 100% !important;
     padding-left: 2rem !important;
     padding-right: 2rem !important;
-
     margin-left: 370px !important;   /* match sidebar width */
 }
 
@@ -420,12 +419,6 @@ a[data-testid="stLinkButton"]:hover {
 
 html, body, .stApp {
     overflow-x: hidden !important;
-}
-
-/* Ensure main container respects viewport width */
-.block-container {
-    box-sizing: border-box !important;
-    width: calc(100vw - 370px) !important;
 }
 
 </style>
