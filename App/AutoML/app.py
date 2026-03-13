@@ -52,6 +52,40 @@ warnings.filterwarnings("ignore")
 st.markdown("""
 <style>
 
+/* ---------------------- Main panel ---------------------- */
+.stApp {
+    position: relative;
+    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #E1EAF2;
+}
+.stApp::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(10, 47, 68, 0.7);
+    z-index: 0;
+}
+.stApp > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* -------------------------------------------------- */
+/* REMOVE STREAMLIT UI ELEMENTS */
+/* -------------------------------------------------- */
+
+/* Hide top header and toolbar */
+header[data-testid="stHeader"],
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+
 /* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
     position: fixed;
@@ -68,9 +102,10 @@ st.markdown("""
     background:
         linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
         url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
-    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    color: #E1EAF2;
+    border-right: 2px solid rgba(255,255,255,0.15);
 }
 
 /* Ensure sidebar content is above overlay */
@@ -78,7 +113,6 @@ st.markdown("""
     position: relative;
     z-index: 1;
 }
-
 
 /* Sidebar titles and headers */
 [data-testid="stSidebar"] h1,
@@ -140,42 +174,24 @@ section[data-testid="stSidebar"] .st-expander {
     margin-bottom: 1rem;
 }
             
-/* Disable sidebar resize handle */
-div[data-testid="stSidebarResizer"] {
-    display: none !important;
-    pointer-events: none !important;
+[data-testid="stSidebar"] [data-baseweb="radio"] label {
+    margin-bottom: 12px !important;
 }
 
+/* Collapsed sidebar behavior */
+@media (max-width: 992px) {
 
-/* ---------------------- Main panel ---------------------- */
-.stApp {
-    position: relative;
-    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    color: #E1EAF2;
-}
-.stApp::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(10, 47, 68, 0.7);
-    z-index: 0;
-}
-.stApp > * {
-    position: relative;
-    z-index: 1;
-}
+    [data-testid="stSidebar"] {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+    }
 
-[data-testid="stAppViewContainer"] > .main {
-    margin-left: 370px !important;
-    margin-top: 0 !important;      /* flush with top */
-    transition: margin-left 0.3s ease;
+    [data-testid="stAppViewContainer"] {
+        margin-left: 0 !important;
+    }
+
 }
-
-
 
 /* ---------------------- Titles ---------------------- */
 h1, .stTitle {
@@ -269,65 +285,6 @@ p span.emoji {
     padding: 6px !important;
 }
         
-
-/* ---------------------- Sidebar + Main Layout Fix ---------------------- */
-
-# header[data-testid="stHeader"] {
-#     display: none !important;
-# }
-
-# [data-testid="stToolbar"] {
-#     display: none !important;
-# }
-
-# [data-testid="stSidebar"] {
-#     top: 0 !important;
-#     height: 100vh !important;
-# }
-
-# div[data-testid="stAppViewContainer"] {
-#     margin-top: 0 !important;
-# }
-
-/* Sidebar fixed below top bar */
-[data-testid="stSidebar"] {
-    position: fixed !important;
-    top: 0rem !important;      /* below top bar */
-    left: 0 !important;
-    width: 370px !important;
-    height: calc(100vh - 3.5rem) !important;
-    overflow-y: auto !important;
-    z-index: 100;
-}
-
-/* Main content shifted to the right and below top bar */
-[data-testid="stAppViewContainer"] {
-    margin-left: 370px !important;  /* match sidebar width */
-    margin-top: 0rem !important;  /* below top bar */
-    padding: 0 2rem !important;
-}
-
-/* Block container inside main content */
-.block-container {
-    padding: 2rem !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 992px) {
-    [data-testid="stAppViewContainer"] {
-        margin-left: 0 !important;
-    }
-    [data-testid="stSidebar"] {
-        position: relative !important;
-        width: 100% !important;
-        top: 0 !important;
-        height: auto !important;
-    }
-}
-
-
 /* ---------------------- Buttons & Sliders ---------------------- */
 div.stButton > button:first-child {
     background-color: #39FF14 !important;
@@ -348,6 +305,39 @@ div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
     font-weight: 600 !important;
 }
+
+/* ---------------------- Main Panel Alignment Fix ---------------------- */
+
+.block-container {
+    max-width: none !important;
+    margin-left: 0 !important;              /* start at left 0 */
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    box-sizing: border-box !important;
+
+    /* occupy full width minus sidebar width */
+    width: calc(100vw - 430px) !important;
+}
+
+/* ---------------------- Adjust when sidebar collapses ---------------------- */
+
+[data-testid="stSidebar"][aria-expanded="false"] ~ div .block-container {
+    width: calc(100vw - 80px) !important;
+}
+
+/* ---------------------- Inner content wrapper fix ---------------------- */
+
+.block-container > div {
+    max-width: 100% !important;
+    width: 100% !important;      /* prevents centering / wrapping */
+}
+
+/* ---------------------- Prevent Horizontal Scroll ---------------------- */
+
+html, body, .stApp {
+    overflow-x: hidden !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
