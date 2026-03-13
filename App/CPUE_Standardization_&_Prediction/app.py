@@ -46,25 +46,61 @@ st.set_page_config(page_title="Course Correction", layout="wide")
 st.markdown("""
 <style>
 
+/* ---------------------- Main panel ---------------------- */
+.stApp {
+    position: relative;
+    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #E1EAF2;
+}
+.stApp::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(10, 47, 68, 0.7);
+    z-index: 0;
+}
+.stApp > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* -------------------------------------------------- */
+/* REMOVE STREAMLIT UI ELEMENTS */
+/* -------------------------------------------------- */
+
+
+/* Hide top header and toolbar */
+header[data-testid="stHeader"],
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
 /* ---------------------- Sidebar ---------------------- */
 [data-testid="stSidebar"] > div:first-child {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    width: inherit;
+    width: 370px;
     overflow-y: auto;        /* allows scrolling */
-    min-height: 100vh;
-    padding-top: 1rem !important;
-    color: #E1EAF2;
+    height: 100vh;
+    z-index: 1000;
+    # padding-top: 1rem !important;
+    
     
     /* Combine background image + overlay so it scrolls with content */
     background:
         linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
         url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
-    background-repeat: no-repeat;
+    # background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    color: #E1EAF2;
+    border-right: 2px solid rgba(255,255,255,0.15);
 }
 
 /* Ensure sidebar content is above overlay */
@@ -72,9 +108,7 @@ st.markdown("""
     position: relative;
     z-index: 1;
 }
-# lor: rgba(0, 31, 63, 0.6);
-#     z-index: 0;
-# }
+
 
 /* Sidebar titles and headers */
 [data-testid="stSidebar"] h1,
@@ -136,85 +170,23 @@ section[data-testid="stSidebar"] .st-expander {
     margin-bottom: 1rem;
 }
 
-/* ---------------------- Main panel ---------------------- */
-.stApp {
-    position: relative;
-    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    color: #E1EAF2;
-}
-.stApp::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: rgba(10, 47, 68, 0.7);
-    z-index: 0;
-}
-.stApp > * {
-    position: relative;
-    z-index: 1;
-}
-
-.block-container {
-    overflow-y: auto !important;
-    height: 100vh !important;
-    padding-top: 4rem !important;
-    padding-bottom: 2rem !important;
-
-    /* Slightly more space on left and right */
-    padding-left: 5rem !important;  /* increased from 2rem */
-    padding-right: 2rem !important;
-
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    max-width: 100% !important;
-}
-
-/* ---------------------- Sidebar + Main Layout Fix ---------------------- */
-
-/* Sidebar width */
-[data-testid="stSidebar"] > div:first-child {
-    width: 370px !important;
-    min-width: 370px !important;
-}
-
-/* Remove default spacing from Streamlit wrappers */
-div[data-testid="stSidebar"],
-section[data-testid="stSidebar"] {
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-/* Force main content to start exactly at sidebar edge */
-div[data-testid="stAppViewContainer"] > div:nth-child(2) {
-    margin-left: 370px !important; /* match sidebar width */
-    padding-left: 0 !important;
-    margin-top: 0 !important;
-    transition: margin-left 0.3s ease-in-out;
-}
-
-/* Ensure Streamlit’s block container doesn’t add spacing */
-.block-container {
-    margin: 0 !important;
-    padding: 2rem 3rem !important;
-    max-width: 100% !important;
-    overflow-y: auto !important;
-    height: 100vh !important;
+[data-testid="stSidebar"] [data-baseweb="radio"] label {
+    margin-bottom: 12px !important;
 }
 
 /* Collapsed sidebar behavior */
 @media (max-width: 992px) {
-    div[data-testid="stAppViewContainer"] > div:nth-child(2) {
+
+    [data-testid="stSidebar"] {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    [data-testid="stAppViewContainer"] {
         margin-left: 0 !important;
     }
-}
 
-/* Optional thin divider for visual clarity */
-[data-testid="stSidebar"] {
-    border-right: 1px solid rgba(57, 255, 20, 0.3);
 }
 
 
@@ -301,50 +273,6 @@ h1, .stTitle {
     padding: 6px !important;
 }
 
-/* ---------------------- Top bar ---------------------- */
-header, .css-nahz7x {
-    background-color: #001f3f !important;
-}
-            
-/* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
-
-/* Keep the top bar visible and consistent */
-header[data-testid="stHeader"] {
-    background-color: #001f3f !important;
-    height: 3.5rem !important;
-    z-index: 1000 !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-}
-
-/* Sidebar should start just below the fixed top bar */
-[data-testid="stSidebar"] {
-    position: fixed !important;
-    top: 3.5rem !important;      /* push it down below header */
-    height: calc(100vh - 3.5rem) !important;
-    margin: 0 !important;
-}
-
-/* Sidebar inner div scrolls normally */
-[data-testid="stSidebar"] > div:first-child {
-    height: 100% !important;
-    overflow-y: auto !important;
-}
-
-/* Main app container shifts down equally */
-div[data-testid="stAppViewContainer"] {
-    margin-top: 3.5rem !important;   /* align with sidebar */
-    padding-top: 0 !important;
-}
-
-/* The block container keeps its scroll and padding */
-.block-container {
-    height: calc(100vh - 3.5rem) !important;
-    overflow-y: auto !important;
-}
-
 /* ---------------------- Buttons ---------------------- */
 div.stButton > button:first-child {
     background-color: #39FF14 !important;
@@ -380,6 +308,38 @@ a[data-testid="stLinkButton"]:hover {
     background-color: #32CD32 !important;  /* darker green on hover */
     color: #FFD700 !important;             /* golden text on hover */
     text-decoration: none !important;
+}
+
+/* ---------------------- Main Panel Alignment Fix ---------------------- */
+
+.block-container {
+    max-width: none !important;
+    margin-left: 0 !important;              /* start at left 0 */
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    box-sizing: border-box !important;
+
+    /* occupy full width minus sidebar width */
+    width: calc(100vw - 430px) !important;
+}
+
+/* ---------------------- Adjust when sidebar collapses ---------------------- */
+
+[data-testid="stSidebar"][aria-expanded="false"] ~ div .block-container {
+    width: calc(100vw - 80px) !important;
+}
+
+/* ---------------------- Inner content wrapper fix ---------------------- */
+
+.block-container > div {
+    max-width: 100% !important;
+    width: 100% !important;      /* prevents centering / wrapping */
+}
+
+/* ---------------------- Prevent Horizontal Scroll ---------------------- */
+
+html, body, .stApp {
+    overflow-x: hidden !important;
 }
 
 </style>
