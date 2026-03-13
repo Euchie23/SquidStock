@@ -409,11 +409,23 @@ a[data-testid="stLinkButton"]:hover {
 /* ---------------------- Main Panel Alignment Fix ---------------------- */
 
 .block-container {
-    max-width: 100% !important;
-    padding-left: 2rem !important;
+    max-width: none !important;
+    margin-left: 370px !important;   /* sidebar width */
+    padding-left: 1rem !important;
     padding-right: 2rem !important;
-    margin-left: 370px !important;   /* match sidebar width */
+
+    width: calc(100% - 370px) !important;  /* prevents horizontal scroll */
+    box-sizing: border-box !important;
 }
+
+
+/* ---------------------- Adjust when sidebar collapses ---------------------- */
+
+[data-testid="stSidebar"][aria-expanded="false"] ~ div .block-container {
+    margin-left: 80px !important;
+    width: calc(100% - 80px) !important;
+}
+
 
 /* ---------------------- Prevent Horizontal Scroll ---------------------- */
 
