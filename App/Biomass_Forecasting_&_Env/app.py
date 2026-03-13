@@ -416,7 +416,7 @@ a[data-testid="stLinkButton"]:hover {
     box-sizing: border-box !important;
 
     /* occupy full width minus sidebar width */
-    width: calc(100vw - 300px) !important;
+    width: calc(100vw - 320px) !important;
 }
 
 /* ---------------------- Adjust when sidebar collapses ---------------------- */
