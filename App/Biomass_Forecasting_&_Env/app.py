@@ -98,9 +98,7 @@ header[data-testid="stHeader"],
     position: relative;
     z-index: 1;
 }
-lor: rgba(0, 31, 63, 0.6);
-    z-index: 0;
-}
+
 
 /* Sidebar titles and headers */
 [data-testid="stSidebar"] h1,
