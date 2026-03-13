@@ -430,7 +430,7 @@ if st.session_state.edit_mode["active"]:
     col1, col2, col3 = st.columns([1, 1, 1])  # Adjust the middle column width
 
     with col2:
-        if st.button("❌ Cancel Edit"):
+        if st.button("❌ Exit Edit Mode"):
             st.session_state.redirect_page = st.session_state.edit_mode["tab"]
             st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
             st.session_state.preload_note_input = ""
@@ -624,6 +624,7 @@ else:
                         if not st.session_state.delete_confirm.get(delete_key, False):
                             if st.button("🗑", key=f"delete_{tab_name}_{i}"):
                                 st.session_state.delete_confirm[delete_key] = True
+                                st.session_state[expander_state_key] = True
                                 st.rerun()
                         else:
                             c1, c2 = st.columns(2)
