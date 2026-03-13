@@ -395,6 +395,9 @@ if "auto_expand_notes" not in st.session_state:
 if "notes_expanded" not in st.session_state:
     st.session_state.notes_expanded = False  # collapsed by default
 
+if "clear_note_input" not in st.session_state:
+    st.session_state.clear_note_input = False  # ✅ added for safe clearing
+
 # ---------------- Toast Message Handler ----------------
 if "toast_message" in st.session_state and st.session_state.toast_message:
     st.toast(st.session_state.toast_message)
@@ -444,7 +447,10 @@ if st.session_state.edit_mode["active"]:
             st.session_state.auto_expand_notes = False
             st.rerun()
 
-
+# ---------------- Safe Clear Trigger ----------------
+if st.session_state.clear_note_input:
+    st.session_state.note_input = ""
+    st.session_state.clear_note_input = False
 
 # Keep notes panel expander open if typing or editing
 st.session_state.notes_expanded = bool(st.session_state.note_input.strip()) or st.session_state.edit_mode["active"]
@@ -530,7 +536,9 @@ if page != "Logbook":
                         }
                         st.session_state.notes[page].append(new_entry)
                         st.session_state.toast_message = f"✅ 📸 Note saved to Logbook!"
+                        
                     # Force UI update after save
+                    st.session_state.clear_note_input = True
                     st.rerun()
                 else:
                     st.session_state.toast_message = "⚠️ Nothing to save (note is empty)."
