@@ -80,10 +80,10 @@ st.markdown("""
 /* -------------------------------------------------- */
 
 /* Hide top header and toolbar */
-# header[data-testid="stHeader"],
-# [data-testid="stToolbar"] {
-#     display: none !important;
-# }
+header[data-testid="stHeader"],
+[data-testid="stToolbar"] {
+    display: none !important;
+}
 
 
 /* ---------------------- Sidebar ---------------------- */
