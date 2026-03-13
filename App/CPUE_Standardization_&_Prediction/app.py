@@ -347,7 +347,16 @@ html, body, .stApp {
 
 
 # ---------------------- Sidebar Navigation ----------------------
-st.sidebar.title(" 🧭 Course Correction")
+st.sidebar.markdown("""
+<h1 style="font-size:32px; font-weight:800; text-align:center;">
+🧭 Course Correction
+</h1>
+""", unsafe_allow_html=True)
+
+st.sidebar.markdown(
+    "<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>",
+    unsafe_allow_html=True
+)
 
 tabs = [
     "Overview",
