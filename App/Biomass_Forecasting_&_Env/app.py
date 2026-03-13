@@ -569,7 +569,7 @@ if page != "Logbook":
                         st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
                     else:
                         st.session_state.notes[page].append(new_entry)
-                        st.session_state.toast_message = f"✅ Note saved to {page}!"
+                        st.session_state.toast_message = f"✅ Note saved to Logbook!"
 
                     # ✅ Trigger the safe clear for next rerun
                     st.session_state.clear_note_input = True
