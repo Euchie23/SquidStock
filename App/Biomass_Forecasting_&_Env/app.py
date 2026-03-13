@@ -406,6 +406,15 @@ a[data-testid="stLinkButton"]:hover {
     text-decoration: none !important;
 }
 
+/* ---------------------- Main Panel Alignment Fix ---------------------- */
+
+.block-container {
+    max-width: 100% !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    margin-left: 0 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
