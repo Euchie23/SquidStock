@@ -410,25 +410,26 @@ a[data-testid="stLinkButton"]:hover {
 
 .block-container {
     max-width: none !important;
-    margin-left: 350px !important;
-    padding-left: 1rem !important;
+    margin-left: 0 !important;              /* start at left 0 */
+    padding-left: 2rem !important;
     padding-right: 2rem !important;
-    width: calc(100% - 350px) !important;
     box-sizing: border-box !important;
-}
 
-/* ---------------------- Force Content Left ---------------------- */
-
-.block-container > div {
-    max-width: none !important;
-    margin-left: 0 !important;
+    /* occupy full width minus sidebar width */
+    width: calc(100vw - 350px) !important;
 }
 
 /* ---------------------- Adjust when sidebar collapses ---------------------- */
 
 [data-testid="stSidebar"][aria-expanded="false"] ~ div .block-container {
-    margin-left: 80px !important;
-    width: calc(100% - 80px) !important;
+    width: calc(100vw - 80px) !important;
+}
+
+/* ---------------------- Inner content wrapper fix ---------------------- */
+
+.block-container > div {
+    max-width: 100% !important;
+    width: 100% !important;      /* prevents centering / wrapping */
 }
 
 /* ---------------------- Prevent Horizontal Scroll ---------------------- */
