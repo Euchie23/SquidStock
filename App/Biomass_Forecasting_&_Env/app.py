@@ -410,11 +410,11 @@ a[data-testid="stLinkButton"]:hover {
 
 .block-container {
     max-width: none !important;
-    margin-left: 370px !important;   /* sidebar width */
+    margin-left: 350px !important;   /* sidebar width */
     padding-left: 1rem !important;
     padding-right: 2rem !important;
 
-    width: calc(100% - 370px) !important;  /* prevents horizontal scroll */
+    width: calc(100% - 350px) !important;  /* prevents horizontal scroll */
     box-sizing: border-box !important;
 }
 
