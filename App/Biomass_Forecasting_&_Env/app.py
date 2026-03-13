@@ -416,6 +416,18 @@ a[data-testid="stLinkButton"]:hover {
     margin-left: 370px !important;   /* match sidebar width */
 }
 
+/* ---------------------- Prevent Horizontal Scroll ---------------------- */
+
+html, body, .stApp {
+    overflow-x: hidden !important;
+}
+
+/* Ensure main container respects viewport width */
+.block-container {
+    box-sizing: border-box !important;
+    width: calc(100vw - 370px) !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
