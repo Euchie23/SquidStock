@@ -47,81 +47,40 @@ warnings.filterwarnings("ignore")
 
 
 # ============================
-# CUSTOM CSS
+# 2️⃣ CUSTOM CSS 
 # ============================
-
 st.markdown("""
 <style>
 
-/* -------------------------------------------------- */
-/* GLOBAL APP BACKGROUND */
-/* -------------------------------------------------- */
-
-.stApp {
-    position: relative;
-    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop");
+/* ---------------------- Sidebar ---------------------- */
+[data-testid="stSidebar"] > div:first-child {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: inherit;
+    overflow-y: auto;        /* allows scrolling */
+    min-height: 100vh;
+    padding-top: 0.5rem !important;
+    color: #E1EAF2;
+    
+    /* Combine background image + overlay so it scrolls with content */
+    background:
+        linear-gradient(rgba(0, 31, 63, 0.6), rgba(0, 31, 63, 0.6)),
+        url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    color: #E1EAF2;
 }
 
-.stApp::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(10, 47, 68, 0.70);
-    z-index: 0;
-}
-
-.stApp > * {
+/* Ensure sidebar content is above overlay */
+[data-testid="stSidebar"] > div:first-child > * {
     position: relative;
     z-index: 1;
 }
 
 
-/* -------------------------------------------------- */
-/* REMOVE STREAMLIT UI ELEMENTS */
-/* -------------------------------------------------- */
-
-
-/* Hide top header and toolbar */
-header[data-testid="stHeader"],
-[data-testid="stToolbar"] {
-    display: none !important;
-}
-
-
-/* -------------------------------------------------- */
-/* FIXED SIDEBAR LAYOUT */
-/* -------------------------------------------------- */
-
-/* Fix sidebar */
-[data-testid="stSidebar"] > div:first-child {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 370px;
-    height: 100vh;
-    overflow-y: auto;
-    z-index: 1000;
-
-    background:
-        linear-gradient(rgba(0,31,63,0.65), rgba(0,31,63,0.65)),
-        url("https://thumbs.dreamstime.com/b/underwater-seascape-ocean-coral-reef-deep-sea-bottom-swimming-under-water-marine-corals-background-vector-seaweed-algae-354608779.jpg");
-
-    background-size: cover;
-    background-position: center;
-    color: #E1EAF2;
-
-    border-right: 2px solid rgba(255,255,255,0.15);
-}
-
-/* -------------------------------------------------- */
-/* SIDEBAR TYPOGRAPHY */
-/* -------------------------------------------------- */
-
+/* Sidebar titles and headers */
 [data-testid="stSidebar"] h1,
 [data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3 {
@@ -131,154 +90,264 @@ header[data-testid="stHeader"],
     margin-top: 4px !important;
 }
 
-[data-testid="stSidebar"] p {
-    font-size: 18px !important;
+/* Sidebar 'Tabs' section header */
+[data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    color: #FFD700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-align: center !important;
+    margin-bottom: 10px !important;
+}
+
+/* Each sidebar radio button (tab option) */
+[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
     line-height: 1.6 !important;
 }
 
-
-# /* SIDEBAR RADIO TABS */
-
-[data-testid="stSidebar"] [data-testid="stRadioGroupLabel"] p {
-    font-size: 24px !important;
-    font-weight: 800 !important;
-    color: #FFD700 !important;
-    text-transform: uppercase;
-    text-align: center;
+/* Each radio option (“Overview”, etc.) */
+[data-testid="stSidebar"] [data-testid="stRadio"] div[role="radiogroup"] label p {
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
 }
 
-[data-testid="stSidebar"] [data-baseweb="radio"] label div p {
-    font-size: 32px !important;
-    font-weight: 900 !important;
+/* Sidebar links */
+[data-testid="stSidebar"] a {
+    font-size: 20px !important;
+    color: #39FF14 !important;
 }
 
-[data-testid="stSidebar"] [data-baseweb="radio"] label {
-    margin-bottom: 12px !important;
+/* Sidebar footer */
+.sidebar-footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    padding: 10px;
+}
+            
+/* Make the sidebar background extend the full height */
+section[data-testid="stSidebar"] {
+    min-height: 100vh !important;
+}
+
+/* Optional: adjust padding for expanders inside sidebar */
+section[data-testid="stSidebar"] .st-expander {
+    margin-bottom: 1rem;
+}
+            
+/* Disable sidebar resize handle */
+div[data-testid="stSidebarResizer"] {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+
+/* ---------------------- Main panel ---------------------- */
+.stApp {
+    position: relative;
+    background-image: url("https://images.unsplash.com/photo-1530951980629-fbeef86f69a1?q=80&w=2768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #E1EAF2;
+}
+.stApp::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(10, 47, 68, 0.7);
+    z-index: 0;
+}
+.stApp > * {
+    position: relative;
+    z-index: 1;
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    margin-left: 370px !important;
+    margin-top: 0 !important;      /* flush with top */
+    transition: margin-left 0.3s ease;
 }
 
 
 
-/* -------------------------------------------------- */
-/* TITLES */
-/* -------------------------------------------------- */
-
+/* ---------------------- Titles ---------------------- */
 h1, .stTitle {
     font-size: 34px !important;
     font-weight: 800 !important;
     color: #39FF14 !important;
 }
 
-
-/* MARKDOWN TEXT */
-
-.stMarkdown,
-.stMarkdown p,
-.stMarkdown li {
+/* Markdown text */
+.stMarkdown, .stMarkdown p, .stMarkdown ul, .stMarkdown ol, .stMarkdown li, .stCaption {
     font-size: 20px !important;
     line-height: 1.8 !important;
     color: #E1EAF2 !important;
 }
-
-
-/* MARKDOWN HEADERS */
-
-.stMarkdown h1 {font-size: 34px !important;}
-.stMarkdown h2 {font-size: 28px !important;}
-.stMarkdown h3 {font-size: 24px !important;}
-
-.stMarkdown h1,
-.stMarkdown h2,
-.stMarkdown h3 {
-    color: #39FF14 !important;
-    font-weight: 800 !important;
+            
+ /* Allow emojis to render using system default emoji font */
+h1 span.emoji, 
+h2 span.emoji,
+h3 span.emoji,
+p span.emoji {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+    font-weight: 400 !important;   /* emojis don’t like bold */
 }
 
+            
+/* ---------------------- 🟢 Markdown Headers Fix ---------------------- */
 
-/* -------------------------------------------------- */
-/* TABS */
-/* -------------------------------------------------- */
+/* Ensure Markdown titles keep the right color and size across the app */
+.stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
+.block-container h1, .block-container h2, .block-container h3,
+[data-testid="stSidebar"] .stMarkdown h1,
+[data-testid="stSidebar"] .stMarkdown h2,
+[data-testid="stSidebar"] .stMarkdown h3 {
+    color: #39FF14 !important;
+    font-weight: 800 !important;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+}
 
+/* Header sizes */
+.stMarkdown h1, .block-container h1,
+[data-testid="stSidebar"] .stMarkdown h1 {
+    font-size: 34px !important;
+}
+.stMarkdown h2, .block-container h2,
+[data-testid="stSidebar"] .stMarkdown h2 {
+    font-size: 28px !important;
+}
+.stMarkdown h3, .block-container h3,
+[data-testid="stSidebar"] .stMarkdown h3 {
+    font-size: 24px !important;
+}
+
+/* Sidebar paragraph text */
+[data-testid="stSidebar"] .stMarkdown p {
+    color: #E1EAF2 !important;
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+}
+
+/* ---------------------- Tabs ---------------------- */
 .stTabs [data-baseweb="tab"] {
     font-size: 20px !important;
     padding: 12px 20px !important;
-    font-weight: 600;
-    color: #E1EAF2;
+    font-weight: 600 !important;
+    color: #E1EAF2 !important;
 }
-
-.stTabs [aria-selected="true"] {
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
     color: #FFD700 !important;
     border-bottom: 3px solid #FFD700 !important;
 }
 
-
-/* -------------------------------------------------- */
-/* DATAFRAMES */
-/* -------------------------------------------------- */
-
+/* ---------------------- DataFrames ---------------------- */
+[data-testid="stDataFrame"] {
+    width: 100% !important;
+    margin-bottom: 1.5rem !important;
+}
 [data-testid="stDataFrame"] table {
     font-size: 19px !important;
+    line-height: 1.4 !important;
+    border-collapse: collapse !important;
 }
-
 [data-testid="stDataFrame"] th {
-    font-weight: 700;
-    background-color: rgba(0,31,63,0.85) !important;
+    font-weight: 700 !important;
+    background-color: rgba(0, 31, 63, 0.8) !important;
     color: #39FF14 !important;
+    padding: 8px !important;
 }
-
 [data-testid="stDataFrame"] td {
     color: #E1EAF2 !important;
+    padding: 6px !important;
+}
+        
+
+/* ---------------------- Sidebar + Main Layout Fix ---------------------- */
+
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+[data-testid="stSidebar"] {
+    top: 0 !important;
+    height: 100vh !important;
+}
+
+div[data-testid="stAppViewContainer"] {
+    margin-top: 0 !important;
+}
+
+/* Sidebar fixed below top bar */
+[data-testid="stSidebar"] {
+    position: fixed !important;
+    top: 0rem !important;      /* below top bar */
+    left: 0 !important;
+    width: 370px !important;
+    height: calc(100vh - 3.5rem) !important;
+    overflow-y: auto !important;
+    z-index: 100;
+}
+
+/* Main content shifted to the right and below top bar */
+[data-testid="stAppViewContainer"] {
+    margin-left: 370px !important;  /* match sidebar width */
+    margin-top: 0rem !important;  /* below top bar */
+    padding: 0 2rem !important;
+}
+
+/* Block container inside main content */
+.block-container {
+    padding: 2rem !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 992px) {
+    [data-testid="stAppViewContainer"] {
+        margin-left: 0 !important;
+    }
+    [data-testid="stSidebar"] {
+        position: relative !important;
+        width: 100% !important;
+        top: 0 !important;
+        height: auto !important;
+    }
 }
 
 
-/* -------------------------------------------------- */
-/* BUTTONS */
-/* -------------------------------------------------- */
-
-div.stButton > button {
+/* ---------------------- Buttons & Sliders ---------------------- */
+div.stButton > button:first-child {
     background-color: #39FF14 !important;
     color: #001f3f !important;
     font-size: 18px !important;
     font-weight: 700 !important;
-    border-radius: 8px;
-    border: none;
-    display: block;
-    margin: 0 auto;
+    border-radius: 8px !important;
+    border: none !important;
+    display: block !important;
+    margin: 0 auto !important;
 }
-
-div.stButton > button:hover {
+div.stButton > button:first-child:hover {
     background-color: #32CD32 !important;
     color: #FFD700 !important;
 }
-
-
-/* -------------------------------------------------- */
-/* SLIDERS */
-/* -------------------------------------------------- */
-
+            
 div[data-testid="stSlider"] label p {
     font-size: 1.2rem !important;
-    font-weight: 600;
+    font-weight: 600 !important;
 }
-
-
-/* -------------------------------------------------- */
-/* MOBILE RESPONSIVE */
-/* -------------------------------------------------- */
-
-@media (max-width: 992px) {
-
-    [data-testid="stSidebar"] {
-        position: relative !important;
-        width: 100% !important;
-        height: auto !important;
-    }
-
-    [data-testid="stAppViewContainer"] {
-        margin-left: 0 !important;
-    }
-
-}
-
 </style>
 """, unsafe_allow_html=True)
 
