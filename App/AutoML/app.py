@@ -356,6 +356,13 @@ st.sidebar.markdown("""
 </h1>
 """, unsafe_allow_html=True)
 
+
+st.sidebar.markdown(
+    "<hr style='border-top: 2px solid #39FF14; margin: 10px 0;'>",
+    unsafe_allow_html=True
+)
+
+
 # Tabs
 tabs = [
     "Overview",
