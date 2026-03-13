@@ -58,25 +58,6 @@ st.markdown("""
     z-index: 1;
 }
 
-# .block-container {
-#     overflow-y: auto !important;
-#     height: 100vh !important;
-#     padding-top: 4rem !important;
-#     padding-bottom: 2rem !important;
-
-#     /* Slightly more space on left and right */
-#     padding-left: 5rem !important;  /* increased from 2rem */
-#     padding-right: 2rem !important;
-
-#     margin-top: 0 !important;
-#     margin-bottom: 0 !important;
-#     max-width: 100% !important;
-# }
-
-# section[data-testid="stSidebar"] + div {
-#     margin-left: 18rem; /* sidebar width */
-# }
-
 /* -------------------------------------------------- */
 /* REMOVE STREAMLIT UI ELEMENTS */
 /* -------------------------------------------------- */
@@ -185,39 +166,6 @@ section[data-testid="stSidebar"] .st-expander {
     margin-bottom: 12px !important;
 }
 
-            
-/* ---------------------- Sidebar + Main Layout Fix ---------------------- */
-
-/* Sidebar width */
-# [data-testid="stSidebar"] > div:first-child {
-#     width: 370px !important;
-#     min-width: 370px !important;
-# }
-
-# /* Remove default spacing from Streamlit wrappers */
-# div[data-testid="stSidebar"],
-# section[data-testid="stSidebar"] {
-#     padding: 0 !important;
-#     margin: 0 !important;
-# }
-
-# /* Force main content to start exactly at sidebar edge */
-# div[data-testid="stAppViewContainer"] > div:nth-child(2) {
-#     margin-left: 370px !important; /* match sidebar width */
-#     padding-left: 0 !important;
-#     margin-top: 0 !important;
-#     transition: margin-left 0.3s ease-in-out;
-# }
-
-# /* Ensure Streamlit’s block container doesn’t add spacing */
-# .block-container {
-#     margin: 0 !important;
-#     padding: 2rem 3rem !important;
-#     max-width: 100% !important;
-#     overflow-y: auto !important;
-#     height: 100vh !important;
-# }
-
 /* Collapsed sidebar behavior */
 @media (max-width: 992px) {
 
@@ -232,12 +180,6 @@ section[data-testid="stSidebar"] .st-expander {
     }
 
 }
-
-/* Optional thin divider for visual clarity */
-# [data-testid="stSidebar"] {
-#     border-right: 1px solid rgba(57, 255, 20, 0.3);
-# }
-
 
 
 /* ---------------------- Titles ---------------------- */
@@ -321,53 +263,6 @@ h1, .stTitle {
     color: #E1EAF2 !important;
     padding: 6px !important;
 }
-
-
-
-
-/* ---------------------- Top bar ---------------------- */
-# header, .css-nahz7x {
-#     background-color: #001f3f !important;
-# }
-            
-/* ---------------------- 🧭 Fix Top Bar Alignment (Streamlit 1.51+) ---------------------- */
-
-# /* Keep the top bar visible and consistent */
-# header[data-testid="stHeader"] {
-#     background-color: #001f3f !important;
-#     height: 3.5rem !important;
-#     z-index: 1000 !important;
-#     position: fixed !important;
-#     top: 0 !important;
-#     left: 0 !important;
-#     right: 0 !important;
-# }
-
-# /* Sidebar should start just below the fixed top bar */
-# [data-testid="stSidebar"] {
-#     position: fixed !important;
-#     top: 3.5rem !important;      /* push it down below header */
-#     height: calc(100vh - 3.5rem) !important;
-#     margin: 0 !important;
-# }
-
-# /* Sidebar inner div scrolls normally */
-# [data-testid="stSidebar"] > div:first-child {
-#     height: 100% !important;
-#     overflow-y: auto !important;
-# }
-
-# /* Main app container shifts down equally */
-# div[data-testid="stAppViewContainer"] {
-#     margin-top: 3.5rem !important;   /* align with sidebar */
-#     padding-top: 0 !important;
-# }
-
-# /* The block container keeps its scroll and padding */
-# .block-container {
-#     height: calc(100vh - 3.5rem) !important;
-#     overflow-y: auto !important;
-# }
 
 /* ---------------------- Buttons ---------------------- */
 div.stButton > button:first-child {
@@ -695,7 +590,12 @@ else:
             if not notes:
                 continue
 
-            with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
+              # Check if the expander should be open
+            expander_state_key = f"expander_state_{tab_name}"
+            if expander_state_key not in st.session_state:
+                st.session_state[expander_state_key] = False
+
+            with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=st.session_state[expander_state_key]):
                 for i, note in enumerate(notes):
                     col1, col2, col3 = st.columns([6, 1, 1])
                     with col1:
@@ -737,6 +637,9 @@ else:
                                 if st.button("❌", key=f"cancel_del_{tab_name}_{i}"):
                                     st.session_state.delete_confirm[delete_key] = False
                                     st.rerun()
+
+                if 'auto_expand_notes' in st.session_state:
+                    st.session_state[expander_state_key] = st.session_state.auto_expand_notes
 
     # --- Final Observation + Download ---
     st.subheader("🧾 Final Observation")
