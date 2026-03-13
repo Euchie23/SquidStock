@@ -69,7 +69,7 @@ Standardized CPUE preserves consistent **seasonal peaks from March to May**, sup
 - Detection of environmentally driven shifts in catchability  
 
 An interactive application allows users to explore standardized CPUE trends and environmental context: 
-![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1uR5WzGxvV3coqzcsEk4sD3PcfadjU31T)<br>
+![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1wRbIG5D2wZBeN7Px_7NQ1cM6yJ4QALEK)<br>
 [**Launch the App**](https://squidstock-course-correction.streamlit.app)
 
 ---
