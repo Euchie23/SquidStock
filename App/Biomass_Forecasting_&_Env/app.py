@@ -412,7 +412,8 @@ a[data-testid="stLinkButton"]:hover {
     max-width: 100% !important;
     padding-left: 2rem !important;
     padding-right: 2rem !important;
-    margin-left: 0 !important;
+
+    margin-left: 370px !important;   /* match sidebar width */
 }
 
 </style>
