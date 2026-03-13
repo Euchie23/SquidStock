@@ -410,14 +410,19 @@ a[data-testid="stLinkButton"]:hover {
 
 .block-container {
     max-width: none !important;
-    margin-left: 350px !important;   /* sidebar width */
+    margin-left: 350px !important;
     padding-left: 1rem !important;
     padding-right: 2rem !important;
-
-    width: calc(100% - 350px) !important;  /* prevents horizontal scroll */
+    width: calc(100% - 350px) !important;
     box-sizing: border-box !important;
 }
 
+/* ---------------------- Force Content Left ---------------------- */
+
+.block-container > div {
+    max-width: none !important;
+    margin-left: 0 !important;
+}
 
 /* ---------------------- Adjust when sidebar collapses ---------------------- */
 
@@ -425,7 +430,6 @@ a[data-testid="stLinkButton"]:hover {
     margin-left: 80px !important;
     width: calc(100% - 80px) !important;
 }
-
 
 /* ---------------------- Prevent Horizontal Scroll ---------------------- */
 
