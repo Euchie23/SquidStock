@@ -437,7 +437,7 @@ if st.session_state.edit_mode["active"]:
     col1, col2, col3 = st.columns([1, 1, 1])  # Adjust the middle column width
 
     with col2:
-        if st.button("❌ Cancel Edit"):
+        if st.button("❌ Exit Edit Mode"):
             st.session_state.redirect_page = st.session_state.edit_mode["tab"]
             st.session_state.edit_mode = {"active": False, "tab": None, "index": None}
             st.session_state.preload_note_input = ""
@@ -547,7 +547,12 @@ else:
             if not notes:
                 continue
 
-            with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=False):
+                # Check if the expander should be open
+            expander_state_key = f"expander_state_{tab_name}"
+            if expander_state_key not in st.session_state:
+                st.session_state[expander_state_key] = False
+
+            with st.expander(f"🗂 {tab_name} ({len(notes)} notes)", expanded=st.session_state[expander_state_key]):
                 for i, note in enumerate(notes):
                     col1, col2, col3 = st.columns([6, 1, 1])
 
@@ -583,6 +588,7 @@ else:
                         if not st.session_state.delete_confirm.get(delete_key, False):
                             if st.button("🗑", key=f"delete_{tab_name}_{i}"):
                                 st.session_state.delete_confirm[delete_key] = True
+                                st.session_state[expander_state_key] = True
                                 st.rerun()  # immediately show confirm buttons
                         else:
                             c1, c2 = st.columns(2)
@@ -591,14 +597,17 @@ else:
                                     del st.session_state.notes[tab_name][i]
                                     st.session_state.delete_confirm.pop(delete_key, None)
                                     st.session_state.toast_message = f"🗑 Deleted note {i+1} from {tab_name}"
+                                    st.session_state[expander_state_key] = True
                                     st.rerun()  # immediately delete      
                             with c2:
                                 if st.button("❌", key=f"cancel_del_{tab_name}_{i}"):
                                     st.session_state.delete_confirm[delete_key] = False
+                                    st.session_state[expander_state_key] = True
                                     st.rerun()  # immediately decline
 
 
-    
+                if 'auto_expand_notes' in st.session_state:
+                    st.session_state[expander_state_key] = st.session_state.auto_expand_notes
 
     # 🧾 Final Observation Section
     st.subheader("🧾 Final Observation")
@@ -773,6 +782,46 @@ model_summary, cv_results, eval_results = load_model_data()
 
 
 if page == "Overview":
+
+     # --- remove top padding of Streamlit main panel ---
+    st.markdown("""
+    <style>
+    .block-container {
+        padding-top: 1rem !important;  /* small top padding, you can adjust */
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+
+    
+    # Centered Dashboard Tour banner
+    st.markdown("""
+    <div style="
+        display: flex;
+        justify-content: center;          /* center horizontally */
+        margin-top: 5px;                 /* distance from top of panel */
+        margin-bottom: 25px;              /* space below banner */
+    ">
+        <div style="
+            background-color: rgba(255, 215, 0, 0.1);   /* subtle gold background */
+            color: #FFD700;
+            padding: 8px 20px;
+            border-left: 4px solid #FFD700;            /* small gold accent */
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+            max-width: 600px;                           /* keeps it neat */
+            text-align: center;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        ">
+            🎬 <a href="https://euchie23.github.io/GeoTentacles/Scripts/python/video_under_construction.html"
+               target="_blank" style="color:#FFD700; text-decoration:underline;">
+               Watch Dashboard Tour
+            </a>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
     # -------------------- Cached video loader --------------------
     @st.cache_resource
     def load_video(path: str):
