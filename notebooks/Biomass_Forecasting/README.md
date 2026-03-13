@@ -113,7 +113,7 @@ Environmental conditions modulate growth over time
 
 Interactive App: Explore biomass forecasting based on different scenarios in a concise, user-friendly interface: 
 
-![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1uR5WzGxvV3coqzcsEk4sD3PcfadjU31T)<br>
+![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1IIvMyXS2a5iK9FwGZlOl39aEgAVoIIE4)<br>
 [Launch the App](https://squidstock-ocean-dynamics.streamlit.app)
 
 ---
