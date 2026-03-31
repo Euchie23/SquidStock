@@ -534,7 +534,7 @@ if page != "Logbook":
             with st.sidebar.expander("🔧 Expand to adjust EDPSM parameters", expanded=False):
                 params["K"] = st.slider("Carrying Capacity (tons)",  2_000_000, 8_000_000, params.get("K", 5_000_000), 100_000, help = "Upper biomass limit (K) — maximum total squid biomass the ecosystem can support.")
                 params["N0"] = st.slider("Initial Biomass (tons)",  500_000, 3_000_000, params.get("N0", 1_500_000), 50_000, help="Starting biomass at the beginning of the season (N₀). Should generally be ≤ 30% of K.")
-                params["r0"] = st.slider("Max Growth Rate (r₀)", 0.05, 0.3, params.get("r0", 0.15), 0.01, help="Intrinsic daily population growth rate (typical for fast-growing squid).")
+                params["r0"] = st.slider("Max Growth Rate (r₀)", 0.00, 0.10, params.get("r0", 0.15), 0.01, help="Intrinsic daily population growth rate (typical for fast-growing squid).")
                 params["T_opt"] = st.slider("Optimal Temperature (°C)", 10.0, 14.0, params.get("T_opt", 12.0), 0.1,  help="Temperature where growth rate and biomass production peak.")
                 params["sigma_T"] = st.slider("Temperature Tolerance (σₜ)", 1.0, 4.0, params.get("sigma_T", 3.0), 0.1, help="Thermal tolerance — how far above or below optimal temperature squid can still grow efficiently.")
                 params["q"] = st.slider("Catchability (q)", 1e-6, 1e-3, params.get("q", 5e-5), step=1e-6, format="%.6f", help="Fishing efficiency — how easily squid are caught per unit effort. Higher q means stronger harvest pressure.")
@@ -1014,7 +1014,8 @@ if page == "Overview":
 
     # ✅ Correct LaTeX rendering (inline)
     st.markdown(
-        r"The minimum biomass should satisfy \( N₀ \ge \frac{260{,}000}{0.30} \approx 867{,}000\ \text{tons} \)."
+        "The minimum biomass should satisfy "
+        r"$N_0 \ge \frac{260000}{0.30} \approx 867000\ \text{tons}$."
     )
 
     st.markdown("""
@@ -1126,7 +1127,7 @@ elif page == "Baseline Simulation":
     params = st.session_state.get("params", {})
     K = params.get("K", 5_000_000)
     N0 = params.get("N0", 1_500_000)
-    r0 = params.get("r0", 0.15)
+    r0 = params.get("r0", 0.03)
     T_opt = params.get("T_opt", 12.0)
     sigma_T = params.get("sigma_T", 3.0)
     q = params.get("q", 5e-5)
@@ -1400,7 +1401,8 @@ elif page == "Warming Scenario":
     df_warm["r_t"] = r0 * np.exp(-((df_warm["SST"] - T_opt) ** 2) / (2 * sigma_T**2))
 
     # --- Clarify environment vs effort
-    df_warm["EnvIndex"] = df_warm["E_env"]               # environmental favourability (0-1)
+    #df_warm["EnvIndex"] = df_warm["E_env"]               # environmental favourability (0-1)
+    df_warm["EnvIndex"] = np.exp(-((df_warm["SST"] - T_opt)**2) / (2 * sigma_T**2))
     df_monthly["EnvIndex"] = df_monthly["E_env"]
 
     # Effort (vessel-days) kept as separate column
@@ -1549,12 +1551,29 @@ elif page == "Warming Scenario":
             "⚖️ Small temperature changes don’t make much difference — the stock stays relatively stable overall."
         )
 
-    if avg_E_change > 3:
-        env_meaning = f"🌡️ Ocean conditions become slightly more favorable — about {avg_E_change:.1f}%  — a small boost in growth potential."
-    elif avg_E_change < -3:
-        env_meaning = f"🌡️ Ocean conditions become less favorable — around {abs(avg_E_change):.1f}% — warmer water makes things a bit tougher."
+    # if avg_E_change > 3:
+    #     env_meaning = f"🌡️ Ocean conditions become slightly more favorable — about {avg_E_change:.1f}%  — a small boost in growth potential."
+    # elif avg_E_change < -3:
+    #     env_meaning = f"🌡️ Ocean conditions become less favorable — around {abs(avg_E_change):.1f}% — warmer water makes things a bit tougher."
+    # else:
+    #     env_meaning = "🌡️ Minimal warming — conditions remain near optimal."
+
+    # --- Interpretation of environment after warming
+    if delta_T < 1:
+        env_meaning = (
+            "🌡️ Minimal warming — environmental conditions remain close to the species’ optimal range, "
+            "with little impact on growth potential."
+        )
+    elif delta_T < 3:
+        env_meaning = (
+            "🌡️ Moderate warming — environmental conditions begin shifting away from optimal, "
+            "producing a measurable, but manageable, effect on stock productivity."
+        )
     else:
-        env_meaning = "🌡️ Ocean conditions stay about the same — no big change from the baseline."
+        env_meaning = (
+            "🌡️ Strong warming — environmental conditions move beyond the species’ tolerance envelope, "
+            "likely reducing growth rates and overall biomass substantially."
+        )
 
 
     obs_text = f"""
