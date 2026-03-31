@@ -318,7 +318,7 @@ div[data-testid="stSlider"] label p {
     box-sizing: border-box !important;
 
     /* occupy full width minus sidebar width */
-    width: calc(100vw - 370px) !important;
+    width: calc(100vw - 450px) !important;
 }
 
 /* ---------------------- Adjust when sidebar collapses ---------------------- */
