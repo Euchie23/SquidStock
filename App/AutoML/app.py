@@ -312,13 +312,13 @@ div[data-testid="stSlider"] label p {
 
 .block-container {
     max-width: none !important;
-    margin-left: 300px !important;              /* start at left 0 */
+    margin-left: 0 !important;              /* start at left 0 */
     padding-left: 2rem !important;
     padding-right: 2rem !important;
     box-sizing: border-box !important;
 
     /* occupy full width minus sidebar width */
-    width: calc(100vw - 430px) !important;
+    width: calc(100vw - 370px) !important;
 }
 
 /* ---------------------- Adjust when sidebar collapses ---------------------- */
