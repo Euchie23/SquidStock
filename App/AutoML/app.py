@@ -318,13 +318,14 @@ div[data-testid="stSlider"] label p {
     box-sizing: border-box !important;
 
     /* occupy full width minus sidebar width */
-    width: calc(100vw - 450px) !important;
+    width: calc(100vw - 470px) !important;
 }
 
 /* ---------------------- Adjust when sidebar collapses ---------------------- */
 
 [data-testid="stSidebar"][aria-expanded="false"] ~ div .block-container {
-    width: calc(100vw - 80px) !important;
+    /* width: calc(100vw - 80px) !important;*/
+    margin-left: 80px !important;
 }
 
 /* ---------------------- Inner content wrapper fix ---------------------- */
