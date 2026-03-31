@@ -312,7 +312,7 @@ div[data-testid="stSlider"] label p {
 
 .block-container {
     max-width: none !important;
-    margin-left: 400px !important;              /* start at left 0 */
+    margin-left: 390px !important;              /* start at left 0 */
     padding-left: 2rem !important;
     padding-right: 2rem !important;
     box-sizing: border-box !important;
