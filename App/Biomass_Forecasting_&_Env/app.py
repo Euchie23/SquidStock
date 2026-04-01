@@ -1132,14 +1132,6 @@ elif page == "Baseline Simulation":
     sigma_T = params.get("sigma_T", 3.0)
     q = params.get("q", 2e-4)
 
-    # --- Catchability warning
-    q_init = mean_catch / (mean_effort * (mean_biomass_for_q + 1e-12))
-    if abs(q - q_init) / q_init > 0.5:
-        st.warning(
-            f"⚠️ Selected catchability ({q:.2e}) deviates substantially from data-driven estimate ({q_init:.2e}). "
-            "Results may be less realistic."
-        )
-
     num_sim = 500  # reduced for performance
 
     # --- STEP 1: Lightweight preprocessing cache
@@ -1199,6 +1191,18 @@ elif page == "Baseline Simulation":
     mean_catch = df_monthly["TotalCatch_tons"].mean()
     mean_biomass = df_monthly["Biomass_mean"].mean()
     exploitation_rate = mean_catch / mean_biomass if mean_biomass > 0 else np.nan
+
+     # Compute rough data-driven q
+    mean_effort = df_monthly["VesselDays"].mean()
+    mean_biomass_for_q = max(N0, mean_biomass)
+    q_init = mean_catch / (mean_effort * (mean_biomass_for_q + 1e-12))
+
+        # --- Catchability warning
+    if abs(q - q_init) / q_init > 0.5:
+        st.warning(
+            f"⚠️ Selected catchability ({q:.2e}) deviates substantially from data-driven estimate ({q_init:.2e}). "
+            "Results may be less realistic."
+        )
     
     # --- Color-coded exploitation indicator with q context
     if exploitation_rate < 0.01:
