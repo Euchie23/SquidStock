@@ -1563,34 +1563,34 @@ elif page == "Warming Scenario":
     dist_warm = mean_SST_warm - T_opt
 
     # --- Interpretation text
-if avg_pct_change > 5:
-    if abs(dist_warm) < abs(dist_baseline):
-        biomass_meaning = (
-            "📈 The stock shows improved performance under warming, likely because "
-            "temperatures move closer to the species’ thermal optimum."
-        )
+    if avg_pct_change > 5:
+        if abs(dist_warm) < abs(dist_baseline):
+            biomass_meaning = (
+                "📈 The stock shows improved performance under warming, likely because "
+                "temperatures move closer to the species’ thermal optimum."
+            )
+        else:
+            biomass_meaning = (
+                "📈 The stock increases under warming, although this may reflect model sensitivity "
+                "rather than improved environmental conditions."
+            )
+    
+    elif avg_pct_change < -5:
+        if abs(dist_warm) > abs(dist_baseline):
+            biomass_meaning = (
+                "📉 The stock declines under warming as temperatures move further away "
+                "from the species’ optimal range."
+            )
+        else:
+            biomass_meaning = (
+                "📉 The stock declines despite temperatures remaining near optimal, "
+                "suggesting other limiting factors may be influencing growth."
+            )
     else:
         biomass_meaning = (
-            "📈 The stock increases under warming, although this may reflect model sensitivity "
-            "rather than improved environmental conditions."
+            "⚖️ Biomass remains relatively stable, indicating limited sensitivity "
+            "to moderate temperature changes under current conditions."
         )
-
-elif avg_pct_change < -5:
-    if abs(dist_warm) > abs(dist_baseline):
-        biomass_meaning = (
-            "📉 The stock declines under warming as temperatures move further away "
-            "from the species’ optimal range."
-        )
-    else:
-        biomass_meaning = (
-            "📉 The stock declines despite temperatures remaining near optimal, "
-            "suggesting other limiting factors may be influencing growth."
-        )
-else:
-    biomass_meaning = (
-        "⚖️ Biomass remains relatively stable, indicating limited sensitivity "
-        "to moderate temperature changes under current conditions."
-    )
 
     # if avg_E_change > 3:
     #     env_meaning = f"🌡️ Ocean conditions become slightly more favorable — about {avg_E_change:.1f}%  — a small boost in growth potential."
