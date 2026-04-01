@@ -1323,26 +1323,46 @@ elif page == "Baseline Simulation":
        # --- Add some spacing above
     st.markdown("<br>", unsafe_allow_html=True)
 
+    #----computing distance to optimal
+    mean_SST = df_monthly["SST"].mean()
+    temp_offset = mean_SST - T_opt
+
     # --- Observation text with r_t interpretation
     avg_change = (df_monthly["Biomass_mean"].iloc[-1] - df_monthly["Biomass_mean"].iloc[0]) / df_monthly["Biomass_mean"].iloc[0]
     avg_r_t = df_monthly["r_t"].mean()
 
     if avg_change > 0.05:
-        obs_text = (
-            "Biomass is generally increasing under these baseline conditions 📈. "
-            f"On average, the growth rate (r_t) is {avg_r_t:.2f}, indicating favorable temperature conditions for population growth."
-        )
+        if abs(temp_offset) < 1.0:
+            obs_text = (
+                "Biomass is generally increasing under these baseline conditions 📈. "
+                f"Temperatures are close to the species’ optimal range (T_opt ≈ {T_opt:.1f}°C), "
+                f"supporting strong growth (average r_t ≈ {avg_r_t:.2f})."
+            )
+        else:
+            obs_text = (
+                "Biomass is increasing 📈, although temperatures are not perfectly optimal. "
+                f"This suggests growth remains robust (r_t ≈ {avg_r_t:.2f}) despite some environmental deviation."
+            )
+    
     elif avg_change < -0.05:
-        obs_text = (
-            "Biomass is decreasing under baseline conditions 📉. "
-            f"The growth rate (r_t) is relatively low ({avg_r_t:.2f}), suggesting temperatures may be suboptimal for growth."
-        )
+        if abs(temp_offset) > 1.5:
+            obs_text = (
+                "Biomass is decreasing under baseline conditions 📉. "
+                f"Temperatures deviate from the optimal range (T_opt ≈ {T_opt:.1f}°C), "
+                f"which likely suppresses growth (r_t ≈ {avg_r_t:.2f})."
+            )
+        else:
+            obs_text = (
+                "Biomass is declining 📉 despite temperatures being near optimal. "
+                "This suggests additional pressures (e.g., fishing or environmental variability) may be limiting the population."
+            )
+    
     else:
         obs_text = (
-            "Biomass is relatively stable ⚖️. "
-            f"Average growth rate (r_t) is {avg_r_t:.2f}, indicating that temperature conditions are generally adequate but not strongly promoting growth."
+            "Biomass remains relatively stable ⚖️. "
+            f"Temperatures are moderately suitable (r_t ≈ {avg_r_t:.2f}), "
+            "but not strongly driving population growth."
         )
-
     # --- Dark panel with larger font
     st.markdown(
         f"""
@@ -1537,19 +1557,40 @@ elif page == "Warming Scenario":
     baseline_env_mean = df_monthly["EnvIndex"].iloc[:duration].mean()
     avg_E_change = 100.0 * (df_warm["EnvIndex"].mean() - baseline_env_mean) / (baseline_env_mean + 1e-12)
 
+    mean_SST_baseline = df_monthly["SST"].iloc[:duration].mean()
+    mean_SST_warm = df_warm["SST"].mean()
+    dist_baseline = mean_SST_baseline - T_opt
+    dist_warm = mean_SST_warm - T_opt
+
     # --- Interpretation text
-    if avg_pct_change > 5:
+if avg_pct_change > 5:
+    if abs(dist_warm) < abs(dist_baseline):
         biomass_meaning = (
-            "📈 Fish stocks seem to do better in warmer waters — the population grows and stays healthy on average."
-        )
-    elif avg_pct_change < -5:
-        biomass_meaning = (
-            "📉 The stock declines under warmer conditions — likely because the water gets too warm for comfort."
+            "📈 The stock shows improved performance under warming, likely because "
+            "temperatures move closer to the species’ thermal optimum."
         )
     else:
         biomass_meaning = (
-            "⚖️ Small temperature changes don’t make much difference — the stock stays relatively stable overall."
+            "📈 The stock increases under warming, although this may reflect model sensitivity "
+            "rather than improved environmental conditions."
         )
+
+elif avg_pct_change < -5:
+    if abs(dist_warm) > abs(dist_baseline):
+        biomass_meaning = (
+            "📉 The stock declines under warming as temperatures move further away "
+            "from the species’ optimal range."
+        )
+    else:
+        biomass_meaning = (
+            "📉 The stock declines despite temperatures remaining near optimal, "
+            "suggesting other limiting factors may be influencing growth."
+        )
+else:
+    biomass_meaning = (
+        "⚖️ Biomass remains relatively stable, indicating limited sensitivity "
+        "to moderate temperature changes under current conditions."
+    )
 
     # if avg_E_change > 3:
     #     env_meaning = f"🌡️ Ocean conditions become slightly more favorable — about {avg_E_change:.1f}%  — a small boost in growth potential."
@@ -1581,7 +1622,7 @@ elif page == "Warming Scenario":
     <h3 style="color:#FFD700">🌍 Warming Scenario Summary (+{delta_T:.1f}°C)</h3>
     <p><b>1️⃣ Squid Population:</b> {biomass_meaning}</p>
     <p><b>2️⃣ Overall Change:</b> On average, biomass changed by {avg_pct_change:.1f}%,
-    ending at {final_change:.1f}% compared to the starting levels.  
+    ending at {final_change:.1f}% relative to initial biomass.
     In other words, the stock under warming was about 
     <strong>{'higher' if avg_pct_change > 0 else 'lower'}</strong> than the baseline by roughly 
     <strong>{abs(avg_pct_change):.1f}%</strong>.</p>
