@@ -1353,7 +1353,7 @@ elif page == "Baseline Simulation":
             )
         else:
             obs_text = (
-                "Biomass is declining 📉 despite temperatures being near optimal. "
+                "Biomass is declining 📉 despite temperatures being reasonably suitable. "
                 "This suggests additional pressures (e.g., fishing or environmental variability) may be limiting the population."
             )
     
