@@ -9,10 +9,11 @@ Building on **CPUE standardization** ([Course Correction](https://github.com/Euc
 This module simulates *Illex argentinus* biomass under **baseline and +2 °C warming scenarios** using an **Environmentally Dependent Surplus Production Model (EDSPM)**.  
 
 **Key Findings:**
-- **Short-term warming effect:** Early-season biomass (Jan–Mar) slightly increases, then converges back to baseline due to density dependence.  
+- **Warming effect:** Biomass increases under +2 °C warming and diverges from baseline over time, reflecting improved temperature-dependent growth rather than short-term gains.  
 - **CPUE vs Biomass:** Normalized CPUE is noisy and weakly correlated with actual biomass — catch rates reflect aggregation, effort, and gear efficiency rather than stock size.  
 - **Management Insight:** Environment-aware indicators are more reliable than CPUE alone for seasonal quota and closure decisions.  
-- **Data Scope:** Analysis focuses on **January–June** (21-year dataset).  
+- **Data Scope:** Analysis focuses on **January–June** (21-year dataset).
+- **Model limitation:** The simulation assumes a single thermal optimum, but Illex argentinus exhibits stage-specific and spatial habitat use (warm spawning, cold feeding grounds), meaning temperature-only responses may oversimplify real ecological dynamics.
 
 ---
 
@@ -76,12 +77,12 @@ Environmental conditions modulate growth over time
 | Parameter | Default value | Typical range | Meaning |
 |---:|---:|---:|---|
 | **K** | **5,000,000 tons** | 4–6 million | Ecosystem carrying capacity |
-| **N₀** | **1,500,000 tons** | 1–4 million | Start-season biomass |
-| **r₀ (r_max)** | **0.15 day⁻¹** | 0.015–0.30 | Max intrinsic growth |
+| **N₀** | **3,000,000 tons** | 1–4 million | Start-season biomass |
+| **r₀ (r_max)** | **0.03 day⁻¹** | 0.015–0.30 | Max intrinsic growth |
 | **Tₒₚₜ** | **12 °C** | 10–14 °C | Thermal optimum |
 | **σₜ** | **3 °C** | 2–4 °C | Thermal sensitivity |
 | **ΔT** | **+2.0 °C** | 0–4 °C | Warming scenario tested |
-| **q** | **5e-5** | tuneable | Catchability (harvest efficiency) |
+| **q** | **2e-4** | tuneable | Catchability (harvest efficiency) |
 
 ---
 
@@ -107,9 +108,9 @@ Environmental conditions modulate growth over time
 
 **Scenario:** +2 °C warming  
 
-- Early-season biomass (Jan–Mar) slightly increases, then returns to baseline due to density dependence  
-- **Management implication:** Early CPUE boosts do **not** indicate sustainable stock growth  
-- Use **environment-informed indicators** to guide seasonal closures, adaptive quotas, or survey timing
+- Biomass increases under warming and diverges from baseline over time due to improved temperature-dependent growth
+- **Management implication:** Apparent gains under warming may reflect model structure rather than true ecological benefit
+- Use environment-informed indicators cautiously, as temperature-only models may overestimate productivity gains
 
 Interactive App: Explore biomass forecasting based on different scenarios in a concise, user-friendly interface: 
 
@@ -144,14 +145,20 @@ Interactive App: Explore biomass forecasting based on different scenarios in a c
 - **E(t) linear composition:**  
   Future iterations could apply **PCA-derived weighting** or include **SSH, mixed-layer depth**, or **wind anomalies**.  
 - **Spatial homogeneity:**  
-  Model is non-spatial; a **spatiotemporal EDSPM** could reveal distributional shifts under climate forcing.  
+  Model is non-spatial; a **spatiotemporal EDSPM** could reveal distributional shifts under climate forcing.
+- **Single thermal optimum assumption:**
+  The model assumes one optimal temperature for growth, but Illex argentinus exhibits stage-specific and spatial thermal preferences   (warm spawning vs cold feeding grounds), which are not captured.
+- **No migration dynamics:**
+  The species undergoes large-scale seasonal migrations between the Brazil and Malvinas currents; the model treats biomass as spatially fixed, potentially misrepresenting environmental effects.
+- **No explicit productivity (upwelling) effects:**
+  Cold, nutrient-rich waters enhance prey availability in reality, but the model links temperature directly to growth, potentially misclassifying productive cold habitats as suboptimal.  
 
 ---
 
 ## 🧭 Summary Statement
 
 *Illex argentinus* populations show **climate sensitivity without instability** — a hallmark of resilient but responsive species.  
-Under moderate warming, biomass gains are **short-lived**, CPUE decouples from true abundance, and environmental cycles strengthen but stay rhythmic.  
+Under moderate warming, biomass increases in the model due to improved alignment with a thermal optimum; however, this response likely overestimates real-world benefits because key ecological processes (migration, spatial structure, and productivity gradients) are not explicitly represented.  
 The EDSPM framework therefore provides a realistic, mechanistic basis for **forecasting squid productivity under changing ocean conditions.** 
 In practice, this framework enables agencies and consultancies to stress-test seasonal management strategies under plausible climate scenarios before implementation, rather than reacting to CPUE signals after change has already occurred.
 
@@ -195,7 +202,7 @@ This curve defines how intrinsic population growth responds to temperature, peak
 
 ### **Simulated Biomass Under Two Scenarios** 
 Baseline vs +2 °C warming (Jan–Jun)  
-*Shows short-lived biomass gains under warming that fade due to density dependence*
+*Shows sustained biomass divergence under warming due to enhanced temperature-dependent growth*
 - **Panel 1 – Simulated Biomass Under Two Scenarios**
 - **Panel 2 – % Change in Biomass Due to Warming**
 - **Panel 3 – Environmental Effect Index E(t)**
