@@ -1363,6 +1363,15 @@ elif page == "Baseline Simulation":
             f"Temperatures are moderately suitable (r_t ≈ {avg_r_t:.2f}), "
             "but not strongly driving population growth."
         )
+
+    # --- Confidence assessment (baseline)
+    if abs(temp_offset) < 0.5 and abs(avg_change) > 0.05:
+        confidence = "🟢 High confidence — system is close to optimal and response is strong."
+    elif abs(temp_offset) < 1.5:
+        confidence = "🟡 Moderate confidence — conditions are reasonably suitable, but not perfectly optimal."
+    else:
+        confidence = "🔴 Lower confidence — system is far from optimal, results may be sensitive to assumptions."
+        
     # --- Dark panel with larger font
     st.markdown(
         f"""
@@ -1376,6 +1385,8 @@ elif page == "Baseline Simulation":
             line-height: 1.6;
         ">
         {obs_text}
+        <br><br>
+        <b>Confidence:</b> {confidence}
         </div>
         """,
         unsafe_allow_html=True
@@ -1614,8 +1625,18 @@ elif page == "Warming Scenario":
         env_meaning = (
             "🌡️ Strong warming — environmental conditions move beyond the species’ tolerance envelope, "
             "likely reducing growth rates and overall biomass substantially."
-        )
-
+            )
+    
+    # --- Confidence assessment (warming)
+    if avg_pct_change > 5 and abs(dist_warm) < abs(dist_baseline):
+        confidence = "🟢 High confidence — warming improves alignment with optimal temperature and response is consistent."
+    elif avg_pct_change < -5 and abs(dist_warm) > abs(dist_baseline):
+        confidence = "🟢 High confidence — warming moves conditions away from optimal, driving decline as expected."
+    elif abs(avg_pct_change) < 5:
+        confidence = "🟡 Moderate confidence — system shows limited sensitivity to warming."
+    else:
+        confidence = "🔴 Lower confidence — response does not clearly match temperature-optimum dynamics."
+        
 
     obs_text = f"""
     <div style="background-color: rgba(0,0,0,0.5); padding: 20px; border-radius:10px; color:#E1EAF2;">
@@ -1623,10 +1644,11 @@ elif page == "Warming Scenario":
     <p><b>1️⃣ Squid Population:</b> {biomass_meaning}</p>
     <p><b>2️⃣ Overall Change:</b> On average, biomass changed by {avg_pct_change:.1f}%,
     ending at {final_change:.1f}% relative to initial biomass.
-    In other words, the stock under warming was about 
+    In other words, the stock under warming was 
     <strong>{'higher' if avg_pct_change > 0 else 'lower'}</strong> than the baseline by roughly 
     <strong>{abs(avg_pct_change):.1f}%</strong>.</p>
     <p><b>3️⃣ Ocean Conditions:</b> {env_meaning}</p>
+    <p><b>Confidence:</b> {confidence}</p>
     <p><b>Baseline starting biomass:</b> {N0:,.0f} tons — catchability (q): {q:.2e}</p>
     </div>
     """
