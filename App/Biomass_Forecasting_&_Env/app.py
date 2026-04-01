@@ -1335,7 +1335,7 @@ elif page == "Baseline Simulation":
         if abs(temp_offset) < 1.0:
             obs_text = (
                 "Biomass is generally increasing under these baseline conditions 📈. "
-                f"Temperatures are close to the species’ optimal range (T_opt ≈ {T_opt:.1f}°C), "
+                f"Temperatures are slightly below the species’ optimal range (T_opt ≈ {T_opt:.1f}°C), "
                 f"supporting strong growth (average r_t ≈ {avg_r_t:.2f})."
             )
         else:
@@ -1607,7 +1607,7 @@ elif page == "Warming Scenario":
         )
     elif delta_T < 3:
         env_meaning = (
-            "🌡️ Moderate warming — environmental conditions begin shifting away from optimal, "
+            "🌡️ Moderate warming — environmental conditions moving toward the species’ optimal range, "
             "producing a measurable, but manageable, effect on stock productivity."
         )
     else:
