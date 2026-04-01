@@ -1126,7 +1126,7 @@ elif page == "Baseline Simulation":
     st.header("⚙️ Baseline Biomass Simulation")
     params = st.session_state.get("params", {})
     K = params.get("K", 5_000_000)
-    N0 = params.get("N0", 1_500_000)
+    N0 = params.get("N0", 3_000_000)
     r0 = params.get("r0", 0.03)
     T_opt = params.get("T_opt", 12.0)
     sigma_T = params.get("sigma_T", 3.0)
