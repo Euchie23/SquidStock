@@ -533,7 +533,7 @@ if page != "Logbook":
             """, unsafe_allow_html=True)
             with st.sidebar.expander("🔧 Expand to adjust EDPSM parameters", expanded=False):
                 params["K"] = st.slider("Carrying Capacity (tons)",  2_000_000, 8_000_000, params.get("K", 5_000_000), 100_000, help = "Upper biomass limit (K) — maximum total squid biomass the ecosystem can support.")
-                params["N0"] = st.slider("Initial Biomass (tons)",  500_000, 3_000_000, params.get("N0", 1_500_000), 50_000, help="Starting biomass at the beginning of the season (N₀). Should generally be ≤ 30% of K.")
+                params["N0"] = st.slider("Initial Biomass (tons)",  1_000_000, 5_000_000, params.get("N0", 3_000_000), 50_000, help="Starting biomass at the beginning of the season (N₀). N₀ typically ranges between 40–80% of carrying capacity (K) for a mature stock. Lower values may represent depleted or recovering populations")
                 params["r0"] = st.slider("Max Growth Rate (r₀)", 0.00, 0.10, params.get("r0", 0.03), 0.01, help="Intrinsic daily population growth rate (typical for fast-growing squid).")
                 params["T_opt"] = st.slider("Optimal Temperature (°C)", 10.0, 14.0, params.get("T_opt", 12.0), 0.1,  help="Temperature where growth rate and biomass production peak.")
                 params["sigma_T"] = st.slider("Temperature Tolerance (σₜ)", 1.0, 4.0, params.get("sigma_T", 3.0), 0.1, help="Thermal tolerance — how far above or below optimal temperature squid can still grow efficiently.")
@@ -1405,7 +1405,7 @@ elif page == "Warming Scenario":
     r0 = params.get("r0", 0.03)
     T_opt = params.get("T_opt", 12.0)
     sigma_T = params.get("sigma_T", 3.0)
-    N0 = params.get("N0", 1_500_000)
+    N0 = params.get("N0", 3_000_000)
     K = params.get("K", 5_000_000)            # or 1_000_000 depending on defaults
     duration = int(params.get("duration", 24))
     show_baseline = params.get("show_baseline", True)
