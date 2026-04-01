@@ -1021,7 +1021,7 @@ if page == "Overview":
     st.markdown("""
     **Calibrated defaults (ecologically realistic):**
     - Carrying capacity (**K**) = **5,000,000 tons**  
-    - Initial biomass (**N₀**) = **1,500,000 tons**  
+    - Initial biomass (**N₀**) = **3,000,000 tons**  
     - Growth rate (**r₀**) = **0.15 day⁻¹**  
     - Optimal temperature (**Tₒpt**) = **12 °C**  
     - Temperature tolerance (**σₜ**) = **3 °C**  
