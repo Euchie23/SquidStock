@@ -537,7 +537,7 @@ if page != "Logbook":
                 params["r0"] = st.slider("Max Growth Rate (r₀)", 0.00, 0.10, params.get("r0", 0.03), 0.01, help="Intrinsic daily population growth rate (typical for fast-growing squid).")
                 params["T_opt"] = st.slider("Optimal Temperature (°C)", 10.0, 14.0, params.get("T_opt", 12.0), 0.1,  help="Temperature where growth rate and biomass production peak.")
                 params["sigma_T"] = st.slider("Temperature Tolerance (σₜ)", 1.0, 4.0, params.get("sigma_T", 3.0), 0.1, help="Thermal tolerance — how far above or below optimal temperature squid can still grow efficiently.")
-                params["q"] = st.slider("Catchability (q)", 1e-6, 1e-3, params.get("q", 5e-5), step=1e-6, format="%.6f", help="Fishing efficiency — how easily squid are caught per unit effort. Higher q means stronger harvest pressure.")
+                params["q"] = st.slider("Catchability (q)", 1e-6, 1e-3, params.get("q", 2e-4), step=1e-6, format="%.6f", help="Fishing efficiency — how easily squid are caught per unit effort. Higher q means stronger harvest pressure.")
         elif page == "Warming Scenario":
             st.sidebar.markdown("<h3 style='color:#FFD700;'>🌡️ Warming Controls</h3>", unsafe_allow_html=True)
             with st.sidebar.expander("🌍 Expand to adjust scenario parameters", expanded=False):
@@ -1130,7 +1130,15 @@ elif page == "Baseline Simulation":
     r0 = params.get("r0", 0.03)
     T_opt = params.get("T_opt", 12.0)
     sigma_T = params.get("sigma_T", 3.0)
-    q = params.get("q", 5e-5)
+    q = params.get("q", 2e-4)
+
+    # --- Catchability warning
+    q_init = 2e-4  # recommended default
+    if abs(q - q_init) / q_init > 0.5:
+        st.warning(
+            "⚠️ Selected catchability deviates substantially from the data-driven estimate. "
+            "Results may be less realistic."
+        )
 
     num_sim = 500  # reduced for performance
 
@@ -1409,7 +1417,7 @@ elif page == "Warming Scenario":
     K = params.get("K", 5_000_000)            # or 1_000_000 depending on defaults
     duration = int(params.get("duration", 24))
     show_baseline = params.get("show_baseline", True)
-    q = params.get("q", 5e-5)                 # catchability (default if not set)
+    q = params.get("q", 2e-4)                 # catchability (default if not set)
 
     # --- Ensure baseline Monte Carlo exists
     df_monthly = st.session_state.get("baseline_df", None)
