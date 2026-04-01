@@ -1133,10 +1133,10 @@ elif page == "Baseline Simulation":
     q = params.get("q", 2e-4)
 
     # --- Catchability warning
-    q_init = 2e-4  # recommended default
+    q_init = mean_catch / (mean_effort * (mean_biomass_for_q + 1e-12))
     if abs(q - q_init) / q_init > 0.5:
         st.warning(
-            "⚠️ Selected catchability deviates substantially from the data-driven estimate. "
+            f"⚠️ Selected catchability ({q:.2e}) deviates substantially from data-driven estimate ({q_init:.2e}). "
             "Results may be less realistic."
         )
 
@@ -1194,19 +1194,33 @@ elif page == "Baseline Simulation":
     with st.spinner("Running baseline simulation..."):
         df_monthly = get_baseline_result(df_monthly, K, N0, r0, T_opt, sigma_T, q, num_sim)
 
-    # --- Exploitation rate
+
+   # --- Exploitation rate
     mean_catch = df_monthly["TotalCatch_tons"].mean()
     mean_biomass = df_monthly["Biomass_mean"].mean()
     exploitation_rate = mean_catch / mean_biomass if mean_biomass > 0 else np.nan
-    # --- Color-coded exploitation indicator
+    
+    # --- Color-coded exploitation indicator with q context
     if exploitation_rate < 0.01:
-        color, verdict = "#FF4C4C", "⚠️ Extremely low exploitation — biomass likely overestimated or catches too small."
+        color, verdict = "#FF4C4C", (
+            "⚠️ Extremely low exploitation — biomass likely overestimated or catches too small. "
+            f"Catchability is set to {q:.2e}, so effective fishing pressure is slightly higher than raw rate implies."
+        )
     elif exploitation_rate < 0.10:
-        color, verdict = "#FFD700", "🟡 Low exploitation — fishery lightly utilized, check biomass initialization."
+        color, verdict = "#FFD700", (
+            "🟡 Low exploitation — fishery lightly utilized. "
+            f"Catchability ({q:.2e}) is moderate; some biomass reduction is expected, but stock is mostly stable."
+        )
     elif exploitation_rate <= 0.35:
-        color, verdict = "#00FF88", "✅ Plausible exploitation range (biologically realistic)."
+        color, verdict = "#00FF88", (
+            "✅ Plausible exploitation range — biologically realistic. "
+            "Fishing pressure and biomass are balanced."
+        )
     else:
-        color, verdict = "#FF6EC7", "🚨 High exploitation — potential overfishing or small biomass stock."
+        color, verdict = "#FF6EC7", (
+            "🚨 High exploitation — potential overfishing or small biomass stock. "
+            "Catchability amplifies harvest pressure."
+        )
 
     # --- Styled info block
     st.markdown(
@@ -1331,45 +1345,35 @@ elif page == "Baseline Simulation":
        # --- Add some spacing above
     st.markdown("<br>", unsafe_allow_html=True)
 
-    #----computing distance to optimal
-    mean_SST = df_monthly["SST"].mean()
-    temp_offset = mean_SST - T_opt
-
-    # --- Observation text with r_t interpretation
+   # --- Observation text with r_t interpretation
     avg_change = (df_monthly["Biomass_mean"].iloc[-1] - df_monthly["Biomass_mean"].iloc[0]) / df_monthly["Biomass_mean"].iloc[0]
     avg_r_t = df_monthly["r_t"].mean()
-
+    mean_SST = df_monthly["SST"].mean()
+    temp_offset = mean_SST - T_opt
+    
     if avg_change > 0.05:
         if abs(temp_offset) < 1.0:
             obs_text = (
-                "Biomass is generally increasing under these baseline conditions 📈. "
-                f"Temperatures are slightly below the species’ optimal range (T_opt ≈ {T_opt:.1f}°C), "
-                f"supporting strong growth (average r_t ≈ {avg_r_t:.2f})."
+                f"Biomass is generally increasing 📈. Temperatures are near optimal (T_opt ≈ {T_opt:.1f}°C). "
+                f"Growth rate is strong (average r_t ≈ {avg_r_t:.2f}). "
+                f"Catchability ({q:.2e}) is moderate, so fishing is not currently limiting stock."
             )
         else:
             obs_text = (
-                "Biomass is increasing 📈, although temperatures are not perfectly optimal. "
-                f"This suggests growth remains robust (r_t ≈ {avg_r_t:.2f}) despite some environmental deviation."
+                f"Biomass is increasing 📈 despite temperatures being slightly off-optimal. "
+                f"Average growth r_t ≈ {avg_r_t:.2f}. "
+                f"Catchability ({q:.2e}) slightly reduces growth but does not prevent biomass increase."
             )
-    
     elif avg_change < -0.05:
-        if abs(temp_offset) > 1.5:
-            obs_text = (
-                "Biomass is decreasing under baseline conditions 📉. "
-                f"Temperatures deviate from the optimal range (T_opt ≈ {T_opt:.1f}°C), "
-                f"which likely suppresses growth (r_t ≈ {avg_r_t:.2f})."
-            )
-        else:
-            obs_text = (
-                "Biomass is declining 📉 despite temperatures being reasonably suitable. "
-                "This suggests additional pressures (e.g., fishing or environmental variability) may be limiting the population."
-            )
-    
+        obs_text = (
+            f"Biomass is declining 📉 despite temperatures being reasonably suitable. "
+            f"Average growth r_t ≈ {avg_r_t:.2f}. "
+            f"Catchability ({q:.2e}) contributes to removal, suggesting harvest pressure is starting to impact the stock."
+        )
     else:
         obs_text = (
-            "Biomass remains relatively stable ⚖️. "
-            f"Temperatures are moderately suitable (r_t ≈ {avg_r_t:.2f}), "
-            "but not strongly driving population growth."
+            f"Biomass remains relatively stable ⚖️. Temperatures are moderately suitable (r_t ≈ {avg_r_t:.2f}). "
+            f"Catchability ({q:.2e}) is low enough that fishing does not strongly affect stock."
         )
 
     # --- Confidence assessment (baseline)
@@ -1586,29 +1590,23 @@ elif page == "Warming Scenario":
         if abs(dist_warm) < abs(dist_baseline):
             biomass_meaning = (
                 "📈 The stock shows improved performance under warming, likely because "
-                "temperatures move closer to the species’ thermal optimum."
+                "temperatures move closer to the species’ thermal optimum. "
+                f"Catchability ({q:.2e}) applies mild harvest pressure, so biomass gains are partly from improved conditions."
             )
         else:
             biomass_meaning = (
-                "📈 The stock increases under warming, although this may reflect model sensitivity "
-                "rather than improved environmental conditions."
+                "📈 The stock increases under warming, although this may reflect model sensitivity rather than improved environment. "
+                f"Catchability ({q:.2e}) slightly reduces growth."
             )
-    
     elif avg_pct_change < -5:
-        if abs(dist_warm) > abs(dist_baseline):
-            biomass_meaning = (
-                "📉 The stock declines under warming as temperatures move further away "
-                "from the species’ optimal range."
-            )
-        else:
-            biomass_meaning = (
-                "📉 The stock declines despite temperatures remaining near optimal, "
-                "suggesting other limiting factors may be influencing growth."
-            )
+        biomass_meaning = (
+            "📉 The stock declines under warming as temperatures move further from optimal. "
+            f"Catchability ({q:.2e}) compounds biomass reduction."
+        )
     else:
         biomass_meaning = (
-            "⚖️ Biomass remains relatively stable, indicating limited sensitivity "
-            "to moderate temperature changes under current conditions."
+            "⚖️ Biomass remains relatively stable under warming, indicating limited sensitivity to moderate temperature changes. "
+            f"Catchability ({q:.2e}) contributes minor harvest removal."
         )
 
     # if avg_E_change > 3:
