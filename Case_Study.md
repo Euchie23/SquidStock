@@ -66,7 +66,18 @@ By integrating mechanistic population modeling, warming scenarios, and sensitivi
 
 - CPUE shows a **weak correlation** with simulated biomass  
 - Model limitations: No aggregation, migration, or habitat-driven catchability effects  
-- Implication: CPUE alone can be misleading for operational decisions  
+- Implication: CPUE alone can be misleading for operational decisions
+
+---
+
+### Decision Implication
+
+Under baseline conditions, the model suggests gradual biomass decline despite low exploitation, indicating that relying solely on CPUE could mask underlying stock pressure. Under moderate warming, projected biomass gains should be treated cautiously as an upper-bound estimate.  
+
+**Management takeaway:**  
+- Avoid relying on raw CPUE as a proxy for abundance  
+- Use standardized CPUE and scenario-based modeling together  
+- Treat warming-driven productivity gains as uncertain and monitor cold-water feeding dynamics closely  
 
 ---
 
