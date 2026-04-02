@@ -70,15 +70,21 @@ By integrating mechanistic population modeling, warming scenarios, and sensitivi
 
 ---
 
-## Supporting Context: Standardized CPUE
+## Supporting Context: CPUE Standardization & Weekly Prediction
 
-While the Biomass Simulator translates ecological dynamics into biomass projections, the **Course Correction app** provides standardized CPUE indices (2000–2020) that remove confounding effects of effort, seasonality, and zero catches.  
+While the Biomass Simulator translates ecological dynamics into biomass projections, the **Course Correction app** provides standardized CPUE indices (2000–2020) that remove confounding effects of effort, seasonality, and zero catches. Together, these modules allow managers to assess whether observed CPUE signals broadly reflect underlying stock trends.
 
-Integration allows decision-makers to:  
+The **Engine Room weekly CPUE prediction app** adds an operational perspective by forecasting short-term CPUE regimes (Low / Medium / High) and detecting anomalies or feature drift. Although it does not simulate biomass directly, these weekly outputs help decision-makers:
 
-- Validate whether CPUE trends align with simulated biomass  
-- Detect potential **over- or under-estimation** of stock abundance  
-- Inform scenario-based management decisions under warming or baseline conditions  
+- Identify periods where CPUE signals deviate from expected patterns, indicating potential ecological or operational anomalies.
+- Contextualize biomass projections from the simulator by comparing expected abundance trends with observed or predicted CPUE regimes.
+- Focus on regime-level trends and adaptive management decisions without overreacting to ephemeral weekly fluctuations.
+
+**Integration across apps enables:**
+
+- Validation of CPUE patterns against modeled biomass trends.
+- Detection of potential over- or under-estimation in fishery-dependent observations.
+- Scenario-informed management decisions under baseline or warming conditions.
 
 ---
 
