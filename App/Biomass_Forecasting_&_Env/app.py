@@ -2023,7 +2023,7 @@ elif page == "Sensitivity & CPUE":
 
 
         # --- Optional: Scatter Plot ---
-        st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
         show_scatter = st.checkbox(
             "Show CPUE vs Biomass scatter relationship",
             value=False,
