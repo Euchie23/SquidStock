@@ -1986,6 +1986,67 @@ elif page == "Sensitivity & CPUE":
         "not independently estimated survey uncertainty."
     )
 
+        # --- Optional: Scatter Plot ---
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    show_scatter = st.checkbox(
+        "Show CPUE vs Biomass scatter relationship",
+        value=False,
+        key="show_cpue_biomass_scatter"
+    )
+
+    if show_scatter:
+        valid_scatter = df_latest[["Biomass_mean_index", "CPUE_mean_index"]].dropna()
+
+        scatter_fig = go.Figure()
+
+        scatter_fig.add_trace(go.Scatter(
+            x=valid_scatter["Biomass_mean_index"],
+            y=valid_scatter["CPUE_mean_index"],
+            mode="markers",
+            marker=dict(size=8, color="#39FF14", opacity=0.7),
+            name="CPUE vs Biomass",
+            hovertemplate=(
+                "Biomass Index: %{x:.2f}<br>"
+                "CPUE Index: %{y:.2f}"
+                "<extra></extra>"
+            )
+        ))
+
+        # Regression line
+        if len(valid_scatter) >= 3 and valid_scatter["Biomass_mean_index"].nunique() > 1:
+            m, b = np.polyfit(
+                valid_scatter["Biomass_mean_index"],
+                valid_scatter["CPUE_mean_index"],
+                1
+            )
+
+            x_line = np.linspace(
+                valid_scatter["Biomass_mean_index"].min(),
+                valid_scatter["Biomass_mean_index"].max(),
+                100
+            )
+
+            scatter_fig.add_trace(go.Scatter(
+                x=x_line,
+                y=m * x_line + b,
+                mode="lines",
+                line=dict(color="#FFD700", dash="dot"),
+                name="Trend line"
+            ))
+        else:
+            st.caption("Trend line not shown because biomass or CPUE has insufficient variation.")
+
+        scatter_fig.update_layout(
+            title=f"Scatter Relationship between CPUE and Biomass (r = {correlation:.2f})",
+            xaxis_title="Biomass Index (0–1)",
+            yaxis_title="CPUE Index (0–1)",
+            template="plotly_dark",
+            height=400,
+        )
+
+        st.plotly_chart(scatter_fig, width='stretch')
+
     # --- Optional: Scatter Plot ---
     # st.markdown("<br>", unsafe_allow_html=True)
     # show_scatter = st.checkbox("Show CPUE vs Biomass scatter relationship", value=False)
@@ -2020,63 +2081,6 @@ elif page == "Sensitivity & CPUE":
         # )
 
         # st.plotly_chart(scatter_fig, width='stretch')
-
-
-        # --- Optional: Scatter Plot ---
-    st.markdown("<br>", unsafe_allow_html=True)
-    show_scatter = st.checkbox(
-        "Show CPUE vs Biomass scatter relationship",
-        value=False,
-        key="show_cpue_biomass_scatter"
-    )
-        
-        if show_scatter:
-            valid_scatter = df_latest[["Biomass_mean_index", "CPUE_mean_index"]].dropna()
-        
-            scatter_fig = go.Figure()
-        
-            scatter_fig.add_trace(go.Scatter(
-                x=valid_scatter["Biomass_mean_index"],
-                y=valid_scatter["CPUE_mean_index"],
-                mode="markers",
-                marker=dict(size=8, color="#39FF14", opacity=0.7),
-                name="CPUE vs Biomass",
-                hovertemplate="Biomass Index: %{x:.2f}<br>CPUE Index: %{y:.2f}<extra></extra>"
-            ))
-        
-            # Regression line
-            if len(valid_scatter) >= 3 and valid_scatter["Biomass_mean_index"].nunique() > 1:
-                m, b = np.polyfit(
-                    valid_scatter["Biomass_mean_index"],
-                    valid_scatter["CPUE_mean_index"],
-                    1
-                )
-        
-                x_line = np.linspace(
-                    valid_scatter["Biomass_mean_index"].min(),
-                    valid_scatter["Biomass_mean_index"].max(),
-                    100
-                )
-        
-                scatter_fig.add_trace(go.Scatter(
-                    x=x_line,
-                    y=m * x_line + b,
-                    mode="lines",
-                    line=dict(color="#FFD700", dash="dot"),
-                    name="Trend line"
-                ))
-            else:
-                st.caption("Trend line not shown because biomass or CPUE has insufficient variation.")
-        
-            scatter_fig.update_layout(
-                title=f"Scatter Relationship between CPUE and Biomass (r = {correlation:.2f})",
-                xaxis_title="Biomass Index (0–1)",
-                yaxis_title="CPUE Index (0–1)",
-                template="plotly_dark",
-                height=400,
-            )
-        
-            st.plotly_chart(scatter_fig, width='stretch')
     
    # --- Observations & Caption ---
     st.markdown("<br>", unsafe_allow_html=True)
