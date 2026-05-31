@@ -1241,25 +1241,33 @@ elif page == "Baseline Simulation":
         )
     
     # --- Color-coded exploitation indicator with q context
-    if exploitation_rate < 0.01:
+    # Use modelled exploitation rate for the verdict because this reflects
+    # the harvest pressure actually applied inside the simulation.
+    diagnostic_exploitation = model_exploitation_rate
+    
+    if diagnostic_exploitation < 0.01:
         color, verdict = "#FF4C4C", (
-            "⚠️ Extremely low exploitation — biomass likely overestimated or catches too small. "
-            f"Catchability is set to {q:.2e}, so effective fishing pressure is slightly higher than raw rate implies."
+            "⚠️ Extremely low exploitation — modelled fishing removals are very small relative to simulated biomass. "
+            "This may indicate that biomass is overestimated, observed catches are small relative to the stock, "
+            f"or catchability ({q:.2e}) is set too low for the observed fishing effort."
         )
-    elif exploitation_rate < 0.10:
+    
+    elif diagnostic_exploitation < 0.10:
         color, verdict = "#FFD700", (
-            "🟡 Low exploitation — fishery lightly utilized. "
-            f"Catchability ({q:.2e}) is moderate; some biomass reduction is expected, but stock is mostly stable."
+            "🟡 Low exploitation — the fishery removes a relatively small share of simulated biomass. "
+            f"Catchability ({q:.2e}) produces light harvest pressure, so the stock is mostly influenced by growth and environmental conditions."
         )
-    elif exploitation_rate <= 0.35:
+    
+    elif diagnostic_exploitation <= 0.35:
         color, verdict = "#00FF88", (
-            "✅ Plausible exploitation range — biologically realistic. "
-            "Fishing pressure and biomass are balanced."
+            "✅ Plausible exploitation range — modelled fishing pressure and simulated biomass are reasonably balanced. "
+            "This suggests the stock–catch relationship is within a more realistic operating range."
         )
+    
     else:
         color, verdict = "#FF6EC7", (
-            "🚨 High exploitation — potential overfishing or small biomass stock. "
-            "Catchability amplifies harvest pressure."
+            "🚨 High exploitation — modelled fishing removals are large relative to simulated biomass. "
+            "This may indicate potential overfishing, excessive catchability, or a simulated stock that is too small."
         )
 
     # --- Styled info block
