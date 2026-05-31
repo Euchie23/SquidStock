@@ -1575,34 +1575,40 @@ elif page == "Warming Scenario":
 
     month_x = np.arange(1, len(df_warm) + 1)
 
-    # Baseline trace (top)
+   # Baseline trace (top)
     if show_baseline:
         baseline_biomass = df_monthly["Biomass_mean"].iloc[:duration].values
     
-        warming_biomass = df_warm["Biomass_mean"].values
-        
         fig.add_trace(go.Scatter(
             x=month_x,
-            y=warming_biomass,
-            mode="lines+markers",
-            name="Warming (mean)",
-            line=dict(color="orange"),
-            customdata=np.column_stack((warming_biomass / 1_000_000,)),
+            y=baseline_biomass,
+            name="Baseline (mean)",
+            line=dict(color="blue"),
+            customdata=np.column_stack((baseline_biomass / 1_000_000,)),
             hovertemplate=(
                 "Month: %{x}<br>"
                 "Biomass: %{customdata[0]:.2f} Million tons"
                 "<extra></extra>"
             )
         ), row=1, col=1)
-
+    
     # Warming mean + CI (top)
+    warming_biomass = df_warm["Biomass_mean"].values
+    
     fig.add_trace(go.Scatter(
-        x=np.arange(len(df_warm)),
-        y=df_warm["Biomass_mean"],
+        x=month_x,
+        y=warming_biomass,
         mode="lines+markers",
         name="Warming (mean)",
-        line=dict(color="orange")
+        line=dict(color="orange"),
+        customdata=np.column_stack((warming_biomass / 1_000_000,)),
+        hovertemplate=(
+            "Month: %{x}<br>"
+            "Biomass: %{customdata[0]:.2f} Million tons"
+            "<extra></extra>"
+        )
     ), row=1, col=1)
+
     fig.add_trace(go.Scatter(
         x=month_x,
         y=df_warm["Biomass_CI_upper"],
