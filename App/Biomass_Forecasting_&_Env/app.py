@@ -1573,13 +1573,26 @@ elif page == "Warming Scenario":
         subplot_titles=("Simulated Biomass", "% Change in Biomass", "Thermal Suitability Index and Effort")
     )
 
+    month_x = np.arange(1, len(df_warm) + 1)
+
     # Baseline trace (top)
     if show_baseline:
+        baseline_biomass = df_monthly["Biomass_mean"].iloc[:duration].values
+    
+        warming_biomass = df_warm["Biomass_mean"].values
+        
         fig.add_trace(go.Scatter(
-            x=np.arange(len(df_warm)),
-            y=df_monthly["Biomass_mean"].iloc[:duration].values,
-            name="Baseline (mean)",
-            line=dict(color="blue")
+            x=month_x,
+            y=warming_biomass,
+            mode="lines+markers",
+            name="Warming (mean)",
+            line=dict(color="orange"),
+            customdata=np.column_stack((warming_biomass / 1_000_000,)),
+            hovertemplate=(
+                "Month: %{x}<br>"
+                "Biomass: %{customdata[0]:.2f} Million tons"
+                "<extra></extra>"
+            )
         ), row=1, col=1)
 
     # Warming mean + CI (top)
@@ -1591,41 +1604,67 @@ elif page == "Warming Scenario":
         line=dict(color="orange")
     ), row=1, col=1)
     fig.add_trace(go.Scatter(
-        x=np.arange(len(df_warm)),
+        x=month_x,
         y=df_warm["Biomass_CI_upper"],
         line=dict(color="orange", dash="dot"),
-        showlegend=False
+        showlegend=False,
+        hovertemplate=(
+            "Month: %{x}<br>"
+            "Upper 95% CI: %{y:,.0f} tons"
+            "<extra></extra>"
+        )
     ), row=1, col=1)
+    
     fig.add_trace(go.Scatter(
-        x=np.arange(len(df_warm)),
+        x=month_x,
         y=df_warm["Biomass_CI_lower"],
         fill='tonexty',
         fillcolor='rgba(255,165,0,0.2)',
         line=dict(color="orange", dash="dot"),
-        showlegend=False
+        showlegend=False,
+        hovertemplate=(
+            "Month: %{x}<br>"
+            "Lower 95% CI: %{y:,.0f} tons"
+            "<extra></extra>"
+        )
     ), row=1, col=1)
 
     # % Change panel (middle)
     fig.add_trace(go.Scatter(
-        x=np.arange(len(df_warm)),
+        x=month_x,
         y=df_warm["Biomass_change_pct"],
         name="% Change",
-        line=dict(color="red")
+        line=dict(color="red"),
+        hovertemplate=(
+            "Month: %{x}<br>"
+            "Biomass change: %{y:.2f}%"
+            "<extra></extra>"
+        )
     ), row=2, col=1)
 
     # Environment index and Effort (bottom) - show both (EnvIndex left, Effort right)
     fig.add_trace(go.Scatter(
-        x=np.arange(len(df_warm)),
+        x=month_x,
         y=df_warm["EnvIndex"],
-        name="EnvIndex (baseline/warm adjusted)",
-        line=dict(color="green")
+        name="Thermal Suitability",
+        line=dict(color="green"),
+        hovertemplate=(
+            "Month: %{x}<br>"
+            "Thermal suitability: %{y:.3f}"
+            "<extra></extra>"
+        )
     ), row=3, col=1)
     fig.add_trace(go.Bar(
-        x=np.arange(len(df_warm)),
+        x=month_x,
         y=df_warm["Effort"],
         name="Effort (vessel-days)",
         marker=dict(color='rgba(0,0,255,0.3)'),
-        yaxis='y2'
+        yaxis='y2',
+        hovertemplate=(
+            "Month: %{x}<br>"
+            "Effort: %{y:.0f} vessel-days"
+            "<extra></extra>"
+        )
     ), row=3, col=1)
 
     # layout: add second y axis for effort on bottom panel
@@ -1633,7 +1672,8 @@ elif page == "Warming Scenario":
         height=900,
         showlegend=True,
         title=f"🔥 Warming Scenario (+{delta_T:.1f}°C) — catchability q={q:.2e}",
-        template="plotly_dark"
+        template="plotly_dark",
+        hovermode="x unified"
     )
     fig.update_yaxes(title_text="Biomass (tons)", row=1, col=1)
     fig.update_yaxes(title_text="% Change", row=2, col=1)
@@ -1862,15 +1902,19 @@ elif page == "Sensitivity & CPUE":
     else:
         correlation = np.nan
 
-    # --- Strength interpretation ---
+    # --- Strength and direction interpretation ---
     if pd.isna(correlation):
         strength = "uncertain"
+        direction = "uncertain"
     elif abs(correlation) >= 0.7:
         strength = "strong"
+        direction = "positive" if correlation > 0 else "negative"
     elif abs(correlation) >= 0.4:
         strength = "moderate"
+        direction = "positive" if correlation > 0 else "negative"
     else:
         strength = "weak"
+        direction = "positive" if correlation > 0 else "negative"
 
     # --- Main Time-Series Plot ---
     fig = go.Figure()
@@ -1943,19 +1987,19 @@ elif page == "Sensitivity & CPUE":
     )
 
     # --- Optional: Scatter Plot ---
-    st.markdown("<br>", unsafe_allow_html=True)
-    show_scatter = st.checkbox("Show CPUE vs Biomass scatter relationship", value=False)
+    # st.markdown("<br>", unsafe_allow_html=True)
+    # show_scatter = st.checkbox("Show CPUE vs Biomass scatter relationship", value=False)
 
-    if show_scatter:
-        scatter_fig = go.Figure()
-        scatter_fig.add_trace(go.Scatter(
-            x=df_latest["Biomass_mean_index"],
-            y=df_latest["CPUE_mean_index"],
-            mode="markers",
-            marker=dict(size=8, color="#39FF14", opacity=0.7),
-            name="CPUE vs Biomass",
-            hovertemplate="Biomass Index: %{x:.2f}<br>CPUE Index: %{y:.2f}<extra></extra>"
-        ))
+    # if show_scatter:
+    #     scatter_fig = go.Figure()
+    #     scatter_fig.add_trace(go.Scatter(
+    #         x=df_latest["Biomass_mean_index"],
+    #         y=df_latest["CPUE_mean_index"],
+    #         mode="markers",
+    #         marker=dict(size=8, color="#39FF14", opacity=0.7),
+    #         name="CPUE vs Biomass",
+    #         hovertemplate="Biomass Index: %{x:.2f}<br>CPUE Index: %{y:.2f}<extra></extra>"
+    #     ))
 
         # Regression line
         # m, b = np.polyfit(df_latest["Biomass_mean_index"], df_latest["CPUE_mean_index"], 1)
@@ -1978,54 +2022,97 @@ elif page == "Sensitivity & CPUE":
         # st.plotly_chart(scatter_fig, width='stretch')
 
 
-        valid_scatter = df_latest[["Biomass_mean_index", "CPUE_mean_index"]].dropna()
+        # --- Optional: Scatter Plot ---
+        st.markdown("<br>", unsafe_allow_html=True)
+        show_scatter = st.checkbox(
+            "Show CPUE vs Biomass scatter relationship",
+            value=False,
+            key="show_cpue_biomass_scatter"
+        )
         
-        if len(valid_scatter) >= 3 and valid_scatter["Biomass_mean_index"].nunique() > 1:
-            m, b = np.polyfit(
-                valid_scatter["Biomass_mean_index"],
-                valid_scatter["CPUE_mean_index"],
-                1
-            )
+        if show_scatter:
+            valid_scatter = df_latest[["Biomass_mean_index", "CPUE_mean_index"]].dropna()
         
-            x_line = np.linspace(
-                valid_scatter["Biomass_mean_index"].min(),
-                valid_scatter["Biomass_mean_index"].max(),
-                100
-            )
+            scatter_fig = go.Figure()
         
             scatter_fig.add_trace(go.Scatter(
-                x=x_line,
-                y=m * x_line + b,
-                mode="lines",
-                line=dict(color="#FFD700", dash="dot"),
-                name="Trend line"
+                x=valid_scatter["Biomass_mean_index"],
+                y=valid_scatter["CPUE_mean_index"],
+                mode="markers",
+                marker=dict(size=8, color="#39FF14", opacity=0.7),
+                name="CPUE vs Biomass",
+                hovertemplate="Biomass Index: %{x:.2f}<br>CPUE Index: %{y:.2f}<extra></extra>"
             ))
-        else:
-            st.caption("Trend line not shown because biomass or CPUE has insufficient variation.")
-
-    # --- Observations & Caption ---
+        
+            # Regression line
+            if len(valid_scatter) >= 3 and valid_scatter["Biomass_mean_index"].nunique() > 1:
+                m, b = np.polyfit(
+                    valid_scatter["Biomass_mean_index"],
+                    valid_scatter["CPUE_mean_index"],
+                    1
+                )
+        
+                x_line = np.linspace(
+                    valid_scatter["Biomass_mean_index"].min(),
+                    valid_scatter["Biomass_mean_index"].max(),
+                    100
+                )
+        
+                scatter_fig.add_trace(go.Scatter(
+                    x=x_line,
+                    y=m * x_line + b,
+                    mode="lines",
+                    line=dict(color="#FFD700", dash="dot"),
+                    name="Trend line"
+                ))
+            else:
+                st.caption("Trend line not shown because biomass or CPUE has insufficient variation.")
+        
+            scatter_fig.update_layout(
+                title=f"Scatter Relationship between CPUE and Biomass (r = {correlation:.2f})",
+                xaxis_title="Biomass Index (0–1)",
+                yaxis_title="CPUE Index (0–1)",
+                template="plotly_dark",
+                height=400,
+            )
+        
+            st.plotly_chart(scatter_fig, width='stretch')
+    
+   # --- Observations & Caption ---
     st.markdown("<br>", unsafe_allow_html=True)
-
+    
     if pd.isna(correlation):
         obs = (
             "CPUE–biomass correlation could not be reliably estimated because the available values are insufficient "
             "or show too little variation."
         )
-    elif correlation > 0.5:
+    
+    elif strength == "strong" and direction == "positive":
         obs = (
-            "CPUE and biomass move together 📈 — catch rates broadly reflect stock trends in this simulation. "
-            "However, this should still be interpreted cautiously because catchability, fisher behavior, and squid aggregation "
-            "are simplified."
+            f"CPUE and biomass show a strong positive relationship 📈 (r = {correlation:.2f}). "
+            "Catch rates broadly track simulated stock trends in this scenario. However, this should still be interpreted cautiously "
+            "because catchability, fisher behavior, gear efficiency, and squid aggregation are simplified."
         )
-    elif correlation < -0.5:
+    
+    elif strength == "moderate" and direction == "positive":
         obs = (
-            "CPUE and biomass diverge ⚠️ — catch rates may give a misleading signal of stock abundance. "
-            "This can occur when fishing remains efficient despite biomass decline, especially if squid aggregate spatially."
+            f"CPUE and biomass show a moderate positive relationship 📊 (r = {correlation:.2f}). "
+            "Catch rates partly reflect simulated biomass trends, but CPUE should not be treated as a perfect abundance index."
         )
+    
+    elif strength in ["moderate", "strong"] and direction == "negative":
+        obs = (
+            f"CPUE and biomass show a {strength} negative relationship ⚠️ (r = {correlation:.2f}). "
+            "This means catch rates move against the simulated biomass trend, which may give a misleading impression of stock status. "
+            "This can happen when fishers continue catching squid efficiently despite biomass decline, especially if squid aggregate spatially "
+            "or fishing effort targets remaining hotspots."
+        )
+    
     else:
         obs = (
-            "CPUE and biomass show a weak relationship ⚖️ — catch rates do not reliably track simulated stock size. "
-            "Other factors such as squid aggregation, fishing location, gear efficiency, and environmental variability may influence CPUE."
+            f"CPUE and biomass show a weak relationship ⚖️ (r = {correlation:.2f}). "
+            "Catch rates do not reliably track simulated stock size. Other factors such as squid aggregation, fishing location, "
+            "gear efficiency, catchability, and environmental variability may influence CPUE."
         )
     
     with st.expander("📊 Understanding CPUE and Biomass Correlation", expanded=False):
