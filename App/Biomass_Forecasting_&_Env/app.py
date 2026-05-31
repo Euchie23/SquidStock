@@ -2024,11 +2024,11 @@ elif page == "Sensitivity & CPUE":
 
         # --- Optional: Scatter Plot ---
     st.markdown("<br>", unsafe_allow_html=True)
-        show_scatter = st.checkbox(
-            "Show CPUE vs Biomass scatter relationship",
-            value=False,
-            key="show_cpue_biomass_scatter"
-        )
+    show_scatter = st.checkbox(
+        "Show CPUE vs Biomass scatter relationship",
+        value=False,
+        key="show_cpue_biomass_scatter"
+    )
         
         if show_scatter:
             valid_scatter = df_latest[["Biomass_mean_index", "CPUE_mean_index"]].dropna()
