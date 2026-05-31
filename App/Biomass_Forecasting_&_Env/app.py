@@ -1246,27 +1246,31 @@ elif page == "Baseline Simulation":
     diagnostic_exploitation = model_exploitation_rate
     
     if diagnostic_exploitation < 0.01:
-        color, verdict = "#FF4C4C", (
-            "⚠️ Extremely low exploitation — modelled fishing removals are very small relative to simulated biomass. "
-            "This may indicate that biomass is overestimated, observed catches are small relative to the stock, "
-            f"or catchability ({q:.2e}) is set too low for the observed fishing effort."
-        )
-    
+    color, verdict = "#FF4C4C", (
+        "⚠️ <b>Extremely low exploitation</b><br>"
+        "Modelled fishing removals are very small relative to simulated biomass. "
+        "This may indicate that biomass is overestimated, observed catches are small relative to the stock, "
+        f"or catchability ({q:.2e}) is set too low for the observed fishing effort."
+    )
+
     elif diagnostic_exploitation < 0.10:
         color, verdict = "#FFD700", (
-            "🟡 Low exploitation — the fishery removes a relatively small share of simulated biomass. "
+            "🟡 <b>Low exploitation</b><br>"
+            "The fishery removes a relatively small share of simulated biomass. "
             f"Catchability ({q:.2e}) produces light harvest pressure, so the stock is mostly influenced by growth and environmental conditions."
         )
     
     elif diagnostic_exploitation <= 0.35:
         color, verdict = "#00FF88", (
-            "✅ Plausible exploitation range — modelled fishing pressure and simulated biomass are reasonably balanced. "
+            "✅ <b>Plausible exploitation range</b><br>"
+            "Modelled fishing pressure and simulated biomass are reasonably balanced. "
             "This suggests the stock–catch relationship is within a more realistic operating range."
         )
     
     else:
         color, verdict = "#FF6EC7", (
-            "🚨 High exploitation — modelled fishing removals are large relative to simulated biomass. "
+            "🚨 <b>High exploitation</b><br>"
+            "Modelled fishing removals are large relative to simulated biomass. "
             "This may indicate potential overfishing, excessive catchability, or a simulated stock that is too small."
         )
 
@@ -1283,8 +1287,8 @@ elif page == "Baseline Simulation":
             line-height: 1.5;
         ">
         <b>⚖️ Observed catch / simulated biomass:</b> {exploitation_rate:.2%}<br>
-        <b>🎣 Modelled exploitation rate used for verdict:</b> {model_exploitation_rate:.2%}<br>
-        {verdict}
+        <b>🎣 Modelled exploitation rate used for verdict:</b> {model_exploitation_rate:.2%}<br><br>
+        <b>Verdict:</b> {verdict}
         </div>
         """,
         unsafe_allow_html=True
