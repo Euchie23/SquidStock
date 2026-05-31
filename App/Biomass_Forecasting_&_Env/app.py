@@ -941,7 +941,8 @@ if page == "Overview":
     The model combines:
     - **Biomass (tons)** – estimated total population
     - **Growth rate (r_t)** – temperature-dependent growth rate at each time step
-    - **Environmental index (E(t))** – weighted combination of normalized SST (60%) and chlorophyll-a (40%)
+    - **Productivity modifier (E_env)** – environmental productivity support, mainly represented using chlorophyll-a
+    - **Thermal suitability index** – distance from the modelled thermal optimum, used to interpret warming effects
     """)
 
     st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
@@ -960,12 +961,12 @@ if page == "Overview":
     st.markdown("""
     **Where:**
     - **r₀** — Maximum intrinsic growth rate (under optimal temperature conditions)  
-    - **Tₒₚₜ** — Optimal temperature where the species grows best  
+    - **Tₒₚₜ** — Modelled thermal optimum used to represent peak temperature-dependent growth in this simplified model
     - **σₜ** — Temperature tolerance; smaller σₜ → more temperature-sensitive species  
     - **SST** — Current sea surface temperature  
 
     ✅ **Interpretation:**  
-    - Growth peaks when SST ≈ Tₒₚₜ (so rₜ ≈ r₀)  
+    - Growth peaks in the model when SST ≈ Tₒₚₜ  
     - Growth declines as SST moves away from Tₒₚₜ  
     - This relationship directly influences biomass: higher rₜ → population increase; lower rₜ → decline.
     """)
@@ -989,11 +990,12 @@ if page == "Overview":
     |----------------|------------------|------------------|------------------------|-------------|
     | **Carrying Capacity (K)** | **5 million tons** | 4–6 million t | Estimated upper limit of total squid biomass the ecosystem can support. | ICES (2004) |
     | **Initial Biomass (N₀)** | **3 million tons** | 2–4 million t | Approximate starting biomass at the season’s onset. | ICES (2004); Haimovici et al., NERC (2014) |
-    | **Max Growth Rate (r₀)** | **0.02 day⁻¹** | 0.015–0.03 day⁻¹ | Average daily population growth (about 1.5–3% per day). | ShHyd Marine Research (2018); Haimovici et al. (2014) |
+    | **Intrinsic Growth Rate (r₀)** | **0.03** | 0.01–0.05 | Model-calibrated intrinsic growth parameter controlling surplus production under optimal thermal conditions. | Calibrated default; EDSPM framework informed by Wang et al. (2018) |
     | **Optimal Temperature (Tₒpt)** | **12 °C** | 10–14 °C | Temperature range where growth and abundance peak. | Xiang et al., *Fishes (2024)*; PMC (2024) |
     | **Temperature Tolerance (σₜ)** | **±3 °C** | ±2–4 °C | How far above or below optimum the squid can still grow well. | Xiang et al. (2024); PMC (2024) |
 
-    These numbers act as **realistic ecological defaults**, but users are encouraged to adjust them to explore “what-if” scenarios such as ocean warming or productivity shifts.
+    These numbers act as **realistic ecological defaults**, but users are encouraged to adjust them to explore “what-if” scenarios such as ocean warming or productivity shifts. 
+    The r₀ default is not treated as a fixed biological constant. It is a calibrated surplus-production parameter chosen to produce plausible biomass behavior under the app’s assumptions and should be explored through sensitivity testing.
     """)
 
     st.subheader("Calibration and Data Notes")
@@ -1019,12 +1021,13 @@ if page == "Overview":
     )
 
     st.markdown("""
-    **Calibrated defaults (ecologically realistic):**
-    - Carrying capacity (**K**) = **5,000,000 tons**  
-    - Initial biomass (**N₀**) = **3,000,000 tons**  
-    - Growth rate (**r₀**) = **0.15 day⁻¹**  
-    - Optimal temperature (**Tₒpt**) = **12 °C**  
-    - Temperature tolerance (**σₜ**) = **3 °C**  
+    **Calibrated defaults used in the app:**
+        - Carrying capacity (**K**) = **5,000,000 tons**  
+        - Initial biomass (**N₀**) = **3,000,000 tons**  
+        - Intrinsic growth rate (**r₀**) = **0.03**  
+        - Modelled thermal optimum (**Tₒpt**) = **12 °C**  
+        - Temperature tolerance (**σₜ**) = **3 °C**  
+        - Catchability coefficient (**q**) = **2e-4**
 
     These settings keep exploitation within realistic ecological limits while still allowing users to explore *“what-if”* scenarios such as warming or changes in productivity.
     """)
@@ -1043,7 +1046,7 @@ if page == "Overview":
     To better represent uncertainty in biomass and CPUE estimates, we incorporate **Monte Carlo simulations**:
 
     1. **Monte Carlo Runs**  
-    - Multiple simulations are run using slightly varying environmental inputs and model parameters.  
+    - Multiple simulations are run with stochastic variation around growth and/or observation conditions. This produces distributions for biomass and CPUE over time rather than a single deterministic line. 
     - This produces distributions for biomass and CPUE over time rather than a single deterministic line.
 
     2. **Mean and Confidence Intervals**  
@@ -1089,12 +1092,16 @@ if page == "Overview":
     st.markdown("""
     - EDSPM is **non-linear**, so extreme environmental conditions may yield unrealistic biomass estimates  
     - Using only 6 months may not capture full seasonal dynamics  
-    - SST and ChlA have different temporal and spatial resolutions, which may affect the environmental index  
+    - SST and ChlA have different temporal and spatial resolutions, which may affect productivity and thermal suitability interpretation. 
     - Biomass trends are **qualitative** indicators and should be interpreted cautiously
+    - The model assumes a single modelled thermal optimum, but *Illex argentinus* likely has stage-specific and spatial habitat preferences.
+    - The model does not explicitly represent migration between warm spawning areas and cold, productive feeding grounds.
+    - Cold Malvinas/Falkland Current waters may support growth indirectly through upwelling and prey availability, but this productivity pathway is simplified.
+    - Strong warming scenarios should be interpreted as exploratory, not as direct predictions of future biomass.
     """)
     
     st.markdown("""
-    💡 **Tip:** In the interactive plots, hover over points to see how **environmental conditions (SST, ChlA)** affect **growth rate (r_t)** and **biomass**. This illustrates the pathway: environment → growth → population.
+    💡 **Tip:** In the interactive plots, hover over points to see how **environmental conditions (SST, ChlA)** affect **growth rate (r_t)** and **biomass**. This illustrates the pathway: temperature/productivity → growth → population.
     """)
 
     st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
@@ -1137,11 +1144,23 @@ elif page == "Baseline Simulation":
     # --- STEP 1: Lightweight preprocessing cache
     @st.cache_data(show_spinner=False)
     def preprocess_env(df):
-        df = df.copy()
-        sst_min, sst_max = df["SST"].min(), df["SST"].max()
+        # df = df.copy()
+        # sst_min, sst_max = df["SST"].min(), df["SST"].max()
+        # chla_min, chla_max = df["ChlA"].min(), df["ChlA"].max()
+        # df["E_env"] = ((df["SST"] - sst_min) / (sst_max - sst_min)) * 0.6 + \
+        #               ((df["ChlA"] - chla_min) / (chla_max - chla_min)) * 0.4
+
         chla_min, chla_max = df["ChlA"].min(), df["ChlA"].max()
-        df["E_env"] = ((df["SST"] - sst_min) / (sst_max - sst_min)) * 0.6 + \
-                      ((df["ChlA"] - chla_min) / (chla_max - chla_min)) * 0.4
+
+        if chla_max == chla_min:
+            df["E_env"] = 1.0
+        else:
+            # Productivity modifier based on chlorophyll only.
+            # Temperature is already handled separately through r_t.
+            df["E_env"] = (df["ChlA"] - chla_min) / (chla_max - chla_min)
+        
+        # Avoid zero-growth months caused by normalized values near 0
+        df["E_env"] = 0.7 + 0.3 * df["E_env"]
         return df
 
     df_monthly = preprocess_env(df_monthly)
@@ -1161,11 +1180,22 @@ elif page == "Baseline Simulation":
         biomass = np.zeros((num_sim, T))
         biomass[:, 0] = N0
 
-        # Vectorized Monte Carlo simulation
+        # # Vectorized Monte Carlo simulation
+        # for t in range(1, T):
+        #     N_prev = biomass[:, t - 1]
+        #     growth = r_t.iloc[t] * E_env[t] * N_prev * (1 - N_prev / K)
+        #     catch_loss = q * E_eff[t] * N_prev
+        #     biomass[:, t] = np.maximum(N_prev + growth - catch_loss, 0)
+
         for t in range(1, T):
             N_prev = biomass[:, t - 1]
-            growth = r_t.iloc[t] * E_env[t] * N_prev * (1 - N_prev / K)
+        
+            # Small stochastic variation around environmental/growth conditions
+            noise = np.random.normal(1.0, 0.05, size=num_sim)
+        
+            growth = r_t.iloc[t] * E_env[t] * N_prev * (1 - N_prev / K) * noise
             catch_loss = q * E_eff[t] * N_prev
+        
             biomass[:, t] = np.maximum(N_prev + growth - catch_loss, 0)
 
         df["Biomass_mean"] = biomass.mean(axis=0)
@@ -1191,6 +1221,12 @@ elif page == "Baseline Simulation":
     mean_catch = df_monthly["TotalCatch_tons"].mean()
     mean_biomass = df_monthly["Biomass_mean"].mean()
     exploitation_rate = mean_catch / mean_biomass if mean_biomass > 0 else np.nan
+
+    df_monthly["ModelHarvest_tons"] = q * df_monthly["VesselDays"] * df_monthly["Biomass_mean"]
+    model_exploitation_rate = (
+        df_monthly["ModelHarvest_tons"].mean() / mean_biomass
+        if mean_biomass > 0 else np.nan
+    )
 
      # Compute rough data-driven q
     mean_effort = df_monthly["VesselDays"].mean()
@@ -1238,7 +1274,8 @@ elif page == "Baseline Simulation":
             font-size: 18px;
             line-height: 1.5;
         ">
-        <b>⚖️ Average exploitation rate:</b> {exploitation_rate:.2%}<br>
+      <b>⚖️ Observed catch / simulated biomass:</b> {exploitation_rate:.2%}<br>
+      <b>🎣 Modelled exploitation rate:</b> {model_exploitation_rate:.2%}<br>
         {verdict}
         </div>
         """,
@@ -1288,6 +1325,7 @@ elif page == "Baseline Simulation":
     # --- Save to session for downstream tabs
     st.session_state["baseline_df"] = df_monthly  # or df_latest if that’s your main df
     st.session_state["latest_df"] = df_monthly.copy()  # or df_monthly.copy() in baseline
+    st.session_state["latest_scenario"] = "Baseline Simulation"
 
     # --- Interactive Plotly chart
     fig = go.Figure()
@@ -1358,13 +1396,13 @@ elif page == "Baseline Simulation":
     if avg_change > 0.05:
         if abs(temp_offset) < 1.0:
             obs_text = (
-                f"Biomass is generally increasing 📈. Temperatures are near optimal (T_opt ≈ {T_opt:.1f}°C). "
+                f"Biomass is generally increasing 📈. Temperatures are near the modelled thermal optimum (T_opt ≈ {T_opt:.1f}°C). "
                 f"Growth rate is strong (average r_t ≈ {avg_r_t:.2f}). "
                 f"Catchability ({q:.2e}) is moderate, so fishing is not currently limiting stock."
             )
         else:
             obs_text = (
-                f"Biomass is increasing 📈 despite temperatures being slightly off-optimal. "
+                f"Biomass is increasing 📈 despite temperatures being slightly off modelled thermal optimum. "
                 f"Average growth r_t ≈ {avg_r_t:.2f}. "
                 f"Catchability ({q:.2e}) slightly reduces growth but does not prevent biomass increase."
             )
@@ -1448,10 +1486,30 @@ elif page == "Warming Scenario":
     df_warm["r_t"] = r0 * np.exp(-((df_warm["SST"] - T_opt) ** 2) / (2 * sigma_T**2))
 
     # --- Clarify environment vs effort
-    #df_warm["EnvIndex"] = df_warm["E_env"]               # environmental favourability (0-1)
-    df_warm["EnvIndex"] = np.exp(-((df_warm["SST"] - T_opt)**2) / (2 * sigma_T**2))
-    df_monthly["EnvIndex"] = df_monthly["E_env"]
+    # #df_warm["EnvIndex"] = df_warm["E_env"]               # environmental favourability (0-1)
+    # df_warm["EnvIndex"] = np.exp(-((df_warm["SST"] - T_opt)**2) / (2 * sigma_T**2))
+    # df_monthly["EnvIndex"] = df_monthly["E_env"]
 
+    # # Effort (vessel-days) kept as separate column
+    # df_warm["Effort"] = df_warm["VesselDays"]
+    # df_monthly["Effort"] = df_monthly["VesselDays"]
+
+    # --- Clarify environment vs effort
+    # Thermal suitability is calculated the same way for baseline and warming.
+    # This makes the baseline vs warming comparison internally consistent.
+    
+    df_monthly["ThermalSuitability"] = np.exp(
+        -((df_monthly["SST"] - T_opt) ** 2) / (2 * sigma_T**2)
+    )
+    
+    df_warm["ThermalSuitability"] = np.exp(
+        -((df_warm["SST"] - T_opt) ** 2) / (2 * sigma_T**2)
+    )
+    
+    # Use ThermalSuitability as the plotted environmental index for this warming tab
+    df_monthly["EnvIndex"] = df_monthly["ThermalSuitability"]
+    df_warm["EnvIndex"] = df_warm["ThermalSuitability"]
+    
     # Effort (vessel-days) kept as separate column
     df_warm["Effort"] = df_warm["VesselDays"]
     df_monthly["Effort"] = df_monthly["VesselDays"]
@@ -1479,7 +1537,8 @@ elif page == "Warming Scenario":
             noise = np.random.normal(1.0, 0.05)
 
             # natural growth -- environment modifies growth (positive)
-            growth = r_t * N * (1 - N / K) * E_env * noise
+            #growth = r_t * N * (1 - N / K) * E_env * noise
+            growth = r_t * N * (1 - N / K) * noise
 
             # fishing harvest (removal) using catchability q
             harvest = q * Eff * N
@@ -1500,13 +1559,18 @@ elif page == "Warming Scenario":
         biomass_change_pct = 100.0 * (df_warm["Biomass_mean"].values - baseline_slice) / (baseline_slice + 1e-12)
     df_warm["Biomass_change_pct"] = biomass_change_pct
 
+
     # --- Save warming results in session
     st.session_state["df_warm"] = df_warm.copy()
+    
+    # Also save as latest result so the Sensitivity & CPUE tab knows what to use
+    st.session_state["latest_df"] = df_warm.copy()
+    st.session_state["latest_scenario"] = f"Warming Scenario (+{delta_T:.1f}°C)"
 
     # --- Plotting (same multi-panel layout)
     fig = make_subplots(
         rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.07,
-        subplot_titles=("Simulated Biomass", "% Change in Biomass", "Environmental Index (EnvIndex) and Effort")
+        subplot_titles=("Simulated Biomass", "% Change in Biomass", "Thermal Suitability Index and Effort")
     )
 
     # Baseline trace (top)
@@ -1573,7 +1637,7 @@ elif page == "Warming Scenario":
     )
     fig.update_yaxes(title_text="Biomass (tons)", row=1, col=1)
     fig.update_yaxes(title_text="% Change", row=2, col=1)
-    fig.update_yaxes(title_text="EnvIndex (unitless)", row=3, col=1)
+    fig.update_yaxes(title_text="Thermal Suitability (unitless)", row=3, col=1)
     fig.update_xaxes(title_text = "Time (Months)", row=3)
 
     st.plotly_chart(fig, width='stretch')
@@ -1594,7 +1658,7 @@ elif page == "Warming Scenario":
         if abs(dist_warm) < abs(dist_baseline):
             biomass_meaning = (
                 "📈 The stock shows improved performance under warming, likely because "
-                "temperatures move closer to the species’ thermal optimum. "
+                "temperatures move closer to the modelled thermal optimum."
                 f"Catchability ({q:.2e}) applies mild harvest pressure, so biomass gains are partly from improved conditions."
             )
         else:
@@ -1621,31 +1685,86 @@ elif page == "Warming Scenario":
     #     env_meaning = "🌡️ Minimal warming — conditions remain near optimal."
 
     # --- Interpretation of environment after warming
+    closer_to_optimum = abs(dist_warm) < abs(dist_baseline)
+    
     if delta_T < 1:
         env_meaning = (
-            "🌡️ Minimal warming — environmental conditions remain close to the species’ optimal range, "
-            "with little impact on growth potential."
+            "🌡️ Minimal warming — environmental conditions remain close to the baseline thermal range, "
+            "with limited impact on growth potential."
         )
+    
     elif delta_T < 3:
-        env_meaning = (
-            "🌡️ Moderate warming — environmental conditions moving toward the species’ optimal range, "
-            "producing a measurable, but manageable, effect on stock productivity."
-        )
+        if closer_to_optimum and avg_pct_change > 0:
+            env_meaning = (
+                "🌡️ Moderate warming — environmental conditions move closer to the modelled thermal optimum, "
+                "producing a measurable positive effect on stock productivity."
+            )
+        elif not closer_to_optimum and avg_pct_change < 0:
+            env_meaning = (
+                "🌡️ Moderate warming — environmental conditions move away from the modelled thermal optimum, "
+                "reducing growth potential and lowering biomass relative to baseline."
+            )
+        else:
+            env_meaning = (
+                "🌡️ Moderate warming — the environmental response is mixed, suggesting that biomass outcomes "
+                "are influenced by both thermal conditions and model sensitivity."
+            )
+    
     else:
-        env_meaning = (
-            "🌡️ Strong warming — environmental conditions move beyond the species’ tolerance envelope, "
-            "likely reducing growth rates and overall biomass substantially."
+        if avg_pct_change > 0 and closer_to_optimum:
+            env_meaning = (
+                "🌡️ Strong warming — the model still shows improved biomass because temperatures remain closer "
+                "to the modelled thermal optimum than under baseline conditions. However, this scenario should be "
+                "interpreted cautiously because strong warming may exceed ecological comfort zones in reality, "
+                "especially when migration, upwelling, and prey availability are not represented."
+            )
+        elif avg_pct_change > 0 and not closer_to_optimum:
+            env_meaning = (
+                "🌡️ Strong warming — biomass remains higher than baseline, but the result does not clearly align "
+                "with the thermal-optimum mechanism. This may reflect model sensitivity rather than a reliable "
+                "ecological benefit."
+            )
+        elif avg_pct_change < 0:
+            env_meaning = (
+                "🌡️ Strong warming — environmental conditions appear to reduce biomass relative to baseline, "
+                "suggesting that temperatures may be moving beyond the favourable thermal window."
+            )
+        else:
+            env_meaning = (
+                "🌡️ Strong warming — biomass response is limited, suggesting the system may be near a threshold "
+                "where additional warming no longer provides clear productivity gains."
             )
     
     # --- Confidence assessment (warming)
-    if avg_pct_change > 5 and abs(dist_warm) < abs(dist_baseline):
-        confidence = "🟢 High confidence — warming improves alignment with optimal temperature and response is consistent."
-    elif avg_pct_change < -5 and abs(dist_warm) > abs(dist_baseline):
-        confidence = "🟢 High confidence — warming moves conditions away from optimal, driving decline as expected."
+    if avg_pct_change > 5 and closer_to_optimum and delta_T < 3:
+        confidence = (
+            "🟢 High confidence — warming improves alignment with the modelled thermal optimum "
+            "and the biomass response is consistent."
+        )
+    
+    elif avg_pct_change > 5 and closer_to_optimum and delta_T >= 3:
+        confidence = (
+            "🟡 Moderate confidence — the model response is positive and internally consistent, "
+            "but ecological uncertainty is higher under strong warming because migration, upwelling, "
+            "prey availability, and spatial habitat shifts are not represented."
+        )
+    
+    elif avg_pct_change < -5 and not closer_to_optimum:
+        confidence = (
+            "🟢 High confidence — warming moves conditions away from the modelled optimum, "
+            "and the biomass decline is consistent with the temperature-growth mechanism."
+        )
+    
     elif abs(avg_pct_change) < 5:
-        confidence = "🟡 Moderate confidence — system shows limited sensitivity to warming."
+        confidence = (
+            "🟡 Moderate confidence — the system shows limited sensitivity to warming under the current parameters."
+        )
+    
     else:
-        confidence = "🔴 Lower confidence — response does not clearly match temperature-optimum dynamics."
+        confidence = (
+            "🔴 Lower confidence — the biomass response does not clearly match the expected thermal-optimum dynamics, "
+            "so results should be treated as exploratory."
+        )
         
 
     obs_text = f"""
@@ -1681,6 +1800,9 @@ elif page == "Sensitivity & CPUE":
 
     df_latest = st.session_state.get("latest_df", None)
 
+    scenario_label = st.session_state.get("latest_scenario", "Latest simulation")
+    st.caption(f"Showing CPUE–biomass relationship for: {scenario_label}")
+
     #print(df_latest.columns)
 
     # --- Check if the raw simulation data is available ---
@@ -1710,8 +1832,17 @@ elif page == "Sensitivity & CPUE":
     df_latest["CPUE_CI_lower"] = np.percentile(cpue_sim, 2.5, axis=1)
 
     # --- Normalize all indices for plotting ---
+    # def normalize(series):
+    #     return (series - series.min()) / (series.max() - series.min())
+
     def normalize(series):
-        return (series - series.min()) / (series.max() - series.min())
+        min_val = series.min()
+        max_val = series.max()
+    
+        if max_val == min_val:
+            return pd.Series(0.5, index=series.index)
+    
+        return (series - min_val) / (max_val - min_val)
 
     df_latest["Biomass_mean_index"] = normalize(df_latest["Biomass_mean"])
     df_latest["Biomass_CI_upper_index"] = normalize(df_latest["Biomass_CI_upper"])
@@ -1722,10 +1853,19 @@ elif page == "Sensitivity & CPUE":
     df_latest["CPUE_CI_lower_index"] = normalize(df_latest["CPUE_CI_lower"])
 
     # --- Compute correlation between CPUE and Biomass ---
-    correlation = df_latest["CPUE_mean_index"].corr(df_latest["Biomass_mean_index"])
+    #correlation = df_latest["CPUE_mean_index"].corr(df_latest["Biomass_mean_index"])
+
+    valid_corr = df_latest[["CPUE_mean_index", "Biomass_mean_index"]].dropna()
+
+    if len(valid_corr) >= 3:
+        correlation = valid_corr["CPUE_mean_index"].corr(valid_corr["Biomass_mean_index"])
+    else:
+        correlation = np.nan
 
     # --- Strength interpretation ---
-    if abs(correlation) >= 0.7:
+    if pd.isna(correlation):
+        strength = "uncertain"
+    elif abs(correlation) >= 0.7:
         strength = "strong"
     elif abs(correlation) >= 0.4:
         strength = "moderate"
@@ -1797,6 +1937,11 @@ elif page == "Sensitivity & CPUE":
 
     st.plotly_chart(fig, width='stretch')
 
+    st.caption(
+        "Note: CPUE uncertainty bands are illustrative and based on assumed ±10% observation noise, "
+        "not independently estimated survey uncertainty."
+    )
+
     # --- Optional: Scatter Plot ---
     st.markdown("<br>", unsafe_allow_html=True)
     show_scatter = st.checkbox("Show CPUE vs Biomass scatter relationship", value=False)
@@ -1813,34 +1958,75 @@ elif page == "Sensitivity & CPUE":
         ))
 
         # Regression line
-        m, b = np.polyfit(df_latest["Biomass_mean_index"], df_latest["CPUE_mean_index"], 1)
-        scatter_fig.add_trace(go.Scatter(
-            x=df_latest["Biomass_mean_index"],
-            y=m * df_latest["Biomass_mean_index"] + b,
-            mode="lines",
-            line=dict(color="#FFD700", dash="dot"),
-            name="Trend line"
-        ))
+        # m, b = np.polyfit(df_latest["Biomass_mean_index"], df_latest["CPUE_mean_index"], 1)
+        # scatter_fig.add_trace(go.Scatter(
+        #     x=df_latest["Biomass_mean_index"],
+        #     y=m * df_latest["Biomass_mean_index"] + b,
+        #     mode="lines",
+        #     line=dict(color="#FFD700", dash="dot"),
+        #     name="Trend line"
+        # ))
 
-        scatter_fig.update_layout(
-            title="Scatter Relationship between CPUE and Biomass",
-            xaxis_title="Biomass Index (0–1)",
-            yaxis_title="CPUE Index (0–1)",
-            template="plotly_dark",
-            height=400,
-        )
+        # scatter_fig.update_layout(
+        #     title="Scatter Relationship between CPUE and Biomass",
+        #     xaxis_title="Biomass Index (0–1)",
+        #     yaxis_title="CPUE Index (0–1)",
+        #     template="plotly_dark",
+        #     height=400,
+        # )
 
-        st.plotly_chart(scatter_fig, width='stretch')
+        # st.plotly_chart(scatter_fig, width='stretch')
+
+
+        valid_scatter = df_latest[["Biomass_mean_index", "CPUE_mean_index"]].dropna()
+        
+        if len(valid_scatter) >= 3 and valid_scatter["Biomass_mean_index"].nunique() > 1:
+            m, b = np.polyfit(
+                valid_scatter["Biomass_mean_index"],
+                valid_scatter["CPUE_mean_index"],
+                1
+            )
+        
+            x_line = np.linspace(
+                valid_scatter["Biomass_mean_index"].min(),
+                valid_scatter["Biomass_mean_index"].max(),
+                100
+            )
+        
+            scatter_fig.add_trace(go.Scatter(
+                x=x_line,
+                y=m * x_line + b,
+                mode="lines",
+                line=dict(color="#FFD700", dash="dot"),
+                name="Trend line"
+            ))
+        else:
+            st.caption("Trend line not shown because biomass or CPUE has insufficient variation.")
 
     # --- Observations & Caption ---
     st.markdown("<br>", unsafe_allow_html=True)
 
-    if correlation > 0.5:
-        obs = "CPUE and biomass move together 📈 — higher catches tend to coincide with higher stock levels."
+    if pd.isna(correlation):
+        obs = (
+            "CPUE–biomass correlation could not be reliably estimated because the available values are insufficient "
+            "or show too little variation."
+        )
+    elif correlation > 0.5:
+        obs = (
+            "CPUE and biomass move together 📈 — catch rates broadly reflect stock trends in this simulation. "
+            "However, this should still be interpreted cautiously because catchability, fisher behavior, and squid aggregation "
+            "are simplified."
+        )
     elif correlation < -0.5:
-        obs = "CPUE and biomass diverge ⚠️ — catch rates may not reflect actual stock abundance."
+        obs = (
+            "CPUE and biomass diverge ⚠️ — catch rates may give a misleading signal of stock abundance. "
+            "This can occur when fishing remains efficient despite biomass decline, especially if squid aggregate spatially."
+        )
     else:
-        obs = "CPUE and biomass show a weak relationship ⚖️ — other factors might influence catch rates."
+        obs = (
+            "CPUE and biomass show a weak relationship ⚖️ — catch rates do not reliably track simulated stock size. "
+            "Other factors such as squid aggregation, fishing location, gear efficiency, and environmental variability may influence CPUE."
+        )
     
     with st.expander("📊 Understanding CPUE and Biomass Correlation", expanded=False):
         st.markdown(
