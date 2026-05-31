@@ -1246,12 +1246,12 @@ elif page == "Baseline Simulation":
     diagnostic_exploitation = model_exploitation_rate
     
     if diagnostic_exploitation < 0.01:
-    color, verdict = "#FF4C4C", (
-        "⚠️ <b>Extremely low exploitation</b><br>"
-        "Modelled fishing removals are very small relative to simulated biomass. "
-        "This may indicate that biomass is overestimated, observed catches are small relative to the stock, "
-        f"or catchability ({q:.2e}) is set too low for the observed fishing effort."
-    )
+        color, verdict = "#FF4C4C", (
+            "⚠️ <b>Extremely low exploitation</b><br>"
+            "Modelled fishing removals are very small relative to simulated biomass. "
+            "This may indicate that biomass is overestimated, observed catches are small relative to the stock, "
+            f"or catchability ({q:.2e}) is set too low for the observed fishing effort."
+        )
 
     elif diagnostic_exploitation < 0.10:
         color, verdict = "#FFD700", (
