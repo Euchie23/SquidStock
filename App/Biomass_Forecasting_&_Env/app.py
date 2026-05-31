@@ -2033,12 +2033,20 @@ elif page == "Sensitivity & CPUE":
                 100
             )
 
+            y_line = m * x_line + b
+            
             scatter_fig.add_trace(go.Scatter(
                 x=x_line,
-                y=m * x_line + b,
+                y=y_line,
                 mode="lines",
                 line=dict(color="#FFD700", dash="dot"),
-                name="Trend line"
+                name="Trend line",
+                hovertemplate=(
+                    "Trend line<br>"
+                    "Biomass Index: %{x:.2f}<br>"
+                    "Predicted CPUE Index: %{y:.2f}"
+                    "<extra></extra>"
+                )
             ))
         else:
             st.caption("Trend line not shown because biomass or CPUE has insufficient variation.")
