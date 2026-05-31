@@ -1282,8 +1282,8 @@ elif page == "Baseline Simulation":
             font-size: 18px;
             line-height: 1.5;
         ">
-      <b>⚖️ Observed catch / simulated biomass:</b> {exploitation_rate:.2%}<br>
-      <b>🎣 Modelled exploitation rate:</b> {model_exploitation_rate:.2%}<br>
+        <b>⚖️ Observed catch / simulated biomass:</b> {exploitation_rate:.2%}<br>
+        <b>🎣 Modelled exploitation rate used for verdict:</b> {model_exploitation_rate:.2%}<br>
         {verdict}
         </div>
         """,
