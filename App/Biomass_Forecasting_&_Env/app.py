@@ -1408,35 +1408,39 @@ elif page == "Baseline Simulation":
     if avg_change > 0.05:
         if abs(temp_offset) < 1.0:
             obs_text = (
-                f"Biomass is generally increasing 📈. Temperatures are near the modelled thermal optimum (T_opt ≈ {T_opt:.1f}°C). "
-                f"Growth rate is strong (average r_t ≈ {avg_r_t:.2f}). "
-                f"Catchability ({q:.2e}) is moderate, so fishing is not currently limiting stock."
+                f"Biomass is generally increasing 📈. Temperatures are near the modelled thermal optimum "
+                f"(T_opt ≈ {T_opt:.1f}°C), supporting positive growth. "
+                f"Average growth rate is around r_t ≈ {avg_r_t:.2f}. "
+                f"Catchability ({q:.2e}) is present, but modelled harvest pressure remains light under the current settings."
             )
         else:
             obs_text = (
-                f"Biomass is increasing 📈 despite temperatures being slightly off modelled thermal optimum. "
+                f"Biomass is increasing 📈 despite temperatures being slightly away from the modelled thermal optimum. "
                 f"Average growth r_t ≈ {avg_r_t:.2f}. "
-                f"Catchability ({q:.2e}) slightly reduces growth but does not prevent biomass increase."
+                f"Catchability ({q:.2e}) contributes some harvest removal, but modelled fishing pressure remains light enough "
+                "that biomass continues to increase."
             )
     elif avg_change < -0.05:
         obs_text = (
             f"Biomass is declining 📉 despite temperatures being reasonably suitable. "
             f"Average growth r_t ≈ {avg_r_t:.2f}. "
-            f"Catchability ({q:.2e}) contributes to removal, suggesting harvest pressure is starting to impact the stock."
+            f"Catchability ({q:.2e}) contributes harvest removal, suggesting that fishing pressure and/or environmental limits "
+            "are outweighing biomass growth under the current settings."
         )
     else:
         obs_text = (
-            f"Biomass remains relatively stable ⚖️. Temperatures are moderately suitable (r_t ≈ {avg_r_t:.2f}). "
-            f"Catchability ({q:.2e}) is low enough that fishing does not strongly affect stock."
+            f"Biomass remains relatively stable ⚖️. Temperatures are moderately suitable under the modelled thermal response "
+            f"(average r_t ≈ {avg_r_t:.2f}). "
+            f"Catchability ({q:.2e}) produces light harvest pressure, so fishing does not strongly affect stock under the current settings."
         )
 
     # --- Confidence assessment (baseline)
     if abs(temp_offset) < 0.5 and abs(avg_change) > 0.05:
-        confidence = "🟢 High confidence — system is close to optimal and response is strong."
+        confidence = "🟢 High confidence — conditions are close to the modelled thermal optimum and the biomass response is strong."
     elif abs(temp_offset) < 1.5:
-        confidence = "🟡 Moderate confidence — conditions are reasonably suitable, but not perfectly optimal."
+        confidence = "🟡 Moderate confidence — conditions are reasonably suitable under the modelled thermal response, but ecological assumptions remain simplified."
     else:
-        confidence = "🔴 Lower confidence — system is far from optimal, results may be sensitive to assumptions."
+        confidence = "🔴 Lower confidence — conditions are far from the modelled thermal optimum, so results may be sensitive to assumptions."
         
     # --- Dark panel with larger font
     st.markdown(
@@ -1716,7 +1720,7 @@ elif page == "Warming Scenario":
         if abs(dist_warm) < abs(dist_baseline):
             biomass_meaning = (
                 "📈 The stock shows improved performance under warming, likely because "
-                "temperatures move closer to the modelled thermal optimum."
+                "temperatures move closer to the modelled thermal optimum. "
                 f"Catchability ({q:.2e}) applies mild harvest pressure, so biomass gains are partly from improved conditions."
             )
         else:
@@ -1724,16 +1728,33 @@ elif page == "Warming Scenario":
                 "📈 The stock increases under warming, although this may reflect model sensitivity rather than improved environment. "
                 f"Catchability ({q:.2e}) slightly reduces growth."
             )
+    
     elif avg_pct_change < -5:
         biomass_meaning = (
-            "📉 The stock declines under warming as temperatures move further from optimal. "
+            "📉 The stock declines under warming as temperatures move further from the modelled thermal optimum. "
             f"Catchability ({q:.2e}) compounds biomass reduction."
         )
+    
     else:
-        biomass_meaning = (
-            "⚖️ Biomass remains relatively stable under warming, indicating limited sensitivity to moderate temperature changes. "
-            f"Catchability ({q:.2e}) contributes minor harvest removal."
-        )
+        if final_change >= 5:
+            biomass_meaning = (
+                "⚖️ Biomass remains mostly stable to slightly improved under warming. "
+                f"The average response is modest ({avg_pct_change:.1f}%), but final biomass ends about {final_change:.1f}% above baseline, "
+                "suggesting a small positive warming effect under the current model assumptions. "
+                f"Catchability ({q:.2e}) contributes minor harvest removal."
+            )
+        elif final_change <= -5:
+            biomass_meaning = (
+                "⚖️ Biomass is mostly stable on average, but final biomass ends lower than baseline. "
+                f"The average response is modest ({avg_pct_change:.1f}%), but final biomass ends about {final_change:.1f}% below baseline, "
+                "suggesting a small negative warming effect under the current model assumptions. "
+                f"Catchability ({q:.2e}) contributes minor harvest removal."
+            )
+        else:
+            biomass_meaning = (
+                "⚖️ Biomass remains relatively stable under warming, indicating limited sensitivity to moderate temperature changes. "
+                f"Catchability ({q:.2e}) contributes minor harvest removal."
+            )
 
     # if avg_E_change > 3:
     #     env_meaning = f"🌡️ Ocean conditions become slightly more favorable — about {avg_E_change:.1f}%  — a small boost in growth potential."
@@ -2134,8 +2155,8 @@ elif page == "Sensitivity & CPUE":
         obs = (
             f"CPUE and biomass show a {strength} negative relationship ⚠️ (r = {correlation:.2f}). "
             "This means catch rates move against the simulated biomass trend, which may give a misleading impression of stock status. "
-            "This can happen when fishers continue catching squid efficiently despite biomass decline, especially if squid aggregate spatially "
-            "or fishing effort targets remaining hotspots."
+            "This can happen when squid are patchily distributed, aggregate in hotspots, or when fishing effort targets areas where squid remain easy to catch, "
+            "even if CPUE does not represent total biomass accurately."
         )
     
     else:
