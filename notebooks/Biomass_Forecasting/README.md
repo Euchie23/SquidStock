@@ -9,8 +9,8 @@ Building on **CPUE standardization** ([Course Correction](https://github.com/Euc
 This module simulates *Illex argentinus* biomass under **baseline and +2 °C warming scenarios** using an **Environmentally Dependent Surplus Production Model (EDSPM)**.  
 
 **Key Findings:**
-- **Warming effect:** Biomass increases under +2 °C warming and diverges from baseline over time, reflecting improved temperature-dependent growth rather than short-term gains.  
-- **CPUE vs Biomass:** Normalized CPUE is noisy and weakly correlated with actual biomass — catch rates reflect aggregation, effort, and gear efficiency rather than stock size.  
+- **Warming effect:** Under +2 °C warming, biomass remains mostly stable to slightly improved, with modest average gains and a small positive final difference relative to baseline. This reflects improved alignment with the modelled thermal optimum under current assumptions.  
+- **CPUE vs Biomass:** Normalized CPUE may show weak or negative relationships with simulated biomass, highlighting that catch rates can be influenced by aggregation, fishing location, gear efficiency, and effort rather than stock size alone. 
 - **Management Insight:** Environment-aware indicators are more reliable than CPUE alone for seasonal quota and closure decisions.  
 - **Data Scope:** Analysis focuses on **January–June** (21-year dataset).
 - **Model limitation:** The simulation assumes a single thermal optimum, but Illex argentinus exhibits stage-specific and spatial habitat use (warm spawning, cold feeding grounds), meaning temperature-only responses may oversimplify real ecological dynamics.
@@ -33,7 +33,7 @@ CPUE alone cannot track total abundance, especially for mobile, short-lived spec
 
 ## 🧩 Module Overview
 **Core Objectives:**
-- Build an **environmental index** (0.6·SST + 0.4·Chl-a)  
+- Represent **environmental forcing through separate pathways**: SST controls temperature-dependent growth, while chlorophyll-a acts as a productivity modifier  
 - Run **EDSPM** for baseline and +2 °C warming scenarios  
 - Propagate uncertainty using **Monte Carlo simulations** (mean + 95% CI)  
 - Compare normalized **biomass vs CPUE** indices  
@@ -53,21 +53,28 @@ B_{t+1} = B_t + P_t - C_t
 
 **Surplus production**
 ```math
-P_t = r_t \, B_t \left(1 - \frac{B_t}{K}\right)
+P_t = r_t \,​ E_{env,t}\,​ B_t \left(1 - \frac{B_t}{K}\right)
 ```
+Here, ```math \(E_{env,t}\)``` represents a productivity modifier, mainly based on chlorophyll-a, while temperature effects are handled separately through ```math \(r_t\)```.
 
 **Temperature-dependent growth**
 ```math
 r_t = r_{\max} \exp\!\left( -\frac{(T_t - T_{opt})^2}{2\sigma_T^{\,2}} \right)
 ```
 
-**Environmental index**
+**Productivity modifier**
 ```math
-E(t) = 0.6\,\widetilde{SST} + 0.4\,\widetilde{Chl}
+E_{env,t} = 0.7 + 0.3 \times \widetilde{ChlA_t}
 ```
 
-Environmental conditions modulate growth over time  
-(higher $E(t)$ → more favorable growth).
+The productivity modifier represents food-availability support using chlorophyll-a. Temperature is not included here because SST already influences growth through ```math r_t```.
+
+Thermal suitability index
+``` math
+S_t = \exp\left(-\frac{(T_t - T_{opt})^2}{2\sigma_T^2}\right)
+
+```
+The thermal suitability index is used for interpretation and visualization, showing how closely environmental conditions align with the modelled thermal optimum.
 
 
 ---
@@ -79,7 +86,7 @@ Environmental conditions modulate growth over time
 | **K** | **5,000,000 tons** | 4–6 million | Ecosystem carrying capacity |
 | **N₀** | **3,000,000 tons** | 1–4 million | Start-season biomass |
 | **r₀ (r_max)** | **0.03 day⁻¹** | 0.015–0.30 | Max intrinsic growth |
-| **Tₒₚₜ** | **12 °C** | 10–14 °C | Thermal optimum |
+| **Tₒₚₜ** | **12 °C** | 10–14 °C | Modelled thermal optimum used in the simplified temperature-growth response |
 | **σₜ** | **3 °C** | 2–4 °C | Thermal sensitivity |
 | **ΔT** | **+2.0 °C** | 0–4 °C | Warming scenario tested |
 | **q** | **2e-4** | tuneable | Catchability (harvest efficiency) |
@@ -96,7 +103,7 @@ Environmental conditions modulate growth over time
 | **Temperature-dependent Growth (EDSPM)** | Nonlinear SST–growth rate relationship | [`Temperature-Dependent Growth (EDSPM)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) |
 | **Biomass Under Warming Scenarios** | Baseline vs. +2 °C trajectories | [`biomass_simulation (Panel 1)`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png) |
 | **% Change in Biomass** | Relative warming effect | `biomass_simulation (Panel 2)` |
-| **Environmental Index E(t)** | Seasonality under baseline vs warming | `biomass_simulation (Panel 3)` |
+| **Thermal Suitability Index & Effort** | Thermal suitability under warming alongside fishing effort | `biomass_simulation (Panel 3)` |
 | **CPUE vs Biomass** | Time Series | [`cpue_vs_biomass.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)|
 | **CPUE vs Biomass** | Scatter Plot | [`cpue_vs_biomass_scatter_fig.png`](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)|
 
@@ -108,7 +115,7 @@ Environmental conditions modulate growth over time
 
 **Scenario:** +2 °C warming  
 
-- Biomass increases under warming and diverges from baseline over time due to improved temperature-dependent growth
+- Biomass remains mostly stable to slightly improved under +2 °C warming, with modest gains relative to baseline under the current model settings
 - **Management implication:** Apparent gains under warming may reflect model structure rather than true ecological benefit
 - Use environment-informed indicators cautiously, as temperature-only models may overestimate productivity gains
 
@@ -125,7 +132,7 @@ Interactive App: Explore biomass forecasting based on different scenarios in a c
 `pandas`, `numpy`, `matplotlib`, `plotly`, `scipy`, `pygam`
 
 **Methods implemented:**  
-- Environmental data normalization
+- Environmental data normalization and separation of thermal suitability from productivity forcing
 - Monte Carlo Simulations for uncertainty
 - Nonlinear temperature-dependent modeling  
 - Scenario-based biomass simulations  
@@ -140,10 +147,11 @@ Interactive App: Explore biomass forecasting based on different scenarios in a c
 
 - **Simplified climate forcing:**  
   Only +2 °C scenarios tested; future work should include full IPCC-aligned projections (e.g., SSP2-4.5, SSP5-8.5).  
-- **No fishing feedback:**  
-  Catch (Cₜ) treated as constant; future models should incorporate effort dynamics or adaptive harvest.  
-- **E(t) linear composition:**  
-  Future iterations could apply **PCA-derived weighting** or include **SSH, mixed-layer depth**, or **wind anomalies**.  
+- **Simplified fishing dynamics:**  
+  Harvest is represented using catchability, fishing effort, and simulated biomass. However, fisher behavior, spatial targeting,
+adaptive effort shifts, and management feedbacks are not explicitly modelled. 
+- **Simplified productivity forcing:**  
+  Chlorophyll-a is used as a proxy for productivity, while other habitat drivers such as SSH, mixed-layer depth, wind anomalies, prey   availability, and upwelling intensity are not explicitly modelled.
 - **Spatial homogeneity:**  
   Model is non-spatial; a **spatiotemporal EDSPM** could reveal distributional shifts under climate forcing.
 - **Single thermal optimum assumption:**
@@ -159,7 +167,7 @@ Interactive App: Explore biomass forecasting based on different scenarios in a c
 
 *Illex argentinus* populations show **climate sensitivity without instability** — a hallmark of resilient but responsive species.  
 Under moderate warming, biomass increases in the model due to improved alignment with a thermal optimum; however, this response likely overestimates real-world benefits because key ecological processes (migration, spatial structure, and productivity gradients) are not explicitly represented.  
-The EDSPM framework therefore provides a realistic, mechanistic basis for **forecasting squid productivity under changing ocean conditions.** 
+The EDSPM framework therefore provides a simplified but mechanistic basis for exploring squid productivity under changing ocean conditions.
 In practice, this framework enables agencies and consultancies to stress-test seasonal management strategies under plausible climate scenarios before implementation, rather than reacting to CPUE signals after change has already occurred.
 
 ---
@@ -197,15 +205,15 @@ Contributions and extensions are welcome — especially from researchers, data s
 ## 📸 Static Previews
 
 ### **Temperature-Dependent Growth (EDSPM)**  
-This curve defines how intrinsic population growth responds to temperature, peaking at the species’ thermal optimum and declining outside that range. It ensures the model responds realistically to warming scenarios rather than increasing growth indefinitely.
+This plot shows the simulated biomass trajectory alongside the temperature-dependent growth rate \(r_t\). Growth varies through time depending on how close SST is to the modelled thermal optimum. It ensures the model responds realistically to warming scenarios rather than increasing growth indefinitely.
 ![Temperature-Dependent Growth (EDSPM)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) <br><br>
 
 ### **Simulated Biomass Under Two Scenarios** 
 Baseline vs +2 °C warming (Jan–Jun)  
-*Shows sustained biomass divergence under warming due to enhanced temperature-dependent growth*
+*Shows a modest positive biomass response under +2 °C warming, with thermal suitability and fishing effort shown alongside biomass change*
 - **Panel 1 – Simulated Biomass Under Two Scenarios**
 - **Panel 2 – % Change in Biomass Due to Warming**
-- **Panel 3 – Environmental Effect Index E(t)**
+- **Panel 3 – Thermal Suitability Index and Effort**
 ![biomass_simulation](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/biomass_scenarios_comparison.png)<br><br>
 
  ### **CPUE vs Biomass Relationship (time series)** 
@@ -214,7 +222,7 @@ Baseline vs +2 °C warming (Jan–Jun)
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_comparison.png)
 
 ### **CPUE vs Biomass Relationship (scatter plot)** 
-- Weak correlation highlights decoupling
+- Weak or negative correlation highlights potential decoupling between CPUE and simulated biomass
 - Management implication: CPUE should not be used as a sole abundance proxy
 ![cpue_vs_biomass](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/cpue_vs_biomass_scatter_fig.png)
 
