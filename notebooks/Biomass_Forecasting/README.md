@@ -55,7 +55,7 @@ B_{t+1} = B_t + P_t - C_t
 ```math
 P_t = r_t \,​ E_{env,t}\,​ B_t \left(1 - \frac{B_t}{K}\right)
 ```
-Here, $\(E_{env,t}\)$ represents a productivity modifier, mainly based on chlorophyll-a, while temperature effects are handled separately through \(r_t\).
+Here, $\(E_{env,t}\)$ represents a productivity modifier, mainly based on chlorophyll-a, while temperature effects are handled separately through $\(r_t\)$.
 
 **Temperature-dependent growth**
 ```math
@@ -205,7 +205,7 @@ Contributions and extensions are welcome — especially from researchers, data s
 ## 📸 Static Previews
 
 ### **Temperature-Dependent Growth (EDSPM)**  
-This plot shows the simulated biomass trajectory alongside the temperature-dependent growth rate \(r_t\). Growth varies through time depending on how close SST is to the modelled thermal optimum. It ensures the model responds realistically to warming scenarios rather than increasing growth indefinitely.
+This plot shows the simulated biomass trajectory alongside the temperature-dependent growth rate $\(r_t\)$. Growth varies through time depending on how close SST is to the modelled thermal optimum. It ensures the model responds realistically to warming scenarios rather than increasing growth indefinitely.
 ![Temperature-Dependent Growth (EDSPM)](https://github.com/Euchie23/SquidStock/blob/main/outputs/Biomass_Forecasting/temperature_dependent_growth_rate.png) <br><br>
 
 ### **Simulated Biomass Under Two Scenarios** 
