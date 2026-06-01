@@ -1578,6 +1578,7 @@ elif page == "Warming Scenario":
 
     # --- Save warming results in session
     st.session_state["df_warm"] = df_warm.copy()
+    st.session_state["latest_delta_T"] = delta_T
     
     # Also save as latest result so the Sensitivity & CPUE tab knows what to use
     st.session_state["latest_df"] = df_warm.copy()
@@ -1877,9 +1878,42 @@ elif page == "Warming Scenario":
 elif page == "Sensitivity & CPUE":
     st.header("🎯 Sensitivity & CPUE Relationship")
 
-    df_latest = st.session_state.get("latest_df", None)
-
-    scenario_label = st.session_state.get("latest_scenario", "Latest simulation")
+    st.info(
+        "This tab compares CPUE against the selected simulated biomass scenario. "
+        "Run the Baseline and/or Warming tabs first to generate results."
+    )
+    
+    available_scenarios = []
+    
+    if st.session_state.get("baseline_df", None) is not None:
+        available_scenarios.append("Baseline Simulation")
+    
+    if st.session_state.get("df_warm", None) is not None:
+        available_scenarios.append("Warming Scenario")
+    
+    if not available_scenarios:
+        st.warning("Please run a biomass simulation first.")
+        st.stop()
+    
+    scenario_choice = st.radio(
+        "Choose scenario for CPUE comparison:",
+        available_scenarios,
+        horizontal=True
+    )
+    
+    if scenario_choice == "Baseline Simulation":
+        df_latest = st.session_state.get("baseline_df").copy()
+        scenario_label = "Baseline Simulation"
+    
+    elif scenario_choice == "Warming Scenario":
+        df_latest = st.session_state.get("df_warm").copy()
+        delta_T_label = st.session_state.get("latest_delta_T", None)
+    
+        if delta_T_label is not None:
+            scenario_label = f"Warming Scenario (+{delta_T_label:.1f}°C)"
+        else:
+            scenario_label = "Warming Scenario"
+    
     st.caption(f"Showing CPUE–biomass relationship for: {scenario_label}")
 
     #print(df_latest.columns)
