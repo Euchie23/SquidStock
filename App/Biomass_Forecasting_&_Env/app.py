@@ -1936,9 +1936,14 @@ elif page == "Sensitivity & CPUE":
     # --- Monte Carlo simulation for CPUE (mean + CI) ---
     n_sim = 500
     cpue_sim = np.zeros((len(df_latest), n_sim))
-    noise_pct = 0.1  # 10% observation noise
+    noise_pct = 0.1
+    
+    rng = np.random.default_rng(42)
+    
     for i in range(n_sim):
-        cpue_sim[:, i] = df_latest["CPUE_tons"] * (1 + np.random.normal(0, noise_pct, size=len(df_latest)))
+        cpue_sim[:, i] = df_latest["CPUE_tons"] * (
+            1 + rng.normal(0, noise_pct, size=len(df_latest))
+        )
 
     df_latest["CPUE_mean"] = cpue_sim.mean(axis=1)
     df_latest["CPUE_CI_upper"] = np.percentile(cpue_sim, 97.5, axis=1)
