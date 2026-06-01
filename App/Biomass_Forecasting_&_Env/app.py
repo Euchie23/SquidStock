@@ -558,16 +558,27 @@ if page != "Logbook":
             )
 
             # Tabs that store parameter snapshots
-            TABS_WITH_PARAMS = ["Baseline Simulation", "Warming Scenario"]
-
+            TABS_WITH_PARAMS = ["Baseline Simulation", "Warming Scenario", "Sensitivity & CPUE"]
+            
             # --- Save Button ---
             if st.button("💾 Save Note", key=f"save_{page}"):
                 content = note_text.strip()
                 if content:
+            
+                    if page == "Sensitivity & CPUE":
+                        snapshot_inputs = {
+                            "cpue_scenario_choice": st.session_state.get("cpue_scenario_choice"),
+                            "show_cpue_biomass_scatter": st.session_state.get("show_cpue_biomass_scatter", False)
+                        }
+                    elif page in ["Baseline Simulation", "Warming Scenario"]:
+                        snapshot_inputs = params.copy()
+                    else:
+                        snapshot_inputs = {}
+            
                     new_entry = {
                         "timestamp": datetime.now(),
                         "notes": content,
-                        "inputs": params.copy() if page in TABS_WITH_PARAMS else {}
+                        "inputs": snapshot_inputs
                     }
 
                     if st.session_state.edit_mode["active"] and st.session_state.edit_mode["tab"] == page:
@@ -618,7 +629,10 @@ else:
 
                             # Restore tab inputs from snapshot
                             for k, v in entry["inputs"].items():
-                                st.session_state.params[k] = v
+                                if k in ["cpue_scenario_choice", "show_cpue_biomass_scatter"]:
+                                    st.session_state[k] = v
+                                else:
+                                    st.session_state.params[k] = v
                             st.session_state.edit_mode = {"active": True, "tab": tab_name, "index": i}
                             st.session_state.toast_message = f"📸 Snapshot reloaded for {tab_name}. Please save again after editing."
                             #st.session_state.page = tab_name
@@ -1898,22 +1912,33 @@ elif page == "Sensitivity & CPUE":
     scenario_choice = st.radio(
         "Choose scenario for CPUE comparison:",
         available_scenarios,
-        horizontal=True
+        horizontal=True,
+        key="cpue_scenario_choice"
     )
     
     if scenario_choice == "Baseline Simulation":
-        df_latest = st.session_state.get("baseline_df").copy()
+        df_latest = st.session_state.get("baseline_df", None)
         scenario_label = "Baseline Simulation"
-    
+
+        if df_latest is None:
+            st.warning("Run the Baseline Simulation tab first to generate baseline results.")
+            st.stop()
+
     elif scenario_choice == "Warming Scenario":
-        df_latest = st.session_state.get("df_warm").copy()
+        df_latest = st.session_state.get("df_warm", None)
         delta_T_label = st.session_state.get("latest_delta_T", None)
-    
+
+        if df_latest is None:
+            st.warning("Run the Warming Scenario tab first to generate warming results.")
+            st.stop()
+
         if delta_T_label is not None:
             scenario_label = f"Warming Scenario (+{delta_T_label:.1f}°C)"
         else:
             scenario_label = "Warming Scenario"
-    
+
+    df_latest = df_latest.copy()
+
     st.caption(f"Showing CPUE–biomass relationship for: {scenario_label}")
 
     #print(df_latest.columns)
