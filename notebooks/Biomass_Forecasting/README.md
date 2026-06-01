@@ -55,7 +55,7 @@ B_{t+1} = B_t + P_t - C_t
 ```math
 P_t = r_t \,​ E_{env,t}\,​ B_t \left(1 - \frac{B_t}{K}\right)
 ```
-Here, ```math \(E_{env,t}\)``` represents a productivity modifier, mainly based on chlorophyll-a, while temperature effects are handled separately through ```math \(r_t\)```.
+Here, $\(E_{env,t}\)$ represents a productivity modifier, mainly based on chlorophyll-a, while temperature effects are handled separately through \(r_t\).
 
 **Temperature-dependent growth**
 ```math
@@ -67,7 +67,7 @@ r_t = r_{\max} \exp\!\left( -\frac{(T_t - T_{opt})^2}{2\sigma_T^{\,2}} \right)
 E_{env,t} = 0.7 + 0.3 \times \widetilde{ChlA_t}
 ```
 
-The productivity modifier represents food-availability support using chlorophyll-a. Temperature is not included here because SST already influences growth through ```math r_t```.
+The productivity modifier represents food-availability support using chlorophyll-a. Temperature is not included here because SST already influences growth through $r_t$.
 
 Thermal suitability index
 ``` math
