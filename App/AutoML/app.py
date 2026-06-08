@@ -20,7 +20,7 @@ import joblib
 # =========================================================
 import gspread
 from google.oauth2.service_account import Credentials
-from utils.preprocess import load_weekly_dataset  # local utility function
+from utils.preprocess import load_weekly_dataset as load_weekly_dataset_from_utils
 
 # =========================================================
 # 🎨 VISUALIZATION
@@ -39,6 +39,10 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+@st.cache_data
+def load_weekly_dataset():
+    return load_weekly_dataset_from_utils()
 
 # =========================================================
 # ⚠️ WARNINGS
@@ -1360,10 +1364,10 @@ MODELS_DIR = BASE_DIR / "models"
 
 
 # Load cleaned weekly dataset
-@st.cache_data
-def load_weekly_dataset():
-    """Loads your cleaned dataset."""
-    return pd.read_csv(DATA_DIR / "weekly_processed.csv")
+# @st.cache_data
+# def load_weekly_dataset():
+#     """Loads your cleaned dataset."""
+#     return pd.read_csv(DATA_DIR / "weekly_processed.csv")
   
 
 @st.cache_data
@@ -1404,13 +1408,37 @@ MODEL_URLS = {
 }
 
 
+# @st.cache_data
+# def download_model(url: str, save_as: str):
+#     """Download a file from a URL and save it locally."""
+#     r = requests.get(url)
+#     with open(save_as, "wb") as f:
+#         f.write(r.content)
+#     return save_as
+
 @st.cache_data
 def download_model(url: str, save_as: str):
-    """Download a file from a URL and save it locally."""
-    r = requests.get(url)
-    with open(save_as, "wb") as f:
+    """Download a model file and save it locally with basic validation."""
+    MODELS_DIR.mkdir(exist_ok=True)
+
+    local_path = MODELS_DIR / save_as
+
+    if local_path.exists() and local_path.stat().st_size > 0:
+        return str(local_path)
+
+    r = requests.get(url, timeout=30)
+
+    if r.status_code != 200:
+        raise RuntimeError(f"Model download failed with status code {r.status_code}: {save_as}")
+
+    if len(r.content) < 1000:
+        raise RuntimeError(f"Downloaded model file appears too small or invalid: {save_as}")
+
+    with open(local_path, "wb") as f:
         f.write(r.content)
-    return save_as
+
+    return str(local_path)
+    
 
 @st.cache_resource
 def load_model(path: str):
@@ -1526,6 +1554,13 @@ if page == "Overview":
     rather than overreacting to short-term fluctuations that carry high irreducible uncertainty.
     """)
 
+    st.info(
+        """
+        **Scope note:** CPUE is treated here as a relative catch-efficiency indicator, not a direct abundance estimate.
+        Model outputs are influenced by fishing effort, spatial targeting, environmental variables, and historical sampling structure.
+        Results should be used for screening, interpretation, and portfolio demonstration rather than final management decisions.
+        """
+    )
 
     st.markdown("""
     Welcome to the integrated AI-based forecasting system for weekly **squid CPUE prediction**.  
@@ -1550,6 +1585,15 @@ if page == "Overview":
     st.markdown("""
     This dashboard summarizes the full modeling pipeline for weekly squid CPUE forecasting.
     """)
+
+    with st.expander("Data assumptions and limitations"):
+        st.markdown("""
+        - Weekly CPUE values are treated as historical observational records.
+        - Environmental variables are aggregated/smoothed using rolling windows where relevant.
+        - Scenario sliders modify selected model inputs heuristically.
+        - The app does not model causal ecological mechanisms directly.
+        - Predictions should be interpreted alongside field observations and domain knowledge.
+        """)
 
     st.subheader("Preview of Weekly Dataset")
     st.dataframe(df.head())
@@ -2334,10 +2378,16 @@ elif page == "Anomaly Detection":
         # Convert stored selection to readable for selectbox index
         current_readable = selectbox_box_readable_names(st.session_state.selected_var)
 
+        # selected_readable = st.selectbox(
+        #     "Select a variable",
+        #     readable_options,
+        #     index=readable_options.index(selected_readable) if selected_readable in readable_options else 0,
+        # )
+
         selected_readable = st.selectbox(
             "Select a variable",
             readable_options,
-            index=readable_options.index(selected_readable) if selected_readable in readable_options else 0,
+            index=readable_options.index(current_readable) if current_readable in readable_options else 0,
         )
 
 
@@ -2476,7 +2526,11 @@ elif page == "Model Evaluation":
     # ---- Confusion Matrix ----
     conf_matrix_path = BASE_DIR / "figures" / "classification_confusion_matrix.png"
     st.subheader("Confusion Matrix")
-    st.image(conf_matrix_path)
+    
+    if conf_matrix_path.exists():
+        st.image(conf_matrix_path)
+    else:
+        st.warning("Classification confusion matrix image not found. Please check the figures folder.")
 
     # Convert text report to a DataFrame
     def report_to_df(report_text):
@@ -2523,12 +2577,14 @@ elif page == "Model Evaluation":
     # Classification report
     st.subheader("Classification Report")
     report_path = BASE_DIR / "reports" / "classification_report.txt"
-    with open(report_path, "r") as f:
-        report_text = f.read()
-
-
-    df_class_report = report_to_df(report_text)
-    st.dataframe(df_class_report)
+    if report_path.exists():
+        with open(report_path, "r") as f:
+            report_text = f.read()
+    
+        df_class_report = report_to_df(report_text)
+        st.dataframe(df_class_report)
+    else:
+        st.warning("Classification report not found. Please check the reports folder.")
 
     st.header("🟢 Regression Evaluation")
 
@@ -2573,6 +2629,14 @@ elif page == "Classification":
     }
 
     st.title("🎯 CPUE Level Classification")
+
+    st.warning(
+        """
+        ⚠️ These classifications are screening-level model outputs. 
+        They should be interpreted as historical CPUE-regime signals, not direct evidence of squid abundance 
+        or final operational advice. Cross-check with field observations, fishing effort, and spatial context.
+        """
+    )
 
 
     # Load models and data
@@ -2622,9 +2686,9 @@ elif page == "Classification":
 
     # Optionally include a short description for each level
     cpue_text = {
-        "Low": "Low CPUE – few catches expected.",
-        "Medium": "Medium CPUE – moderate catches expected.",
-        "High": "High CPUE – strong catch expected."
+        "Low": "Low CPUE regime – historically associated with lower catch efficiency.",
+        "Medium": "Medium CPUE regime – historically associated with moderate catch efficiency.",
+        "High": "High CPUE regime – historically associated with higher catch efficiency."
     }
 
     # Display each classifier's prediction with description
@@ -2846,6 +2910,14 @@ elif page == "Predict Scenarios":
 
 
     st.title("🧪 Scenario Simulation")
+    st.warning(
+        """
+        ⚠️ Scenario outputs are model sensitivity tests, not causal ecological forecasts.
+        Changing a slider shows how the trained model responds to modified inputs; it does not prove that
+        changing that environmental variable would cause CPUE to change in the real ocean.
+        """
+    )
+    
     st.markdown("""
     Adjust environmental variables to see how CPUE would change.
     The baseline CPUE and regime are determined **automatically** from the selected week.
@@ -3053,9 +3125,9 @@ elif page == "Predict Scenarios":
         cpue_impact_text = (
             f"**Given our current environmental variables, if:**  \n"
             f"{env_changes_text}  \n\n"
-            f"A projected **{trend}** in CPUE of {abs(delta_kg):,.0f} kg,  \n"
+            f"The model responds with a **{trend}** in predicted CPUE of {abs(delta_kg):,.0f} kg,  \n"
             f"from our baseline of {cpue_base_kg:,.0f} kg ({cpue_base_tons:.1f} tons)  \n"
-            f"is expected, resulting in a modified CPUE of  \n"
+            f"under this hypothetical sensitivity test, resulting in a model-estimated CPUE of  \n"
             f"**{cpue_mod_kg:,.0f} kg ({cpue_mod_tons:.1f} tons).**"
         )
 
