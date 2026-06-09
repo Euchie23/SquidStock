@@ -2117,36 +2117,106 @@ elif page == "Sensitivity & CPUE":
         ))
 
         # Regression line
-        if len(valid_scatter) >= 3 and valid_scatter["Biomass_mean_index"].nunique() > 1:
-            m, b = np.polyfit(
-                valid_scatter["Biomass_mean_index"],
-                valid_scatter["CPUE_mean_index"],
+        # --------------------------------------------------------
+        # Linear regression trend line with statistical hover
+        # --------------------------------------------------------
+        
+        if (
+            len(valid_scatter) >= 3
+            and valid_scatter["Biomass_mean_index"].nunique() > 1
+        ):
+        
+            x_values = valid_scatter[
+                "Biomass_mean_index"
+            ].to_numpy(dtype=float)
+        
+            y_values = valid_scatter[
+                "CPUE_mean_index"
+            ].to_numpy(dtype=float)
+        
+            # Linear regression coefficients
+            slope, intercept = np.polyfit(
+                x_values,
+                y_values,
                 1
             )
-
+        
+            # Smooth ordered values for the displayed line
             x_line = np.linspace(
-                valid_scatter["Biomass_mean_index"].min(),
-                valid_scatter["Biomass_mean_index"].max(),
-                100
+                x_values.min(),
+                x_values.max(),
+                200
             )
-
-            y_line = m * x_line + b
-            
-            scatter_fig.add_trace(go.Scatter(
-                x=x_line,
-                y=y_line,
-                mode="lines",
-                line=dict(color="#FFD700", dash="dot"),
-                name="Trend line",
-                hovertemplate=(
-                    "Trend line<br>"
-                    "Biomass Index: %{x:.2f}<br>"
-                    "Predicted CPUE Index: %{y:.2f}"
-                    "<extra></extra>"
+        
+            y_line = (
+                slope * x_line
+                + intercept
+            )
+        
+            # Predicted values at the observed x positions
+            y_predicted = (
+                slope * x_values
+                + intercept
+            )
+        
+            # Coefficient of determination
+            residual_sum_squares = np.sum(
+                (y_values - y_predicted) ** 2
+            )
+        
+            total_sum_squares = np.sum(
+                (y_values - y_values.mean()) ** 2
+            )
+        
+            r_squared = (
+                1
+                - residual_sum_squares
+                / total_sum_squares
+                if total_sum_squares > 0
+                else np.nan
+            )
+        
+            # Repeat statistics for every point on the trend line
+            trend_customdata = np.column_stack(
+                (
+                    np.full(len(x_line), slope),
+                    np.full(len(x_line), intercept),
+                    np.full(len(x_line), correlation),
+                    np.full(len(x_line), r_squared)
                 )
-            ))
+            )
+        
+            scatter_fig.add_trace(
+                go.Scatter(
+                    x=x_line,
+                    y=y_line,
+                    mode="lines",
+                    name="Linear trend line",
+                    line=dict(
+                        color="#FFD700",
+                        dash="dot",
+                        width=4
+                    ),
+                    customdata=trend_customdata,
+                    hovertemplate=(
+                        "<b>Linear trend line</b><br>"
+                        "Biomass index: %{x:.3f}<br>"
+                        "Predicted CPUE index: %{y:.3f}<br>"
+                        "Slope: %{customdata[0]:.3f}<br>"
+                        "Intercept: %{customdata[1]:.3f}<br>"
+                        "Pearson r: %{customdata[2]:.3f}<br>"
+                        "R²: %{customdata[3]:.3f}"
+                        "<extra></extra>"
+                    )
+                )
+            )
+        
         else:
-            st.caption("Trend line not shown because biomass or CPUE has insufficient variation.")
+            st.caption(
+                "Trend line not shown because at least three valid "
+                "observations and more than one unique biomass value "
+                "are required."
+            )
 
         scatter_fig.update_layout(
             title=f"Scatter Relationship between CPUE and Biomass (r = {correlation:.2f})",
