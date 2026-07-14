@@ -916,7 +916,7 @@ if page == "Overview":
             text-align: center;
             box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
         ">
-            🎬 <a href="https://youtu.be/qBVEn2nfe-w"
+            🎬 <a href="https://youtu.be/UeumWYCHvPI"
                target="_blank" style="color:#FFD700; text-decoration:underline;">
                Watch Dashboard Tour
             </a>
