@@ -122,7 +122,7 @@ The thermal suitability index is used for interpretation and visualization, show
 Interactive App: Explore biomass forecasting based on different scenarios in a concise, user-friendly interface: 
 
 ![Dashboard Screenshot](https://drive.google.com/uc?export=view&id=1IIvMyXS2a5iK9FwGZlOl39aEgAVoIIE4)<br>
-[Watch the 5-Minute Guided Tour](https://youtu.be/UeumWYCHvPI) 
+[Watch the 5-Minute Guided Tour](https://youtu.be/UeumWYCHvPI) <br>
 [Launch the App](https://squidstock-ocean-dynamics.streamlit.app)
 
 ---
